@@ -1,0 +1,232 @@
+[
+ {
+     "key" : "xLng.Parameter.Title",
+     "value": {
+         "tr": "Parametreler",
+         "en": "Parameter"
+     }
+ },
+ {
+     "key" : "xLng.Parameter.ShortTitle",
+     "value": {
+         "tr": "Parametre",
+         "en": "Parameter"
+     }
+ }
+,
+ {
+     "key" : "xLng.Parameter.FormViewTab.I",
+     "value": {
+         "tr": "Genel Bilgiler",
+         "en": "General Info"
+     }
+ }
+,
+ {
+     "key" : "xLng.Parameter.FormViewTab.II",
+     "value": {
+         "tr": "Email Bilgileri",
+         "en": "Email Info"
+     }
+ }
+,
+ {
+     "key" : "xLng.Parameter.FormViewTab.III",
+     "value": {
+         "tr": "Sms Bilgileri",
+         "en": "Sms Info"
+     }
+ }
+,
+ {
+     "key" : "xLng.Parameter.FormViewTab.IV",
+     "value": {
+         "tr": "Api Bilgileri",
+         "en": "Api Info"
+     }
+ }
+,
+ {
+     "key" : "xLng.Parameter.FormViewTab.V",
+     "value": {
+         "tr": "Araç Ayarları",
+         "en": "Vehicle Settings"
+     }
+ }
+,
+ {
+     "key" : "xLng.Parameter.Id",
+     "value": {
+         "tr": "Id",
+         "en": "Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.Parameter.SiteAddress",
+     "value": {
+         "tr": "Site Adresi",
+         "en": "Site Address"
+     }
+ }
+,
+ {
+     "key" : "xLng.Parameter.InstitutionEmail",
+     "value": {
+         "tr": "Kurum E-postası",
+         "en": "Institution Email"
+     }
+ }
+,
+ {
+     "key" : "xLng.Parameter.AuditLog",
+     "value": {
+         "tr": "Audit Log",
+         "en": "Audit Log"
+     }
+ }
+,
+ {
+     "key" : "xLng.Parameter.AuditLogTables",
+     "value": {
+         "tr": "Audit Log Tables",
+         "en": "Audit Log Tables"
+     }
+ }
+,
+ {
+     "key" : "xLng.Parameter.EmailHost",
+     "value": {
+         "tr": "Email Host",
+         "en": "Email Host"
+     }
+ }
+,
+ {
+     "key" : "xLng.Parameter.EmailPort",
+     "value": {
+         "tr": "Email Port",
+         "en": "Email Port"
+     }
+ }
+,
+ {
+     "key" : "xLng.Parameter.EmailEnableSsl",
+     "value": {
+         "tr": "Email Enable Ssl",
+         "en": "Email Enable Ssl"
+     }
+ }
+,
+ {
+     "key" : "xLng.Parameter.EmailUserName",
+     "value": {
+         "tr": "Email User Name",
+         "en": "Email User Name"
+     }
+ }
+,
+ {
+     "key" : "xLng.Parameter.EmailPassword",
+     "value": {
+         "tr": "Email Password",
+         "en": "Email Password"
+     }
+ }
+,
+ {
+     "key" : "xLng.Parameter.SmsServiceBaseUrl",
+     "value": {
+         "tr": "Sms Hizmeti Base Url'si",
+         "en": "Sms Service Base Url"
+     }
+ }
+,
+ {
+     "key" : "xLng.Parameter.SmsServiceUrl",
+     "value": {
+         "tr": "Sms Hizmeti Url (Base Url Harici)",
+         "en": "Sms Service Url (External Base Url)"
+     }
+ }
+,
+ {
+     "key" : "xLng.Parameter.SmsServiceUserName",
+     "value": {
+         "tr": "Sms Hizmeti Kullanıcı Adı",
+         "en": "Sms Service User Name"
+     }
+ }
+,
+ {
+     "key" : "xLng.Parameter.SmsServicePassword",
+     "value": {
+         "tr": "Sms Servis Şifresi",
+         "en": "Sms Service Password"
+     }
+ }
+,
+ {
+     "key" : "xLng.Parameter.SmsServiceBaslik",
+     "value": {
+         "tr": "Sms Hizmet Başlığı",
+         "en": "Sms Service Title"
+     }
+ }
+,
+ {
+     "key" : "xLng.Parameter.GoogleMapApiKey",
+     "value": {
+         "tr": "Google Map Api Key",
+         "en": "Google Map Apı Key"
+     }
+ }
+,
+ {
+     "key" : "xLng.Parameter.MapTexBaseServiceUrl",
+     "value": {
+         "tr": "MAPTEX Servis Url",
+         "en": "Maptex Service Url"
+     }
+ }
+,
+ {
+     "key" : "xLng.Parameter.MaptexApiKey",
+     "value": {
+         "tr": "MAPTEX Api Key",
+         "en": "Maptex Api Key"
+     }
+ }
+,
+ {
+     "key" : "xLng.Parameter.AracRezervasyonSure",
+     "value": {
+         "tr": "Araç Rezervasyon Süresi",
+         "en": "Vehicle Reservation Time"
+     }
+ }
+,
+ {
+     "key" : "xLng.Parameter.MasterpassMerchantId",
+     "value": {
+         "tr": "Masterpass Merchant Id",
+         "en": "Masterpass Merchant ID"
+     }
+ }
+,
+ {
+     "key" : "xLng.Parameter.MasterpassServiceUrl",
+     "value": {
+         "tr": "Masterpass Servis Url",
+         "en": "Masterpass Service Url"
+     }
+ }
+,
+ {
+     "key" : "xLng.Parameter.AracSarjUyariLimit",
+     "value": {
+         "tr": "Araç Şarj Uyarı Limiti (%)",
+         "en": "Vehicle Charge Warning Limit (%)"
+     }
+ }
+]

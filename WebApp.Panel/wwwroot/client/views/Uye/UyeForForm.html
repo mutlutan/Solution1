@@ -1,0 +1,714 @@
+
+
+<div id='UyeForForm'>
+    <div id='divButtonGroup' class='mnButtonGroup float-end'>
+        <button id='btnDetayUyeCariHareket' class='btnDetay btn btn-outline-primary text-nowrap '> <span data-langkey-text='xLng.UyeCariHareket.Title'></span> </button>
+        <button id='btnDetayUyeCuzdanHareket' class='btnDetay btn btn-outline-primary text-nowrap '> <span data-langkey-text='xLng.UyeCuzdanHareket.Title'></span> </button>
+
+        <button id='btnKaydet' type='button' class='btn btn-outline-success text-nowrap' data-langkey-title='xLng.Kaydet'> <i class='fa fa-save'></i> </button>
+    </div>
+
+    <div class='mnFormElementContainer' style='padding-bottom:15px;'>
+        <div id='tabstrip'>
+            <ul>
+                <li data-tab-key='I'> <span data-langkey-text='xLng.Uye.FormViewTab.I'></span> </li>
+            </ul>
+            <div data-tab-key='I'>
+                <div class='row'>
+                    <div class='col-md-12'>
+
+                    </div>
+
+                    <div class='col-lg-6 col-md-12'>
+                         <div name='divUyeDurumId' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='mn-required-span' data-langkey-text='xLng.Uye.UyeDurumId'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='UyeDurumId' data-bind='value:UyeDurumId' />
+                                 <span class='k-invalid-msg' data-for='UyeDurumId'></span>
+                             </div>
+                         </div>
+
+                         <div name='divUyeGrupId' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='mn-required-span' data-langkey-text='xLng.Uye.UyeGrupId'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='UyeGrupId' data-bind='value:UyeGrupId' />
+                                 <span class='k-invalid-msg' data-for='UyeGrupId'></span>
+                             </div>
+                         </div>
+
+                         <div name='divUyelikTarihi' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='' data-langkey-text='xLng.Uye.UyelikTarihi'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='UyelikTarihi' data-bind='value:UyelikTarihi'  readonly />
+                                 <span class='k-invalid-msg' data-for='UyelikTarihi'></span>
+                             </div>
+                         </div>
+
+                         <div name='divEmail' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='mn-required-span' data-langkey-text='xLng.Uye.Email'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='Email' type='text' class='form-control d-inline' data-bind='value:Email' data-langkey-placeholder='xLng.Uye.Email'   maxlength='100' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divSifre' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='mn-required-span' data-langkey-text='xLng.Uye.Sifre'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <span name='ExternalResetPasswordButtonWrapperSifre' class='mnResetPasswordButton k-space-right w-100'>
+                                    <input name='Sifre' type='password' class='form-control font-weight-light' data-bind='value:Sifre' data-langkey-placeholder='xLng.Uye.Sifre'  readonly  maxlength='100' autocomplete='off' />
+                                 </span>
+                                 <span class='k-invalid-msg' data-for='Sifre'></span>
+                             </div>
+                         </div>
+
+                         <div name='divKimlikNumarasi' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='' data-langkey-text='xLng.Uye.KimlikNumarasi'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='KimlikNumarasi' type='text' class='form-control d-inline' data-bind='value:KimlikNumarasi' data-langkey-placeholder='xLng.Uye.KimlikNumarasi'   maxlength='50' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divAd' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='mn-required-span' data-langkey-text='xLng.Uye.Ad'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='Ad' type='text' class='form-control d-inline' data-bind='value:Ad' data-langkey-placeholder='xLng.Uye.Ad'   maxlength='50' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divSoyad' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='mn-required-span' data-langkey-text='xLng.Uye.Soyad'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='Soyad' type='text' class='form-control d-inline' data-bind='value:Soyad' data-langkey-placeholder='xLng.Uye.Soyad'   maxlength='50' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divGsm' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='mn-required-span' data-langkey-text='xLng.Uye.Gsm'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='Gsm' type='text' class='form-control d-inline' data-bind='value:Gsm' data-langkey-placeholder='xLng.Uye.Gsm'   maxlength='15' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divDogumTarihi' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='' data-langkey-text='xLng.Uye.DogumTarihi'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='DogumTarihi' data-bind='value:DogumTarihi' />
+                                 <span class='k-invalid-msg' data-for='DogumTarihi'></span>
+                             </div>
+                         </div>
+
+                         <div name='divUyelikDogrulama' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                             </label>
+                             <div class='col-sm-8'>
+                                <label style='font-weight:normal;'>
+                                    <input name='UyelikDogrulama' type='checkbox' data-bind='checked:UyelikDogrulama' style='width: 24px; height: 24px; vertical-align: middle;'  />
+                                    <span data-langkey-Text='xLng.Uye.UyelikDogrulama'></span>
+                                </label>
+                             </div>
+                         </div>
+
+                         <div name='divCinsiyetId' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='mn-required-span' data-langkey-text='xLng.Uye.CinsiyetId'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='CinsiyetId' data-bind='value:CinsiyetId' />
+                                 <span class='k-invalid-msg' data-for='CinsiyetId'></span>
+                             </div>
+                         </div>
+
+                         <div name='divAvatar' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='' data-langkey-text='xLng.Uye.Avatar'></span>
+                             </label>
+                             <div class='col-sm-8' >
+                                <img name='Avatar' data-bind='attr:{src:Avatar}' style='border:1px solid silver; cursor:pointer; height:38px; width:27px; ' />
+                             </div>
+                         </div>
+
+                         <div name='divSifreSifirlamaKod' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='' data-langkey-text='xLng.Uye.SifreSifirlamaKod'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='SifreSifirlamaKod' type='text' class='form-control d-inline' data-bind='value:SifreSifirlamaKod' data-langkey-placeholder='xLng.Uye.SifreSifirlamaKod'   maxlength='200' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divKvkkOnayi' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                             </label>
+                             <div class='col-sm-8'>
+                                <label style='font-weight:normal;'>
+                                    <input name='KvkkOnayi' type='checkbox' data-bind='checked:KvkkOnayi' style='width: 24px; height: 24px; vertical-align: middle;'  />
+                                    <span data-langkey-Text='xLng.Uye.KvkkOnayi'></span>
+                                </label>
+                             </div>
+                         </div>
+
+                         <div name='divUyelikSozlesmeOnayi' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                             </label>
+                             <div class='col-sm-8'>
+                                <label style='font-weight:normal;'>
+                                    <input name='UyelikSozlesmeOnayi' type='checkbox' data-bind='checked:UyelikSozlesmeOnayi' style='width: 24px; height: 24px; vertical-align: middle;'  />
+                                    <span data-langkey-Text='xLng.Uye.UyelikSozlesmeOnayi'></span>
+                                </label>
+                             </div>
+                         </div>
+
+                         <div name='divAydinlatmaMetniOnayi' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                             </label>
+                             <div class='col-sm-8'>
+                                <label style='font-weight:normal;'>
+                                    <input name='AydinlatmaMetniOnayi' type='checkbox' data-bind='checked:AydinlatmaMetniOnayi' style='width: 24px; height: 24px; vertical-align: middle;'  />
+                                    <span data-langkey-Text='xLng.Uye.AydinlatmaMetniOnayi'></span>
+                                </label>
+                             </div>
+                         </div>
+
+                         <div name='divCuzdanBakiye' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='' data-langkey-text='xLng.Uye.CuzdanBakiye'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='CuzdanBakiye' type='number' data-bind='value:CuzdanBakiye' data-langkey-placeholder='xLng.Uye.CuzdanBakiye' />
+                                 <span class='k-invalid-msg' data-for='CuzdanBakiye'></span>
+                             </div>
+                         </div>
+
+                         <div name='divMsisdnDogrulama' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                             </label>
+                             <div class='col-sm-8'>
+                                <label style='font-weight:normal;'>
+                                    <input name='MsisdnDogrulama' type='checkbox' data-bind='checked:MsisdnDogrulama' style='width: 24px; height: 24px; vertical-align: middle;'  />
+                                    <span data-langkey-Text='xLng.Uye.MsisdnDogrulama'></span>
+                                </label>
+                             </div>
+                         </div>
+
+                         <div name='divFcmRegistrationToken' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='' data-langkey-text='xLng.Uye.FcmRegistrationToken'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='FcmRegistrationToken' type='text' class='form-control d-inline' data-bind='value:FcmRegistrationToken' data-langkey-placeholder='xLng.Uye.FcmRegistrationToken'   maxlength='250' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divMobileAppState' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='' data-langkey-text='xLng.Uye.MobileAppState'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='MobileAppState' type='text' class='form-control d-inline' data-bind='value:MobileAppState' data-langkey-placeholder='xLng.Uye.MobileAppState'    autocomplete='off' />
+                             </div>
+                         </div>
+
+
+                    </div>
+
+                    <div class='col-lg-6 col-md-12'>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+ window.UyeForForm = function () {
+     var self = {};
+     self.opt = null;
+     self.title = 'xLng.Uye.Title';
+     self.selector = '#UyeForForm';
+     self.primaryKey = 'Id';
+     self.tableName = 'Uye';
+     self.apiUrlPrefix = '/Panel/Api' + self.tableName;
+
+     function fCreateDataSource() {
+         self.dataSource = new kendo.data.DataSource({
+             transport: {
+                 read: { type: 'POST', url: self.apiUrlPrefix + '/Read', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 create: { type: 'POST', url: self.apiUrlPrefix + '/Create', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 update: { type: 'POST', url: self.apiUrlPrefix + '/Update', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 destroy: { type: 'POST', url: self.apiUrlPrefix + '/Delete', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 parameterMap: function (data, operation) {
+                     if (operation === 'read') {
+                         return kendo.stringify(data);
+                     }
+                     else if (operation === 'create' || operation === 'update') {
+                         data.UyelikTarihi = kendo.toString(data.UyelikTarihi, 's');
+                         data.DogumTarihi = kendo.toString(data.DogumTarihi, 's');
+
+                         return kendo.stringify(data);
+                     }
+                     else if (operation === 'destroy') {
+                         return kendo.stringify(data);
+                     }
+                 }
+             },
+             pageSize: 10, serverPaging: true, serverSorting: true, serverFiltering: true, serverGrouping: true, serverAggregates: true,
+             schema: {
+                 errors: 'Errors', data: 'Data', total: 'Total', aggregates: 'AggregateResults',
+                 model: {
+                     id: self.primaryKey,
+                     fields: {
+                         Id: { type: 'number', defaultValue: null },
+                         UniqueId: { type: 'string', editable:false },
+                         UyeDurumId: { type: 'number' },
+                         UyeGrupId: { type: 'number' },
+                         UyelikTarihi: { type: 'date', editable:false },
+                         Email: { type: 'string' },
+                         Sifre: { type: 'string', editable:false },
+                         KimlikNumarasi: { type: 'string' },
+                         Ad: { type: 'string' },
+                         Soyad: { type: 'string' },
+                         Gsm: { type: 'string' },
+                         DogumTarihi: { type: 'date' },
+                         CinsiyetId: { type: 'number' },
+                         Avatar: { type: 'string' },
+                         UyelikDogrulama: { type: 'boolean' },
+                         SifreSifirlamaKod: { type: 'string' },
+                         KvkkOnayi: { type: 'boolean' },
+                         UyelikSozlesmeOnayi: { type: 'boolean' },
+                         AydinlatmaMetniOnayi: { type: 'boolean' },
+                         CuzdanBakiye: { type: 'number' },
+                         MsisdnDogrulama: { type: 'boolean' },
+                         FcmRegistrationToken: { type: 'string' },
+                         MobileAppState: { type: 'string' },
+                         CcUyeDurumIdAd: { type: 'string' },
+                         CcUyeGrupIdAd: { type: 'string' },
+                         CcCinsiyetIdAd: { type: 'string' },
+                         CcUyelikDogrulama: { type: 'string' },
+                         CcKvkkOnayi: { type: 'string' },
+                         CcUyelikSozlesmeOnayi: { type: 'string' },
+                         CcAydinlatmaMetniOnayi: { type: 'string' },
+                         CcMsisdnDogrulama: { type: 'string' }
+                     }
+                 }
+             },
+             error: function (e) {
+                 if (e.xhr === null) { mnNotification.warning(e.errors); } else { mnErrorHandler.Handle(e.xhr); }
+                 //this.cancelChanges();
+             },
+             requestStart: function (e) {
+                 setTimeout(function () {
+                     kendo.ui.progress($(self.selector), true); //progress On
+                 });
+             },
+             requestEnd: function (e) {
+                 setTimeout(function () {
+                     kendo.ui.progress($(self.selector), false); //progress Off
+                 });
+
+                 if (e.response !== undefined && e.response.Errors === null) {
+                     if (e.type === 'create' || e.type === 'update' || e.type === 'destroy') {
+                         mnLookup.listRead(self.tableName);
+                     }
+                     if (e.type === 'create') {
+                         mnNotification.success(mnLang.TranslateWithWord('xLng.KayitEklendi'));
+                     }
+                     if (e.type === 'update') {
+                         mnNotification.success(mnLang.TranslateWithWord('xLng.KayitDuzeltildi'));
+                     }
+                     if (e.type === 'destroy') {
+                         mnNotification.success(mnLang.TranslateWithWord('xLng.KayitSilindi'));
+                     }
+
+                     if (e.response.Data.length > 0) {
+                     }
+                 }
+             },
+             change: function (e) {
+                 if (e.items[0] !== undefined) {
+                     if (e.items[0].get(self.primaryKey) === null) {
+                         $.ajax({
+                             url: self.apiUrlPrefix + '/GetByNew', type: 'GET', dataType: 'json', async: false,
+                             success: function (result) {
+                                 e.items[0].Id = result.Id;
+                                 e.items[0].UniqueId = result.UniqueId;
+                                 e.items[0].UyeDurumId = result.UyeDurumId;
+                                 e.items[0].UyeGrupId = result.UyeGrupId;
+                                 e.items[0].UyelikTarihi = kendo.parseDate(result.UyelikTarihi);
+                                 e.items[0].Email = result.Email;
+                                 e.items[0].Sifre = result.Sifre;
+                                 e.items[0].KimlikNumarasi = result.KimlikNumarasi;
+                                 e.items[0].Ad = result.Ad;
+                                 e.items[0].Soyad = result.Soyad;
+                                 e.items[0].Gsm = result.Gsm;
+                                 e.items[0].DogumTarihi = kendo.parseDate(result.DogumTarihi);
+                                 e.items[0].CinsiyetId = result.CinsiyetId;
+                                 e.items[0].Avatar = result.Avatar;
+                                 e.items[0].UyelikDogrulama = result.UyelikDogrulama;
+                                 e.items[0].SifreSifirlamaKod = result.SifreSifirlamaKod;
+                                 e.items[0].KvkkOnayi = result.KvkkOnayi;
+                                 e.items[0].UyelikSozlesmeOnayi = result.UyelikSozlesmeOnayi;
+                                 e.items[0].AydinlatmaMetniOnayi = result.AydinlatmaMetniOnayi;
+                                 e.items[0].CuzdanBakiye = result.CuzdanBakiye;
+                                 e.items[0].MsisdnDogrulama = result.MsisdnDogrulama;
+                                 e.items[0].FcmRegistrationToken = result.FcmRegistrationToken;
+                                 e.items[0].MobileAppState = result.MobileAppState;
+                                 //computed alanların tanımlanması
+                                 e.items[0].CcUyeDurumIdAd = result.CcUyeDurumIdAd;
+                                 e.items[0].CcUyeGrupIdAd = result.CcUyeGrupIdAd;
+                                 e.items[0].CcCinsiyetIdAd = result.CcCinsiyetIdAd;
+                                 e.items[0].CcUyelikDogrulama = result.CcUyelikDogrulama;
+                                 e.items[0].CcKvkkOnayi = result.CcKvkkOnayi;
+                                 e.items[0].CcUyelikSozlesmeOnayi = result.CcUyelikSozlesmeOnayi;
+                                 e.items[0].CcAydinlatmaMetniOnayi = result.CcAydinlatmaMetniOnayi;
+                                 e.items[0].CcMsisdnDogrulama = result.CcMsisdnDogrulama;
+                                 //filterdan gelen default value set için
+                                 $(self.opt.filters).each(function (index, row) {
+                                     if (row.filterColumnName !== 'Id') {
+                                        e.items[0].set(row.filterColumnName, row.filterValue);
+                                     }
+                                 });
+
+                             },
+                             error: function (xhr, status) {
+                                 mnErrorHandler.Handle(xhr);
+                             }
+                         });
+                     }
+                     // Bind
+                     kendo.bind($(self.selector), e.items[0]);
+
+                     //validator refresh
+                     setTimeout(function () {
+                        fValidateAll();
+                     },1000);
+
+                     // detay buttons görünürlük için
+                     if (e.items[0].Id > 0) {
+                        $(self.selector).find('#btnDetayUyeCariHareket').show();
+                     } else {
+                        $(self.selector).find('#btnDetayUyeCariHareket').hide();
+                     }
+
+                     if (e.items[0].Id > 0) {
+                        $(self.selector).find('#btnDetayUyeCuzdanHareket').show();
+                     } else {
+                        $(self.selector).find('#btnDetayUyeCuzdanHareket').hide();
+                     }
+
+                 }
+
+                 // Yetki
+                 fYetkiUygula();
+
+                 // ve gerekebilecek diğer işlemler
+                 // ...
+             }
+         });
+     }
+
+     function fValidateAll() {
+        $(self.selector).find('#tabstrip ul li[data-tab-key]').removeClass('mn-invalid');
+        let rValid = true;
+
+        if (!self.validatorI.validate()) {
+            rValid = false;
+            $(self.selector).find('#tabstrip ul li[data-tab-key=I]').addClass('mn-invalid')
+        }
+        
+        return rValid
+     }
+
+     function fCreateFormElements() {
+         // tabstrip
+         self.tabstrip = $(self.selector).find('#tabstrip').kendoTabStrip({
+             animation: false, tabPosition: 'top'
+         }).getKendoTabStrip();
+         self.tabstrip.select(0);
+
+         //create validators
+         self.validatorI = mnApp.createValidator($(self.selector).find('.mnFormElementContainer div[data-tab-key=I]'), mnApp.validatorErrorTemplateIconMsg);
+
+         //butonlar
+         $(self.selector).find('#btnKaydet').click(function (e) {
+             mnApi.controlDisableWait($(e.target));
+             if (fValidateAll()) {
+                 if (self.dataSource.at(0).dirty) {
+                     self.dataSource.sync();
+                 } else {
+                     mnAlert.warning(mnLang.TranslateWithWord('xLng.KayyittaDegisiklikYapmadiniz'));
+                 }
+             } else {
+                 mnAlert.warning(mnLang.TranslateWithWord('xLng.DoldurulmasiGerekenAlanlarVar'));
+             }
+         });
+
+         $(self.selector).find('#btnDetayUyeCariHareket').click(function (e) {
+            var dataItem = self.dataSource.at(0);
+            mnPageView.create({
+                viewFolder: 'UyeCariHareket',
+                viewName: 'UyeCariHareketForGrid',
+                subTitle: mnLang.TranslateWithWord('xLng.DuzenlemeIslemleri'),
+                onShow: function (e) {
+                    e.beforeShow({
+                        'ownerViewName': 'UyeForForm',
+                        'filters': [
+                            { 'filterColumnName': 'UyeId', 'filterOperator': 'eq', 'filterValue': dataItem.Id }
+                        ]
+                    });
+                }
+            });
+         });
+
+         $(self.selector).find('#btnDetayUyeCuzdanHareket').click(function (e) {
+            var dataItem = self.dataSource.at(0);
+            mnPageView.create({
+                viewFolder: 'UyeCuzdanHareket',
+                viewName: 'UyeCuzdanHareketForGrid',
+                subTitle: mnLang.TranslateWithWord('xLng.DuzenlemeIslemleri'),
+                onShow: function (e) {
+                    e.beforeShow({
+                        'ownerViewName': 'UyeForForm',
+                        'filters': [
+                            { 'filterColumnName': 'UyeId', 'filterOperator': 'eq', 'filterValue': dataItem.Id }
+                        ]
+                    });
+                }
+            });
+         });
+
+         //Diğer Form elementleri
+         $(self.selector).find('[name=UyeDurumId]').kendoDropDownList({
+             valuePrimitive: true,
+             optionLabel: mnLang.TranslateWithWord('xLng.Seciniz'),
+             dataValueField: 'value',
+             dataTextField: 'text',
+             dataSource: mnLookup.listLoad({
+                 ViewName: 'UyeForForm',
+                 ViewFieldName: 'UyeDurumId',
+                 TableName: 'UyeDurum',
+                 ValueField: 'Id',
+                 TextField: 'Ad',
+                 OtherFields: '',
+                 Filters: [
+                     { Field: 'Id', Operator: '>=', Value: '0' }
+                 ],
+                 Sorts: [
+                                 { Field: 'Ad', Dir: 'asc' }
+                 ]
+             }),
+             open: function (e) {
+             },
+             close: function (e) {
+             }
+         }).getKendoDropDownList();
+
+         $(self.selector).find('[name=UyeGrupId]').kendoDropDownList({
+             valuePrimitive: true,
+             optionLabel: mnLang.TranslateWithWord('xLng.Seciniz'),
+             dataValueField: 'value',
+             dataTextField: 'text',
+             dataSource: mnLookup.listLoad({
+                 ViewName: 'UyeForForm',
+                 ViewFieldName: 'UyeGrupId',
+                 TableName: 'UyeGrup',
+                 ValueField: 'Id',
+                 TextField: 'Ad',
+                 OtherFields: '',
+                 Filters: [
+                     { Field: 'Id', Operator: '>=', Value: '0' }
+                 ],
+                 Sorts: [
+                                 { Field: 'Ad', Dir: 'asc' }
+                 ]
+             }),
+             open: function (e) {
+             },
+             close: function (e) {
+             }
+         }).getKendoDropDownList();
+
+         $(self.selector).find('[name=UyelikTarihi]').kendoDateTimePicker({
+             componentType: mnApp.kendoDateTimePiker_ComponentType,
+             dateInput: mnApp.kendoDateTimePiker_DateInput
+         }).getKendoDateTimePicker();
+
+         $(self.selector).find('[name=DogumTarihi]').kendoDatePicker({
+            componentType: mnApp.kendoDatePiker_ComponentType,
+            dateInput: mnApp.kendoDatePiker_DateInput
+         }).getKendoDatePicker();
+
+         $(self.selector).find('[name=CinsiyetId]').kendoDropDownList({
+             valuePrimitive: true,
+             optionLabel: mnLang.TranslateWithWord('xLng.Seciniz'),
+             dataValueField: 'value',
+             dataTextField: 'text',
+             dataSource: mnLookup.listLoad({
+                 ViewName: 'UyeForForm',
+                 ViewFieldName: 'CinsiyetId',
+                 TableName: 'Cinsiyet',
+                 ValueField: 'Id',
+                 TextField: 'Ad',
+                 OtherFields: '',
+                 Filters: [
+                     { Field: 'Id', Operator: '>=', Value: '0' }
+                 ],
+                 Sorts: [
+                                 { Field: 'Ad', Dir: 'asc' }
+                 ]
+             }),
+             open: function (e) {
+             },
+             close: function (e) {
+             }
+         }).getKendoDropDownList();
+
+         $(self.selector).find('[name=Avatar]').click(function (e) {
+             $elmImg = $("<input id='imageFile' type='file' accept='image/*' style='display:none;' />"); 
+             $elmImg.change(function () {
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        if (self.dataSource.at(0) !== undefined) {
+                            self.dataSource.at(0).set('Avatar', e.target.result);
+                        }
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                    this.value = null; //aynı resmi tekrar seçtiğinde event çalışabilmesi için son seçileni siliyoruz value dan
+                }
+             });
+             $elmImg.click();
+         });
+
+         $(self.selector).find('[name=CuzdanBakiye]').kendoNumericTextBox({
+             format: 'n2', decimals: 2, min: 0, spinners: false, step: 0
+         }).getKendoNumericTextBox();
+
+     }
+
+     function fSetAtributeFormElements() {
+         $(self.selector).find('[name=UyeDurumId]').attr('required', 'required');
+         $(self.selector).find('[name=UyeGrupId]').attr('required', 'required');
+         $(self.selector).find('[name=Email]').attr('required', 'required');
+         $(self.selector).find('[name=Sifre]').attr('required', 'required');
+         $(self.selector).find('[name=Ad]').attr('required', 'required');
+         $(self.selector).find('[name=Soyad]').attr('required', 'required');
+         $(self.selector).find('[name=Gsm]').attr('required', 'required');
+         $(self.selector).find('[name=CinsiyetId]').attr('required', 'required');
+     }
+
+     function fYetkiUygula() {
+         //Standart Yetkiler
+         var _C = mnUser.isYetkili(self.tableName + '.D_C.');
+         var _U = mnUser.isYetkili(self.tableName + '.D_U.');
+         var _D = mnUser.isYetkili(self.tableName + '.D_D.');
+
+         // menu buttons yetkiler için
+         var btnDetayUyeCariHareket_R = mnUser.isYetkili('UyeCariHareket.D_R.');
+         mnApi.controlEnable($(self.selector).find('#btnDetayUyeCariHareket'), btnDetayUyeCariHareket_R);
+
+         var btnDetayUyeCuzdanHareket_R = mnUser.isYetkili('UyeCuzdanHareket.D_R.');
+         mnApi.controlEnable($(self.selector).find('#btnDetayUyeCuzdanHareket'), btnDetayUyeCuzdanHareket_R);
+
+
+         //ek yetkiler için)
+         //...
+
+         //Form İçin
+         if (_C || _U) {
+             $(self.selector).find('#btnKaydet').show();
+         } else {
+             $(self.selector).find('#btnKaydet').hide();
+         }
+
+        //form element görünümleri
+        var fieldList = [];
+        fieldList.push({ 'Name': 'UyeDurumId', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'UyeGrupId', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'UyelikTarihi', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'Email', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'Sifre', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'KimlikNumarasi', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'Ad', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'Soyad', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'Gsm', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'DogumTarihi', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'CinsiyetId', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'Avatar', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'UyelikDogrulama', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'SifreSifirlamaKod', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'KvkkOnayi', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'UyelikSozlesmeOnayi', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'AydinlatmaMetniOnayi', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'CuzdanBakiye', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'MsisdnDogrulama', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'FcmRegistrationToken', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'MobileAppState', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+
+        for (var i in fieldList) {
+            var $elm = $(self.selector).find('.mnFormElementContainer .mnFormElementDiv[name=div' + fieldList[i].Name + ']');
+            if (fieldList[i].Visible) {
+                $elm.show();
+            } else {
+                $elm.hide();
+            }
+        }
+
+     }
+
+
+     function fGorunurlukUygula(dataItem) {
+        if (dataItem != null && dataItem != undefined) {
+            //invisibility
+            //visibility
+        }
+     }
+
+     self.prepare = function () {
+         // form element atribute set
+         fSetAtributeFormElements();
+         // DataSource
+         fCreateDataSource();
+         // form Elementler
+         fCreateFormElements();
+         // Language
+         mnLang.TranslateWithSelector(self.selector);
+     };
+
+     self.beforeShow = function (_opt) {
+         self.opt = $.extend({}, _opt);
+
+         if (self.opt.qprms.Id !== null && self.opt.qprms.Id > 0) {
+             self.dataSource.filter({ field: self.primaryKey, operator: 'eq', value: self.opt.qprms.Id });
+         } else {
+             self.dataSource.data([]); // eski data varsa işleme girmemesi için
+             self.dataSource.add();
+         }
+
+         self.tabstrip.select(0);
+     };
+
+     return self;
+ }();
+</script>

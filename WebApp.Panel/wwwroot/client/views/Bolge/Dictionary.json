@@ -1,0 +1,56 @@
+[
+ {
+     "key" : "xLng.Bolge.Title",
+     "value": {
+         "tr": "Bölgeler",
+         "en": "Regions"
+     }
+ },
+ {
+     "key" : "xLng.Bolge.ShortTitle",
+     "value": {
+         "tr": "Bölgeler",
+         "en": "Regions"
+     }
+ }
+,
+ {
+     "key" : "xLng.Bolge.FormViewTab.I",
+     "value": {
+         "tr": "Genel Bilgiler",
+         "en": "General Info"
+     }
+ }
+,
+ {
+     "key" : "xLng.Bolge.Id",
+     "value": {
+         "tr": "Id",
+         "en": "Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.Bolge.UniqueId",
+     "value": {
+         "tr": "Unique Id",
+         "en": "Unique Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.Bolge.Durum",
+     "value": {
+         "tr": "Durum",
+         "en": "Durum"
+     }
+ }
+,
+ {
+     "key" : "xLng.Bolge.Polygon",
+     "value": {
+         "tr": "Polygon",
+         "en": "Polygon"
+     }
+ }
+]

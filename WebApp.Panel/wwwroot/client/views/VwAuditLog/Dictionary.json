@@ -1,0 +1,144 @@
+[
+ {
+     "key" : "xLng.VwAuditLog.Title",
+     "value": {
+         "tr": "Audit Log",
+         "en": "Audit Log"
+     }
+ },
+ {
+     "key" : "xLng.VwAuditLog.ShortTitle",
+     "value": {
+         "tr": "Audit Log",
+         "en": "Audit Log"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwAuditLog.FormViewTab.I",
+     "value": {
+         "tr": "Genel Bilgiler",
+         "en": "General Info"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwAuditLog.GridFindTab.I",
+     "value": {
+         "tr": "I",
+         "en": "I"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwAuditLog.Id",
+     "value": {
+         "tr": "Id",
+         "en": "Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwAuditLog.UserId",
+     "value": {
+         "tr": "Kullanıcı",
+         "en": "User"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwAuditLog.UserType",
+     "value": {
+         "tr": "Kullanıcı Tipi",
+         "en": "User Type"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwAuditLog.UserName",
+     "value": {
+         "tr": "Kullanıcı Adı",
+         "en": "User Name"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwAuditLog.UserIp",
+     "value": {
+         "tr": "IP Adres",
+         "en": "Ip Address"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwAuditLog.UserBrowser",
+     "value": {
+         "tr": "Browser",
+         "en": "Browser"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwAuditLog.UserSessionGuid",
+     "value": {
+         "tr": "Kullanıcı Session Guid",
+         "en": "User Session Guid"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwAuditLog.OperationType",
+     "value": {
+         "tr": "Operasyon Tipi",
+         "en": "Operation Type"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwAuditLog.OperationDate",
+     "value": {
+         "tr": "Tarih",
+         "en": "Date"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwAuditLog.TableName",
+     "value": {
+         "tr": "Tablo Adı",
+         "en": "Table Name"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwAuditLog.PrimaryKeyField",
+     "value": {
+         "tr": "Primary Key Field",
+         "en": "Primary Key Field"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwAuditLog.PrimaryKeyValue",
+     "value": {
+         "tr": "Primary Key Value",
+         "en": "Primary Key Value"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwAuditLog.CurrentValues",
+     "value": {
+         "tr": "Mevcut Değer",
+         "en": "Current Values"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwAuditLog.OriginalValues",
+     "value": {
+         "tr": "Orjinal Değer",
+         "en": "Original Values"
+     }
+ }
+]

@@ -1,0 +1,662 @@
+
+
+<div id='ParameterForForm'>
+    <div id='divButtonGroup' class='mnButtonGroup float-end'>
+        <button id='btnKaydet' type='button' class='btn btn-outline-success text-nowrap' data-langkey-title='xLng.Kaydet'> <i class='fa fa-save'></i> </button>
+    </div>
+
+    <div class='mnFormElementContainer' style='padding-bottom:15px;'>
+        <div id='tabstrip'>
+            <ul>
+                <li data-tab-key='I'> <span data-langkey-text='xLng.Parameter.FormViewTab.I'></span> </li>
+                <li data-tab-key='II'> <span data-langkey-text='xLng.Parameter.FormViewTab.II'></span> </li>
+                <li data-tab-key='III'> <span data-langkey-text='xLng.Parameter.FormViewTab.III'></span> </li>
+                <li data-tab-key='IV'> <span data-langkey-text='xLng.Parameter.FormViewTab.IV'></span> </li>
+                <li data-tab-key='V'> <span data-langkey-text='xLng.Parameter.FormViewTab.V'></span> </li>
+            </ul>
+            <div data-tab-key='I'>
+                <div class='row'>
+                    <div class='col-md-12'>
+
+                    </div>
+
+                    <div class='col-lg-6 col-md-12'>
+                         <div name='divSiteAddress' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='mn-required-span' data-langkey-text='xLng.Parameter.SiteAddress'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='SiteAddress' type='text' class='form-control d-inline' data-bind='value:SiteAddress' data-langkey-placeholder='xLng.Parameter.SiteAddress'   maxlength='100' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divInstitutionEmail' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='' data-langkey-text='xLng.Parameter.InstitutionEmail'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='InstitutionEmail' type='text' class='form-control d-inline' data-bind='value:InstitutionEmail' data-langkey-placeholder='xLng.Parameter.InstitutionEmail'   maxlength='100' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divAuditLog' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                             </label>
+                             <div class='col-sm-8'>
+                                <label style='font-weight:normal;'>
+                                    <input name='AuditLog' type='checkbox' data-bind='checked:AuditLog' style='width: 24px; height: 24px; vertical-align: middle;'  />
+                                    <span data-langkey-Text='xLng.Parameter.AuditLog'></span>
+                                </label>
+                             </div>
+                         </div>
+
+                         <div name='divAuditLogTables' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='' data-langkey-text='xLng.Parameter.AuditLogTables'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='AuditLogTables' type='text' />
+                                 <span class='k-invalid-msg' data-for='AuditLogTables'></span>
+                             </div>
+                         </div>
+
+
+                    </div>
+
+                    <div class='col-lg-6 col-md-12'>
+
+                    </div>
+
+                </div>
+            </div>
+            <div data-tab-key='II'>
+                <div class='row'>
+                    <div class='col-md-12'>
+
+                    </div>
+
+                    <div class='col-lg-6 col-md-12'>
+                         <div name='divEmailHost' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='' data-langkey-text='xLng.Parameter.EmailHost'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='EmailHost' type='text' class='form-control d-inline' data-bind='value:EmailHost' data-langkey-placeholder='xLng.Parameter.EmailHost'   maxlength='100' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divEmailPort' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='mn-required-span' data-langkey-text='xLng.Parameter.EmailPort'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='EmailPort' type='number' data-bind='value:EmailPort' data-langkey-placeholder='xLng.Parameter.EmailPort' />
+                                 <span class='k-invalid-msg' data-for='EmailPort'></span>
+                             </div>
+                         </div>
+
+                         <div name='divEmailEnableSsl' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                             </label>
+                             <div class='col-sm-8'>
+                                <label style='font-weight:normal;'>
+                                    <input name='EmailEnableSsl' type='checkbox' data-bind='checked:EmailEnableSsl' style='width: 24px; height: 24px; vertical-align: middle;'  />
+                                    <span data-langkey-Text='xLng.Parameter.EmailEnableSsl'></span>
+                                </label>
+                             </div>
+                         </div>
+
+                         <div name='divEmailUserName' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='' data-langkey-text='xLng.Parameter.EmailUserName'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='EmailUserName' type='text' class='form-control d-inline' data-bind='value:EmailUserName' data-langkey-placeholder='xLng.Parameter.EmailUserName'   maxlength='100' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divEmailPassword' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='' data-langkey-text='xLng.Parameter.EmailPassword'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <span name='ExternalResetPasswordButtonWrapperEmailPassword' class='mnResetPasswordButton k-space-right w-100'>
+                                    <input name='EmailPassword' type='password' class='form-control font-weight-light' data-bind='value:EmailPassword' data-langkey-placeholder='xLng.Parameter.EmailPassword'  maxlength='100' autocomplete='off' />
+                                 </span>
+                                 <span class='k-invalid-msg' data-for='EmailPassword'></span>
+                             </div>
+                         </div>
+
+
+                    </div>
+
+                    <div class='col-lg-6 col-md-12'>
+
+                    </div>
+
+                </div>
+            </div>
+            <div data-tab-key='III'>
+                <div class='row'>
+                    <div class='col-md-12'>
+
+                    </div>
+
+                    <div class='col-lg-6 col-md-12'>
+                         <div name='divSmsServiceBaseUrl' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='' data-langkey-text='xLng.Parameter.SmsServiceBaseUrl'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='SmsServiceBaseUrl' type='text' class='form-control d-inline' data-bind='value:SmsServiceBaseUrl' data-langkey-placeholder='xLng.Parameter.SmsServiceBaseUrl'   maxlength='100' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divSmsServiceUrl' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='' data-langkey-text='xLng.Parameter.SmsServiceUrl'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='SmsServiceUrl' type='text' class='form-control d-inline' data-bind='value:SmsServiceUrl' data-langkey-placeholder='xLng.Parameter.SmsServiceUrl'   maxlength='100' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divSmsServiceUserName' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='' data-langkey-text='xLng.Parameter.SmsServiceUserName'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='SmsServiceUserName' type='text' class='form-control d-inline' data-bind='value:SmsServiceUserName' data-langkey-placeholder='xLng.Parameter.SmsServiceUserName'   maxlength='100' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divSmsServicePassword' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='' data-langkey-text='xLng.Parameter.SmsServicePassword'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='SmsServicePassword' type='text' class='form-control d-inline' data-bind='value:SmsServicePassword' data-langkey-placeholder='xLng.Parameter.SmsServicePassword'   maxlength='100' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divSmsServiceBaslik' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='' data-langkey-text='xLng.Parameter.SmsServiceBaslik'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='SmsServiceBaslik' type='text' class='form-control d-inline' data-bind='value:SmsServiceBaslik' data-langkey-placeholder='xLng.Parameter.SmsServiceBaslik'   maxlength='30' autocomplete='off' />
+                             </div>
+                         </div>
+
+
+                    </div>
+
+                    <div class='col-lg-6 col-md-12'>
+
+                    </div>
+
+                </div>
+            </div>
+            <div data-tab-key='IV'>
+                <div class='row'>
+                    <div class='col-md-12'>
+
+                    </div>
+
+                    <div class='col-lg-6 col-md-12'>
+                         <div name='divGoogleMapApiKey' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='' data-langkey-text='xLng.Parameter.GoogleMapApiKey'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='GoogleMapApiKey' type='text' class='form-control d-inline' data-bind='value:GoogleMapApiKey' data-langkey-placeholder='xLng.Parameter.GoogleMapApiKey'   maxlength='100' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divMapTexBaseServiceUrl' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='' data-langkey-text='xLng.Parameter.MapTexBaseServiceUrl'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='MapTexBaseServiceUrl' type='text' class='form-control d-inline' data-bind='value:MapTexBaseServiceUrl' data-langkey-placeholder='xLng.Parameter.MapTexBaseServiceUrl'   maxlength='300' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divMaptexApiKey' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='' data-langkey-text='xLng.Parameter.MaptexApiKey'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='MaptexApiKey' type='text' class='form-control d-inline' data-bind='value:MaptexApiKey' data-langkey-placeholder='xLng.Parameter.MaptexApiKey'   maxlength='100' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divMasterpassMerchantId' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='mn-required-span' data-langkey-text='xLng.Parameter.MasterpassMerchantId'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='MasterpassMerchantId' type='number' data-bind='value:MasterpassMerchantId' data-langkey-placeholder='xLng.Parameter.MasterpassMerchantId' />
+                                 <span class='k-invalid-msg' data-for='MasterpassMerchantId'></span>
+                             </div>
+                         </div>
+
+                         <div name='divMasterpassServiceUrl' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='' data-langkey-text='xLng.Parameter.MasterpassServiceUrl'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='MasterpassServiceUrl' type='text' class='form-control d-inline' data-bind='value:MasterpassServiceUrl' data-langkey-placeholder='xLng.Parameter.MasterpassServiceUrl'   maxlength='100' autocomplete='off' />
+                             </div>
+                         </div>
+
+
+                    </div>
+
+                    <div class='col-lg-6 col-md-12'>
+
+                    </div>
+
+                </div>
+            </div>
+            <div data-tab-key='V'>
+                <div class='row'>
+                    <div class='col-md-12'>
+
+                    </div>
+
+                    <div class='col-lg-6 col-md-12'>
+                         <div name='divAracRezervasyonSure' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='mn-required-span' data-langkey-text='xLng.Parameter.AracRezervasyonSure'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='AracRezervasyonSure' type='number' data-bind='value:AracRezervasyonSure' data-langkey-placeholder='xLng.Parameter.AracRezervasyonSure' />
+                                 <span class='k-invalid-msg' data-for='AracRezervasyonSure'></span>
+                             </div>
+                         </div>
+
+                         <div name='divAracSarjUyariLimit' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='mn-required-span' data-langkey-text='xLng.Parameter.AracSarjUyariLimit'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='AracSarjUyariLimit' type='number' data-bind='value:AracSarjUyariLimit' data-langkey-placeholder='xLng.Parameter.AracSarjUyariLimit' />
+                                 <span class='k-invalid-msg' data-for='AracSarjUyariLimit'></span>
+                             </div>
+                         </div>
+
+
+                    </div>
+
+                    <div class='col-lg-6 col-md-12'>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+ window.ParameterForForm = function () {
+     var self = {};
+     self.opt = null;
+     self.title = 'xLng.Parameter.Title';
+     self.selector = '#ParameterForForm';
+     self.primaryKey = 'Id';
+     self.tableName = 'Parameter';
+     self.apiUrlPrefix = '/Panel/Api' + self.tableName;
+
+     function fCreateDataSource() {
+         self.dataSource = new kendo.data.DataSource({
+             transport: {
+                 read: { type: 'POST', url: self.apiUrlPrefix + '/Read', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 create: { type: 'POST', url: self.apiUrlPrefix + '/Create', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 update: { type: 'POST', url: self.apiUrlPrefix + '/Update', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 destroy: { type: 'POST', url: self.apiUrlPrefix + '/Delete', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 parameterMap: function (data, operation) {
+                     if (operation === 'read') {
+                         return kendo.stringify(data);
+                     }
+                     else if (operation === 'create' || operation === 'update') {
+
+                         return kendo.stringify(data);
+                     }
+                     else if (operation === 'destroy') {
+                         return kendo.stringify(data);
+                     }
+                 }
+             },
+             pageSize: 10, serverPaging: true, serverSorting: true, serverFiltering: true, serverGrouping: true, serverAggregates: true,
+             schema: {
+                 errors: 'Errors', data: 'Data', total: 'Total', aggregates: 'AggregateResults',
+                 model: {
+                     id: self.primaryKey,
+                     fields: {
+                         Id: { type: 'number', defaultValue: null },
+                         SiteAddress: { type: 'string' },
+                         InstitutionEmail: { type: 'string' },
+                         AuditLog: { type: 'boolean' },
+                         AuditLogTables: { type: 'string' },
+                         EmailHost: { type: 'string' },
+                         EmailPort: { type: 'number' },
+                         EmailEnableSsl: { type: 'boolean' },
+                         EmailUserName: { type: 'string' },
+                         EmailPassword: { type: 'string' },
+                         SmsServiceBaseUrl: { type: 'string' },
+                         SmsServiceUrl: { type: 'string' },
+                         SmsServiceUserName: { type: 'string' },
+                         SmsServicePassword: { type: 'string' },
+                         SmsServiceBaslik: { type: 'string' },
+                         GoogleMapApiKey: { type: 'string' },
+                         MapTexBaseServiceUrl: { type: 'string' },
+                         MaptexApiKey: { type: 'string' },
+                         AracRezervasyonSure: { type: 'number' },
+                         MasterpassMerchantId: { type: 'string' },
+                         MasterpassServiceUrl: { type: 'string' },
+                         AracSarjUyariLimit: { type: 'number' },
+                         CcAuditLog: { type: 'string' },
+                         CcAuditLogTables: { type: 'string' },
+                         CcEmailEnableSsl: { type: 'string' }
+                     }
+                 }
+             },
+             error: function (e) {
+                 if (e.xhr === null) { mnNotification.warning(e.errors); } else { mnErrorHandler.Handle(e.xhr); }
+                 //this.cancelChanges();
+             },
+             requestStart: function (e) {
+                 setTimeout(function () {
+                     kendo.ui.progress($(self.selector), true); //progress On
+                 });
+             },
+             requestEnd: function (e) {
+                 setTimeout(function () {
+                     kendo.ui.progress($(self.selector), false); //progress Off
+                 });
+
+                 if (e.response !== undefined && e.response.Errors === null) {
+                     if (e.type === 'create' || e.type === 'update' || e.type === 'destroy') {
+                         mnLookup.listRead(self.tableName);
+                     }
+                     if (e.type === 'create') {
+                         mnNotification.success(mnLang.TranslateWithWord('xLng.KayitEklendi'));
+                     }
+                     if (e.type === 'update') {
+                         mnNotification.success(mnLang.TranslateWithWord('xLng.KayitDuzeltildi'));
+                     }
+                     if (e.type === 'destroy') {
+                         mnNotification.success(mnLang.TranslateWithWord('xLng.KayitSilindi'));
+                     }
+
+                     self.msAuditLogTables.value([]);
+                     if (e.response.Data.length > 0) {
+                         if (e.response.Data[0].AuditLogTables !== null || undefined || '') {
+                            self.msAuditLogTables.value(e.response.Data[0].AuditLogTables.split(','));
+                         }
+
+                     }
+                 }
+             },
+             change: function (e) {
+                 if (e.items[0] !== undefined) {
+                     if (e.items[0].get(self.primaryKey) === null) {
+                         $.ajax({
+                             url: self.apiUrlPrefix + '/GetByNew', type: 'GET', dataType: 'json', async: false,
+                             success: function (result) {
+                                 e.items[0].Id = result.Id;
+                                 e.items[0].SiteAddress = result.SiteAddress;
+                                 e.items[0].InstitutionEmail = result.InstitutionEmail;
+                                 e.items[0].AuditLog = result.AuditLog;
+                                 e.items[0].AuditLogTables = result.AuditLogTables;
+                                 e.items[0].EmailHost = result.EmailHost;
+                                 e.items[0].EmailPort = result.EmailPort;
+                                 e.items[0].EmailEnableSsl = result.EmailEnableSsl;
+                                 e.items[0].EmailUserName = result.EmailUserName;
+                                 e.items[0].EmailPassword = result.EmailPassword;
+                                 e.items[0].SmsServiceBaseUrl = result.SmsServiceBaseUrl;
+                                 e.items[0].SmsServiceUrl = result.SmsServiceUrl;
+                                 e.items[0].SmsServiceUserName = result.SmsServiceUserName;
+                                 e.items[0].SmsServicePassword = result.SmsServicePassword;
+                                 e.items[0].SmsServiceBaslik = result.SmsServiceBaslik;
+                                 e.items[0].GoogleMapApiKey = result.GoogleMapApiKey;
+                                 e.items[0].MapTexBaseServiceUrl = result.MapTexBaseServiceUrl;
+                                 e.items[0].MaptexApiKey = result.MaptexApiKey;
+                                 e.items[0].AracRezervasyonSure = result.AracRezervasyonSure;
+                                 e.items[0].MasterpassMerchantId = result.MasterpassMerchantId;
+                                 e.items[0].MasterpassServiceUrl = result.MasterpassServiceUrl;
+                                 e.items[0].AracSarjUyariLimit = result.AracSarjUyariLimit;
+                                 //computed alanların tanımlanması
+                                 e.items[0].CcAuditLog = result.CcAuditLog;
+                                 e.items[0].CcAuditLogTables = result.CcAuditLogTables;
+                                 e.items[0].CcEmailEnableSsl = result.CcEmailEnableSsl;
+                                 //filterdan gelen default value set için
+                                 $(self.opt.filters).each(function (index, row) {
+                                     if (row.filterColumnName !== 'Id') {
+                                        e.items[0].set(row.filterColumnName, row.filterValue);
+                                     }
+                                 });
+
+                                 //(multi select için)
+                                 self.msAuditLogTables.value([]);
+                                 if (e.items[0].AuditLogTables !== null || undefined || '') {
+                                     self.msAuditLogTables.value(e.items[0].AuditLogTables.split(','));
+                                 }
+                             },
+                             error: function (xhr, status) {
+                                 mnErrorHandler.Handle(xhr);
+                             }
+                         });
+                     }
+                     // Bind
+                     kendo.bind($(self.selector), e.items[0]);
+
+                     //validator refresh
+                     setTimeout(function () {
+                        fValidateAll();
+                     },1000);
+
+                 }
+
+                 // Yetki
+                 fYetkiUygula();
+
+                 // ve gerekebilecek diğer işlemler
+                 // ...
+             }
+         });
+     }
+
+     function fValidateAll() {
+        $(self.selector).find('#tabstrip ul li[data-tab-key]').removeClass('mn-invalid');
+        let rValid = true;
+
+        if (!self.validatorI.validate()) {
+            rValid = false;
+            $(self.selector).find('#tabstrip ul li[data-tab-key=I]').addClass('mn-invalid')
+        }
+        
+        if (!self.validatorII.validate()) {
+            rValid = false;
+            $(self.selector).find('#tabstrip ul li[data-tab-key=II]').addClass('mn-invalid')
+        }
+        
+        if (!self.validatorIII.validate()) {
+            rValid = false;
+            $(self.selector).find('#tabstrip ul li[data-tab-key=III]').addClass('mn-invalid')
+        }
+        
+        if (!self.validatorIV.validate()) {
+            rValid = false;
+            $(self.selector).find('#tabstrip ul li[data-tab-key=IV]').addClass('mn-invalid')
+        }
+        
+        if (!self.validatorV.validate()) {
+            rValid = false;
+            $(self.selector).find('#tabstrip ul li[data-tab-key=V]').addClass('mn-invalid')
+        }
+        
+        return rValid
+     }
+
+     function fCreateFormElements() {
+         // tabstrip
+         self.tabstrip = $(self.selector).find('#tabstrip').kendoTabStrip({
+             animation: false, tabPosition: 'top'
+         }).getKendoTabStrip();
+         self.tabstrip.select(0);
+
+         //create validators
+         self.validatorI = mnApp.createValidator($(self.selector).find('.mnFormElementContainer div[data-tab-key=I]'), mnApp.validatorErrorTemplateIconMsg);
+         self.validatorII = mnApp.createValidator($(self.selector).find('.mnFormElementContainer div[data-tab-key=II]'), mnApp.validatorErrorTemplateIconMsg);
+         self.validatorIII = mnApp.createValidator($(self.selector).find('.mnFormElementContainer div[data-tab-key=III]'), mnApp.validatorErrorTemplateIconMsg);
+         self.validatorIV = mnApp.createValidator($(self.selector).find('.mnFormElementContainer div[data-tab-key=IV]'), mnApp.validatorErrorTemplateIconMsg);
+         self.validatorV = mnApp.createValidator($(self.selector).find('.mnFormElementContainer div[data-tab-key=V]'), mnApp.validatorErrorTemplateIconMsg);
+
+         //butonlar
+         $(self.selector).find('#btnKaydet').click(function (e) {
+             mnApi.controlDisableWait($(e.target));
+             if (fValidateAll()) {
+                 if (self.dataSource.at(0).dirty) {
+                     self.dataSource.sync();
+                 } else {
+                     mnAlert.warning(mnLang.TranslateWithWord('xLng.KayyittaDegisiklikYapmadiniz'));
+                 }
+             } else {
+                 mnAlert.warning(mnLang.TranslateWithWord('xLng.DoldurulmasiGerekenAlanlarVar'));
+             }
+         });
+
+         //Diğer Form elementleri
+         self.msAuditLogTables = $(self.selector).find('[name=AuditLogTables]').kendoMultiSelect({
+             valuePrimitive: true,
+             autoClose: false,
+             optionLabel: { value: '', text: mnLang.TranslateWithWord('xLng.Seciniz') },
+             dataValueField: 'value',
+             dataTextField: 'text',
+             dataSource: mnLookup.list.dsTables,
+             change: function (e) {
+                 if (self.dataSource.at(0) !== undefined) {
+                     self.dataSource.at(0).set('AuditLogTables', this.value().join());
+                 }
+             },
+             open: function (e) {
+             },
+             close: function (e) {
+             }
+         }).getKendoMultiSelect();
+
+         $(self.selector).find('[name=EmailPort]').kendoNumericTextBox({
+             format: 'n0', decimals: 0, min: 0, spinners: false, step: 0
+         }).getKendoNumericTextBox();
+
+         $(self.selector).find('[name=AracRezervasyonSure]').kendoNumericTextBox({
+             format: 'n0', decimals: 0, min: 0, spinners: false, step: 0
+         }).getKendoNumericTextBox();
+
+         $(self.selector).find('[name=MasterpassMerchantId]').kendoNumericTextBox({
+             format: 'n0', decimals: 0, min: 0, spinners: false, step: 0
+         }).getKendoNumericTextBox();
+
+         $(self.selector).find('[name=AracSarjUyariLimit]').kendoNumericTextBox({
+             format: 'n2', decimals: 2, min: 0, spinners: false, step: 0
+         }).getKendoNumericTextBox();
+
+     }
+
+     function fSetAtributeFormElements() {
+         $(self.selector).find('[name=SiteAddress]').attr('required', 'required');
+         $(self.selector).find('[name=EmailPort]').attr('required', 'required');
+         $(self.selector).find('[name=AracRezervasyonSure]').attr('required', 'required');
+         $(self.selector).find('[name=MasterpassMerchantId]').attr('required', 'required');
+         $(self.selector).find('[name=AracSarjUyariLimit]').attr('required', 'required');
+     }
+
+     function fYetkiUygula() {
+         //Standart Yetkiler
+         var _C = mnUser.isYetkili(self.tableName + '.D_C.');
+         var _U = mnUser.isYetkili(self.tableName + '.D_U.');
+         var _D = mnUser.isYetkili(self.tableName + '.D_D.');
+
+         //ek yetkiler için)
+         //...
+
+         //Form İçin
+         if (_C || _U) {
+             $(self.selector).find('#btnKaydet').show();
+         } else {
+             $(self.selector).find('#btnKaydet').hide();
+         }
+
+        //form element görünümleri
+        var fieldList = [];
+        fieldList.push({ 'Name': 'SiteAddress', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'InstitutionEmail', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'AuditLog', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'AuditLogTables', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'EmailHost', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'EmailPort', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'EmailEnableSsl', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'EmailUserName', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'EmailPassword', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'SmsServiceBaseUrl', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'SmsServiceUrl', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'SmsServiceUserName', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'SmsServicePassword', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'SmsServiceBaslik', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'GoogleMapApiKey', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'MapTexBaseServiceUrl', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'MaptexApiKey', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'AracRezervasyonSure', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'MasterpassMerchantId', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'MasterpassServiceUrl', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'AracSarjUyariLimit', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+
+        for (var i in fieldList) {
+            var $elm = $(self.selector).find('.mnFormElementContainer .mnFormElementDiv[name=div' + fieldList[i].Name + ']');
+            if (fieldList[i].Visible) {
+                $elm.show();
+            } else {
+                $elm.hide();
+            }
+        }
+
+     }
+
+
+     function fGorunurlukUygula(dataItem) {
+        if (dataItem != null && dataItem != undefined) {
+            //invisibility
+            //visibility
+        }
+     }
+
+     self.prepare = function () {
+         // form element atribute set
+         fSetAtributeFormElements();
+         // DataSource
+         fCreateDataSource();
+         // form Elementler
+         fCreateFormElements();
+         // Language
+         mnLang.TranslateWithSelector(self.selector);
+     };
+
+     self.beforeShow = function (_opt) {
+         self.opt = $.extend({}, _opt);
+
+         if (self.opt.qprms.Id !== null && self.opt.qprms.Id > 0) {
+             self.dataSource.filter({ field: self.primaryKey, operator: 'eq', value: self.opt.qprms.Id });
+         } else {
+             self.dataSource.data([]); // eski data varsa işleme girmemesi için
+             self.dataSource.add();
+         }
+
+         self.tabstrip.select(0);
+     };
+
+     return self;
+ }();
+</script>

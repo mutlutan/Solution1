@@ -1,0 +1,112 @@
+[
+ {
+     "key" : "xLng.Role.Title",
+     "value": {
+         "tr": "Roller",
+         "en": "Roles"
+     }
+ },
+ {
+     "key" : "xLng.Role.ShortTitle",
+     "value": {
+         "tr": "Roller",
+         "en": "Roles"
+     }
+ }
+,
+ {
+     "key" : "xLng.Role.FormViewTab.I",
+     "value": {
+         "tr": "I",
+         "en": "I"
+     }
+ }
+,
+ {
+     "key" : "xLng.Role.GridFindTab.I",
+     "value": {
+         "tr": "I",
+         "en": "I"
+     }
+ }
+,
+ {
+     "key" : "xLng.Role.Id",
+     "value": {
+         "tr": "Id",
+         "en": "Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.Role.UniqueId",
+     "value": {
+         "tr": "Unique Id",
+         "en": "Unique Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.Role.IsActive",
+     "value": {
+         "tr": "Aktif",
+         "en": "Is Active"
+     }
+ }
+,
+ {
+     "key" : "xLng.Role.LineNumber",
+     "value": {
+         "tr": "Sıra",
+         "en": "LineNumber"
+     }
+ }
+,
+ {
+     "key" : "xLng.Role.Name",
+     "value": {
+         "tr": "Ad",
+         "en": "Name"
+     }
+ }
+,
+ {
+     "key" : "xLng.Role.Authority",
+     "value": {
+         "tr": "Yetki",
+         "en": "Authority"
+     }
+ }
+,
+ {
+     "key" : "xLng.Role.CreateDate",
+     "value": {
+         "tr": "Oluşturma Tarihi",
+         "en": "Create Date"
+     }
+ }
+,
+ {
+     "key" : "xLng.Role.CreatedUserId",
+     "value": {
+         "tr": "Ekleyen Kullanıcı",
+         "en": "User Who Added"
+     }
+ }
+,
+ {
+     "key" : "xLng.Role.UpdateDate",
+     "value": {
+         "tr": "Değiştirme Zamanı",
+         "en": "Update Time"
+     }
+ }
+,
+ {
+     "key" : "xLng.Role.UpdatedUserId",
+     "value": {
+         "tr": "Değiştiren Kullanıcı",
+         "en": "User Who Changed"
+     }
+ }
+]

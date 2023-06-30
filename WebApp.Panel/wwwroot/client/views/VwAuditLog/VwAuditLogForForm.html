@@ -1,0 +1,410 @@
+
+
+<div id='VwAuditLogForForm'>
+    <div id='divButtonGroup' class='mnButtonGroup float-end'>
+        <button id='btnKaydet' type='button' class='btn btn-outline-success text-nowrap' data-langkey-title='xLng.Kaydet'> <i class='fa fa-save'></i> </button>
+    </div>
+
+    <div class='mnFormElementContainer' style='padding-bottom:15px;'>
+        <div id='tabstrip'>
+            <ul>
+                <li data-tab-key='I'> <span data-langkey-text='xLng.VwAuditLog.FormViewTab.I'></span> </li>
+            </ul>
+            <div data-tab-key='I'>
+                <div class='row'>
+                    <div class='col-md-12'>
+                         <div name='divUserId' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='mn-required-span' data-langkey-text='xLng.VwAuditLog.UserId'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                 <input name='UserId' type='number' data-bind='value:UserId' data-langkey-placeholder='xLng.VwAuditLog.UserId'  readonly />
+                                 <span class='k-invalid-msg' data-for='UserId'></span>
+                             </div>
+                         </div>
+
+                         <div name='divUserType' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='' data-langkey-text='xLng.VwAuditLog.UserType'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                 <input name='UserType' type='text' class='form-control d-inline' data-bind='value:UserType' data-langkey-placeholder='xLng.VwAuditLog.UserType'  readonly   maxlength='50' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divUserName' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='' data-langkey-text='xLng.VwAuditLog.UserName'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                 <input name='UserName' type='text' class='form-control d-inline' data-bind='value:UserName' data-langkey-placeholder='xLng.VwAuditLog.UserName'  readonly   maxlength='50' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divUserIp' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='' data-langkey-text='xLng.VwAuditLog.UserIp'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                 <input name='UserIp' type='text' class='form-control d-inline' data-bind='value:UserIp' data-langkey-placeholder='xLng.VwAuditLog.UserIp'  readonly   maxlength='50' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divUserBrowser' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='' data-langkey-text='xLng.VwAuditLog.UserBrowser'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                 <input name='UserBrowser' type='text' class='form-control d-inline' data-bind='value:UserBrowser' data-langkey-placeholder='xLng.VwAuditLog.UserBrowser'  readonly   maxlength='250' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divOperationType' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='' data-langkey-text='xLng.VwAuditLog.OperationType'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                 <input name='OperationType' type='text' class='form-control d-inline' data-bind='value:OperationType' data-langkey-placeholder='xLng.VwAuditLog.OperationType'  readonly   maxlength='1' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divOperationDate' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='' data-langkey-text='xLng.VwAuditLog.OperationDate'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                 <input name='OperationDate' data-bind='value:OperationDate'  readonly />
+                                 <span class='k-invalid-msg' data-for='OperationDate'></span>
+                             </div>
+                         </div>
+
+                         <div name='divTableName' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='' data-langkey-text='xLng.VwAuditLog.TableName'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                 <input name='TableName' type='text' class='form-control d-inline' data-bind='value:TableName' data-langkey-placeholder='xLng.VwAuditLog.TableName'  readonly   maxlength='50' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divPrimaryKeyField' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='' data-langkey-text='xLng.VwAuditLog.PrimaryKeyField'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                 <input name='PrimaryKeyField' type='text' class='form-control d-inline' data-bind='value:PrimaryKeyField' data-langkey-placeholder='xLng.VwAuditLog.PrimaryKeyField'  readonly   maxlength='50' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divPrimaryKeyValue' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='' data-langkey-text='xLng.VwAuditLog.PrimaryKeyValue'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                 <input name='PrimaryKeyValue' type='text' class='form-control d-inline' data-bind='value:PrimaryKeyValue' data-langkey-placeholder='xLng.VwAuditLog.PrimaryKeyValue'  readonly   maxlength='50' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divCurrentValues' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='' data-langkey-text='xLng.VwAuditLog.CurrentValues'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                 <input name='CurrentValues' type='text' class='form-control d-inline' data-bind='value:CurrentValues' data-langkey-placeholder='xLng.VwAuditLog.CurrentValues'  readonly    autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divOriginalValues' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='' data-langkey-text='xLng.VwAuditLog.OriginalValues'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                 <input name='OriginalValues' type='text' class='form-control d-inline' data-bind='value:OriginalValues' data-langkey-placeholder='xLng.VwAuditLog.OriginalValues'  readonly    autocomplete='off' />
+                             </div>
+                         </div>
+
+
+                    </div>
+
+                    <div class='col-lg-6 col-md-12'>
+
+                    </div>
+
+                    <div class='col-lg-6 col-md-12'>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+ window.VwAuditLogForForm = function () {
+     var self = {};
+     self.opt = null;
+     self.title = 'xLng.VwAuditLog.Title';
+     self.selector = '#VwAuditLogForForm';
+     self.primaryKey = 'Id';
+     self.tableName = 'VwAuditLog';
+     self.apiUrlPrefix = '/Panel/Api' + self.tableName;
+
+     function fCreateDataSource() {
+         self.dataSource = new kendo.data.DataSource({
+             transport: {
+                 read: { type: 'POST', url: self.apiUrlPrefix + '/Read', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 create: { type: 'POST', url: self.apiUrlPrefix + '/Create', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 update: { type: 'POST', url: self.apiUrlPrefix + '/Update', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 destroy: { type: 'POST', url: self.apiUrlPrefix + '/Delete', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 parameterMap: function (data, operation) {
+                     if (operation === 'read') {
+                         return kendo.stringify(data);
+                     }
+                     else if (operation === 'create' || operation === 'update') {
+                         data.OperationDate = kendo.toString(data.OperationDate, 's');
+
+                         return kendo.stringify(data);
+                     }
+                     else if (operation === 'destroy') {
+                         return kendo.stringify(data);
+                     }
+                 }
+             },
+             pageSize: 10, serverPaging: true, serverSorting: true, serverFiltering: true, serverGrouping: true, serverAggregates: true,
+             schema: {
+                 errors: 'Errors', data: 'Data', total: 'Total', aggregates: 'AggregateResults',
+                 model: {
+                     id: self.primaryKey,
+                     fields: {
+                         Id: { type: 'string', defaultValue: null },
+                         UserId: { type: 'number', editable:false },
+                         UserType: { type: 'string', editable:false },
+                         UserName: { type: 'string', editable:false },
+                         UserIp: { type: 'string', editable:false },
+                         UserBrowser: { type: 'string', editable:false },
+                         UserSessionGuid: { type: 'string', editable:false },
+                         OperationType: { type: 'string', editable:false },
+                         OperationDate: { type: 'date', editable:false },
+                         TableName: { type: 'string', editable:false },
+                         PrimaryKeyField: { type: 'string', editable:false },
+                         PrimaryKeyValue: { type: 'string', editable:false },
+                         CurrentValues: { type: 'string', editable:false },
+                         OriginalValues: { type: 'string', editable:false }
+                     }
+                 }
+             },
+             error: function (e) {
+                 if (e.xhr === null) { mnNotification.warning(e.errors); } else { mnErrorHandler.Handle(e.xhr); }
+                 //this.cancelChanges();
+             },
+             requestStart: function (e) {
+                 setTimeout(function () {
+                     kendo.ui.progress($(self.selector), true); //progress On
+                 });
+             },
+             requestEnd: function (e) {
+                 setTimeout(function () {
+                     kendo.ui.progress($(self.selector), false); //progress Off
+                 });
+
+                 if (e.response !== undefined && e.response.Errors === null) {
+                     if (e.type === 'create' || e.type === 'update' || e.type === 'destroy') {
+                         mnLookup.listRead(self.tableName);
+                     }
+                     if (e.type === 'create') {
+                         mnNotification.success(mnLang.TranslateWithWord('xLng.KayitEklendi'));
+                     }
+                     if (e.type === 'update') {
+                         mnNotification.success(mnLang.TranslateWithWord('xLng.KayitDuzeltildi'));
+                     }
+                     if (e.type === 'destroy') {
+                         mnNotification.success(mnLang.TranslateWithWord('xLng.KayitSilindi'));
+                     }
+
+                     if (e.response.Data.length > 0) {
+                     }
+                 }
+             },
+             change: function (e) {
+                 if (e.items[0] !== undefined) {
+                     if (e.items[0].get(self.primaryKey) === null) {
+                         $.ajax({
+                             url: self.apiUrlPrefix + '/GetByNew', type: 'GET', dataType: 'json', async: false,
+                             success: function (result) {
+                                 e.items[0].Id = result.Id;
+                                 e.items[0].UserId = result.UserId;
+                                 e.items[0].UserType = result.UserType;
+                                 e.items[0].UserName = result.UserName;
+                                 e.items[0].UserIp = result.UserIp;
+                                 e.items[0].UserBrowser = result.UserBrowser;
+                                 e.items[0].UserSessionGuid = result.UserSessionGuid;
+                                 e.items[0].OperationType = result.OperationType;
+                                 e.items[0].OperationDate = kendo.parseDate(result.OperationDate);
+                                 e.items[0].TableName = result.TableName;
+                                 e.items[0].PrimaryKeyField = result.PrimaryKeyField;
+                                 e.items[0].PrimaryKeyValue = result.PrimaryKeyValue;
+                                 e.items[0].CurrentValues = result.CurrentValues;
+                                 e.items[0].OriginalValues = result.OriginalValues;
+                                 //computed alanların tanımlanması
+                                 //filterdan gelen default value set için
+                                 $(self.opt.filters).each(function (index, row) {
+                                     if (row.filterColumnName !== 'Id') {
+                                        e.items[0].set(row.filterColumnName, row.filterValue);
+                                     }
+                                 });
+
+                             },
+                             error: function (xhr, status) {
+                                 mnErrorHandler.Handle(xhr);
+                             }
+                         });
+                     }
+                     // Bind
+                     kendo.bind($(self.selector), e.items[0]);
+
+                     //validator refresh
+                     setTimeout(function () {
+                        fValidateAll();
+                     },1000);
+
+                 }
+
+                 // Yetki
+                 fYetkiUygula();
+
+                 // ve gerekebilecek diğer işlemler
+                 // ...
+             }
+         });
+     }
+
+     function fValidateAll() {
+        $(self.selector).find('#tabstrip ul li[data-tab-key]').removeClass('mn-invalid');
+        let rValid = true;
+
+        if (!self.validatorI.validate()) {
+            rValid = false;
+            $(self.selector).find('#tabstrip ul li[data-tab-key=I]').addClass('mn-invalid')
+        }
+        
+        return rValid
+     }
+
+     function fCreateFormElements() {
+         // tabstrip
+         self.tabstrip = $(self.selector).find('#tabstrip').kendoTabStrip({
+             animation: false, tabPosition: 'top'
+         }).getKendoTabStrip();
+         self.tabstrip.select(0);
+
+         //create validators
+         self.validatorI = mnApp.createValidator($(self.selector).find('.mnFormElementContainer div[data-tab-key=I]'), mnApp.validatorErrorTemplateIconMsg);
+
+         //butonlar
+         $(self.selector).find('#btnKaydet').click(function (e) {
+             mnApi.controlDisableWait($(e.target));
+             if (fValidateAll()) {
+                 if (self.dataSource.at(0).dirty) {
+                     self.dataSource.sync();
+                 } else {
+                     mnAlert.warning(mnLang.TranslateWithWord('xLng.KayyittaDegisiklikYapmadiniz'));
+                 }
+             } else {
+                 mnAlert.warning(mnLang.TranslateWithWord('xLng.DoldurulmasiGerekenAlanlarVar'));
+             }
+         });
+
+         //Diğer Form elementleri
+         $(self.selector).find('[name=UserId]').kendoNumericTextBox({
+             format: 'n0', decimals: 0, min: 0, spinners: false, step: 0
+         }).getKendoNumericTextBox();
+
+         $(self.selector).find('[name=OperationDate]').kendoDateTimePicker({
+             componentType: mnApp.kendoDateTimePiker_ComponentType,
+             dateInput: mnApp.kendoDateTimePiker_DateInput
+         }).getKendoDateTimePicker();
+
+     }
+
+     function fSetAtributeFormElements() {
+         $(self.selector).find('[name=UserId]').attr('required', 'required');
+     }
+
+     function fYetkiUygula() {
+         //Standart Yetkiler
+         var _C = mnUser.isYetkili(self.tableName + '.D_C.');
+         var _U = mnUser.isYetkili(self.tableName + '.D_U.');
+         var _D = mnUser.isYetkili(self.tableName + '.D_D.');
+
+         //ek yetkiler için)
+         //...
+
+         //Form İçin
+         if (_C || _U) {
+             $(self.selector).find('#btnKaydet').show();
+         } else {
+             $(self.selector).find('#btnKaydet').hide();
+         }
+
+        //form element görünümleri
+        var fieldList = [];
+        fieldList.push({ 'Name': 'UserId', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'UserType', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'UserName', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'UserIp', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'UserBrowser', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'OperationType', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'OperationDate', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'TableName', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'PrimaryKeyField', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'PrimaryKeyValue', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'CurrentValues', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'OriginalValues', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+
+        for (var i in fieldList) {
+            var $elm = $(self.selector).find('.mnFormElementContainer .mnFormElementDiv[name=div' + fieldList[i].Name + ']');
+            if (fieldList[i].Visible) {
+                $elm.show();
+            } else {
+                $elm.hide();
+            }
+        }
+
+     }
+
+
+     function fGorunurlukUygula(dataItem) {
+        if (dataItem != null && dataItem != undefined) {
+            //invisibility
+            //visibility
+        }
+     }
+
+     self.prepare = function () {
+         // form element atribute set
+         fSetAtributeFormElements();
+         // DataSource
+         fCreateDataSource();
+         // form Elementler
+         fCreateFormElements();
+         // Language
+         mnLang.TranslateWithSelector(self.selector);
+     };
+
+     self.beforeShow = function (_opt) {
+         self.opt = $.extend({}, _opt);
+
+         if (self.opt.qprms.Id !== null && self.opt.qprms.Id.length > 0) {
+             self.dataSource.filter({ field: self.primaryKey, operator: 'eq', value: self.opt.qprms.Id });
+         } else {
+             self.dataSource.data([]); // eski data varsa işleme girmemesi için
+             self.dataSource.add();
+         }
+
+         self.tabstrip.select(0);
+     };
+
+     return self;
+ }();
+</script>

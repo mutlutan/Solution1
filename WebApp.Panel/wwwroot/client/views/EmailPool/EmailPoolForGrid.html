@@ -1,0 +1,515 @@
+
+<div id='EmailPoolForGrid'>
+    <div>
+        <div class='mnFindPanel'>
+            <div class='mnFindPanelRow'>
+                <div class='mnFindElementContainer'>
+                    <div name='divEmailTemplateId' class='mnFindElementDiv'>
+                        <label class='col-form-label me-2' data-langkey-text='xLng.EmailPool.EmailTemplateId'></label>
+                        <input type='text' style='width:125px' data-find_option='auto' data-find_type='System.Int32' data-find_field='EmailTemplateId' data-find_operator='eq' autocomplete='off' />
+                    </div>
+
+                    <div name='divEmailPoolStatusId' class='mnFindElementDiv'>
+                        <label class='col-form-label me-2' data-langkey-text='xLng.EmailPool.EmailPoolStatusId'></label>
+                        <input type='text' style='width:125px' data-find_option='auto' data-find_type='System.Int32' data-find_field='EmailPoolStatusId' data-find_operator='eq' autocomplete='off' />
+                    </div>
+
+                    <div name='divTryQuantity' class='mnFindElementDiv'>
+                        <label class='col-form-label me-2' data-langkey-text='xLng.EmailPool.TryQuantity'></label>
+                        <input type='text' style='width:112px' data-find_option='auto' data-find_type='System.Int32' data-find_field='TryQuantity' data-find_operator='eq' autocomplete='off' />
+                    </div>
+
+                    <div name='divLastTryDate' class='mnFindElementDiv'>
+                        <label class='col-form-label me-2' data-langkey-text='xLng.EmailPool.LastTryDate'></label>
+                        <input type='text' class='me-2' style='width:218px' data-find_option='auto' data-find_type='System.DateTime' data-find_field='LastTryDate' data-find_operator='gte' />
+                        <input type='text' style='width:218px' data-find_option='auto' data-find_type='System.DateTime' data-find_field='LastTryDate' data-find_operator='lte' />
+                    </div>
+
+                    <div name='divEmailTo' class='mnFindElementDiv'>
+                        <label class='col-form-label me-2' data-langkey-text='xLng.EmailPool.EmailTo'></label>
+                        <input type='text' class='form-control d-inline' style='width:130px' data-find_option='auto' data-find_type='System.String' data-find_field='EmailTo' data-find_operator='contains' autocomplete='off' />
+                    </div>
+
+                    <div name='divEmailSubject' class='mnFindElementDiv'>
+                        <label class='col-form-label me-2' data-langkey-text='xLng.EmailPool.EmailSubject'></label>
+                        <input type='text' class='form-control d-inline' style='width:130px' data-find_option='auto' data-find_type='System.String' data-find_field='EmailSubject' data-find_operator='contains' autocomplete='off' />
+                    </div>
+
+                </div>
+            </div>
+
+            <div id='divButtonGroup' class='float-end pb-2'>
+                <button id='btnFlitreUygula' type='button' class='btn btn-outline-warning btn-sm text-nowrap mn-hover-color-white' data-langkey-title='xLng.Uygula'> <i class='fa fa-binoculars'></i> <span data-langkey-text='xLng.Uygula'></span> </button>
+            </div>
+        </div>
+
+        <div id='divGrid'></div>
+    </div>
+</div>
+
+<script>
+ window.EmailPoolForGrid = function () {
+     var self = {};
+     self.opt = null;
+     self.title = 'xLng.EmailPool.Title';
+     self.selector = '#EmailPoolForGrid';
+     self.primaryKey = 'Id';
+     self.tableName = 'EmailPool';
+     self.apiUrlPrefix = '/Panel/Api' + self.tableName;
+
+     function fCreateDataSource() {
+         self.dataSource = new kendo.data.DataSource({
+             transport: {
+                 read: { type: 'POST', url: self.apiUrlPrefix + '/Read', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 create: { type: 'POST', url: self.apiUrlPrefix + '/Create', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 update: { type: 'POST', url: self.apiUrlPrefix + '/Update', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 destroy: { type: 'POST', url: self.apiUrlPrefix + '/Delete', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 parameterMap: function (data, operation) {
+                     if (operation === 'read') {
+                         return kendo.stringify(data);
+                     }
+                     else if (operation === 'create' || operation === 'update') {
+                         data.LastTryDate = kendo.toString(data.LastTryDate, 's');
+                         data.CreateDate = kendo.toString(data.CreateDate, 's');
+                         data.UpdateDate = kendo.toString(data.UpdateDate, 's');
+                         return kendo.stringify(data);
+                     }
+                     else if (operation === 'destroy') {
+                         return kendo.stringify(data);
+                     }
+                 }
+             },
+             pageSize: 10, serverPaging: true, serverSorting: true, serverFiltering: true, serverGrouping: true, serverAggregates: true,
+             sort: [
+             ],
+             schema: {
+                 errors: 'Errors', data: 'Data', total: 'Total', aggregates: 'AggregateResults',
+                 model: {
+                     id: self.primaryKey,
+                     fields: {
+                         Id: { type: 'number', defaultValue: null  },
+                         EmailTemplateId: { type: 'number' },
+                         EmailPoolStatusId: { type: 'number' },
+                         TryQuantity: { type: 'number' },
+                         LastTryDate: { type: 'date' },
+                         Description: { type: 'string' },
+                         EmailTo: { type: 'string' },
+                         EmailCc: { type: 'string' },
+                         EmailBcc: { type: 'string' },
+                         EmailSubject: { type: 'string' },
+                         EmailContent: { type: 'string' },
+                         UniqueId: { type: 'string', editable:false },
+                         CreateDate: { type: 'date', editable:false },
+                         CreatedUserId: { type: 'number', editable:false },
+                         UpdateDate: { type: 'date', editable:false },
+                         UpdatedUserId: { type: 'number', editable:false },
+                         CcEmailTemplateIdName: { type: 'string' },
+                         CcEmailPoolStatusIdName: { type: 'string' }
+                     }
+                 }
+             },
+             error: function (e) {
+                 if (e.xhr === null) { mnNotification.warning(e.errors); } else { mnErrorHandler.Handle(e.xhr); }
+                 this.cancelChanges();
+             },
+             requestStart: function (e) {
+             },
+             requestEnd: function (e) {
+                 if (e.response !== undefined && e.response.Errors === null) {
+                     if (e.type === 'create' || e.type === 'update' || e.type === 'destroy') {
+                         mnLookup.listRead(self.tableName);
+                     }
+                     if (e.type === 'create') {
+                         mnNotification.success(mnLang.TranslateWithWord('xLng.KayitEklendi'));
+                     }
+                     if (e.type === 'update') {
+                         mnNotification.success(mnLang.TranslateWithWord('xLng.KayitDuzeltildi'));
+                     }
+                     if (e.type === 'destroy') {
+                         mnNotification.success(mnLang.TranslateWithWord('xLng.KayitSilindi'));
+                     }
+                 }
+             },
+             change: function (e) {
+                 if (e.items[0] !== undefined) {
+                     if (e.items[0].get(self.primaryKey) === null) {
+                         $.ajax({
+                             url: self.apiUrlPrefix + '/GetByNew', type: 'GET', dataType: 'json', async: false,
+                             success: function (result) {
+                                 e.items[0].Id = result.Id;
+                                 e.items[0].EmailTemplateId = result.EmailTemplateId;
+                                 e.items[0].EmailPoolStatusId = result.EmailPoolStatusId;
+                                 e.items[0].TryQuantity = result.TryQuantity;
+                                 e.items[0].LastTryDate = kendo.parseDate(result.LastTryDate);
+                                 e.items[0].Description = result.Description;
+                                 e.items[0].EmailTo = result.EmailTo;
+                                 e.items[0].EmailCc = result.EmailCc;
+                                 e.items[0].EmailBcc = result.EmailBcc;
+                                 e.items[0].EmailSubject = result.EmailSubject;
+                                 e.items[0].EmailContent = result.EmailContent;
+                                 e.items[0].UniqueId = result.UniqueId;
+                                 e.items[0].CreateDate = kendo.parseDate(result.CreateDate);
+                                 e.items[0].CreatedUserId = result.CreatedUserId;
+                                 e.items[0].UpdateDate = kendo.parseDate(result.UpdateDate);
+                                 e.items[0].UpdatedUserId = result.UpdatedUserId;
+                                 //computed alanların tanımlanması
+                                 e.items[0].CcEmailTemplateIdName = result.CcEmailTemplateIdName;
+                                 e.items[0].CcEmailPoolStatusIdName = result.CcEmailPoolStatusIdName;
+                                 //filterdan gelen default value set için
+                                 $(self.opt.filters).each(function (index, row) {
+                                     if (row.filterColumnName !== 'Id') {
+                                        e.items[0].set(row.filterColumnName, row.filterValue);
+                                     }
+                                 });
+
+                             },
+                             error: function (xhr, status) {
+                                 mnErrorHandler.Handle(xhr);
+                             }
+                         });
+                     }
+                 }
+                 // ve gerekebilecek diğer işlemler
+                 // ...
+             }
+         });
+     }
+
+     function fCreateGrid() {
+         self.grid = $(self.selector).find('#divGrid').kendoGrid({
+             excel: { allPages: true, fileName: mnLang.TranslateWithWord(self.title) },
+             excelExport: mnApp.exportGridWithTemplatesContentForKendo,
+             autoBind: false, resizable: true, reorderable: true,
+             sortable: { mode: 'multiple', allowUnsort: true, showIndexes: true },
+             pageable: {
+                 refresh: true, pageSizes: mnApp.gridPageSizes_default, buttonCount: 5, input: true,
+                 messages: { itemsPerPage: '' }
+             },
+             editable: {
+                 confirmation: true, mode: 'inline', createAt: 'bottom'
+             },
+             columns: [
+             {
+                 locked: true,
+                 headerTemplate: '<span id="btnEkle" style=" " title="' + mnLang.TranslateWithWord("xLng.Ekle") + '" ></span>'+'<span id="btnSaveAsExcel" style=" " title="' + mnLang.TranslateWithWord("xLng.SaveAsExcel") + '" ></span>',
+                 width: '95px',
+                 command: [
+                     { name: 'edit', buttonType: 'ImageAndText', text: { cancel: '', update: '', edit: '' }, attr: 'style=" " data-langkey-title="xLng.Duzelt" ' },
+                     { name: 'destroy', buttonType: 'ImageAndText', text: '', attr: 'style=" " data-langkey-title="xLng.Sil"' }
+                 ]
+             },
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.EmailPool.EmailTemplateId'),
+                 field: 'EmailTemplateId',
+                 template: '#:CcEmailTemplateIdName#',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '100px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.EmailPool.EmailPoolStatusId'),
+                 field: 'EmailPoolStatusId',
+                 template: '#:CcEmailPoolStatusIdName#',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '100px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.EmailPool.TryQuantity'),
+                 field: 'TryQuantity',
+                 format: '{0:n0}',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '90px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.EmailPool.LastTryDate'),
+                 field: 'LastTryDate',
+                 format: '{0:g}',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '145px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.EmailPool.Description'),
+                 field: 'Description',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '130px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.EmailPool.EmailTo'),
+                 field: 'EmailTo',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '130px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.EmailPool.EmailCc'),
+                 field: 'EmailCc',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '130px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.EmailPool.EmailBcc'),
+                 field: 'EmailBcc',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '130px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.EmailPool.EmailSubject'),
+                 field: 'EmailSubject',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '130px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.EmailPool.EmailContent'),
+                 field: 'EmailContent',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '130px'
+             },
+
+             {}
+             ],
+             edit: function (e) {
+                 var model=e.model;
+                 this.cancelRow();
+                 mnPageView.create({
+                     viewFolder: 'EmailPool',
+                     viewName: 'EmailPoolForForm',
+                     subTitle: mnLang.TranslateWithWord('xLng.DuzenlemeIslemleri'),
+                     onShow: function (e) {
+                        var qprms = { 'Id': model.Id };
+                         e.beforeShow({'ownerViewName':'EmailPoolForGrid', 'qprms': qprms });
+                     },
+                     onClose: function (e) {
+                         self.dataSource.read();
+                     }
+                 });
+             },
+             cancel: function (e) {
+                 if (e.model.id !== null) {
+                     e.sender.refresh(); //databound da renklendirme ve button set etme var ise ,cancelden sonra databound çalışmıyor(yetki,renk style ayarlanamıyor) bununla refresh ediyosun
+                 }
+             },
+             dataBound: function (e) {
+                var data = e.sender.dataSource.data();
+                 //yetki
+                 self.YetkiUygula(data);
+
+                 // Language
+                 mnLang.TranslateWithSelector(e.sender.wrapper);
+
+                 //row style
+             },
+             dataSource: self.dataSource
+         }).getKendoGrid();
+
+         self.grid.wrapper.find('#btnEkle').kendoButton({
+             icon: 'plus',
+             click: function () {
+                 mnPageView.create({
+                     viewFolder: 'EmailPool',
+                     viewName: 'EmailPoolForForm',
+                     subTitle: mnLang.TranslateWithWord('xLng.DuzenlemeIslemleri'),
+                     onShow: function (e) {
+                        var qprms = { 'Id': null };
+                         e.beforeShow({'ownerViewName':'EmailPoolForGrid', 'qprms': qprms });
+                     },
+                     onClose: function (e) {
+                         self.dataSource.read();
+                     }
+                 });
+             }
+         });
+
+         self.grid.wrapper.find('#btnSaveAsExcel').kendoButton({
+             icon: 'excel',
+             click: function () {
+                 kendo.ui.progress(self.grid.wrapper, true); //progress On
+                 self.grid.saveAsExcel();
+             }
+         });
+     }
+
+     function fCreateFindElements() {
+         // Find Panel
+         self.mnFindPanel = $(self.selector).find('.mnFindPanel').kendoExpansionPanel({
+             title: mnLang.TranslateWithWord('xLng.Filtrele')
+         }).data('kendoExpansionPanel');
+
+         // filter buton
+         $(self.selector).find('#btnFlitreUygula').click(function (e) {
+             self.filter();
+         });
+
+         // filter tetikleyicileri
+         $(self.selector).find('[data-find_option]').keydown(function (e) {
+             if (e.which === 13) {
+                 e.preventDefault();
+                 self.filter();
+             }
+         });
+
+         // Filter elementleri
+         $(self.selector).find('[data-find_field=EmailTemplateId]').kendoDropDownList({
+             valuePrimitive: true,
+             optionLabel: mnLang.TranslateWithWord('xLng.Seciniz'),
+             dataValueField: 'value',
+             dataTextField: 'text',
+             dataSource: mnLookup.listLoad({
+                 ViewName: 'EmailPoolForForm',
+                 ViewFieldName: 'EmailTemplateId',
+                 TableName: 'EmailTemplate',
+                 ValueField: 'Id',
+                 TextField: 'Name',
+                 Filters: [
+                     { Field: 'Id', Operator: '>=', Value: '0' }
+                 ],
+                 Sorts: [
+                                 { Field: 'Name', Dir: 'asc' }
+                 ]
+             })
+         }).getKendoDropDownList();
+
+         $(self.selector).find('[data-find_field=EmailPoolStatusId]').kendoDropDownList({
+             valuePrimitive: true,
+             optionLabel: mnLang.TranslateWithWord('xLng.Seciniz'),
+             dataValueField: 'value',
+             dataTextField: 'text',
+             dataSource: mnLookup.listLoad({
+                 ViewName: 'EmailPoolForForm',
+                 ViewFieldName: 'EmailPoolStatusId',
+                 TableName: 'EmailPoolStatus',
+                 ValueField: 'Id',
+                 TextField: 'Name',
+                 Filters: [
+                     { Field: 'Id', Operator: '>=', Value: '0' }
+                 ],
+                 Sorts: [
+                                 { Field: 'Name', Dir: 'asc' }
+                 ]
+             })
+         }).getKendoDropDownList();
+
+         $(self.selector).find('[data-find_field=TryQuantity]').kendoNumericTextBox({
+             format: 'n0', decimals: 0, min: 0, spinners: false, step: 0
+         }).getKendoNumericTextBox();
+
+         $(self.selector).find('[data-find_field=LastTryDate]').kendoDateTimePicker({
+             componentType: mnApp.kendoDateTimePiker_ComponentType,
+             dateInput: mnApp.kendoDateTimePiker_DateInput,
+             close: function (e) {
+                 if ($(e.sender.wrapper).find('input').attr('data-find_operator') === 'lte') {
+                     var tarihSaat = this.value();
+                     if (tarihSaat !== null) {
+                         if (tarihSaat.getHours() === 0 || tarihSaat.getMinutes() === 0) {
+                             tarihSaat.setHours(23);
+                             tarihSaat.setMinutes(59);
+                         }
+                     }
+                     this.value(tarihSaat);
+                 }
+             }
+         }).getKendoDateTimePicker();
+
+     }
+
+     self.YetkiUygula = function (_data) {
+         //Standart Yetkiler
+         var _C = mnUser.isYetkili(self.tableName + '.D_C.');
+         var _U = mnUser.isYetkili(self.tableName + '.D_U.');
+         var _D = mnUser.isYetkili(self.tableName + '.D_D.');
+         var _E = mnUser.isYetkili(self.tableName + '.D_E.');
+
+         //ek yetkiler için
+         //...
+
+        //form element görünümleri
+        var fieldList = [];
+        fieldList.push({ 'Name': 'EmailTemplateId', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'EmailPoolStatusId', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'TryQuantity', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'LastTryDate', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'EmailTo', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'EmailSubject', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+
+        for (var i in fieldList) {
+            var $elm = $(self.selector).find('.mnFindElementContainer .mnFindElementDiv[name=div' + fieldList[i].Name + ']');
+            if (fieldList[i].Visible) {
+                $elm.show();
+            } else {
+                $elm.hide();
+            }
+        }
+
+         //grid ekle button için
+         mnApi.controlShowHide(self.grid.wrapper.find('#btnEkle'), _C);
+         //grid exel button için
+         mnApi.controlShowHide(self.grid.wrapper.find('#btnSaveAsExcel'), _E);
+
+         //grid rows için
+         $.each(_data, function (i, row) {
+             var _tr = self.grid.wrapper.find('tr[data-uid=' + row.uid + ']');
+             var tr_U = _U;
+             var tr_D = _D;
+
+             //update-delete button için
+             mnApi.controlEnable(_tr.find('.k-grid-delete'), tr_D);
+
+
+             //row değerine göre yetkiler
+             //...
+
+         });
+     };
+
+     self.prepare = function () {
+         // DataSource
+         fCreateDataSource();
+
+         // find Elementler
+         fCreateFindElements();
+
+         // Grid
+         fCreateGrid();
+
+         // Language
+         mnLang.TranslateWithSelector(self.selector);
+     };
+
+     self.beforeShow = function (_opt) {
+         self.opt = $.extend({}, _opt);
+
+         self.filter();
+
+     };
+
+     self.filter = function (_data) {
+         self.dataSource.filter(mnApp.find_options_ToFilterList(self));
+     };
+
+     self.close = function () {
+         if ($(self.selector).closest('.k-window-content').getKendoWindow()) {
+             $(self.selector).closest('.k-window-content').getKendoWindow().close(); // popup ise
+         } else {
+             $(self.selector).closest('.mnPageView').find('#btnGeri').click(); // page ise
+         }
+     };
+
+     return self;
+ }();
+</script>

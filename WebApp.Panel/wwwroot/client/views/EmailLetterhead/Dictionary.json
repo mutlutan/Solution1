@@ -1,0 +1,88 @@
+[
+ {
+     "key" : "xLng.EmailLetterhead.Title",
+     "value": {
+         "tr": "E-mail Antet",
+         "en": "E-mail Letterhead"
+     }
+ },
+ {
+     "key" : "xLng.EmailLetterhead.ShortTitle",
+     "value": {
+         "tr": "E-mail Antet",
+         "en": "E-mail Letterhead"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailLetterhead.FormViewTab.I",
+     "value": {
+         "tr": "Genel Bilgiler",
+         "en": "General Info"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailLetterhead.Id",
+     "value": {
+         "tr": "Id",
+         "en": "Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailLetterhead.Description",
+     "value": {
+         "tr": "Tanım",
+         "en": "Description"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailLetterhead.Content",
+     "value": {
+         "tr": "İçerik",
+         "en": "Content"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailLetterhead.UniqueId",
+     "value": {
+         "tr": "Unique Id",
+         "en": "Unique Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailLetterhead.CreateDate",
+     "value": {
+         "tr": "Eklenme Zamanı",
+         "en": "Time To Add"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailLetterhead.CreatedUserId",
+     "value": {
+         "tr": "Ekleyen Kullanıcı",
+         "en": "User Who Added"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailLetterhead.UpdateDate",
+     "value": {
+         "tr": "Değiştirme Zamanı",
+         "en": "Update Time"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailLetterhead.UpdatedUserId",
+     "value": {
+         "tr": "Değiştiren Kullanıcı",
+         "en": "User Who Changed"
+     }
+ }
+]

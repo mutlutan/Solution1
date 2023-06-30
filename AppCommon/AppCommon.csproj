@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="DataLayer\DataLog\SqlScript\111_Tables.sql" />
+    <None Remove="DataLayer\DataLog\SqlScript\201_Views.sql" />
+    <None Remove="DataLayer\DataMain\SqlScript\111_Tables.sql" />
+    <None Remove="DataLayer\DataMain\SqlScript\121_Insert.sql" />
+    <None Remove="DataLayer\DataMain\SqlScript\122_Insert.sql" />
+    <None Remove="DataLayer\DataMain\SqlScript\123_Insert.sql" />
+    <None Remove="DataLayer\DataMain\SqlScript\201_Views.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="DataLayer\DataLog\SqlScript\111_Tables.sql" />
+    <EmbeddedResource Include="DataLayer\DataLog\SqlScript\201_Views.sql" />
+    <EmbeddedResource Include="DataLayer\DataMain\SqlScript\111_Tables.sql" />
+    <EmbeddedResource Include="DataLayer\DataMain\SqlScript\121_Insert.sql" />
+    <EmbeddedResource Include="DataLayer\DataMain\SqlScript\122_Insert.sql" />
+    <EmbeddedResource Include="DataLayer\DataMain\SqlScript\123_Insert.sql" />
+    <EmbeddedResource Include="DataLayer\DataMain\SqlScript\201_Views.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
+    <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite" Version="6.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Business\" />
+	</ItemGroup>
+
+</Project>

@@ -1,0 +1,195 @@
+﻿
+<div id='ViewMap'>
+    <div>
+        <comp-google-map center='{ "lat": 39.9187725, "lng": 32.85806 }' zoom='11' map-type-id="roadmap"></comp-google-map>
+    </div>
+</div>
+
+<style>
+    #ViewMap {
+    }
+</style>
+
+<script>
+    window.ViewMap = function () {
+        var self = {};
+        self.opt = null;
+        self.area = '_';
+        self.title = 'xLng.ViewMap.Title';
+        self.selector = '#ViewMap';
+        self.selectorForMap = 'comp-google-map';
+
+        self.polygonBolge = [];
+        self.polygonBolgeDetay = [];
+        self.markerSarjIstasyonlari = [];
+        self.markerAraclar = [];
+
+
+        //------------------------
+        async function fnReadBolge() {
+            const result = await fetch("/Panel/Maps/ReadBolge")
+                .then((response) => response.json());
+
+            if (result.Success == true) {
+                try {
+                    let item = result.Data;
+                    if (item.Polygon != null) {
+                        let polyCoords = item.Polygon.coordinates[0].map(d => {
+                            return new google.maps.LatLng(d[0], d[1]);
+                        });
+                        let prms = {
+                            paths: polyCoords,
+                            fillOpacity: 0.10,
+                            strokeColor: 'green'
+                        };
+
+                        // eğer daha önce eklenmemişse ekliyoruz, eklenmişse refresh ediyoruz
+                        if (self.polygonBolge[item.Id] == null) {
+                            let polygon = self.compGoogleMap.fnAddPolygon(prms);
+                            self.polygonBolge[item.Id] = polygon;
+                        } else {
+                            self.polygonBolge[item.Id].setOptions(prms);
+                        }
+                    }
+                } catch { };
+            }
+        }
+
+        async function fnReadBolgeDetayList() {
+            const result = await fetch("/Panel/Maps/ReadBolgeDetayList")
+                .then((response) => response.json());
+            if (result.Success == true) {
+                result.Data.forEach((item) => {
+                    try {
+                        if (item.Polygon != null) {
+                            let polyCoords = item.Polygon.coordinates[0].map(d => {
+                                return new google.maps.LatLng(d[0], d[1]);
+                            });
+
+                            let color = "yellow";
+                            //BolgeDetayTurId 0:Pasif, 1:Yasklı
+                            if (item.BolgeDetayTurId == 1) {
+                                color = "red";
+                            } else {
+                                color = item.ParkEdilebilirMi ? "blue" : "black";
+                            }
+                            
+                            let prms = {
+                                paths: polyCoords,
+                                fillOpacity: 0.30,
+                                strokeColor: color,
+                                strokeWeight: 2
+                            };
+
+                            // eğer daha önce eklenmemişse ekliyoruz, eklenmişse refresh ediyoruz
+                            if (self.polygonBolgeDetay[item.Id] == null) {
+                                let polygon = self.compGoogleMap.fnAddPolygon(prms);
+                                self.polygonBolgeDetay[item.Id] = polygon;
+                            } else {
+                                self.polygonBolgeDetay[item.Id].setOptions(prms);
+                            }
+                        }
+                    } catch { };
+                });
+            }
+        }
+
+        async function fnReadSarjIstasyonuList() {
+            const result = await fetch("/Panel/Maps/ReadSarjIstasyonuList")
+                .then((response) => response.json());
+            if (result.Success == true) {
+                result.Data.forEach((item) => {
+                    try {
+                        if (item.Konum != null) {
+                            let prms = {
+                                'title': item.Ad,
+                                'position': {
+                                    'lat': parseFloat(item.Konum.coordinates[0]),
+                                    'lng': parseFloat(item.Konum.coordinates[1])
+                                },
+                                'draggable': false,
+                                'icon': '/img/maps/markers/charging_station.png'
+                            };
+
+                            // eğer daha önce eklenmemişse ekliyoruz, eklenmişse refresh ediyoruz
+                            if (self.markerSarjIstasyonlari[item.Id] == null) {
+                                let marker = self.compGoogleMap.fnAddMarker(prms);
+                                self.markerSarjIstasyonlari[item.Id] = marker;
+                            } else {
+                                self.markerSarjIstasyonlari[item.Id].setOptions(prms);
+                            }
+                        }
+                    } catch { };
+                });
+            }
+        }
+
+        async function fnReadAracList() {
+            const result = await fetch("/Panel/Maps/ReadAracList")
+                .then((response) => response.json());
+            if (result.Success == true) {
+                result.Data.forEach((item) => {
+                    try {
+                        let prms = {
+                            'title': item.Ad,
+                            'position': {
+                                'lat': parseFloat(item.SonKonum.coordinates[0]),
+                                'lng': parseFloat(item.SonKonum.coordinates[1])
+                            },
+                            'draggable': false,
+                            'icon': '/img/maps/markers/bicycle_icon.png'
+                        };
+
+                        // eğer daha önce eklenmemişse ekliyoruz, eklenmişse refresh ediyoruz
+                        if (self.markerAraclar[item.Id] == null) {
+                            let marker = self.compGoogleMap.fnAddMarker(prms);
+                            self.markerAraclar[item.Id] = marker;
+                        } else {
+                            self.markerAraclar[item.Id].setOptions(prms);
+                        }
+                    } catch { };
+                });
+            }
+        }
+
+        self.prepare = async function () {
+            //map comp instance
+            self.compGoogleMap = document.querySelector(self.selector).querySelector(self.selectorForMap);
+
+            window.onresize = () => {
+                var newHeight = window.innerHeight - self.compGoogleMap.getBoundingClientRect().top - 21;
+                self.compGoogleMap.setAttribute("height", newHeight);
+            };
+
+            setInterval(() => fnReadSarjIstasyonuList(), 1000 * 60 * 5);
+            setInterval(() => fnReadAracList(), 1000 * 5);
+
+            await fnReadBolge();
+            await fnReadBolgeDetayList();
+            fnReadSarjIstasyonuList();
+            fnReadAracList();
+
+            // Language
+            mnLang.TranslateWithSelector(self.selector);
+        };
+
+        self.beforeShow = function (_opt) {
+            //console.log(_opt);
+            self.opt = $.extend({}, _opt);
+
+            setTimeout(function () {
+                $(window).resize();
+            }, 500);
+        };
+
+        self.close = function () {
+            if ($(self.selector).closest('.k-window-content').getKendoWindow()) {
+                $(self.selector).closest('.k-window-content').getKendoWindow().close(); // popup ise
+            } else {
+                $(self.selector).closest('.mnPageView').find('#btnGeri').click(); // page ise
+            }
+        };
+
+        return self;
+    }();
+</script>

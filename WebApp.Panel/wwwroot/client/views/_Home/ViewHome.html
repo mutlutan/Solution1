@@ -1,0 +1,152 @@
+﻿
+<div id='ViewHome'>
+    <template id="divTemp_template1">
+        <div name="divDasboard" class="col-lg-3 col-md-6 col-sm-12 mb-3">
+            <div class="h-100 card rounded-0 mn-box-shadow mn-opacity-070 mn-opacity-hover-1">
+                <a data-bind="attr:{href:DetailUrl}" class="w-100 text-decoration-none">
+                    <div class="d-flex align-items-center justify-content-between card-body">
+                        <div>
+                            <h4 class="fw-normal text-red" data-bind="html:Value"></h4>
+                            <p class="subtitle text-sm text-muted mb-0" data-bind="html:Text"></p>
+                        </div>
+                        <div class="flex-shrink-0 ms-3 text-red">
+                            <i data-bind="attr:{style:IconStyle, class:IconClass}"></i>
+                        </div>
+                    </div>
+                </a>
+                <div class="py-0 bg-red-light card-footer">
+                    <div class="align-items-center text-red row">
+                        <div class="col-9">
+                            <i class="fa fa-clock-o"></i>
+                            <span data-bind="text:Saat"></span>
+                        </div>
+                        <div class="text-end col-3">
+                            <span name="btnRefresh" class="btn btn-light"> <i class="fa fa-refresh"></i> </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <div id="divTemps">
+        <div name="divTemp_template1" class="row">
+        </div>
+
+        <div name="divTemp_template2" class="row">
+        </div>
+    </div>
+</div>
+
+<style>
+    #ViewHome {
+    }
+</style>
+
+<script>
+    window.ViewHome = function () {
+        var self = {};
+        self.opt = null;
+        self.area = '_';
+        self.title = 'xLng.ViewHome.Title';
+        self.selector = '#ViewHome';
+
+        self.fnAddDashboard = function (dataItem) {
+            var tempText = $(self.selector).find("template#divTemp_" + dataItem.TemplateName).html();
+            var $template = $(tempText);
+            $template.attr("data-id", dataItem.Id);
+            $(self.selector).find('[name=divTemp_' + dataItem.TemplateName + ']').append($template);
+        }
+
+        self.fnRefreshDashboard = function (dataItem) {
+            kendo.bind($(self.selector).find('[name=divTemp_template1] [name=divDasboard][data-id=' + dataItem.Id + ']'), dataItem);
+        }
+
+        self.fnReadDashboardList = function () {
+            $.ajax({
+                url: "/Panel/Dashboard/ReadDashboardList",
+                type: "GET", dataType: "json", contentType: "application/json; charset=utf-8",
+                success: function (result, textStatus, jqXHR) {
+                    if (result.Success == true) {
+
+                        result.Data.forEach(item => {
+                            self.fnAddDashboard(item);
+                        });
+
+                        result.Data.forEach(item => {
+                            self.fnReadDashboardData(item.Id);
+                        });
+
+                    } else {
+                        console.log("ReadDashboardData:", result.Message);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("(" + jqXHR.status + ") " + jqXHR.statusText + "\n" + this.url);
+                }
+            });
+        };
+
+        self.fnReadDashboardData = function (dashboardId) {
+            $.ajax({
+                url: "/Panel/Dashboard/ReadDashboardData?id=" + dashboardId,
+                type: "GET",
+                success: function (result, textStatus, jqXHR) {
+                    if (result.Success == true) {
+                        self.fnRefreshDashboard(result.Data);
+                    } else {
+                        console.log("ReadDashboardData:", result.Message);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    //alert("(" + jqXHR.status + ") " + jqXHR.statusText + "\n" + this.url);
+                }
+            });
+        };
+
+
+
+        self.prepare = function () {
+
+            //Get Dash List
+            self.fnReadDashboardList();
+
+            //Dash event
+            $(self.selector).find('#divTemps').on("click", "[name=divDasboard] [name=btnRefresh]", function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+                var $elmDash = $(this).closest("[name=divDasboard]");
+                var dashId = $elmDash.attr("data-id");
+                self.fnReadDashboardData(dashId);
+            });
+
+            // Language
+            mnLang.TranslateWithSelector(self.selector);
+        };
+
+        self.beforeShow = function (_opt) {
+            self.opt = $.extend({}, _opt);
+
+            setTimeout(function () {
+                $(window).resize();
+            }, 500);
+        };
+
+        self.close = function () {
+            if ($(self.selector).closest('.k-window-content').getKendoWindow()) {
+                $(self.selector).closest('.k-window-content').getKendoWindow().close(); // popup ise
+            } else {
+                $(self.selector).closest('.mnPageView').find('#btnGeri').click(); // page ise
+            }
+        };
+
+        $(window).on("resize", function () {
+            //height
+            var newHeight = window.innerHeight - $(self.selector).offset().top - 40;
+            $(self.selector).find(self.selectorForMap).css("height", newHeight);
+        });
+
+
+        return self;
+    }();
+</script>

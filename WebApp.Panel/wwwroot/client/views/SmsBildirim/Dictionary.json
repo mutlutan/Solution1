@@ -1,0 +1,88 @@
+[
+ {
+     "key" : "xLng.SmsBildirim.Title",
+     "value": {
+         "tr": "Sms Bildirim",
+         "en": "Sms Notification"
+     }
+ },
+ {
+     "key" : "xLng.SmsBildirim.ShortTitle",
+     "value": {
+         "tr": "Sms Bildirim",
+         "en": "Sms Notification"
+     }
+ }
+,
+ {
+     "key" : "xLng.SmsBildirim.FormViewTab.I",
+     "value": {
+         "tr": "Genel Bilgiler",
+         "en": "General Info"
+     }
+ }
+,
+ {
+     "key" : "xLng.SmsBildirim.Id",
+     "value": {
+         "tr": "Id",
+         "en": "Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.SmsBildirim.UniqueId",
+     "value": {
+         "tr": "Unique Id",
+         "en": "Unique Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.SmsBildirim.GonderildiMi",
+     "value": {
+         "tr": "Gönderildi Mi?",
+         "en": "Did İt Send?"
+     }
+ }
+,
+ {
+     "key" : "xLng.SmsBildirim.Tarih",
+     "value": {
+         "tr": "Gönderim Yapılacak Tarih",
+         "en": "Delivery Date"
+     }
+ }
+,
+ {
+     "key" : "xLng.SmsBildirim.GonderimTarihi",
+     "value": {
+         "tr": "İşlem Tarihi",
+         "en": "GonderimTarihi"
+     }
+ }
+,
+ {
+     "key" : "xLng.SmsBildirim.UyeGrupIds",
+     "value": {
+         "tr": "Üye Grupları",
+         "en": "Member Groups"
+     }
+ }
+,
+ {
+     "key" : "xLng.SmsBildirim.Baslik",
+     "value": {
+         "tr": "Başlık",
+         "en": "Title"
+     }
+ }
+,
+ {
+     "key" : "xLng.SmsBildirim.Mesaj",
+     "value": {
+         "tr": "Mesaj",
+         "en": "Mesaj"
+     }
+ }
+]

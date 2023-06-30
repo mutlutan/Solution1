@@ -1,0 +1,58 @@
+﻿[
+  {
+    "key": "xLng.Authority.Gorebilir",
+    "value": {
+      "tr": "Görebilir",
+      "en": "Can see"
+    }
+  },
+  {
+    "key": "xLng.Authority.Ekleyebilir",
+    "value": {
+      "tr": "Ekleyebilir",
+      "en": "Can add"
+    }
+  },
+  {
+    "key": "xLng.Authority.Duzeltebilir",
+    "value": {
+      "tr": "Düzeltebilir",
+      "en": "Can fix"
+    }
+  },
+  {
+    "key": "xLng.Authority.Silebilir",
+    "value": {
+      "tr": "Silebilir",
+      "en": "Can delete"
+    }
+  },
+  {
+    "key": "xLng.Authority.SaveAsExcel",
+    "value": {
+      "tr": "Excel olarak kaydedebilir",
+      "en": "Save As Excel"
+    }
+  },
+  {
+    "key": "xLng.Authority.SifreSifirlayabilir",
+    "value": {
+      "tr": "Şifre sıfırlayabilir",
+      "en": "Password reset"
+    }
+  },
+  {
+    "key": "xLng.Authority.Onaylayabilir",
+    "value": {
+      "tr": "Onaylayabilir",
+      "en": "Can confirm"
+    }
+  },
+  {
+    "key": "xLng.Authority.ProfilSayfasi",
+    "value": {
+      "tr": "Profil Sayfası",
+      "en": "Profile Page"
+    }
+  }
+]

@@ -1,0 +1,461 @@
+﻿
+
+<div id='viewDosyalar'>
+    <div id="viewHeader" class="clearfix" style="padding:0px 0px 5px 0px">
+
+        <div class="float-start">
+            <button id="btnDizinEkle" type="button" class="btn btn-info btn-sm">
+                <i class="fa fa-plus"></i>
+                <span data-langkey-text="xLng.viewDosyalar.DizinEkle"></span>
+            </button>
+
+            <button id="btnDizinSil" type="button" class="btn btn-danger btn-sm">
+                <i class="fa fa-remove"></i>
+                <span data-langkey-text="xLng.viewDosyalar.DizinSil"></span>
+            </button>
+
+            <button id="btnDizinTemizle" type="button" class="btn btn-danger btn-sm">
+                <i class="fa fa-remove"></i>
+                <span data-langkey-text="xLng.viewDosyalar.DizinTemizle"></span>
+            </button>
+
+            <button id="btnDizinIndir" type="button" class="btn btn-primary btn-sm">
+                <i class="fa fa-download"></i>
+                <span data-langkey-text="xLng.viewDosyalar.DizinIndir"></span>
+            </button>
+        </div>
+
+        <div class="float-end">
+            <button id="btnDosyaGonder" type="button" class="btn btn-success btn-sm">
+                <i class="fa fa-plus"></i>
+                <span data-langkey-text="xLng.viewDosyalar.DosyaGonder"></span>
+            </button>
+        </div>
+    </div>
+
+    <table class="border" style="width:100%; border-collapse:separate; border-spacing:5px;">
+        <tr>
+            <td class="" style="width:275px; vertical-align:top;">
+                <div id="divTreeView" class="overflow-auto border-right pt-2"></div>
+            </td>
+
+            <td class="" style="width:auto;">
+                <div id="divListView" class="position-relative overflow-auto border-0"></div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<style>
+    #viewDosyalar #divTreeView .k-item {
+        margin-top: 2px;
+        margin-bottom: 2px;
+    }
+
+    #viewDosyalar #divTreeView .k-state-selected {
+        border-radius: 0px;
+        color: navy;
+        background-color: transparent;
+    }
+
+    #viewDosyalar #divTreeView,
+    #viewDosyalar #divListView {
+        height: 500px;
+    }
+</style>
+
+<style>
+    #viewDosyalar [name="divPanel"] {
+        display: inline-block;
+        margin: 10px;
+        opacity: 0.70;
+    }
+
+        #viewDosyalar [name="divPanel"]:hover {
+            opacity: 1;
+        }
+
+        #viewDosyalar [name="divPanel"] .divPanelContent {
+            height: 110px;
+            width: 160px;
+            transition: all 0.5s;
+            background-position: center center;
+            background-size: cover;
+        }
+</style>
+
+
+
+<script>
+    window.viewDosyalar = function () {
+        var self = {};
+        self.opt = null;
+        self.area = '_';
+        self.title = 'xLng.viewDosyalar.Title';
+        self.selector = '#viewDosyalar';
+
+        function FnTreeViewCreate() {
+
+            self.dsTreeView = new kendo.data.HierarchicalDataSource({
+                transport: {
+                    read: { type: 'GET', url: '/Dosyalar/ReadDirectoryList', dataType: 'json', contentType: 'application/json; charset=utf-8' }
+                },
+                schema: {
+                    errors: 'Errors', data: 'Data', total: 'Total', aggregates: 'AggregateResults',
+                    model: {
+                        id: "id",
+                        hasChildren: "hasChildren",
+                        text: "text"
+                    }
+                },
+                error: function (e) {
+                    if (e.xhr === null) { mnNotification.warning(e.errors); } else { mnErrorHandler.Handle(e.xhr); }
+                    this.cancelChanges();
+                },
+                requestEnd: function (e) {
+                    if (e.response !== undefined && e.response.Errors === null) {
+                        if (e.type === 'read') {
+                            if (e.response.Data.length > 0) {
+                                setTimeout(function () {
+                                    var treeNode = self.treeView.wrapper.find(".k-item").first();
+                                    self.treeView.select(treeNode); //select ediliyor
+                                    self.treeView.trigger("select", { node: treeNode[0] }); //select event tetikleniyor, malesef böyle yapılıyor
+                                });
+                            }
+                        }
+                    }
+                }
+
+            });
+
+            self.treeView = $(self.selector).find("#divTreeView").kendoTreeView({
+                autoBind: false,
+                animation: false,
+                dataTextField: "text",
+                select: function (e) {
+                    //treeview.select($()); // clears selection
+                    setTimeout(function () {
+                        self.dsListView.read();
+                    });
+                },
+                template: '<i class="fa fa-folder-o"></i> <span class="pl-2 pr-2"> #=item.text# </span>',
+                dataSource: self.dsTreeView
+            }).getKendoTreeView();
+
+        }
+
+        function FnListViewCreate() {
+            self.dsListView = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        type: "GET", url: "/Dosyalar/ReadFilesInDirectory", dataType: "json"
+                    },
+                    parameterMap: function (data, operation) {
+                        if (operation == 'read') {
+                            data._DirectoryName = '';
+                            var dataItem = self.treeView.dataItem(self.treeView.select());
+                            if (dataItem) {
+                                data._DirectoryName = dataItem.id;
+                            }
+                            return data;
+                        }
+                    }
+                },
+                //pageSize: 15, serverPaging: true, serverSorting: true, serverFiltering: true, serverGrouping: true, serverAggregates: true,
+                schema: {
+                    errors: 'Errors', data: 'Data', total: 'Total', aggregates: 'AggregateResults',
+                    model: {
+                        id: "Id",
+                        fields: {
+                            Id: { type: 'string' },
+                            Name: { type: 'string' },
+                            FileUrl: { type: 'string' },
+                            FileViewUrl: { type: 'string' }
+                        }
+                    }
+                }
+            });
+
+            self.listView = $(self.selector).find("#divListView").kendoListView({
+                autoBind: false,
+                //scrollable: true,
+                dataSource: self.dsListView,
+                template: ''
+                    + '<div name="divPanel" class="" data-uid="#=uid#"  > '
+
+                    + '    <div class="divPanelHeader">'
+                    + '        <button id="btnSil" class="btn btn-link btn-sm k-delete-button" title="' + mnLang.TranslateWithWord("xLng.Sil") + '" > '
+                    + '            <i class="fa fa-trash-o" ></i> '
+                    + '        </button> '
+                    + '        <button id="btnSecDon" class="btn btn-link float-end" title="' + mnLang.TranslateWithWord("xLng.SecDon") + '" > '
+                    + '            <i class="fa fa-download" style="padding-left:3px;"></i> '
+                    + '        </button> '
+                    + '        <button id="btnAdresKopyala" class="btn btn-link float-end" title="' + mnLang.TranslateWithWord("xLng.AdresKopyala") + '" > '
+                    + '            <i class="fa fa-clipboard" style="padding-left:3px;"></i> '
+                    + '        </button> '
+                    + '    </div>'
+                    + ''
+                    + '<a href="#=FileUrl##=FileVersion#" target="_blank">'
+                    + '    <div class="divPanelContent border" style="background-image:url(' + "'" + '#=FileViewUrl#' + "'" + ')" title="#=SizeText#">'
+                    + '    </div>'
+                    + '</a>'
+                    + ''
+                    + '    <div class="divPanelFooter"> '
+                    + '        <small class="d-inline-block text-truncate" style="max-width:160px;" title="#=Name#" > '
+                    + '             #=Name# '
+                    + '        </small> '
+                    + '    </div>'
+
+                    + '</div>',
+                dataBound: function (e) {
+                },
+                remove: function (e) {
+                    if (confirm(mnLang.TranslateWithWord('xLng.KaydiSilmekIstediginizdenEminmisiniz'))) {
+                        var _data = {
+                            _fileId: e.model.id
+                        };
+
+                        $.ajax({
+                            url: "/Dosyalar/RemoveFile",
+                            data: _data,
+                            type: "POST", dataType: "json",
+                            beforeSend: function (jqXHR, settings) {
+                                kendo.ui.progress($(self.selector), true); //progress On
+                            },
+                            complete: function (jqXHR, textStatus) {
+                                kendo.ui.progress($(self.selector), false); //progress Off
+                                self.listView.dataSource.read();
+                            },
+                            success: function (result, textStatus, jqXHR) {
+                                kendo.ui.progress($(self.selector), false); //progress Off
+                                if (result.bError) {
+                                    mnNotification.error(result.sMessage);
+                                } else {
+                                    mnNotification.success(result.sMessage);
+                                }
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                kendo.ui.progress($(self.selector), false); //progress Off
+                                alert(jqXHR.responseText);
+                            }
+                        });
+
+                        e.preventDefault(); // dosyanın list view gösteriminden silinmesini engelliyoruz, complatede son durumu refresh ediyoruz
+
+                    } else {
+                        e.preventDefault();
+                    }
+                }
+            }).getKendoListView();
+        }
+
+        function FnUploadFile(directoryName, fileName, fileContent) {
+            var _data = {
+                _directoryName: directoryName,
+                _fileName: fileName,
+                _fileContent: fileContent
+            };
+
+            $.ajax({
+                url: "/Dosyalar/UploadFile",
+                data: _data,
+                type: "POST", dataType: "json",
+                beforeSend: function (jqXHR, settings) {
+                    kendo.ui.progress($(self.selector), true); //progress On
+                },
+                complete: function (jqXHR, textStatus) {
+                    kendo.ui.progress($(self.selector), false); //progress Off
+                },
+                success: function (result, textStatus, jqXHR) {
+                    if (result.bError) {
+                        mnNotification.error(result.sMessage);
+                    } else {
+                        self.listView.dataSource.read();
+                        mnNotification.success(result.sMessage);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.responseText);
+                }
+            });
+        }
+
+        function FnInitEvent() {
+
+            $(self.selector).find('#btnDizinEkle').click(function (e) {
+                var newDirectoryName = prompt(mnLang.TranslateWithWord('xLng.viewDosyalar.DizinAdiGiriniz'), 'YeniDizin1');
+
+                if (newDirectoryName != null && newDirectoryName.length > 0) {
+                    var _data = {
+                        _directoryName: self.treeView.dataItem(self.treeView.select()).id + "\\" + newDirectoryName
+                    };
+
+                    $.ajax({
+                        url: "/Dosyalar/AddDirectory",
+                        data: _data,
+                        type: "POST", dataType: "json",
+                        beforeSend: function (jqXHR, settings) {
+                            kendo.ui.progress($(self.selector), true); //progress On
+                        },
+                        complete: function (jqXHR, textStatus) {
+                            kendo.ui.progress($(self.selector), false); //progress Off
+                        },
+                        success: function (result, textStatus, jqXHR) {
+                            if (result.bError) {
+                                mnNotification.error(result.sMessage);
+                            } else {
+                                self.treeView.dataSource.read();
+                                mnNotification.success(result.sMessage);
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert(jqXHR.responseText);
+                        }
+                    });
+                }
+            });
+
+            $(self.selector).find('#btnDizinIndir').click(function (e) {
+                let directoryName = self.treeView.dataItem(self.treeView.select()).id;
+                location.href = "/Dosyalar/DownloadDirectory?directoryName=" + directoryName;
+            });
+
+            $(self.selector).find('#btnDizinSil').click(function (e) {
+                var _data = {
+                    _directoryName: self.treeView.dataItem(self.treeView.select()).id
+                };
+
+                $.ajax({
+                    url: "/Dosyalar/DeleteDirectory",
+                    data: _data,
+                    type: "POST", dataType: "json",
+                    beforeSend: function (jqXHR, settings) {
+                        kendo.ui.progress($(self.selector), true); //progress On
+                    },
+                    complete: function (jqXHR, textStatus) {
+                        kendo.ui.progress($(self.selector), false); //progress Off
+                    },
+                    success: function (result, textStatus, jqXHR) {
+                        if (result.bError) {
+                            mnNotification.error(result.sMessage);
+                        } else {
+                            self.treeView.dataSource.read();
+                            mnNotification.success(result.sMessage);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(jqXHR.responseText);
+                    }
+                });
+            });
+
+            //btnDizinTemizle
+            $(self.selector).find('#btnDizinTemizle').click(function (e) {
+                var _data = {
+                    _directoryName: self.treeView.dataItem(self.treeView.select()).id
+                };
+
+                $.ajax({
+                    url: "/Dosyalar/ClearDirectory",
+                    data: _data,
+                    type: "POST", dataType: "json",
+                    beforeSend: function (jqXHR, settings) {
+                        kendo.ui.progress($(self.selector), true); //progress On
+                    },
+                    complete: function (jqXHR, textStatus) {
+                        kendo.ui.progress($(self.selector), false); //progress Off
+                    },
+                    success: function (result, textStatus, jqXHR) {
+                        if (result.bError) {
+                            mnNotification.error(result.sMessage);
+                        } else {
+                            setTimeout(function () {
+                                self.dsListView.read();
+                            });
+                            mnNotification.success(result.sMessage);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(jqXHR.responseText);
+                    }
+                });
+            });
+
+
+            $(self.selector).find('#btnDosyaGonder').click(function (e) {
+                if (self.treeView.select().length > 0) {
+                    $('<input type="file" multiple/>').change(function () {
+                        for (let file of this.files) {
+                            let reader = new FileReader();
+                            reader.onload = function (e) {
+                                var directoryName = self.treeView.dataItem(self.treeView.select()).id;
+                                var fileContent = window.btoa(reader.result);
+                                FnUploadFile(directoryName, file.name, fileContent);
+                            }
+                            reader.readAsBinaryString(file);
+                        }
+                    }).trigger('click');
+                } else {
+                    mnAlert.warning(mnLang.TranslateWithWord('xLng.viewDosyalar.DizinSeciniz'));
+                }
+            });
+
+            $(self.selector).find('#divListView').on("click", "#btnSecDon", function (e) {
+                e.preventDefault();
+                if (self.opt.ownerViewName) {
+                    self.opt.isSelected = true;
+                    var uid = $(e.currentTarget).closest('[name=divPanel]').attr("data-uid");
+                    var dataItem = self.listView.dataSource.getByUid(uid);
+                    self.opt.selectedDataItem = dataItem;
+                    self.close();
+                }
+            });
+
+            //btnAdresKopyala
+            $(self.selector).find('#divListView').on("click", "#btnAdresKopyala", function (e) {
+                self.opt.isSelected = true;
+                var uid = $(e.currentTarget).closest('[name=divPanel]').attr("data-uid");
+                var dataItem = self.listView.dataSource.getByUid(uid);
+
+                //crome için çalışıyor
+                navigator.clipboard.writeText(dataItem.FileUrl).then(function () {
+                    console.log('Async: Copying to clipboard was successful!');
+                }, function (err) {
+                    console.error('Async: Could not copy text: ', err);
+                });
+            });
+        }
+
+        self.prepare = function () {
+            //tree view
+            FnTreeViewCreate();
+
+            //list view
+            FnListViewCreate();
+
+            //Init event
+            FnInitEvent();
+
+            //sadece açılışta yüklensin yeter
+            self.treeView.dataSource.read();
+
+            // Language
+            mnLang.TranslateWithSelector(self.selector);
+        };
+
+        self.beforeShow = function (_opt) {
+            self.opt = $.extend({}, _opt);
+            self.opt.isSelected = false;
+        };
+
+        self.close = function () {
+            if ($(self.selector).closest('.k-window-content').getKendoWindow()) {
+                $(self.selector).closest('.k-window-content').getKendoWindow().close(); // popup ise
+            } else {
+                $(self.selector).closest('.mnPageView').find('#btnGeri').click(); // page ise
+            }
+        };
+
+        return self;
+    }();
+</script>

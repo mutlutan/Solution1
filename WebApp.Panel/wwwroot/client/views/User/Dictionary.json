@@ -1,0 +1,176 @@
+[
+ {
+     "key" : "xLng.User.Title",
+     "value": {
+         "tr": "Kullanıcı Tanımı",
+         "en": "User"
+     }
+ },
+ {
+     "key" : "xLng.User.ShortTitle",
+     "value": {
+         "tr": "Kullanıcı Tanımı",
+         "en": "User"
+     }
+ }
+,
+ {
+     "key" : "xLng.User.FormViewTab.I",
+     "value": {
+         "tr": "Genel Bilgiler",
+         "en": "General Info"
+     }
+ }
+,
+ {
+     "key" : "xLng.User.GridFindTab.I",
+     "value": {
+         "tr": "I",
+         "en": "I"
+     }
+ }
+,
+ {
+     "key" : "xLng.User.Id",
+     "value": {
+         "tr": "Id",
+         "en": "Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.User.IsActive",
+     "value": {
+         "tr": "Aktif",
+         "en": "Is Active"
+     }
+ }
+,
+ {
+     "key" : "xLng.User.IsEmailConfirmed",
+     "value": {
+         "tr": "E-posta Onaylandı Mı",
+         "en": "Is Email Confirmed"
+     }
+ }
+,
+ {
+     "key" : "xLng.User.IdentificationNumber",
+     "value": {
+         "tr": "Kimlik Numarası",
+         "en": "Identification Number"
+     }
+ }
+,
+ {
+     "key" : "xLng.User.NameSurname",
+     "value": {
+         "tr": "Ad Soyad",
+         "en": "Name Surname"
+     }
+ }
+,
+ {
+     "key" : "xLng.User.ResidenceAddress",
+     "value": {
+         "tr": "İkametgah Adresi",
+         "en": "Residence Address"
+     }
+ }
+,
+ {
+     "key" : "xLng.User.UserName",
+     "value": {
+         "tr": "Kullanıcı Adı",
+         "en": "User Name"
+     }
+ }
+,
+ {
+     "key" : "xLng.User.Avatar",
+     "value": {
+         "tr": "Avatar",
+         "en": "Avatar"
+     }
+ }
+,
+ {
+     "key" : "xLng.User.UserPassword",
+     "value": {
+         "tr": "Kullanıcı Şifresi",
+         "en": "User Password"
+     }
+ }
+,
+ {
+     "key" : "xLng.User.RoleIds",
+     "value": {
+         "tr": "Roller",
+         "en": "Roles"
+     }
+ }
+,
+ {
+     "key" : "xLng.User.GaSecretKey",
+     "value": {
+         "tr": "Ga Secret Key",
+         "en": "Ga Secret Key"
+     }
+ }
+,
+ {
+     "key" : "xLng.User.SessionGuid",
+     "value": {
+         "tr": "Session Guid",
+         "en": "Session Guid"
+     }
+ }
+,
+ {
+     "key" : "xLng.User.ValidityDate",
+     "value": {
+         "tr": "Geçerlilik Tarihi",
+         "en": "Validity Date"
+     }
+ }
+,
+ {
+     "key" : "xLng.User.CreateDate",
+     "value": {
+         "tr": "Oluşturma Tarihi",
+         "en": "Create Date"
+     }
+ }
+,
+ {
+     "key" : "xLng.User.UniqueId",
+     "value": {
+         "tr": "UniqueId",
+         "en": "UniqueId"
+     }
+ }
+,
+ {
+     "key" : "xLng.User.CreatedUserId",
+     "value": {
+         "tr": "Ekleyen Kullanıcı",
+         "en": "User Who Added"
+     }
+ }
+,
+ {
+     "key" : "xLng.User.UpdateDate",
+     "value": {
+         "tr": "Değiştirme Zamanı",
+         "en": "Update Time"
+     }
+ }
+,
+ {
+     "key" : "xLng.User.UpdatedUserId",
+     "value": {
+         "tr": "Değiştiren Kullanıcı",
+         "en": "User Who Changed"
+     }
+ }
+]

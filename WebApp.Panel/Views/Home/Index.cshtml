@@ -1,0 +1,361 @@
+﻿@{
+    ViewData["Title"] = WebApp.Panel.Codes.MyApp.AppName + " - Anasayfa";
+}
+
+@*Burada popupView lar olacak*@
+<div id="mnPopupViewContainer" style="clear:both; position:absolute;">
+</div>
+
+<div id="viewHome" class="mn-default-bg-color mn-default-text-color" style="height:100%;">
+
+	<div class="d-flex mb-1" style="height:40px; box-shadow: 0px 0px 9px #2678af;">
+
+        <div style="width:350px; padding-left:15px;">
+            <div class="row">
+                <div class="col">
+                    <div class="py-1">
+                        <a href="/" title="@WebApp.Panel.Codes.MyApp.AppName">
+                            <img src="@ViewBag.LogoImageUrl" alt="" class="mr-auto" style="height:24px;">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <nav class="navbar navbar-expand-md">
+                        <button id="btnLeftMenuGosterGizle" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sideBar" aria-controls="sideBar" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-100 pe-1" >
+            <div class="row g-0">
+
+                <div class="col d-md-block">
+                    <a href="#/" class="text-decoration-none font-weight-light">
+                        <span class="" style="font-size:24px; vertical-align: middle; display: inline-flex; user-select: none;">
+                            <span style="color:#0770b5;">@WebApp.Panel.Codes.MyApp.AppName1</span>
+                            <span style="color:#179bf2;">@WebApp.Panel.Codes.MyApp.AppName2</span>
+                        </span>
+                    </a>
+                </div>
+
+                <div class="col">
+                    <div class="btn-group float-end pe-3">
+
+                        @*<button id="btnBildirim" type="button" class="btn user-select-none mr-2 mn-opacity-050 mn-opacity-hover-1">
+                        <i class="fa fa-bell-o" style=""></i>
+                        </button>*@
+
+                        <button type="button" class="btn dropdown-toggle mn-default-bg-color mn-default-text-color" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-user-o" style=""></i>
+                            <span id="spanUserName" class="pe-1 font-weight-light"></span>
+                        </button>
+
+                        <div class="dropdown-menu dropdown-menu-right shadow mn-default-bg-color mn-default-text-color">
+
+                            <div class="text-center pt-2 pb-3">
+                                <img name="imgKullaniciResim" style="max-width:100px; max-height:123px;">
+                            </div>
+
+                            <div class="dropdown-divider"></div>
+
+                            <a id="btnProfilim" class="d-none dropdown-item mn-default-bg-color mn-default-text-color font-weight-light" href="javascript:void(0)">
+                                <i class="fa fa-user-o"></i> <span data-langkey-text="xLng.Profilim"></span>
+                            </a>
+
+                            <a id="btnSifreDegistir" class="d-none dropdown-item mn-default-bg-color mn-default-text-color font-weight-light" href="javascript:void(0)">
+                                <i class="fa fa-key"></i> <span data-langkey-text="xLng.SifreDegistir"></span>
+                            </a>
+
+                            <a id="btnCikis" class="dropdown-item mn-default-bg-color mn-default-text-color font-weight-light" href="javascript:void(0)">
+                                <i class="fa fa-power-off"></i> <span data-langkey-text="xLng.Cikis"></span>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <div class="d-flex">
+        <div id="leftCol" class="ps-1 pe-1" style="background-color:whitesmoke;">
+            <nav class="navbar navbar-expand-md navbar-dark p-0">
+                <div id="sideBar" class="collapse navbar-collapse">
+                    <div id="mainMenuContainer">
+                        <div id="mainMenu" style="padding-bottom:15px;"></div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <div class="w-100 mn-default-bg-color">
+            <div>
+                <div id="mainContent">
+                    @*Burada pageView lar olacak*@
+                    <div id="mnPageViewContainer" style="padding:10px; overflow: auto;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<style>
+    div#mainMenu > ul > li > a {
+        display: none;
+    }
+</style>
+
+<script>
+    window.addEventListener('load', (event) => {
+        if (mnUser.Info.IsAuthenticated) {
+            viewHome.prepare();
+            //en son yapılacaklar
+            $(window).resize();
+        } else {
+            mnAlert.info(mnLang.TranslateWithWord('xLng.OturumKapali'));
+        }
+
+        //Router
+        mnRouter.init();
+
+        // server session time out olmasın diye
+        //mnUser.idleTimeout(1000 * 60 * 1);
+        // screensaver gibi belli bir zamanda logine düşer
+        //mnUser.idleLogout(1000 * 60 * 30);
+    });
+
+    window.mnRouter = function () {
+        var self = {};
+
+        self.fnShowView = function (_showType, _viewFolder, _viewName, _header, _params) {
+            if (_showType == "Popup") {
+                mnPopupView.create({
+                    viewFolder: _viewFolder,
+                    viewName: _viewName,
+                    header: _header,
+                    onShow: function (e) {
+                        e.beforeShow(_params);
+                    }
+                });
+            } else {
+                mnPageView.create({
+                    viewFolder: _viewFolder,
+                    viewName: _viewName,
+                    header: _header,
+                    onShow: function (e) {
+                        e.beforeShow(_params);
+                    }
+                });
+            }
+        };
+
+        self.fnCreateRouter = function () {
+            self.router = new kendo.Router({
+                root: "/#/",
+                change: function (e) {
+                    //console.log("router change event", e);
+                },
+                routeMissing: function (e) {
+                    //tanımlı olmayan adres çağrıldı
+                    e.preventDefault();
+                    //console.log("missing", e.url, e.params);
+                    setTimeout(function () {
+                        self.router.navigate("/Hata?code=404");
+                    });
+                }
+            });
+
+            //Custom routlar
+            var routeList = [
+                { routName: "/Error", showType: "Page", header: false, viewFolder: "_Error", viewName: "ViewError", yetkiId: "" },
+                { routName: "/", showType: "Page", header: false, viewFolder: "_Home", viewName: "ViewHome", yetkiId: "" },
+                { routName: "/Map", showType: "Page", header: false, viewFolder: "_Map", viewName: "ViewMap", yetkiId: "" },
+                { routName: "/PolygonEditor", showType: "Page", header: false, viewFolder: "_PolygonEditor", viewName: "ViewPolygonEditor", yetkiId: "" },
+            ];
+
+            //yetki şablondan dinamik rout oluşturma
+            var dsRout = mnYetkiSablon.getYetkiSablonForRout();
+
+            for (var i = 0; i < dsRout.length; i++) {
+                //console.log(dsRout[i].id);
+                routeList.push({
+                    routName: "/" + dsRout[i].rout,
+                    showType: dsRout[i].showType,
+                    header: dsRout[i].header,
+                    viewFolder: dsRout[i].viewFolder,
+                    viewName: dsRout[i].viewName,
+                    yetkiId: dsRout[i].id
+                });
+            }
+
+            //routing işlemleri
+            for (let i in routeList) {
+                self.router.route(routeList[i].routName, function (prms) {
+                    //console.log(prms);
+                
+                    if (prms) {
+                        try {
+                            //prms={ Id: '1', _back: true }
+                            if (prms.hasOwnProperty("Id")) {
+                                prms.Id = parseInt(prms.Id);
+                            }
+                        }
+                        catch { }
+                    }
+
+                    let _showType = routeList[i].showType;
+                    let _viewFolder = routeList[i].viewFolder;
+                    let _viewName = routeList[i].viewName;
+                    let _header = routeList[i].header;
+                    let _params = { 'qprms': prms };
+                    let _yetkiId = routeList[i].yetkiId;
+
+                    if (_yetkiId.length = 0 || mnUser.isYetkili(_yetkiId)) {
+                        self.fnShowView(_showType, _viewFolder, _viewName, _header, _params);
+                    } else {
+                        self.router.navigate("/Error?code=400");
+                    }
+                });
+            }
+
+            self.router.start();
+        };
+
+        self.init = function () {
+            self.fnCreateRouter();
+        };
+
+        return self;
+    }();
+
+    window.viewHome = function () {
+        var self = {};
+        self.selector = "#viewHome";
+
+        self.menuCreate = function () {
+            self.mainMenu = $(self.selector).find("#mainMenu").mnSideBarMenu({
+                itemColor: "black",
+                itemBackgroundColor: "transparent",
+                itemHoverColor: "dodgerblue",
+                itemHoverBackgroundColor: "transparent",
+                dataSource: mnYetkiSablon.getYetkiSablonForMenuData(),
+                onClick: function (e) {
+                    setTimeout(function () {
+                        var $btn = $(self.selector).find("#btnLeftMenuGosterGizle");
+                        if ($btn.is(':visible')) {
+                            $btn.click();
+                        }
+                    });
+                }
+            });
+        };
+
+        self.prepare = function () {
+
+            $(self.selector).find("#btnCikis").click(function () {
+                mnUser.logout(false);
+            });
+
+            self.menuCreate();
+
+            $(self.selector).find(".navbar").find("#spanMainUserName").text(mnUser.sUserName);
+
+            $(window).on("resize", function () {
+
+                var newMainMenuHeight = window.innerHeight - $(self.selector).find("#mainMenuContainer").offset().top - 1;
+
+                $(self.selector).find("#mainMenuContainer").slimScroll({
+                    width: 270,
+                    height: newMainMenuHeight,
+                    color: 'red',
+                    railVisible: true,
+                    railColor: 'white',
+                    railOpacity: 0.3,
+                    size: "5px"
+                });
+
+                //height
+                var newPageViewContainerHeight = window.innerHeight - $(self.selector).find("#mnPageViewContainer").offset().top - 1;
+                $(self.selector).find("#mnPageViewContainer").css("height", newPageViewContainerHeight);
+
+                //width
+                var newPageViewContainerWidth = window.innerWidth - $(self.selector).find("#mnPageViewContainer").offset().left - 1;
+                $(self.selector).find("#mnPageViewContainer").css("width", newPageViewContainerWidth);
+            });
+
+            $(self.selector).find("#btnSifreDegistir").click(function () {
+                mnPopupView.create({
+                    viewFolder: '_ChangePassword',
+                    viewName: 'ViewChangePassword',
+                    width: 400,
+                    onShow: function (e) {
+                        e.beforeShow();
+                    }
+                });
+            });
+
+            //btnProfilim
+            $(self.selector).find("#btnProfilim").click(function () {
+                let _params = {
+                    qprms: {
+                        Id: mnUser.Info.UserId
+                    }
+                };
+
+                mnPageView.create({
+                    viewFolder: 'Kisi',
+                    viewName: 'KisiForForm',
+                    onShow: function (e) {
+                        e.beforeShow(_params);
+                    }
+                });
+            });
+
+            $(self.selector).find("#btnCikis").click(function () {
+                mnUser.logout();
+            });
+
+            $(self.selector).find("#spanUserName").html(mnUser.Info.UserName);
+            $(self.selector).find("#spanUserName").attr("title", mnUser.Info.NameSurname);
+            $(self.selector).find("#spanUserNameSurname").html(mnUser.Info.NameSurname);
+
+            //imgKullaniciResim
+            if (mnUser.Info.UserPhoto) {
+                $(self.selector).find("[name=imgKullaniciResim]").attr("src", mnUser.Info.UserPhoto);
+            } else {
+                $(self.selector).find("[name=imgKullaniciResim]").attr("src", "/img/photo/avatar.png");
+            }
+
+
+            $(self.selector).find("#btnLeftMenuGosterGizle").click(function () {
+                setTimeout(function () {
+                    $(window).resize();
+                }, 500);
+                setTimeout(function () {
+                    $(window).resize();
+                }, 1000);
+            });
+
+            //yetki kodları - Admin olmayanların görmeyeceği butonlar
+            if (mnUser.Info.IsAdmin) {
+
+            }
+            //
+
+            // Language
+            mnLang.TranslateWithSelector("body");
+        };
+
+        return self;
+    }();
+
+</script>

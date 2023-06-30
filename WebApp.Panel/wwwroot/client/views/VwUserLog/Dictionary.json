@@ -1,0 +1,128 @@
+[
+ {
+     "key" : "xLng.VwUserLog.Title",
+     "value": {
+         "tr": "Portal Kullanıcı Log",
+         "en": "Portal User Log"
+     }
+ },
+ {
+     "key" : "xLng.VwUserLog.ShortTitle",
+     "value": {
+         "tr": "Portal Kullanıcı Log",
+         "en": "Portal User Log"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwUserLog.FormViewTab.I",
+     "value": {
+         "tr": "Genel Bilgiler",
+         "en": "General Info"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwUserLog.GridFindTab.I",
+     "value": {
+         "tr": "I",
+         "en": "I"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwUserLog.Id",
+     "value": {
+         "tr": "Id",
+         "en": "Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwUserLog.UserId",
+     "value": {
+         "tr": "Kullanıcı",
+         "en": "User"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwUserLog.UserType",
+     "value": {
+         "tr": "Kullanıcı Türü",
+         "en": "User Type"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwUserLog.UserName",
+     "value": {
+         "tr": "Kullanıcı Adı",
+         "en": "User Name"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwUserLog.UserIp",
+     "value": {
+         "tr": "IP Adres",
+         "en": "Ip Address"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwUserLog.UserBrowser",
+     "value": {
+         "tr": "Browser",
+         "en": "Browser"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwUserLog.UserSessionGuid",
+     "value": {
+         "tr": "Kullanıcı Session Guid",
+         "en": "User Session Guid"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwUserLog.LoginDate",
+     "value": {
+         "tr": "Giriş Tarihi",
+         "en": "Login Date"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwUserLog.LogoutDate",
+     "value": {
+         "tr": "Çıkış Tarihi",
+         "en": "Logout Date"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwUserLog.EkAlan1",
+     "value": {
+         "tr": "Ek Alan 1",
+         "en": "Additional Field 1"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwUserLog.EkAlan2",
+     "value": {
+         "tr": "Ek Alan 2",
+         "en": "Additional Field 2"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwUserLog.EkAlan3",
+     "value": {
+         "tr": "Ek Alan 3",
+         "en": "Additional Field 3"
+     }
+ }
+]

@@ -1,0 +1,72 @@
+﻿[
+  {
+    "key": "xLng.Authority.Menu",
+    "value": {
+      "tr": "MENÜ",
+      "en": "MENU"
+    }
+  },
+  {
+    "key": "xLng.Authority.Menu.Anasayfa",
+    "value": {
+      "tr": "Anasayfa",
+      "en": "Home Page"
+    }
+  },
+  {
+    "key": "xLng.Authority.Menu.Islemler",
+    "value": {
+      "tr": "İşlemler",
+      "en": "Operations"
+    }
+  },
+  {
+    "key": "xLng.Authority.Menu.Tanimlamalar",
+    "value": {
+      "tr": "Tanımlamalar",
+      "en": "Definitions"
+    }
+  },
+  {
+    "key": "xLng.Authority.Menu.Ayarlar",
+    "value": {
+      "tr": "Ayarlar",
+      "en": "Settings"
+    }
+  },
+  {
+    "key": "xLng.Authority.Menu.Loglar",
+    "value": {
+      "tr": "Loglar",
+      "en": "Logs"
+    }
+  },
+  {
+    "key": "xLng.Authority.Menu.Uyeler",
+    "value": {
+      "tr": "Üye İşlemleri",
+      "en": "Member Module"
+    }
+  },
+  {
+    "key": "xLng.Authority.Menu.Hareketler",
+    "value": {
+      "tr": "Hareketler",
+      "en": "Proccessings"
+    }
+  },
+  {
+    "key": "xLng.Authority.Menu.Bildirimler",
+    "value": {
+      "tr": "Bildirimler",
+      "en": "Notifications"
+    }
+  },
+  {
+    "key": "xLng.Authority.Menu.Kampanyalar",
+    "value": {
+      "tr": "Kampanyalar",
+      "en": "Campaigns"
+    }
+  }
+]

@@ -1,0 +1,152 @@
+[
+ {
+     "key" : "xLng.AracHareket.Title",
+     "value": {
+         "tr": "Arac Hareket",
+         "en": "Vehicle Movement"
+     }
+ },
+ {
+     "key" : "xLng.AracHareket.ShortTitle",
+     "value": {
+         "tr": "Arac Hareket",
+         "en": "Vehicle Movement"
+     }
+ }
+,
+ {
+     "key" : "xLng.AracHareket.FormViewTab.I",
+     "value": {
+         "tr": "Genel Bilgiler",
+         "en": "General Info"
+     }
+ }
+,
+ {
+     "key" : "xLng.AracHareket.Id",
+     "value": {
+         "tr": "Id",
+         "en": "Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.AracHareket.UniqueId",
+     "value": {
+         "tr": "Unique Id",
+         "en": "Unique Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.AracHareket.AracId",
+     "value": {
+         "tr": "Arac ",
+         "en": "Bike"
+     }
+ }
+,
+ {
+     "key" : "xLng.AracHareket.UyeId",
+     "value": {
+         "tr": "Uye ",
+         "en": "Member"
+     }
+ }
+,
+ {
+     "key" : "xLng.AracHareket.BirimFiyat",
+     "value": {
+         "tr": "Birim Fiyat (₺)",
+         "en": "Unit Price (₺)"
+     }
+ }
+,
+ {
+     "key" : "xLng.AracHareket.Mesafe",
+     "value": {
+         "tr": "Mesafe(m)",
+         "en": "Distance(m)"
+     }
+ }
+,
+ {
+     "key" : "xLng.AracHareket.Tutar",
+     "value": {
+         "tr": "Tutar (₺)",
+         "en": "Amount (₺)"
+     }
+ }
+,
+ {
+     "key" : "xLng.AracHareket.BaslangicTarih",
+     "value": {
+         "tr": "Başlangıç Tarihi",
+         "en": "Starting Date"
+     }
+ }
+,
+ {
+     "key" : "xLng.AracHareket.BitisTarih",
+     "value": {
+         "tr": "Bitiş Tarihi",
+         "en": "End Date"
+     }
+ }
+,
+ {
+     "key" : "xLng.AracHareket.BaslangicKonum",
+     "value": {
+         "tr": "Başlangıç Konum",
+         "en": "Starting Location"
+     }
+ }
+,
+ {
+     "key" : "xLng.AracHareket.BitisKonum",
+     "value": {
+         "tr": "Bitiş Konum",
+         "en": "End Position"
+     }
+ }
+,
+ {
+     "key" : "xLng.AracHareket.CreateDate",
+     "value": {
+         "tr": "Eklenme Zamanı",
+         "en": "Time To Add"
+     }
+ }
+,
+ {
+     "key" : "xLng.AracHareket.CreatedUserId",
+     "value": {
+         "tr": "Ekleyen Kullanıcı",
+         "en": "User Who Added"
+     }
+ }
+,
+ {
+     "key" : "xLng.AracHareket.UpdateDate",
+     "value": {
+         "tr": "Değiştirme Zamanı",
+         "en": "Update Time"
+     }
+ }
+,
+ {
+     "key" : "xLng.AracHareket.AracRezervasyonId",
+     "value": {
+         "tr": "AracRezervasyonId",
+         "en": "AracRezervasyonId"
+     }
+ }
+,
+ {
+     "key" : "xLng.AracHareket.UpdatedUserId",
+     "value": {
+         "tr": "Değiştiren Kullanıcı",
+         "en": "User Who Changed"
+     }
+ }
+]

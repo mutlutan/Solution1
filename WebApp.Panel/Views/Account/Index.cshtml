@@ -1,0 +1,388 @@
+﻿@{
+    ViewData["Title"] = WebApp.Panel.Codes.MyApp.AppName + " - Giriş";
+}
+
+@*Burada popupView lar olacak*@
+<div id="mnPopupViewContainer" style="clear:both; position:absolute;">
+</div>
+
+<div id="viewAccount" class="bg-white">
+
+    <div class="py-1"></div>
+
+    <div class="row g-0">
+        <div class="col-md-2"></div>
+
+        <div class="col-md-4 d-none d-xl-block">
+            @*<div class="py-3"></div>*@
+            <img class="w-100" src="@ViewBag.GirisImageUrl" onerror="this.onerror = null; this.style.visibility = 'hidden';" style="margin: 25% 0px;" />
+        </div>
+
+        <div class="col-md-4">
+            <div id="divLogin" class="py-3 ">
+                <form onsubmit="return false;">
+                    <div class="py-5"></div>
+
+                    <div class="text-center">
+                        <div>
+                            <p class="h2 font-weight-bold text-warning">
+                                <span>@ViewBag.AppName</span>
+                            </p>
+                        </div>
+                        <div>
+                            <img class="w-100" src="@ViewBag.LogoImageUrl" onerror="this.onerror = null; this.style.visibility = 'hidden';" style="max-width:250px;" />
+                        </div>
+                    </div>
+
+                    <div class="py-1"></div>
+
+                    <div class="text-center">
+                        <div id="languageStatus">
+                            <span id="langFlag"></span>
+                        </div>
+                    </div>
+
+                    <div class="py-3"></div>
+
+                    <div class="px-5">
+
+                        <div class="form-group row">
+                            <label for="sUserName" class="col-md-4 col-form-label pr-0 font-weight-light  d-none"><span data-langkey-Text="xLng.KullaniciAd"></span></label>
+                            <div class="col-md-12">
+                                <input name='sUserName' type="text" class='form-control rounded-0 font-weight-light' data-langkey-placeholder="xLng.KullaniciAd" required value="@ViewBag.UserName" autocomplete="username" />
+                            </div>
+                        </div>
+
+                        <div class="py-1"></div>
+
+                        <div class="form-group row">
+                            <label for="sPassword" class="col-md-4 col-form-label pr-0 font-weight-light d-none"><span data-langkey-Text="xLng.Sifre"></span></label>
+                            <div class="col-md-12">
+                                <div class="input-group bg-white">
+                                    <input name='sPassword' type="password" class='form-control rounded-0 font-weight-light' data-langkey-placeholder="xLng.Sifre" required value="@ViewBag.Password" autocomplete="current-password" />
+                                    <div class="input-group-addon" style="padding:2px;">
+                                        <button type="button" id="btnPasswordShowhide" class="btn btn-link btn-sm mn-hover-color-orange" tabindex="-1"><i class="fa fa-eye-slash" aria-hidden="true"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="py-1"></div>
+
+                        <div class="form-group row">
+                            <label for="sGaCode" class="col-md-4 col-form-label pr-0 font-weight-light d-none"><span data-langkey-Text="xLng.GoogleAuthenticatorCode"></span></label>
+                            <div class="col-md-12">
+                                <input name='sGaCode' type="text" class='form-control rounded-0 font-weight-light' data-langkey-placeholder="xLng.GoogleAuthenticatorCode" value="@ViewBag.GaCode" autocomplete="off" />
+                            </div>
+                        </div>
+
+                        <div class="py-1"></div>
+
+                        <div class="form-group row">
+                            <div class="col-md-12 text-center" style="max-width:410px;">
+                                <p id="pMessage" class="h6 text-danger font-weight-light" style="display:none;"></p>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label pr-0 d-none"></label>
+                            <div class="col-md-6">
+                                <button id="btnGiris" type="button" class="btn font-weight-light rounded">
+                                    <i class="fa fa-user-o"></i>
+                                    <span data-langkey-Text="xLng.GirisYap"></span>
+                                    <span id="loader"></span>
+                                </button>
+                            </div>
+
+                            <div class="col-md-6">
+                                <a id="btnSifremiUnuttum" class="btn btn-link font-weight-light pl-0 ">
+                                    <span data-langkey-Text="xLng.SifremiUnuttum"></span>
+                                </a>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="py-1"></div>
+
+                    <div class="px-5">
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <div class="text-left d-none">
+                                    <span class="font-weight-light small text-secondary" data-langkey-Text="xLng.TarayiciUyumMesaji"></span>
+                                </div>
+
+                                <div class="text-justify d-none">
+                                    <span class="font-weight-light text-danger" data-langkey-Text="xLng.GirisMesaji"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-2"></div>
+    </div>
+</div>
+
+<style>
+    .form-control {
+        border: 1px solid #ced4da;
+        border-left: none;
+        border-top: none;
+        border-right: none;
+    }
+
+    .k-dropdown .k-dropdown-wrap {
+        border: none;
+    }
+
+        .k-dropdown .k-dropdown-wrap.k-state-focused {
+            background-color: transparent;
+            box-shadow: none;
+        }
+
+        .k-dropdown .k-dropdown-wrap:hover {
+            background-color: transparent;
+        }
+
+    #viewAccount input,
+    #viewAccount .form-control:focus {
+        border-left: none;
+        border-top: none;
+        border-right: none;
+        outline: 0;
+        box-shadow: none;
+        background-color: transparent;
+    }
+
+    #viewAccount .form-control:focus {
+        border-bottom: 1px solid #80bdff;
+    }
+
+    #viewAccount #btnGiris {
+        background-color: orange;
+        color: white;
+    }
+
+        #viewAccount #btnGiris:hover {
+            opacity: 0.8;
+        }
+</style>
+
+<script>
+    window.addEventListener('load', (event) => {
+        //mnLang.CreateWidget("#languageStatus #langFlag"); // dil seçimi göstermek için
+        viewAccount.prepare();
+    });
+
+    window.viewAccount = function() {
+        var self = {};
+        self.selector = '#viewAccount';
+
+        self.animateInClass = 'zoomIn fast';
+        self.animateOutClass = 'zoomOut slower';
+
+        function fValidate_required(elm) {
+            var rV = false;
+            if ($(elm).attr("required")) {
+                if ($(elm).val().length > 0) {
+                    rV = true;
+                    $(elm).closest(".form-group").addClass("has-success").removeClass("has-error");
+                } else {
+                    rV = false;
+                    $(elm).closest(".form-group").addClass("has-error").removeClass("has-success");
+                }
+            } else {
+                rV = true;
+            }
+            return rV;
+        }
+
+        function fValidate_All(elmDiv) {
+            var rV = true;
+            elmDiv.find("input").each(function(index, elm) {
+                if (!fValidate_required(elm)) {
+                    rV = false;
+                }
+            });
+            return rV;
+        }
+
+        self.fGirisYap = function(sUserName, sPassword, sGaCode, sSecurityCode) {
+            var _data = {
+                Culture: mnLang.CurrentCulture.culture,
+                UserName: sUserName,
+                Password: sPassword,
+                GaCode: sGaCode
+            };
+
+            $.ajax({
+                url: "/Panel/Api/Login",
+                data: JSON.stringify(_data),
+                type: "POST", dataType: "json", contentType: "application/json; charset=utf-8",
+                beforeSend: function(jqXHR, settings) {
+                    self.loaderLogin.show();
+                },
+                success: function(result, textStatus, jqXHR) {
+                    self.loaderLogin.hide();
+
+                    if (result.Success == true) {
+                        document.cookie = "Authorization=" + result.Data.UserToken + ";path=/";
+
+                        if (result.Data.IsUserLogin == true && result.Data.IsPasswordDateValid == true && result.Data.IsGoogleSecretKey == true && result.Data.IsGoogleValidate == true) {
+                            window.location = "/";
+                            self.fAnimateOut();
+                        } else if (result.Data.IsUserLogin == true && result.Data.IsGoogleSecretKey == false) {
+                            mnPopupView.create({
+                                viewFolder: '_ViewGaSetup',
+                                viewName: 'ViewGaSetup',
+                                width: 400,
+                                onShow: function(e) {
+                                    e.beforeShow();
+                                }
+                            });
+                        } else if (result.Data.IsPasswordDateValid == false) {
+                            
+
+                            mnPopupView.create({
+                                viewFolder: '_ChangePassword',
+                                viewName: 'ViewChangePassword',
+                                width: 400,
+                                onShow: function(e) {
+                                    e.beforeShow();
+                                },
+                                onClose: function(e) {
+                                    if (e.opt.isPasswordChanged) {
+                                        window.location = "/";
+                                    }
+                                }
+                            });
+                        } else {
+                            $(self.selector).find('#pMessage').text(result.Message).show("slow");
+                        }
+                    } else {
+                        $(self.selector).find('#pMessage').text(result.Message).show("slow");
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    self.loaderLogin.hide();
+                    alert("(" + jqXHR.status + ") " + jqXHR.statusText + "\n" + this.url);
+                }
+            });
+        };
+
+        self.fAnimateIn = function() {
+            $(self.selector).find("#divLogin").addClass(self.animateInClass);
+        };
+
+        self.fAnimateOut = function() {
+            $(self.selector).find("#divLogin").removeClass(self.animateInClass);
+            $(self.selector).find("#divLogin").addClass(self.animateOutClass);
+        };
+
+
+        self.prepare = function() {
+
+            self.fAnimateIn();
+
+            $(self.selector).find("input").on("click blur change", function(e) {
+                fValidate_required(e.currentTarget);
+            });
+
+            $(self.selector).find("[name='sUserName']").keydown(function(e) {
+                if (e.which === 13) {
+                    $(self.selector).find("[name='sPassword']").focus();
+                }
+            });
+
+            $(self.selector).find("[name='sPassword']").keydown(function(e) {
+                if (e.which === 13) {
+                    if ($(self.selector).find("[name='sGaCode']").is(":visible")) {
+                        $(self.selector).find("[name='sGaCode']").focus();
+                    } else {
+                        $(self.selector).find("#btnGiris").click();
+                    }
+                }
+            });
+
+            // parolaların göster gizle için
+            $(self.selector).find("#btnPasswordShowhide").click(function(e) {
+                console.log("btnPasswordShowhide", e);
+                e.preventDefault();
+                $elmInput = $(self.selector).find("[name='sPassword']");
+                $elmButton = $(self.selector).find("#btnPasswordShowhide");
+
+                if ($elmInput.attr("type") == "text") {
+                    $elmInput.attr('type', 'password');
+                    $elmButton.find('i').addClass("fa-eye-slash");
+                    $elmButton.find('i').removeClass("fa-eye");
+                } else if ($elmInput.attr("type") == "password") {
+                    $elmInput.attr('type', 'text');
+                    $elmButton.find('i').removeClass("fa-eye-slash");
+                    $elmButton.find('i').addClass("fa-eye");
+                }
+            });
+
+            $(self.selector).find("[name='sGaCode']").keydown(function(e) {
+                if (e.which === 13) {
+                    $(self.selector).find("#btnGiris").click();
+                }
+            });
+
+            //btnGiris
+            $(self.selector).find("#btnGiris").click(function(e) {
+                mnApi.controlDisableWait($(e.target));
+                $(self.selector).find('#pMessage').text("").hide("slow");
+                var elmDiv = $(self.selector).find("#divLogin");
+                if (fValidate_All(elmDiv)) {
+                    var sUserName = $(self.selector).find("[name='sUserName']").val();
+                    var sPassword = $(self.selector).find("[name='sPassword']").val();
+                    var sGaCode = $(self.selector).find("[name='sGaCode']").val();
+                    var sSecurityCode = $(self.selector).find("[name='sSecurityCode']").val();
+
+                    self.fGirisYap(sUserName, sPassword, sGaCode, sSecurityCode);
+
+                } else {
+                    $(self.selector).find('#pMessage').text(mnLang.TranslateWithWord('xLng.DoldurulmasiGerekenAlanlarVar')).show("slow");
+                }
+            });
+
+            self.loaderLogin = $(self.selector).find('#loader').kendoLoader({
+                visible: false,
+                size: "small",
+                themeColor: 'white',
+                type: 'pulsing' //"pulsing", "infinite-spinner", "converging-spinner"
+            }).getKendoLoader();
+
+
+            //btnSifremiUnuttum
+            //$(self.selector).find("#btnSifremiUnuttum").click(function (e) {
+            //    mnPopupView.create({
+            //        viewFolder: '_ResetPassword',
+            //        viewName: 'ViewResetPassword',
+            //        width: 400,
+            //        onShow: function (e) {
+            //            e.beforeShow();
+            //        }
+            //    });
+            //});
+
+            $(self.selector).find("#btnSifremiUnuttum").click(function() {
+
+            });
+
+            // Language
+            mnLang.TranslateWithSelector($(self.selector));
+        };
+
+        return self;
+    }();
+
+
+
+</script>
+
+

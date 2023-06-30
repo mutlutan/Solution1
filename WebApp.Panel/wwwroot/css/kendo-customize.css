@@ -1,0 +1,71 @@
+
+/*KENDO*/
+
+.k-rounded-md {
+    border-radius: 0px;
+}
+
+/*.k-grid-edit-row .mnSearchEdit {
+    height: 33px !important;
+}
+*/
+
+
+.k-grid-header #btnEkleToplu {
+    background-color: transparent;
+    color: black;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: 4px;
+    left: 5px;
+}
+
+.k-grid-header #btnEkle {
+    background-color: transparent;
+    color: cornflowerblue;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: 4px;
+    left: 5px;
+}
+
+    .k-grid-header #btnEkle:hover {
+        background-color: cornflowerblue;
+        color: white;
+    }
+
+.k-grid-header #btnSaveAsExcel {
+    background-color: transparent;
+    color: forestgreen;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: 4px;
+    right: 23px;
+}
+
+    .k-grid-header #btnSaveAsExcel:hover {
+        background-color: forestgreen;
+        color: white;
+    }
+
+.k-grid-edit-command,
+.k-grid-remove-command,
+.k-grid-save-command,
+.k-grid-cancel-command {
+    width: 32px;
+    height: 32px;
+}
+
+.k-button-solid-primary:hover {
+    background-color: #094eb4;
+}
+
+/*.k-list-container.k-popup*/
+.k-popup {
+/*    border-color: #8fbceb;*/
+    box-shadow: 1px 1px 15px #8fbceb;
+  /*  padding-top: 0px;*/
+}

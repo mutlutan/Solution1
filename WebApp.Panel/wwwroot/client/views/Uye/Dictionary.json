@@ -1,0 +1,216 @@
+[
+ {
+     "key" : "xLng.Uye.Title",
+     "value": {
+         "tr": "Üyeler",
+         "en": "Members"
+     }
+ },
+ {
+     "key" : "xLng.Uye.ShortTitle",
+     "value": {
+         "tr": "Üyeler",
+         "en": "Members"
+     }
+ }
+,
+ {
+     "key" : "xLng.Uye.FormViewTab.I",
+     "value": {
+         "tr": "Genel Bilgiler",
+         "en": "General Info"
+     }
+ }
+,
+ {
+     "key" : "xLng.Uye.GridFindTab.I",
+     "value": {
+         "tr": "I",
+         "en": "I"
+     }
+ }
+,
+ {
+     "key" : "xLng.Uye.Id",
+     "value": {
+         "tr": "Id",
+         "en": "Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.Uye.UniqueId",
+     "value": {
+         "tr": "Unique Id",
+         "en": "Unique Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.Uye.UyeDurumId",
+     "value": {
+         "tr": "Üye Durumu",
+         "en": "Member Status"
+     }
+ }
+,
+ {
+     "key" : "xLng.Uye.UyeGrupId",
+     "value": {
+         "tr": "Grubu",
+         "en": "Group"
+     }
+ }
+,
+ {
+     "key" : "xLng.Uye.UyelikTarihi",
+     "value": {
+         "tr": "Üyelik Tarihi",
+         "en": "UyelikTarihi"
+     }
+ }
+,
+ {
+     "key" : "xLng.Uye.Email",
+     "value": {
+         "tr": "E-mail",
+         "en": "E-mail"
+     }
+ }
+,
+ {
+     "key" : "xLng.Uye.Sifre",
+     "value": {
+         "tr": "Sifre",
+         "en": "Password"
+     }
+ }
+,
+ {
+     "key" : "xLng.Uye.KimlikNumarasi",
+     "value": {
+         "tr": "Kimlik Numarası",
+         "en": "Identification Number"
+     }
+ }
+,
+ {
+     "key" : "xLng.Uye.Ad",
+     "value": {
+         "tr": "Ad",
+         "en": "Ad"
+     }
+ }
+,
+ {
+     "key" : "xLng.Uye.Soyad",
+     "value": {
+         "tr": "Soyad",
+         "en": "Soyad"
+     }
+ }
+,
+ {
+     "key" : "xLng.Uye.Gsm",
+     "value": {
+         "tr": "Gsm No",
+         "en": "Gsm Number"
+     }
+ }
+,
+ {
+     "key" : "xLng.Uye.DogumTarihi",
+     "value": {
+         "tr": "Doğum Tarihi",
+         "en": "Date Of Birth"
+     }
+ }
+,
+ {
+     "key" : "xLng.Uye.UyelikDogrulama",
+     "value": {
+         "tr": "Üyelik Doğrulama",
+         "en": "Membership Verification"
+     }
+ }
+,
+ {
+     "key" : "xLng.Uye.CinsiyetId",
+     "value": {
+         "tr": "Cinsiyet ",
+         "en": "Gender"
+     }
+ }
+,
+ {
+     "key" : "xLng.Uye.Avatar",
+     "value": {
+         "tr": "Profil Resmi",
+         "en": "Profile Picture"
+     }
+ }
+,
+ {
+     "key" : "xLng.Uye.SifreSifirlamaKod",
+     "value": {
+         "tr": "Şifre Sıfırlama Kodu",
+         "en": "Password Reset Code"
+     }
+ }
+,
+ {
+     "key" : "xLng.Uye.KvkkOnayi",
+     "value": {
+         "tr": "KVKK Onayi",
+         "en": "Kvkk Approval"
+     }
+ }
+,
+ {
+     "key" : "xLng.Uye.UyelikSozlesmeOnayi",
+     "value": {
+         "tr": "Üyelik Sözleşme Onayı",
+         "en": "Membership Agreement Confirmation"
+     }
+ }
+,
+ {
+     "key" : "xLng.Uye.AydinlatmaMetniOnayi",
+     "value": {
+         "tr": "Aydınlatma Metni Onayı",
+         "en": "Lighting Text Approval"
+     }
+ }
+,
+ {
+     "key" : "xLng.Uye.CuzdanBakiye",
+     "value": {
+         "tr": "Bakiye",
+         "en": "Balance"
+     }
+ }
+,
+ {
+     "key" : "xLng.Uye.MsisdnDogrulama",
+     "value": {
+         "tr": "MsisdnDogrulama",
+         "en": "MsisdnDogrulama"
+     }
+ }
+,
+ {
+     "key" : "xLng.Uye.FcmRegistrationToken",
+     "value": {
+         "tr": "FcmRegistrationToken",
+         "en": "FcmRegistrationToken"
+     }
+ }
+,
+ {
+     "key" : "xLng.Uye.MobileAppState",
+     "value": {
+         "tr": "MobileAppState",
+         "en": "MobileAppState"
+     }
+ }
+]

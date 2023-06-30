@@ -1,0 +1,143 @@
+﻿[
+  {
+    "key": "xLng.viewDosyalar.Title",
+    "value": {
+      "tr": "Dosyalar",
+      "en": "Files"
+    }
+  },
+  {
+    "key": "xLng.viewDosyalar.DizinEkle",
+    "value": {
+      "tr": "Dizin ekle",
+      "en": "Add directory"
+    }
+  },
+  {
+    "key": "xLng.viewDosyalar.DizinSil",
+    "value": {
+      "tr": "Dizin sil",
+      "en": "Delete directory"
+    }
+  },
+  {
+    "key": "xLng.viewDosyalar.DizinTemizle",
+    "value": {
+      "tr": "Dizin temizle",
+      "en": "Clear directory"
+    }
+  },
+  {
+    "key": "xLng.viewDosyalar.DizinIndir",
+    "value": {
+      "tr": "Dizin indir",
+      "en": "Download directory"
+    }
+  },
+  {
+    "key": "xLng.viewDosyalar.DizinAdiGiriniz",
+    "value": {
+      "tr": "Lutfen bir dizin adı giriniz.",
+      "en": "Please enter a directory name."
+    }
+  },
+
+  {
+    "key": "xLng.viewDosyalar.DizinEklendi",
+    "value": {
+      "tr": "Dizin eklendi",
+      "en": "Directory added"
+    }
+  },
+  {
+    "key": "xLng.viewDosyalar.EklemekIstediginizDizinMevcut",
+    "value": {
+      "tr": "Eklemek istediğiniz dizin zaten var",
+      "en": "The directory you want to add already exists"
+    }
+  },
+  {
+    "key": "xLng.viewDosyalar.DizinSilindi",
+    "value": {
+      "tr": "Dizin silindi",
+      "en": "Directory deleted"
+    }
+  },
+  {
+    "key": "xLng.viewDosyalar.DizinTemizlendi",
+    "value": {
+      "tr": "Dizin temizlendi",
+      "en": "Directory cleared"
+    }
+  },
+  {
+    "key": "xLng.viewDosyalar.SilmekIstediginizDizinBulunamadı",
+    "value": {
+      "tr": "Silmek istediğiniz dizin bulunamadı",
+      "en": "Could not find the directory you want to delete"
+    }
+  },
+  {
+    "key": "xLng.viewDosyalar.SilmekIstediginizDizinBosDegil",
+    "value": {
+      "tr": "Silmek istediğiniz dizin boş değil",
+      "en": "The directory you want to delete is not empty"
+    }
+  },
+  {
+    "key": "xLng.viewDosyalar.TemizlemekIstediginizDizinBulunamadı",
+    "value": {
+      "tr": "Temizlemek istediğiniz dizin bulunamadı",
+      "en": "Could not find the directory you want to clear"
+    }
+  },
+  {
+    "key": "xLng.viewDosyalar.TemizlemekIstediginizDizinIcindeDizinOlmamaz",
+    "value": {
+      "tr": "Temizlemek istediğiniz dizin içinde dizin olamaz",
+      "en": "There cannot be a directory within the directory you want to clean"
+    }
+  },
+  {
+    "key": "xLng.viewDosyalar.DosyaGonder",
+    "value": {
+      "tr": "Dosya gönder",
+      "en": "File submit"
+    }
+  },
+  {
+    "key": "xLng.viewDosyalar.DosyaGonderildi",
+    "value": {
+      "tr": "Dosya gönderildi",
+      "en": "File submitted"
+    }
+  },
+  {
+    "key": "xLng.viewDosyalar.DizinSeciniz",
+    "value": {
+      "tr": "Dizin seçiniz",
+      "en": "Select directory"
+    }
+  },
+  {
+    "key": "xLng.viewDosyalar.DosyaSeciniz",
+    "value": {
+      "tr": "Dosya seçiniz",
+      "en": "Select File"
+    }
+  },
+  {
+    "key": "xLng.viewDosyalar.DosyaBulunamadi",
+    "value": {
+      "tr": "Dosya bulunamadı",
+      "en": "File not found"
+    }
+  },
+  {
+    "key": "xLng.viewDosyalar.DosyaSilindi",
+    "value": {
+      "tr": "Dosya silindi",
+      "en": "File deleted"
+    }
+  }
+]

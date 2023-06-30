@@ -1,0 +1,2338 @@
+﻿@{
+    ViewData["Title"] = ViewBag.TableName;
+}
+
+<style>
+    #divCodeWriterButtons button small {
+        color: gray;
+        padding-left: 10px;
+    }
+</style>
+
+<div id="viewTableOption" style="padding-top:15px;">
+    <div>
+        <div class="row col">
+            <div class="col-4">
+                <div class="form-group">
+                    <button id="btnBack" class="btn btn-outline-secondary"> <i class="fa fa-backward"></i> Back</button>
+                    <button id="btnSetTableOption" class="btn btn-outline-primary"> <i class="fa fa-save"></i> Save Options</button>
+                    <button id="btnAutoCreateAll" class="btn btn-outline-primary ml-2" title="Tree List View Write">Auto Create All</button>
+                </div>
+            </div>
+            <div class="col-8">
+                <div id="divCodeWriterButtons" class="form-group">
+                    <button data-codeName="DataTransferObjectWrite" class="btn btn-outline-success btn-sm" title="Data Transfer Object Write"> dto <span>@ViewBag.DataTransferObjectCount</span> </button>
+                    <button data-codeName="DataManipulationObjectWrite" class="btn btn-outline-success btn-sm" title="Data Manipulation Object Write"> dmo <span>@ViewBag.DataManipulationObjectCount</span> </button>
+                    <button data-codeName="ControllerWrite" class="btn btn-outline-success btn-sm" title="Data WebApi Write"> Controller <span>@ViewBag.ControllerCount</span> </button>
+                    <button data-codeName="DictionaryWrite" class="btn btn-outline-danger btn-sm" title="Dictionary Write"> Dictionary <span>@ViewBag.DictionaryCount</span> </button>
+                    <button data-codeName="FormViewWrite" class="btn btn-outline-warning btn-sm" title="Form View Write"> Form <span>@ViewBag.FormViewCount</span> </button>
+                    <button data-codeName="GridViewWrite" class="btn btn-outline-warning btn-sm" title="Grid View Write"> Grid <span>@ViewBag.GridViewCount</span> </button>
+                    <button data-codeName="TreeListWrite" class="btn btn-outline-warning btn-sm" title="Tree List View Write"> Tree List View <span>@ViewBag.TreeListCount</span> </button>
+                    <button data-codeName="SearchViewWrite" class="btn btn-outline-warning btn-sm" title="Search View Write"> Search View <span>@ViewBag.SearchViewCount</span> </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#tabTableOption" role="tab">Table Option</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tabDetailOption" role="tab">Detail Option</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tabFieldOption" role="tab">Field Option</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tabCreateOption" role="tab">Auto Create / Lock Option</a>
+            </li>
+        </ul>
+        <div class="tab-content" style="padding-top:15px;">
+            <div id="tabTableOption" class="tab-pane active" role="tabpanel">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#tabTableOptionDetay_I" role="tab">Common</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#tabTableOptionDetay_II" role="tab">Table Dictionary</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#tabTableOptionDetay_III" role="tab">Form View</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#tabTableOptionDetay_IV" role="tab">List View</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#tabTableOptionDetay_V" role="tab">Search View</a>
+                    </li>
+                </ul>
+                <div class="tab-content" style="padding-top:15px;">
+                    <div id="tabTableOptionDetay_I" class="tab-pane active" role="tabpanel">
+                        <div class="row col">
+                            <div class="col-6">
+                                <div class="form-group row">
+                                    <label for="TableOptionName" class="col-5 col-form-label text-right">Opt.Name <span class="text-muted">( @ViewBag.TableName )</span></label>
+                                    <div class="col-7">
+                                        <input id='TableOptionName' type="text" class='form-control k-textbox' value="@ViewBag.TableOptionName" />
+                                    </div>
+                                </div>
+
+                                <hr />
+
+                                <div class="form-group row">
+                                    <label for="PrimaryKey" class="col-5 col-form-label text-right">PrimaryKey</label>
+                                    <div class="col-7">
+                                        <input id='PrimaryKey' type="text" class='form-control k-textbox' />
+                                    </div>
+                                </div>
+
+                                <hr />
+
+                                <div class="form-group row">
+                                    <label for="SequenceName" class="col-5 col-form-label text-right">Sequence Name</label>
+                                    <div class="col-7">
+                                        <input id='SequenceName' type="text" class='form-control k-textbox' />
+                                    </div>
+                                </div>
+
+                                <hr />
+
+                                <div class="form-group row">
+                                    <label for="TableCuds" class="col-5 col-form-label text-right small">Table CUDs (for Grid)</label>
+                                    <div class="col-7">
+                                        <select id="TableCuds"></select>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div id="tabTableOptionDetay_II" class="tab-pane" role="tabpanel">
+                        <div class="col-6">
+                            <div class="form-group row">
+                                <label for="TableDictionaryTitleTr" class="col-5 col-form-label text-right">Table Dictionary Title Tr</label>
+                                <div class="col-7">
+                                    <div class="input-group">
+                                        <input id='TableDictionaryTitleTr' type="text" class='form-control k-textbox' />
+                                        <span class="input-group-append">
+                                            <button id="btnTableDictionaryTitleTr" class="btn btn-link" type="button" style="cursor:default;"><i class="fa fa-language"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="TableDictionaryTitleEn" class="col-5 col-form-label text-right">Table Dictionary Title En</label>
+                                <div class="col-7">
+                                    <div class="input-group">
+                                        <input id='TableDictionaryTitleEn' type="text" class='form-control k-textbox' />
+                                        <span class="input-group-append">
+                                            <button id="btnTableDictionaryTitleEn" class="btn btn-link" type="button" style="cursor:default;"><i class="fa fa-language"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr />
+
+                            <div class="form-group row">
+                                <label for="TableDictionaryShortTitleTr" class="col-5 col-form-label text-right">Table Dictionary Short Title Tr</label>
+                                <div class="col-7">
+                                    <div class="input-group">
+                                        <input id='TableDictionaryShortTitleTr' type="text" class='form-control k-textbox' />
+                                        <span class="input-group-append">
+                                            <button id="btnTableDictionaryShortTitleTr" class="btn btn-link" type="button" style="cursor:default;"><i class="fa fa-language"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="TableDictionaryShortTitleEn" class="col-5 col-form-label text-right">Table Dictionary Short Title En</label>
+                                <div class="col-7">
+                                    <div class="input-group">
+                                        <input id='TableDictionaryShortTitleEn' type="text" class='form-control k-textbox' />
+                                        <span class="input-group-append">
+                                            <button id="btnTableDictionaryShortTitleEn" class="btn btn-link" type="button" style="cursor:default;"><i class="fa fa-language"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                        </div>
+                    </div>
+
+                    <div id="tabTableOptionDetay_III" class="tab-pane" role="tabpanel">
+                        <div class="row col">
+                            <div class="col-6">
+                                <div class="form-group row">
+                                    <label for="FormViewTabDictionaryTr" class="col-5 col-form-label text-right">FormView Tab Dictionary Tr</label>
+                                    <div class="col-7">
+                                        <input id='FormViewTabDictionaryTr' type="text" class='form-control k-textbox' />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="FormViewTabDictionaryEn" class="col-5 col-form-label text-right">FormView Tab Dictionary En</label>
+                                    <div class="col-7">
+                                        <input id='FormViewTabDictionaryEn' type="text" class='form-control k-textbox' />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tabTableOptionDetay_IV" class="tab-pane" role="tabpanel">
+                        <div class="row col">
+                            <div class="col-6">
+                                <div class="form-group row">
+                                    <label for="GridViewCrudEditorType" class="col-5 col-form-label text-right">Grid View Crud Editor Type</label>
+                                    <div class="col-7">
+                                        <input id="GridViewCrudEditorType" type="text" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="GridViewMasterColumnName" class="col-5 col-form-label text-right">Grid View Master Column Name</label>
+                                    <div class="col-7">
+                                        <input id="GridViewMasterColumnName" type="text" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="ParentColumnName" class="col-5 col-form-label text-right">Parent Column Name</label>
+                                    <div class="col-7">
+                                        <input id="ParentColumnName" type="text" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="GridViewRowStyleStatusColumnName" class="col-5 col-form-label text-right">Grid View RowStyle Column Name</label>
+                                    <div class="col-7">
+                                        <input id="GridViewRowStyleStatusColumnName" type="text" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="GridViewOnayButtonColumnName" class="col-5 col-form-label text-right">Grid View Onay Button Column Name</label>
+                                    <div class="col-7">
+                                        <input id="GridViewOnayButtonColumnName" type="text" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="GridViewDataSourcePageSize" class="col-5 col-form-label text-right">Grid View Data Source Page Size</label>
+                                    <div class="col-7">
+                                        <input id="GridViewDataSourcePageSize" type="text" />
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group row">
+                                    <label for="GridViewTabDictionaryTr" class="col-5 col-form-label text-right">GridView Tab Dictionary Tr</label>
+                                    <div class="col-7">
+                                        <input id='GridViewTabDictionaryTr' type="text" class='form-control k-textbox' />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="GridViewTabDictionaryEn" class="col-5 col-form-label text-right">GridView Tab Dictionary En</label>
+                                    <div class="col-7">
+                                        <input id='GridViewTabDictionaryEn' type="text" class='form-control k-textbox' />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tabTableOptionDetay_V" class="tab-pane" role="tabpanel">
+                        <div class="row col">
+                            <div class="col-6">
+                                <div class="form-group row">
+                                    <label for="SearchViewType" class="col-5 col-form-label text-right small">Search View Type</label>
+                                    <div class="col-7">
+                                        <select id="SearchViewType" required></select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="SearchViewCrudEditorType" class="col-5 col-form-label text-right">Search View Crud Editor Type</label>
+                                    <div class="col-7">
+                                        <input id="SearchViewCrudEditorType" type="text" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="SearchViewTabDictionaryTr" class="col-5 col-form-label text-right">SearchView Tab Dictionary Tr</label>
+                                    <div class="col-7">
+                                        <input id='SearchViewTabDictionaryTr' type="text" class='form-control k-textbox' />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="SearchViewTabDictionaryEn" class="col-5 col-form-label text-right">SearchView Tab Dictionary En</label>
+                                    <div class="col-7">
+                                        <input id='SearchViewTabDictionaryEn' type="text" class='form-control k-textbox' />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tabDetailOption" class="tab-pane" role="tabpanel">
+                <div class="row col">
+                    <div class="col-md-12">
+                        <div id="gridDetailOption"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tabFieldOption" class="tab-pane" role="tabpanel">
+                <div class="row col">
+                    <div class="col-md-6">
+                        <div id="gridFieldOption" class="table-responsive" style="height:500px; border:1px solid silver;">
+                            <table class="table table-bordered table-hover table-sm" style="font-size:0.8em;">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>#</th>
+                                        <th> <button name="btnReOrder" data-order-field="FormOrder" class="btn btn-sm p-0">FrmO</button> </th>
+                                        <th> <button name="btnReOrder" data-order-field="GridOrder" class="btn btn-sm p-0">GrdO</button> </th>
+                                        <th> <button name="btnReOrder" data-order-field="SearchOrder" class="btn btn-sm p-0">SrcO</button> </th>
+                                        <th>ColumnName</th>
+                                        <th>DbType</th>
+                                        <th>Length</th>
+                                        <th>NetType</th>
+                                        <th>JsonType</th>
+                                        <th>FrmTab</th>
+                                        <th>FrmLoc.</th>
+                                        <th>GrdTab</th>
+                                        <th>SrcTab</th>
+                                        <th>Dict.tr</th>
+                                        <th>Dict.en</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6" style="padding-left:5px;">
+                        <div id="divFieldOption">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#tabHome" role="tab">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#tabReferans" role="tab">Referans(FK)</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#tabForm" role="tab">Form</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#tabListView" role="tab">List</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#tabSearch" role="tab">Search</a>
+                                </li>
+                            </ul>
+
+                            <!-- Tab panes -->
+                            <div class="tab-content" style="padding-top:15px;">
+                                <div id="tabHome" class="tab-pane active" role="tabpanel">
+                                    <div class="form-group row">
+                                        <label class="col-4 col-form-label text-right"></label>
+                                        <div class="col-8">
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input name='ColumnUse' type="checkbox" class="form-control" data-bind='checked:ColumnUse' style="width: 21px; height: 21px; vertical-align: middle; display: inline;" disabled /> Use
+                                                </label>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input name='ColumnRequired' type="checkbox" class="form-control" data-bind='checked:ColumnRequired' style="width: 21px; height: 21px; vertical-align: middle; display: inline;" /> Required
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="ColumnDefault" class="col-4 col-form-label text-right">Column Default</label>
+                                        <div class="col-8">
+                                            <input name='ColumnDefault' type="text" data-bind='value:ColumnDefault' class='w-100' />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="ColumnMaxLength" class="col-4 col-form-label text-right">Column MaxLength</label>
+                                        <div class="col-8">
+                                            <input name='ColumnMaxLength' type="text" data-bind='value:ColumnMaxLength' class='form-control k-textbox' autocomplete="off" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="ColumnReadConvertValue" class="col-4 col-form-label text-right">Read Convert Value</label>
+                                        <div class="col-8">
+                                            <input name='ColumnReadConvertValue' type="text" data-bind='value:ColumnReadConvertValue' class='w-100' />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="ColumnWriteConvertColumnName" class="col-4 col-form-label text-right small" title="WriteConvertValue oluşurken hangi fileddan bilgi alacağını belirtir, boş bırakılır ise mevcut bulunduğu field kullanılır">Column Write Convert Column Name</label>
+                                        <div class="col-8">
+                                            <select id="ColumnWriteConvertColumnName" data-bind='value:ColumnWriteConvertColumnName'></select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="ColumnWriteConvertValue" class="col-4 col-form-label text-right">Write Convert Value</label>
+                                        <div class="col-8">
+                                            <input name='ColumnWriteConvertValue' type="text" data-bind='value:ColumnWriteConvertValue' class='w-100' />
+                                        </div>
+                                    </div>
+
+                                    <hr>
+
+                                    <div class="form-group row">
+                                        <label for="ColumnDictionaryTr" class="col-4 col-form-label text-right">Column Dictionary Tr</label>
+                                        <div class="col-8">
+                                            <div class="input-group">
+                                                <input name='ColumnDictionaryTr' type="text" data-bind='value:ColumnDictionaryTr' class='form-control k-textbox' />
+                                                <span class="input-group-btn">
+                                                    <button id="btnColumnDictionaryTr" class="btn btn-link" type="button" style="cursor:default;"><i class="fa fa-language"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="ColumnDictionaryEn" class="col-4 col-form-label text-right">Column Dictionary En</label>
+                                        <div class="col-8">
+                                            <div class="input-group">
+                                                <input name='ColumnDictionaryEn' type="text" data-bind='value:ColumnDictionaryEn' class='form-control k-textbox' />
+                                                <span class="input-group-btn">
+                                                    <button id="btnColumnDictionaryEn" class="btn btn-link" type="button" style="cursor:default;"><i class="fa fa-language"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="tabReferans" class="tab-pane" role="tabpanel">
+
+                                    <div class="form-group row">
+                                        <label for="ColumnReferansTableName" class="col-4 col-form-label text-right">Ref.Table</label>
+                                        <div class="col-8">
+                                            <select name='ColumnReferansTableName' data-bind='value:ColumnReferansTableName' class="w-100"></select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="ColumnReferansValueColumnName" class="col-4 col-form-label text-right">Ref.Value Column</label>
+                                        <div class="col-8">
+                                            <input name='ColumnReferansValueColumnName' type="text" data-bind='value:ColumnReferansValueColumnName' class="w-100" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="ColumnReferansDisplayColumnNames" class="col-4 col-form-label text-right">Ref. Text Column</label>
+                                        <div class="col-8">
+                                            <input name='ColumnReferansDisplayColumnNames' type="text" data-bind='value:ColumnReferansDisplayColumnNames' />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="ColumnReferansSortColumnNames" class="col-4 col-form-label text-right">Ref. Sort Column</label>
+                                        <div class="col-8">
+                                            <input name='ColumnReferansSortColumnNames' type="text" data-bind='value:ColumnReferansSortColumnNames' />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="ColumnReferansFilterField" class="col-4 col-form-label text-right" title="Oluşacak data listesi için server filter Field name">Ref.Value Filter Field</label>
+                                        <div class="col-8">
+                                            <input name='ColumnReferansFilterField' type="text" data-bind='value:ColumnReferansFilterField' class="w-100" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="ColumnReferansFilterOperator" class="col-4 col-form-label text-right" title="Oluşacak data listesi için server filter operator">Ref.Value Filter Operator</label>
+                                        <div class="col-8">
+                                            <input name='ColumnReferansFilterOperator' type="text" data-bind='value:ColumnReferansFilterOperator' class="w-100" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="ColumnReferansFilterValue" class="col-4 col-form-label text-right" title="Oluşacak data listesi için server filter value">Ref.Value Filter Value</label>
+                                        <div class="col-8">
+                                            <input name='ColumnReferansFilterValue' type="text" data-bind='value:ColumnReferansFilterValue' class="form-control k-textbox" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-4 col-form-label text-right"></label>
+                                        <div class="col-8">
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label" title="ForenKey olmayan referansların display değerini dto ya computed olarak ekler">
+                                                    <input name='ColumnReferansDisplayColumnRead' type="checkbox" class="form-control" data-bind='checked:ColumnReferansDisplayColumnRead' style="width: 21px; height: 21px; vertical-align: middle; display: inline;" /> Ref.Display Column Read
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="ColumnReferansJsonDataSource" class="col-4 col-form-label text-right">Ref.Json DataSource</label>
+                                        <div class="col-8">
+                                            <input name='ColumnReferansJsonDataSource' type="text" data-bind='value:ColumnReferansJsonDataSource' />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="ColumnCurrentFilterValueColumnName" class="col-4 col-form-label text-right small" title="Seçilen column un satırdaki değeri, lookup referans datasource da filter olarak kullanılır">Column Current Filter Value Column Name</label>
+                                        <div class="col-8">
+                                            <select id="ColumnCurrentFilterValueColumnName" data-bind='value:ColumnCurrentFilterValueColumnName'></select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="ColumnReferansFilterValueColumnName" class="col-4 col-form-label text-right small" title="Seçilen referansın column un değeri, lookup referans datasource da ourher field olarak kullanılır">Column Referans Filter Value Column Name</label>
+                                        <div class="col-8">
+                                            <select id="ColumnReferansFilterValueColumnName" data-bind='value:ColumnReferansFilterValueColumnName'></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="tabForm" class="tab-pane" role="tabpanel">
+                                    <div class="form-group row">
+                                        <label class="col-4 col-form-label text-right"></label>
+                                        <div class="col-8">
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input name='FormUse' type="checkbox" class="form-control" data-bind='checked:FormUse' style="width: 21px; height: 21px; vertical-align: middle; display: inline;" /> Use
+                                                </label>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input name='FormEditable' type="checkbox" class="form-control" data-bind='checked:FormEditable' style="width: 21px; height: 21px; vertical-align: middle; display: inline;" /> Editable
+                                                </label>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input name='FormReadonly' type="checkbox" class="form-control" data-bind='checked:FormReadonly' style="width: 21px; height: 21px; vertical-align: middle; display: inline;" /> Readonly
+                                                </label>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input name='FormLabelLocationTop' type="checkbox" class="form-control" data-bind='checked:FormLabelLocationTop' style="width: 21px; height: 21px; vertical-align: middle; display: inline;" /> Form Label Location Top
+                                                </label>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="FormOrder" class="col-4 col-form-label text-right">Order</label>
+                                        <div class="col-8">
+                                            <input name='FormOrder' type="text" data-bind='value:FormOrder' class='w-100' />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="FormViewTab" class="col-4 col-form-label text-right">Form View Tab</label>
+                                        <div class="col-8">
+                                            <input name='FormViewTab' type="text" data-bind='value:FormViewTab' class="w-100" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="FormViewLocation" class="col-4 col-form-label text-right">Form View Location</label>
+                                        <div class="col-8">
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input name="FormViewLocation" type="radio" data-bind='checked:FormViewLocation' class="form-check-input" value="left">
+                                                    <span>Left</span>
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input name="FormViewLocation" type="radio" data-bind='checked:FormViewLocation' class="form-check-input" value="justify">
+                                                    <span>Justify</span>
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input name="FormViewLocation" type="radio" data-bind='checked:FormViewLocation' class="form-check-input" value="right">
+                                                    <span>Right</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="FormComponentType" class="col-4 col-form-label text-right small">Form Component Type</label>
+                                        <div class="col-8">
+                                            <input name='FormComponentType' type="text" data-bind='value:FormComponentType' class="w-100" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row" data-component-type="PasswordTextBox">
+                                        <label for="FormResetPasswordMailColumnName" class="col-4 col-form-label text-right small">Form ResetPassword Mail ColumnName</label>
+                                        <div class="col-8">
+                                            <input name='FormResetPasswordMailColumnName' type="text" data-bind='value:FormResetPasswordMailColumnName' class="w-100" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row" data-component-type="DropDownList">
+                                        <label for="FormComponentFilterType" class="col-4 col-form-label text-right small">Form Component Filter Type</label>
+                                        <div class="col-8">
+                                            <input name='FormComponentFilterType' type="text" data-bind='value:FormComponentFilterType' class="w-100" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row" data-component-type="MapEditor">
+                                        <label for="FormComponentCustomProperty" class="col-4 col-form-label text-right small" title="MapEditor ise:Marker veya Polygon ">Form Component Custom Property</label>
+                                        <div class="col-8">
+                                            <textarea name='FormComponentCustomProperty' data-bind='value:FormComponentCustomProperty' class='form-control k-textbox' style='height:90px;' ></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row" data-component-type="NumericTextBox,DatePicker,TimePicker,DateTimePicker,MaskedTextBox">
+                                        <label for="FormComponentFormat" class="col-4 col-form-label text-right small">Form Component Format</label>
+                                        <div class="col-8">
+                                            <input name='FormComponentFormat' type="text" data-bind='value:FormComponentFormat' class='form-control k-textbox' />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row" data-component-type="TextBox">
+                                        <label for="FormComponentPattern" class="col-4 col-form-label text-right small">Form Component Pattern</label>
+                                        <div class="col-8">
+                                            <input name='FormComponentPattern' type="text" data-bind='value:FormComponentPattern' class='form-control k-textbox' />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="FormComponentHeight" class="col-4 col-form-label text-right small">Form Component Height</label>
+                                        <div class="col-8">
+                                            <input name='FormComponentHeight' type="text" data-bind='value:FormComponentHeight' />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="FormVisibilityColumnName" class="col-4 col-form-label text-right small" title="kendisinin görünür veya görünmez olması için, hangi fielda bakılacak">Form Visibility&Invisibility ColumnName</label>
+                                        <div class="col-8">
+                                            <input name='FormVisibilityColumnName' type="text" data-bind='value:FormVisibilityColumnName' class="w-100" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="FormVisibilityColumnValue" class="col-4 col-form-label text-right small" title="kendisinin görünür olması için, hangi değere bakılacak">Form Visibility ColumnValue</label>
+                                        <div class="col-8">
+                                            <input name='FormVisibilityColumnValue' type="text" data-bind='value:FormVisibilityColumnValue' class="form-control" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="FormInvisibilityColumnValue" class="col-4 col-form-label text-right small" title="kendisinin görünmez olması için, hangi değere bakılacak">Form Invisibility Column Value</label>
+                                        <div class="col-8">
+                                            <input name='FormInvisibilityColumnValue' type="text" data-bind='value:FormInvisibilityColumnValue' class="form-control" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="FormColumnShowRoleGroupIds" class="col-4 col-form-label text-right">Grid Column Show Role</label>
+                                        <div class="col-8">
+                                            <input name='FormColumnShowRoleGroupIds' type="text" data-bind='value:FormColumnShowRoleGroupIds' />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="tabListView" class="tab-pane" role="tabpanel">
+                                    <div class="form-group row">
+                                        <label class="col-4 col-form-label text-right"></label>
+                                        <div class="col-8">
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input name='GridUse' type="checkbox" class="form-control" data-bind='checked:GridUse' style="width: 21px; height: 21px; vertical-align: middle; display: inline;" /> Use
+                                                </label>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input name='GridEditable' type="checkbox" class="form-control" data-bind='checked:GridEditable' style="width: 21px; height: 21px; vertical-align: middle; display: inline;" /> Editable
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-4 col-form-label text-right"></label>
+                                        <div class="col-8">
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input name='GridLocked' type="checkbox" class="form-control" data-bind='checked:GridLocked' style="width: 21px; height: 21px; vertical-align: middle; display: inline;" /> Locked
+                                                </label>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input name='GridEncoded' type="checkbox" class="form-control" data-bind='checked:GridEncoded' style="width: 21px; height: 21px; vertical-align: middle; display: inline;" /> Encoded
+                                                </label>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input name='GridTextNowrap' type="checkbox" class="form-control" data-bind='checked:GridTextNowrap' style="width: 21px; height: 21px; vertical-align: middle; display: inline;" /> Text Nowrap
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-4 col-form-label text-right"></label>
+                                        <div class="col-8">
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input name='TreeExpandable' type="checkbox" class="form-control" data-bind='checked:TreeExpandable' style="width: 21px; height: 21px; vertical-align: middle; display: inline;" /> Tree Expandable
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="GridOrder" class="col-4 col-form-label text-right">Grid Order</label>
+                                        <div class="col-8">
+                                            <input name='GridOrder' type="text" data-bind='value:GridOrder' class='w-100' />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="GridFindTab" class="col-4 col-form-label text-right">Grid Find Tab</label>
+                                        <div class="col-8">
+                                            <input name='GridFindTab' type="text" data-bind='value:GridFindTab' class="w-100" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="GridFindDefaultValue" class="col-4 col-form-label text-right">Grid Find Tab Default Value</label>
+                                        <div class="col-8">
+                                            <input name='GridFindDefaultValue' type="text" data-bind='value:GridFindDefaultValue' class="w-100" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="GridDataSourceSortDir" class="col-4 col-form-label text-right small">Grid DataSource Sort Dir</label>
+                                        <div class="col-8">
+                                            <input name='GridDataSourceSortDir' type="text" data-bind='value:GridDataSourceSortDir' class="w-100" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="GridComponentType" class="col-4 col-form-label text-right small">Grid Component Type</label>
+                                        <div class="col-8">
+                                            <input name='GridComponentType' type="text" data-bind='value:GridComponentType' class="w-100" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row" data-component-type="DropDownList">
+                                        <label for="GridComponentFilterType" class="col-4 col-form-label text-right small">Grid Component Filter Type</label>
+                                        <div class="col-8">
+                                            <input name='GridComponentFilterType' type="text" data-bind='value:GridComponentFilterType' class="w-100" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row" data-component-type="MapEditor">
+                                        <label for="GridComponentCustomProperty" class="col-4 col-form-label text-right small">Grid Component Custom Property</label>
+                                        <div class="col-8">
+                                            <textarea name='GridComponentCustomProperty' data-bind='value:GridComponentCustomProperty' class='form-control k-textbox' style="height:90px;"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row" data-component-type="NumericTextBox,DatePicker,TimePicker,DateTimePicker,MaskedTextBox">
+                                        <label for="GridComponentFormat" class="col-4 col-form-label text-right small">Grid Component Format</label>
+                                        <div class="col-8">
+                                            <input name='GridComponentFormat' type="text" data-bind='value:GridComponentFormat' class='form-control k-textbox' />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row" data-component-type="TextBox">
+                                        <label for="GridComponentPattern" class="col-4 col-form-label text-right small">Grid Component Pattern</label>
+                                        <div class="col-8">
+                                            <input name='GridComponentPattern' type="text" data-bind='value:GridComponentPattern' class='form-control k-textbox' />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="GridComponentWidth" class="col-4 col-form-label text-right small">Grid Component Width</label>
+                                        <div class="col-8">
+                                            <input name='GridComponentWidth' type="text" data-bind='value:GridComponentWidth' />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="GridColumnShowRoleGroupIds" class="col-4 col-form-label text-right">Grid Column Show Role</label>
+                                        <div class="col-8">
+                                            <input name='GridColumnShowRoleGroupIds' type="text" data-bind='value:GridColumnShowRoleGroupIds' />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="tabSearch" class="tab-pane" role="tabpanel">
+                                    <div class="form-group row">
+                                        <label class="col-4 col-form-label text-right"></label>
+                                        <div class="col-8">
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input name='SearchUse' type="checkbox" class="form-control" data-bind='checked:SearchUse' style="width: 21px; height: 21px; vertical-align: middle; display: inline;" /> Use
+                                                </label>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input name='SearchRequired' type="checkbox" class="form-control" data-bind='checked:SearchRequired' style="width: 21px; height: 21px; vertical-align: middle; display: inline;" /> Required
+                                                </label>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input name='SearchHidden' type="checkbox" class="form-control" data-bind='checked:SearchHidden' style="width: 21px; height: 21px; vertical-align: middle; display: inline;" /> Hidden
+                                                </label>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input name='SearchLocked' type="checkbox" class="form-control" data-bind='checked:GridLocked' style="width: 21px; height: 21px; vertical-align: middle; display: inline;" /> Locked
+                                                </label>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input name='SearchEncoded' type="checkbox" class="form-control" data-bind='checked:SearchEncoded' style="width: 21px; height: 21px; vertical-align: middle; display: inline;" /> Encoded
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="SearchOrder" class="col-4 col-form-label text-right">Search Order</label>
+                                        <div class="col-8">
+                                            <input name='SearchOrder' type="text" data-bind='value:SearchOrder' class='w-100' />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="SearchFindTab" class="col-4 col-form-label text-right">Search Find Tab</label>
+                                        <div class="col-8">
+                                            <input name='SearchFindTab' type="text" data-bind='value:SearchFindTab' class="w-100" />
+                                        </div>
+                                    </div>
+
+                                    <hr />
+                                    For the search field
+                                    <hr />
+
+                                    <div class="form-group row">
+                                        <label for="SearchShowType" class="col-4 col-form-label text-right small">Search Show Type</label>
+                                        <div class="col-8">
+                                            <input name='SearchShowType' type="text" data-bind='value:SearchShowType' class="w-100" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="SearchFilterColumnName" class="col-4 col-form-label text-right small">Search Filter Column Name</label>
+                                        <div class="col-8">
+                                            <input name='SearchFilterColumnName' type="text" data-bind='value:SearchFilterColumnName' class='form-control k-textbox' />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="SearchFilterOperator" class="col-4 col-form-label text-right small">Search Filter Operator</label>
+                                        <div class="col-8">
+                                            <input name='SearchFilterOperator' type="text" data-bind='value:SearchFilterOperator' class='form-control k-textbox' />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="SearchFilterValue" class="col-4 col-form-label text-right small">Search Filter Value</label>
+                                        <div class="col-8">
+                                            <input name='SearchFilterValue' type="text" data-bind='value:SearchFilterValue' class='form-control k-textbox' />
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div id="tabCreateOption" class="tab-pane" role="tabpanel">
+                <div class="row col">
+                    <div class="col-md-6">
+
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input id='DataTransferObjectLock' type="checkbox" class="form-control" style="width: 21px; height: 21px; vertical-align: middle; display: inline;" />
+                                        Data Transfer Object Lock
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input id='DataManipulationObjectLock' type="checkbox" class="form-control" style="width: 21px; height: 21px; vertical-align: middle; display: inline;" />
+                                        Data Manipulation Object Lock
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input id='ControllerLock' type="checkbox" class="form-control" style="width: 21px; height: 21px; vertical-align: middle; display: inline;" />
+                                        Controller Lock
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input id='DictionaryLock' type="checkbox" class="form-control" style="width: 21px; height: 21px; vertical-align: middle; display: inline;" />
+                                        Dictionary Lock
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input id='FormViewLock' type="checkbox" class="form-control" style="width: 21px; height: 21px; vertical-align: middle; display: inline;" />
+                                        Form View Lock
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input id='GridViewLock' type="checkbox" class="form-control" style="width: 21px; height: 21px; vertical-align: middle; display: inline;" />
+                                        Grid View Lock
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input id='TreeListLock' type="checkbox" class="form-control" style="width: 21px; height: 21px; vertical-align: middle; display: inline;" />
+                                        Tree List Lock
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input id='SearchViewLock' type="checkbox" class="form-control" style="width: 21px; height: 21px; vertical-align: middle; display: inline;" />
+                                        Search View Lock
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input id='DataTransferObjectAutoCreate' type="checkbox" class="form-control" style="width: 21px; height: 21px; vertical-align: middle; display: inline;" />
+                                        Data Transfer Object Auto Create
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input id='DataManipulationObjectAutoCreate' type="checkbox" class="form-control" style="width: 21px; height: 21px; vertical-align: middle; display: inline;" />
+                                        Data Manipulation Object Auto Create
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input id='ControllerAutoCreate' type="checkbox" class="form-control" style="width: 21px; height: 21px; vertical-align: middle; display: inline;" />
+                                        Controller Auto Create
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input id='DictionaryAutoCreate' type="checkbox" class="form-control" style="width: 21px; height: 21px; vertical-align: middle; display: inline;" />
+                                        Dictionary Auto Create
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input id='FormViewAutoCreate' type="checkbox" class="form-control" style="width: 21px; height: 21px; vertical-align: middle; display: inline;" />
+                                        Form View Auto Create
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input id='GridViewAutoCreate' type="checkbox" class="form-control" style="width: 21px; height: 21px; vertical-align: middle; display: inline;" />
+                                        Grid View Auto Create
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input id='TreeListAutoCreate' type="checkbox" class="form-control" style="width: 21px; height: 21px; vertical-align: middle; display: inline;" />
+                                        Tree List Auto Create
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input id='SearchViewAutoCreate' type="checkbox" class="form-control" style="width: 21px; height: 21px; vertical-align: middle; display: inline;" />
+                                        Search View Auto Create
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        viewTableOption.prepare();
+    });
+
+    window.viewTableOption = function () {
+        var self = {};
+        self.selector = "#viewTableOption";
+        self.TableName = "@ViewBag.TableName";
+        self.oTableOption = null;
+        self.selected_columnName = "";
+        self.tableOptionExists = false;
+
+        self.dsTableList = "@string.Join(",", ViewBag.tableList)".split(",");
+
+        self.dsDataTypes = ["System.String", "System.Int32", "System.Int64", "System.DateTime", "System.TimeSpan", "System.Decimal", "System.Double", "System.Single", "System.Boolean", "System.Guid"];
+        self.dsFormComponentType = ["", "TextBox", "PasswordTextBox", "TextArea", "TextAreaForJson", "NumericTextBox", "DropDownList", "YearPicker", "DatePicker", "TimePicker", "DateTimePicker", "MaskedTextBox", "MultiSelect", "TextEditor", "ColorPicker", "Checkbox", "Radio", "AutoComplete", "ComboBox", "Slider", "ExternalSearchEdit", "DownloadFileLink", "ImageBox","FileSearchEdit","MapEditor"];
+        self.dsGridComponentType = ["", "TextBox", "PasswordTextBox", "TextArea", "TextAreaForJson", "NumericTextBox", "DropDownList", "YearPicker", "DatePicker", "TimePicker", "DateTimePicker", "MaskedTextBox", "MultiSelect", "TextEditor", "ColorPicker", "Checkbox", "Radio", "AutoComplete", "ComboBox", "Slider", "ExternalSearchEdit", "DownloadFileLink", "ImageBox","FileSearchEdit","MapEditor"];
+        self.dsColumnDefault = ['""', 'null', 'string.Empty', '0', '1', 'false', 'true', '"00:00"', 'ActionDefault:DateTime.Now', 'ActionDefault:OrderMaxPlusOne', 'ActionDefault:NewGuid', 'ActionDefault:NewGuidToUpper', 'ActionDefault:UniqueRandomNumber16', 'ActionDefault:UserId', 'ActionDefault:UserName', 'ActionDefault:Star'];
+        self.dsColumnReadConvertValue = ["", "ActionRead:StringEmpty", "ActionRead:NumericZero","ActionRead:DecryptPassword", "ActionRead:MyFromBase64Str", "ActionRead:MyToCronExpressionDescriptor", "ActionRead:MyToStr", "ActionRead:MyToTrim"];
+        self.dsColumnWriteConvertValue = ["", "ActionWrite:EncryptPassword", "ActionWrite:MyToBase64Str", "ActionWrite:MyToUpper", "ActionWrite:MyToTitleCase", "ActionWrite:MyToMD5", "ActionWrite:MyToLatinString", "ActionWrite:UserId", "ActionWrite:UserName", "ActionWrite:DateTime.Now", "ActionWrite:IfZeroThenOrderMaxPlusOne", "ActionWrite:IfStarThenCodePlusOne", "ActionWrite:MyToSeoUrl" ];
+        self.dsComponentFilterType = ["", "startswith", "contains", "endswith"];
+
+        self.dsFindDefaultValue = ["", "null", "Empty", "0", "1", "false", "true", "LocalDateTime", "LocalDate", "LocalTime", "UserId"];
+
+
+        self.dsTabs = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII"];
+
+        self.dsGridViewCrudEditorType = ["Inline", "Page", "Popup"];
+
+        self.dsSearchViewCrudEditorType = ["Inline", "Page", "Popup"];
+
+        self.dsViewType = ["Form", "Grid", "TreeList"];
+
+        self.dsTableCuds = [
+            { value: "C", text: "Create" },
+            { value: "U", text: "Update" },
+            { value: "D", text: "Delete" }
+        ];
+
+        self.dsSearchViewType = ["Grid", "TreeList"];
+
+        self.dsShowType = ["Page", "Popup"];
+
+        self.dsFilterOperator = ["eq", "neq", "isnull", "isnotnull", "lt", "lte", "gt", "gte", "startswith", "endswith", "contains", "isempty", "isnotempty", "IsNullOrEmpty", "IsNotNullOrEmpty"];
+
+        self.dsFilterOperatorForSql = ["=", ">", "<", "<=", ">=", "!="];
+        self.dsSortDir = ["", "asc", "desc"];
+
+        self.dsEnmSahipTur = [
+            { value: "11", text: "Admin" },
+            { value: "21", text: "Personel" },
+            { value: "31", text: "UstTrader" },
+            { value: "41", text: "Trader" }
+        ];
+
+        //mnLookup.js den
+        self.dsColumnReferansJson = [
+            "",
+            "dsEvetHayir",
+            "dsAktifPasif",
+            "dsDogruYanlis",
+            "dsZamanTur",
+            "dsHaftaninGunu",
+            "dsTables",
+            "dsCultures",
+            "dsCRUD",
+            "dsSayi_1_3",
+            "dsSayi_0_9",
+            "dsAyinGunu",
+            "dsKanGrup",
+            "dsSehirIlce",
+            "dsHaftaNoList"
+        ];
+
+        self.dsAktiveTableColumnList = new kendo.data.DataSource({
+            transport: {
+                read: {
+                    type: "GET", dataType: "json", async: false,
+                    url: "/Home/GetColumns",
+                    data: function (e) {
+                        e._TableName = self.TableName;
+                    }
+                }
+            },
+            schema: {
+                errors: "errors", data: "data"
+            }
+        });
+
+        self.dsReferansTableColumnList = new kendo.data.DataSource({
+            transport: {
+                read: {
+                    type: "GET", dataType: "json", async: false,
+                    url: "/Home/GetColumns",
+                    data: function (e) {
+                        e._TableName = self.cbColumnReferansTableName.value();
+                    }
+                }
+            },
+            schema: {
+                errors: "errors", data: "data"
+            }
+        });
+
+        function fShowResult(_result) {
+            if (_result.bError) {
+                mnNotification.error(_result.sMessage);
+            } else {
+                mnNotification.success(_result.sMessage);
+            }
+        }
+
+        //---------------------------------------------------
+        function fGetOptions() {
+            var _data = {
+                _TableName: self.TableName,
+                _TableOptionName: $(self.selector).find("#TableOptionName").val()
+            };
+            $.ajax({
+                url: "/Home/TableOptionRead",
+                data: _data,
+                type: "POST", dataType: "json", async: false,
+                beforeSend: function (jqXHR, settings) {
+                    kendo.ui.progress($(self.selector), true); //progress On
+                },
+                complete: function (jqXHR, textStatus) {
+                    kendo.ui.progress($(self.selector), false); //progress Off
+                },
+                success: function (result, textStatus, jqXHR) {
+                    kendo.ui.progress($(self.selector), false); //progress Off
+                    self.tableOptionExists = result.bExists;
+
+                    if (!result.bError) {
+                        self.oTableOption = result.oTableOption;
+                        //SequenceName ve yetki set
+                        $(self.selector).find("#TableDictionaryTitleTr").val(self.oTableOption.TableDictionaryTitleTr);
+                        $(self.selector).find("#TableDictionaryTitleEn").val(self.oTableOption.TableDictionaryTitleEn);
+
+                        $(self.selector).find("#TableDictionaryShortTitleTr").val(self.oTableOption.TableDictionaryShortTitleTr);
+                        $(self.selector).find("#TableDictionaryShortTitleEn").val(self.oTableOption.TableDictionaryShortTitleEn);
+
+                        $(self.selector).find("#FormViewTabDictionaryTr").val(self.oTableOption.FormViewTabDictionaryTr);
+                        $(self.selector).find("#FormViewTabDictionaryEn").val(self.oTableOption.FormViewTabDictionaryEn);
+                        $(self.selector).find("#GridViewTabDictionaryTr").val(self.oTableOption.GridViewTabDictionaryTr);
+                        $(self.selector).find("#GridViewTabDictionaryEn").val(self.oTableOption.GridViewTabDictionaryEn);
+                        $(self.selector).find("#SearchViewTabDictionaryTr").val(self.oTableOption.SearchViewTabDictionaryTr);
+                        $(self.selector).find("#SearchViewTabDictionaryEn").val(self.oTableOption.SearchViewTabDictionaryEn);
+
+                        $(self.selector).find("#SequenceName").val(self.oTableOption.SequenceName);
+
+                        if (self.oTableOption.TableCuds !== null && self.oTableOption.TableCuds.length > 0) {
+                            self.msTableCuds.value(self.oTableOption.TableCuds.split(","));
+                        }
+
+                        $(self.selector).find("#PrimaryKey").val(self.oTableOption.PrimaryKey);
+
+                        self.ddGridViewCrudEditorType.value(self.oTableOption.GridViewCrudEditorType);
+                        self.ddGridViewMasterColumnName.value(self.oTableOption.GridViewMasterColumnName);
+
+                        self.ddParentColumnName.value(self.oTableOption.ParentColumnName);
+                        self.ddGridViewRowStyleStatusColumnName.value(self.oTableOption.GridViewRowStyleStatusColumnName);
+                        self.ddGridViewOnayButtonColumnName.value(self.oTableOption.GridViewOnayButtonColumnName);
+                        self.ntbGridViewDataSourcePageSize.value(self.oTableOption.GridViewDataSourcePageSize);
+
+                        self.ddSearchViewType.value(self.oTableOption.SearchViewType);
+                        self.ddSearchViewCrudEditorType.value(self.oTableOption.SearchViewCrudEditorType);
+
+                        $(self.selector).find("#DataTransferObjectLock").prop("checked", self.oTableOption.DataTransferObjectLock);
+                        $(self.selector).find("#DataManipulationObjectLock").prop("checked", self.oTableOption.DataManipulationObjectLock);
+                        $(self.selector).find("#ControllerLock").prop("checked", self.oTableOption.ControllerLock);
+                        $(self.selector).find("#DictionaryLock").prop("checked", self.oTableOption.DictionaryLock);
+                        $(self.selector).find("#FormViewLock").prop("checked", self.oTableOption.FormViewLock);
+                        $(self.selector).find("#GridViewLock").prop("checked", self.oTableOption.GridViewLock);
+                        $(self.selector).find("#TreeListLock").prop("checked", self.oTableOption.TreeListLock);
+                        $(self.selector).find("#SearchViewLock").prop("checked", self.oTableOption.SearchViewLock);
+
+
+                        $(self.selector).find("#DataTransferObjectAutoCreate").prop("checked", self.oTableOption.DataTransferObjectAutoCreate);
+                        $(self.selector).find("#DataManipulationObjectAutoCreate").prop("checked", self.oTableOption.DataManipulationObjectAutoCreate);
+                        $(self.selector).find("#ControllerAutoCreate").prop("checked", self.oTableOption.ControllerAutoCreate);
+                        $(self.selector).find("#DictionaryAutoCreate").prop("checked", self.oTableOption.DictionaryAutoCreate);
+                        $(self.selector).find("#FormViewAutoCreate").prop("checked", self.oTableOption.FormViewAutoCreate);
+                        $(self.selector).find("#GridViewAutoCreate").prop("checked", self.oTableOption.GridViewAutoCreate);
+                        $(self.selector).find("#TreeListAutoCreate").prop("checked", self.oTableOption.TreeListAutoCreate);
+                        $(self.selector).find("#SearchViewAutoCreate").prop("checked", self.oTableOption.SearchViewAutoCreate);
+
+
+                        // TableOption Fields
+                        self.dsTableOption_Fields = new kendo.data.DataSource({
+                            data: self.oTableOption.Fields,
+                            schema: {
+                                model: {
+                                    id: 'ColumnName',
+                                    fields: {
+                                        ColumnName: { editable: false, type: 'string' },
+
+                                        ColumnUse: { type: 'boolean' },
+                                        ColumnRequired: { type: 'boolean' },
+
+                                        ColumnDbType: { editable: false, type: 'string' },
+                                        ColumnLength: { editable: false, type: 'number' },
+                                        ColumnNetType: { editable: false, type: 'string' },
+                                        ColumnJsonType: { editable: false, type: 'string' },
+
+                                        ColumnStatus: { type: 'string' },
+                                        ColumnOrder: { editable: false, type: 'number' },
+                                        ColumnDefault: { type: 'string' },
+                                        ColumnMaxLength: { type: 'number' },
+
+                                        ColumnDictionaryTr: { type: 'string' },
+                                        ColumnDictionaryEn: { type: 'string' },
+
+                                        ColumnReadConvertValue: { type: 'string' },
+                                        ColumnWriteConvertColumnName: { type: 'string' },
+                                        ColumnWriteConvertValue: { type: 'string' },
+
+                                        ColumnReferansTableName: { type: 'string' },
+                                        ColumnReferansValueColumnName: { type: 'string' },
+                                        ColumnReferansDisplayColumnNames: { type: 'string' },
+                                        ColumnReferansSortColumnNames: { type: 'string' },
+
+                                        ColumnReferansFilterField: { type: 'string' },
+                                        ColumnReferansFilterOperator: { type: 'string' },
+                                        ColumnReferansFilterValue: { type: 'string' },
+
+
+                                        ColumnReferansJsonDataSource: { type: 'string' },
+                                        ColumnReferansDisplayColumnRead: { type: 'boolean' },
+
+                                        ColumnCurrentFilterValueColumnName: { type: 'string' },
+                                        ColumnReferansFilterValueColumnName: { type: 'string' },
+
+                                        FormUse: { type: 'boolean' },
+                                        FormOrder: { type: 'number' },
+                                        FormEditable: { type: 'boolean' },
+                                        FormReadonly: { type: 'boolean' },
+                                        FormLabelLocationTop: { type: 'boolean' },
+                                        FormViewTab: { type: 'string' },
+                                        FormViewLocation: { type: 'string' },
+                                        FormComponentType: { type: 'string' },
+                                        FormComponentFilterType: { type: 'string' },             
+                                        FormComponentCustomProperty: { type: 'string' },
+                                        FormComponentFormat: { type: 'string' },
+                                        FormComponentPattern: { type: 'string' },
+                                        FormComponentHeight: { type: 'number' },
+                                        FormResetPasswordMailColumnName: { type: 'string' },
+                                        FormVisibilityColumnName: { type: 'string' },
+                                        FormVisibilityColumnValue: { type: 'string' },
+                                        FormInvisibilityColumnValue: { type: 'string' },
+                                        FormColumnShowRoleGroupIds: { type: 'string' },
+
+                                        GridUse: { type: 'boolean' },
+                                        GridOrder: { type: 'number' },
+                                        GridEditable: { type: 'boolean' },
+                                        GridLocked: { type: 'boolean' },
+                                        GridEncoded: { type: 'boolean' },
+                                        GridTextNowrap: { type: 'boolean' },
+
+                                        GridFindTab: { type: 'string' },
+                                        GridFindDefaultValue: { type: 'string' },
+                                        GridDataSourceSortDir: { type: 'string' },
+                                        GridComponentType: { type: 'string' },
+                                        GridComponentFilterType: { type: 'string' },
+                                        GridComponentCustomProperty: { type: 'string' },
+                                        GridComponentFormat: { type: 'string' },
+                                        GridComponentPattern: { type: 'string' },
+                                        GridComponentWidth: { type: 'number' },
+                                        GridColumnShowRoleGroupIds: { type: 'string' },
+
+                                        TreeExpandable: { type: 'boolean' },
+
+                                        SearchUse: { type: 'boolean' },
+                                        SearchRequired: { type: 'boolean' },
+                                        SearchOrder: { type: 'number' },
+                                        SearchHidden: { type: 'boolean' },
+                                        SearchLocked: { type: 'boolean' },
+                                        SearchEncoded: { type: 'boolean' },
+                                        SearchFindTab: { type: 'string' },
+
+                                        SearchShowType: { type: 'string' },
+
+                                        SearchFilterColumnName: { type: 'string' },
+                                        SearchFilterOperator: { type: 'string' },
+                                        SearchFilterValue: { type: 'string' }
+                                    }
+                                }
+                            }
+                        });
+
+                        self.dsTableOption_Fields.read();
+
+                        //grid tbody data
+                        var gridBody = $(self.selector).find("#gridFieldOption table tbody");
+                        gridBody.empty();
+                        for (var i = 0; i < self.oTableOption.Fields.length; i++) {
+                            var item = self.oTableOption.Fields[i];
+                            var tableRow = '';
+                            tableRow += '<tr id="' + item.ColumnName + '" >';
+                            tableRow += '   <th scope="row">' + item.ColumnOrder + '</th>';
+                            tableRow += '   <td name="FormOrder">' + item.FormOrder + '</td>';
+                            tableRow += '   <td name="GridOrder">' + item.GridOrder + '</td>';
+                            tableRow += '   <td name="SearchOrder">' + item.SearchOrder + '</td>';
+                            tableRow += '   <td>' + item.ColumnName + '</td>';
+                            tableRow += '   <td style="font-size:0.8em;">' + item.ColumnDbType + '</td>';
+                            tableRow += '   <td>' + item.ColumnLength + '</td>';
+
+                            tableRow += '   <td style="font-size:0.8em;">' + item.ColumnNetType + '</td>';
+                            tableRow += '   <td style="font-size:0.8em;">' + item.ColumnJsonType + '</td>';
+
+                            tableRow += '   <td>' + item.FormViewTab + '</td>';
+                            tableRow += '   <td>' + item.FormViewLocation + '</td>';
+                            tableRow += '   <td>' + item.GridFindTab + '</td>';
+                            tableRow += '   <td>' + item.SearchFindTab + '</td>';
+
+                            tableRow += '   <td class="text-nowrap" style="font-size:0.8em;">' + item.ColumnDictionaryTr + '</td>';
+                            tableRow += '   <td class="text-nowrap" style="font-size:0.8em;">' + item.ColumnDictionaryEn + '</td>';
+
+                            tableRow += '</tr>';
+
+                            gridBody.append(tableRow);
+
+                            //silinmiş column gösterimi
+                            if (item.ColumnStatus === "Sil") {
+                                $(gridBody).find("#" + item.ColumnName ).css("color", "orangered");
+                            }
+
+                            //yeni column gösterimi
+                            if (item.ColumnStatus == "Yeni") {
+                                $(gridBody).find("#" + item.ColumnName).css("color", "green");
+                            }
+                        }
+                        //first select
+                        $(self.selector).find("#gridFieldOption table tbody tr:first").click();
+
+
+                        // TableOption Details
+
+                        if (self.gridDetailOption === undefined) {
+
+                            self.gridDetailOption = $(self.selector).find("#gridDetailOption").kendoGrid({
+                                height: 500, autoBind: false, resizable: true, reorderable: true,
+                                sortable: { mode: 'multiple', allowUnsort: true },
+                                toolbar: [{ name: "create", text: "Add new" }],
+                                editable: {
+                                    confirmation: true, mode: 'inline', createAt: 'bottom'
+                                },
+                                columns: [
+                                    {
+                                        locked: true,
+                                        width: '95px',
+                                        command: [
+                                            { name: 'edit', buttonType: 'ImageAndText', text: { cancel: '', update: '', edit: '' }, attr: 'style="width:32px;  margin-right:3px; " ' },
+                                            { name: 'destroy', buttonType: 'ImageAndText', text: '', attr: 'style="width:32px;  margin-right:3px; " ' }
+                                        ]
+                                    },
+                                    {
+                                        title: 'Order',
+                                        field: 'OrderNumber',
+                                        width: '70px',
+                                        format: '{0:n0}'
+                                    },
+                                    {
+                                        title: 'Table Name',
+                                        field: 'TableName',
+                                        width: '250px',
+                                        editor: function (container, options) {
+                                            var input = $('<input type="text"/>');
+                                            input.attr('name', options.field);
+                                            input.appendTo(container);
+                                            var msInput = input.kendoDropDownList({
+                                                valuePrimitive: true,
+                                                optionLabel: ' ',
+                                                filter: 'contains',
+                                                dataSource: self.dsTableList,
+                                                change: function (e) {
+                                                    options.model.set('ColumnName', '');
+                                                    var $elm = $(self.gridDetailOption.wrapper).find('[name=ColumnName]');
+                                                    var widget = kendo.widgetInstance($elm);
+                                                    widget.dataSource.read();
+                                                }
+                                            }).getKendoDropDownList();
+                                        }
+                                    },
+                                    {
+                                        title: 'Column Name',
+                                        field: 'ColumnName',
+                                        width: '170px',
+                                        editor: function (container, options) {
+                                            var input = $('<input type="text"/>');
+                                            input.attr('name', options.field);
+                                            input.appendTo(container);
+                                            var msInput = input.kendoDropDownList({
+                                                valuePrimitive: true,
+                                                optionLabel: ' ',
+                                                filter: 'contains',
+                                                dataSource: new kendo.data.DataSource({
+                                                    transport: {
+                                                        read: {
+                                                            type: "GET", dataType: "json", async: false,
+                                                            url: "/Home/GetColumns",
+                                                            data: function (e) {
+                                                                e._TableName = options.model.TableName;
+                                                            }
+                                                        }
+                                                    },
+                                                    schema: {
+                                                        errors: "errors", data: "data"
+                                                    }
+                                                })
+                                            }).getKendoDropDownList();
+                                        }
+                                    },
+                                    {
+                                        title: 'F.Column',
+                                        field: 'FilterColumnName',
+                                        width: '90px'
+                                    },
+                                    {
+                                        title: 'F.Oprtr',
+                                        field: 'FilterOperator',
+                                        width: '60px'
+                                    },
+                                    {
+                                        title: 'F.Val',
+                                        field: 'FilterValue',
+                                        width: '80px'
+                                    },
+                                    {
+                                        title: 'Show Type',
+                                        field: 'ShowType',
+                                        width: '100px',
+                                        editor: function (container, options) {
+                                            var input = $('<input type="text"/>');
+                                            input.attr('name', options.field);
+                                            input.appendTo(container);
+                                            var msInput = input.kendoDropDownList({
+                                                valuePrimitive: true,
+                                                optionLabel: ' ',
+                                                filter: 'contains',
+                                                dataSource: self.dsShowType
+                                            }).getKendoDropDownList();
+                                        }
+                                    },
+                                    {
+                                        title: 'View Type',
+                                        field: 'ViewType',
+                                        width: '100px',
+                                        editor: function (container, options) {
+                                            var input = $('<input type="text"/>');
+                                            input.attr('name', options.field);
+                                            input.appendTo(container);
+                                            var msInput = input.kendoDropDownList({
+                                                valuePrimitive: true,
+                                                optionLabel: ' ',
+                                                filter: 'contains',
+                                                dataSource: self.dsViewType
+                                            }).getKendoDropDownList();
+                                        }
+                                    },
+                                    {
+                                        title: 'Form Use',
+                                        field: 'FormViewUse',
+                                        width: '90px'
+                                    },
+                                    {
+                                        title: 'Grid Use',
+                                        field: 'GridViewUse',
+                                        width: '90px'
+                                    },
+                                    //{
+                                    //    title: 'Tree Use',
+                                    //    field: 'TreeListUse',
+                                    //    width: '100px'
+                                    //},
+                                    {
+                                        title: 'Count Show',
+                                        field: 'CountShow',
+                                        width: '90px'
+                                    },
+
+                                    {}
+                                ],
+                                edit: function (e) {
+                                    if (e.model.isNew()) {
+                                        var maxOrder = 0;
+                                        for (var i = 0; i < e.sender.dataSource.data().length - 1; i++) {
+                                            maxOrder = e.sender.dataSource.data()[i].OrderNumber;
+                                        }
+                                        e.model.set("OrderNumber", maxOrder + 1);
+                                    }
+                                },
+                                dataSource: new kendo.data.DataSource({
+                                    data: self.oTableOption.Details,
+                                    schema: {
+                                        model: {
+                                            id: 'OrderNumber',
+                                            fields: {
+                                                OrderNumber: { type: 'number' },
+                                                TableName: { type: 'string' },
+                                                ColumnName: { type: 'string' },
+                                                FilterColumnName: { type: 'string' },
+                                                FilterOperator: { type: 'string' },
+                                                FilterValue: { type: 'string' },
+                                                ShowType: { type: 'string' },
+                                                ViewType: { type: 'string' },
+                                                FormViewUse: { type: 'boolean' },
+                                                GridViewUse: { type: 'boolean' },
+                                                TreeListUse: { type: 'boolean' },
+                                                CountShow: { type: 'boolean' }
+                                            }
+                                        }
+                                    }
+                                })
+                            }).getKendoGrid();
+                        } else {
+                            //
+                            var dsData = new kendo.data.DataSource({
+                                data: self.oTableOption.Details,
+                                schema: {
+                                    model: {
+                                        id: 'OrderNumber',
+                                        fields: {
+                                            OrderNumber: { type: 'number' },
+                                            TableName: { type: 'string' },
+                                            ColumnName: { type: 'string' },
+                                            FilterColumnName: { type: 'string' },
+                                            FilterOperator: { type: 'string' },
+                                            FilterValue: { type: 'string' },
+                                            ShowType: { type: 'string' },
+                                            ViewType: { type: 'string' },
+                                            FormViewUse: { type: 'boolean' },
+                                            GridViewUse: { type: 'boolean' },
+                                            TreeListUse: { type: 'boolean' },
+                                            CountShow: { type: 'boolean' }
+                                        }
+                                    }
+                                }
+                            });
+
+                            self.gridDetailOption.setDataSource(dsData);
+                        }
+
+                        self.gridDetailOption.dataSource.read();
+                        self.gridDetailOption.refresh();
+
+                    } else {
+                        alert(result.sMessage);
+                    }
+
+                    fCodeWriterButtonsVisibility();
+                    fCodeWriterButtonsAvailability();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    kendo.ui.progress($(self.selector), false); //progress Off
+                    alert(jqXHR.statusText + "-" + jqXHR.statusText + " (" + this.url + ")");
+                }
+            });
+        }
+
+        function fSetOptions() {
+
+            self.oTableOption.TableName = self.TableName;
+            self.oTableOption.TableDictionaryTitleTr = $(self.selector).find("#TableDictionaryTitleTr").val();
+            self.oTableOption.TableDictionaryTitleEn = $(self.selector).find("#TableDictionaryTitleEn").val();
+
+            self.oTableOption.TableDictionaryShortTitleTr = $(self.selector).find("#TableDictionaryShortTitleTr").val();
+            self.oTableOption.TableDictionaryShortTitleEn = $(self.selector).find("#TableDictionaryShortTitleEn").val();
+
+            self.oTableOption.FormViewTabDictionaryTr = $(self.selector).find("#FormViewTabDictionaryTr").val();
+            self.oTableOption.FormViewTabDictionaryEn = $(self.selector).find("#FormViewTabDictionaryEn").val();
+            self.oTableOption.GridViewTabDictionaryTr = $(self.selector).find("#GridViewTabDictionaryTr").val();
+            self.oTableOption.GridViewTabDictionaryEn = $(self.selector).find("#GridViewTabDictionaryEn").val();
+            self.oTableOption.SearchViewTabDictionaryTr = $(self.selector).find("#SearchViewTabDictionaryTr").val();
+            self.oTableOption.SearchViewTabDictionaryEn = $(self.selector).find("#SearchViewTabDictionaryEn").val();
+
+
+            self.oTableOption.SequenceName = $(self.selector).find("#SequenceName").val();
+            self.oTableOption.TableCuds = self.msTableCuds.value().join();
+
+            self.oTableOption.PrimaryKey = $(self.selector).find("#PrimaryKey").val();
+
+            self.oTableOption.GridViewCrudEditorType = self.ddGridViewCrudEditorType.value();
+            self.oTableOption.GridViewMasterColumnName = self.ddGridViewMasterColumnName.value();
+
+            self.oTableOption.ParentColumnName = self.ddParentColumnName.value();
+            self.oTableOption.GridViewRowStyleStatusColumnName = self.ddGridViewRowStyleStatusColumnName.value();
+            self.oTableOption.GridViewOnayButtonColumnName = self.ddGridViewOnayButtonColumnName.value();
+            self.oTableOption.GridViewDataSourcePageSize = self.ntbGridViewDataSourcePageSize.value();
+
+            self.oTableOption.SearchViewType = self.ddSearchViewType.value();
+            self.oTableOption.SearchViewCrudEditorType = self.ddSearchViewCrudEditorType.value();
+
+            self.oTableOption.DataTransferObjectLock = $(self.selector).find("#DataTransferObjectLock").prop("checked");
+            self.oTableOption.DataManipulationObjectLock = $(self.selector).find("#DataManipulationObjectLock").prop("checked");
+            self.oTableOption.ControllerLock = $(self.selector).find("#ControllerLock").prop("checked");
+            self.oTableOption.DictionaryLock = $(self.selector).find("#DictionaryLock").prop("checked");
+            self.oTableOption.FormViewLock = $(self.selector).find("#FormViewLock").prop("checked");
+            self.oTableOption.GridViewLock = $(self.selector).find("#GridViewLock").prop("checked");
+            self.oTableOption.TreeListLock = $(self.selector).find("#TreeListLock").prop("checked");
+            self.oTableOption.SearchViewLock = $(self.selector).find("#SearchViewLock").prop("checked");
+
+            self.oTableOption.DataTransferObjectAutoCreate = $(self.selector).find("#DataTransferObjectAutoCreate").prop("checked");
+            self.oTableOption.DataManipulationObjectAutoCreate = $(self.selector).find("#DataManipulationObjectAutoCreate").prop("checked");
+            self.oTableOption.ControllerAutoCreate = $(self.selector).find("#ControllerAutoCreate").prop("checked");
+            self.oTableOption.DictionaryAutoCreate = $(self.selector).find("#DictionaryAutoCreate").prop("checked");
+            self.oTableOption.FormViewAutoCreate = $(self.selector).find("#FormViewAutoCreate").prop("checked");
+            self.oTableOption.GridViewAutoCreate = $(self.selector).find("#GridViewAutoCreate").prop("checked");
+            self.oTableOption.TreeListAutoCreate = $(self.selector).find("#TreeListAutoCreate").prop("checked");
+            self.oTableOption.SearchViewAutoCreate = $(self.selector).find("#SearchViewAutoCreate").prop("checked");
+
+            for (var i = 0; i < self.oTableOption.Fields.length; i++) {
+                self.oTableOption.Fields[i].ColumnUse = self.dsTableOption_Fields.data()[i].ColumnUse;
+                self.oTableOption.Fields[i].ColumnRequired = self.dsTableOption_Fields.data()[i].ColumnRequired;
+                self.oTableOption.Fields[i].ColumnDefault = self.dsTableOption_Fields.data()[i].ColumnDefault;
+                self.oTableOption.Fields[i].ColumnMaxLength = self.dsTableOption_Fields.data()[i].ColumnMaxLength;
+
+                self.oTableOption.Fields[i].ColumnDictionaryTr = self.dsTableOption_Fields.data()[i].ColumnDictionaryTr;
+                self.oTableOption.Fields[i].ColumnDictionaryEn = self.dsTableOption_Fields.data()[i].ColumnDictionaryEn;
+
+                self.oTableOption.Fields[i].ColumnReadConvertValue = self.dsTableOption_Fields.data()[i].ColumnReadConvertValue;
+                self.oTableOption.Fields[i].ColumnWriteConvertColumnName = self.dsTableOption_Fields.data()[i].ColumnWriteConvertColumnName;
+                self.oTableOption.Fields[i].ColumnWriteConvertValue = self.dsTableOption_Fields.data()[i].ColumnWriteConvertValue;
+                self.oTableOption.Fields[i].ColumnReferansTableName = self.dsTableOption_Fields.data()[i].ColumnReferansTableName;
+                self.oTableOption.Fields[i].ColumnReferansValueColumnName = self.dsTableOption_Fields.data()[i].ColumnReferansValueColumnName;
+                self.oTableOption.Fields[i].ColumnReferansDisplayColumnNames = self.dsTableOption_Fields.data()[i].ColumnReferansDisplayColumnNames;
+                self.oTableOption.Fields[i].ColumnReferansSortColumnNames = self.dsTableOption_Fields.data()[i].ColumnReferansSortColumnNames;
+
+                self.oTableOption.Fields[i].ColumnReferansFilterField = self.dsTableOption_Fields.data()[i].ColumnReferansFilterField;
+                self.oTableOption.Fields[i].ColumnReferansFilterOperator = self.dsTableOption_Fields.data()[i].ColumnReferansFilterOperator;
+                self.oTableOption.Fields[i].ColumnReferansFilterValue = self.dsTableOption_Fields.data()[i].ColumnReferansFilterValue;
+
+
+                self.oTableOption.Fields[i].ColumnReferansJsonDataSource = self.dsTableOption_Fields.data()[i].ColumnReferansJsonDataSource;
+                self.oTableOption.Fields[i].ColumnReferansDisplayColumnRead = self.dsTableOption_Fields.data()[i].ColumnReferansDisplayColumnRead;
+
+                self.oTableOption.Fields[i].ColumnCurrentFilterValueColumnName = self.dsTableOption_Fields.data()[i].ColumnCurrentFilterValueColumnName;
+                self.oTableOption.Fields[i].ColumnReferansFilterValueColumnName = self.dsTableOption_Fields.data()[i].ColumnReferansFilterValueColumnName;
+
+                self.oTableOption.Fields[i].FormUse = self.dsTableOption_Fields.data()[i].FormUse;
+                self.oTableOption.Fields[i].FormOrder = self.dsTableOption_Fields.data()[i].FormOrder;
+                self.oTableOption.Fields[i].FormEditable = self.dsTableOption_Fields.data()[i].FormEditable;
+                self.oTableOption.Fields[i].FormReadonly = self.dsTableOption_Fields.data()[i].FormReadonly;
+                self.oTableOption.Fields[i].FormLabelLocationTop = self.dsTableOption_Fields.data()[i].FormLabelLocationTop;
+                self.oTableOption.Fields[i].FormViewTab = self.dsTableOption_Fields.data()[i].FormViewTab;
+                self.oTableOption.Fields[i].FormViewLocation = self.dsTableOption_Fields.data()[i].FormViewLocation;
+                self.oTableOption.Fields[i].FormComponentType = self.dsTableOption_Fields.data()[i].FormComponentType;
+                self.oTableOption.Fields[i].FormComponentFilterType = self.dsTableOption_Fields.data()[i].FormComponentFilterType;               
+                self.oTableOption.Fields[i].FormComponentCustomProperty = self.dsTableOption_Fields.data()[i].FormComponentCustomProperty;
+                self.oTableOption.Fields[i].FormComponentFormat = self.dsTableOption_Fields.data()[i].FormComponentFormat;
+                self.oTableOption.Fields[i].FormComponentPattern = self.dsTableOption_Fields.data()[i].FormComponentPattern;
+                self.oTableOption.Fields[i].FormComponentHeight = self.dsTableOption_Fields.data()[i].FormComponentHeight;
+                self.oTableOption.Fields[i].FormResetPasswordMailColumnName = self.dsTableOption_Fields.data()[i].FormResetPasswordMailColumnName;
+                self.oTableOption.Fields[i].FormVisibilityColumnName = self.dsTableOption_Fields.data()[i].FormVisibilityColumnName;
+                self.oTableOption.Fields[i].FormVisibilityColumnValue = self.dsTableOption_Fields.data()[i].FormVisibilityColumnValue;
+                self.oTableOption.Fields[i].FormInvisibilityColumnValue = self.dsTableOption_Fields.data()[i].FormInvisibilityColumnValue;
+                
+                self.oTableOption.Fields[i].FormColumnShowRoleGroupIds = self.dsTableOption_Fields.data()[i].FormColumnShowRoleGroupIds;
+
+
+                self.oTableOption.Fields[i].GridUse = self.dsTableOption_Fields.data()[i].GridUse;
+                self.oTableOption.Fields[i].GridOrder = self.dsTableOption_Fields.data()[i].GridOrder;
+                self.oTableOption.Fields[i].GridEditable = self.dsTableOption_Fields.data()[i].GridEditable;
+                self.oTableOption.Fields[i].GridLocked = self.dsTableOption_Fields.data()[i].GridLocked;
+                self.oTableOption.Fields[i].GridEncoded = self.dsTableOption_Fields.data()[i].GridEncoded;
+                self.oTableOption.Fields[i].GridTextNowrap = self.dsTableOption_Fields.data()[i].GridTextNowrap;
+
+                self.oTableOption.Fields[i].GridFindTab = self.dsTableOption_Fields.data()[i].GridFindTab;
+                self.oTableOption.Fields[i].GridFindDefaultValue = self.dsTableOption_Fields.data()[i].GridFindDefaultValue;
+                self.oTableOption.Fields[i].GridDataSourceSortDir = self.dsTableOption_Fields.data()[i].GridDataSourceSortDir;
+                self.oTableOption.Fields[i].GridComponentType = self.dsTableOption_Fields.data()[i].GridComponentType;
+                self.oTableOption.Fields[i].GridComponentFilterType = self.dsTableOption_Fields.data()[i].GridComponentFilterType;
+                self.oTableOption.Fields[i].GridComponentCustomProperty = self.dsTableOption_Fields.data()[i].GridComponentCustomProperty;
+                self.oTableOption.Fields[i].GridComponentFormat = self.dsTableOption_Fields.data()[i].GridComponentFormat;
+                self.oTableOption.Fields[i].GridComponentPattern = self.dsTableOption_Fields.data()[i].GridComponentPattern;
+                self.oTableOption.Fields[i].GridComponentWidth = self.dsTableOption_Fields.data()[i].GridComponentWidth;
+                self.oTableOption.Fields[i].GridColumnShowRoleGroupIds = self.dsTableOption_Fields.data()[i].GridColumnShowRoleGroupIds;
+
+                self.oTableOption.Fields[i].TreeExpandable = self.dsTableOption_Fields.data()[i].TreeExpandable;
+
+                self.oTableOption.Fields[i].SearchUse = self.dsTableOption_Fields.data()[i].SearchUse;
+                self.oTableOption.Fields[i].SearchRequired = self.dsTableOption_Fields.data()[i].SearchRequired;
+                self.oTableOption.Fields[i].SearchOrder = self.dsTableOption_Fields.data()[i].SearchOrder;
+                self.oTableOption.Fields[i].SearchHidden = self.dsTableOption_Fields.data()[i].SearchHidden;
+                self.oTableOption.Fields[i].SearchLocked = self.dsTableOption_Fields.data()[i].SearchLocked;
+                self.oTableOption.Fields[i].SearchEncoded = self.dsTableOption_Fields.data()[i].SearchEncoded;
+                self.oTableOption.Fields[i].SearchFindTab = self.dsTableOption_Fields.data()[i].SearchFindTab;
+
+                self.oTableOption.Fields[i].SearchShowType = self.dsTableOption_Fields.data()[i].SearchShowType;
+
+                self.oTableOption.Fields[i].SearchFilterColumnName = self.dsTableOption_Fields.data()[i].SearchFilterColumnName;
+                self.oTableOption.Fields[i].SearchFilterOperator = self.dsTableOption_Fields.data()[i].SearchFilterOperator;
+                self.oTableOption.Fields[i].SearchFilterValue = self.dsTableOption_Fields.data()[i].SearchFilterValue;
+
+            }
+
+            self.oTableOption.Details = [];
+            for (var k = 0; k < self.gridDetailOption.dataSource.data().length; k++) {
+                var dataItem = self.gridDetailOption.dataSource.data()[k];
+                self.oTableOption.Details.push({
+                    "OrderNumber": dataItem.OrderNumber,
+                    "TableName": dataItem.TableName,
+                    "ColumnName": dataItem.ColumnName,
+                    "FilterColumnName": dataItem.FilterColumnName,
+                    "FilterOperator": dataItem.FilterOperator,
+                    "FilterValue": dataItem.FilterValue,
+                    "ShowType": dataItem.ShowType,
+                    "ViewType": dataItem.ViewType,
+                    "FormViewUse": dataItem.FormViewUse,
+                    "GridViewUse": dataItem.GridViewUse,
+                    "TreeListUse": dataItem.TreeListUse,
+                    "CountShow": dataItem.CountShow,
+                });
+            }
+
+            var _data = {
+                _TableOptionName: $(self.selector).find("#TableOptionName").val(),
+                _TableOptionText: JSON.stringify(self.oTableOption)
+            };
+
+            $.ajax({
+                url: "/Home/TableOptionSave",
+                data: _data,
+                type: "POST", dataType: "json",
+                beforeSend: function (jqXHR, settings) {
+                    kendo.ui.progress($(self.selector), true); //progress On
+                },
+                complete: function (jqXHR, textStatus) {
+                    kendo.ui.progress($(self.selector), false); //progress Off
+                },
+                success: function (result, textStatus, jqXHR) {
+                    if (!result.bError) {
+                        self.tableOptionExists = true;
+                    }
+                    fShowResult(result);
+                    fCodeWriterButtonsVisibility();
+                    fGetOptions();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.statusText + "-" + jqXHR.statusText + " (" + this.url + ")");
+                }
+            });
+        }
+        //---------------------------------------------------
+
+        function fCodeWrite(_codeName) {
+
+            var _data = {
+                _TableOptionNames: $(self.selector).find("#TableOptionName").val(),
+                _CodeName: _codeName
+            };
+
+            $.ajax({
+                url: "/Home/CodeWrite",
+                data: _data,
+                type: "POST", dataType: "json",
+                beforeSend: function (jqXHR, settings) {
+                    kendo.ui.progress($(self.selector), true); //progress On
+                },
+                complete: function (jqXHR, textStatus) {
+                    kendo.ui.progress($(self.selector), false); //progress Off
+                },
+                success: function (result, textStatus, jqXHR) {
+                    fShowResult(result);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.statusText + "-" + jqXHR.statusText + " (" + this.url + ")");
+                }
+            });
+        }
+
+        //---------------------------------------------------
+
+        function fCodeWriterButtonsAvailability() {
+            $(self.selector).find("#divCodeWriterButtons [data-codename=DataTransferObjectWrite]").get(0).disabled = self.oTableOption.DataTransferObjectLock;
+            $(self.selector).find("#divCodeWriterButtons [data-codename=DataManipulationObjectWrite]").get(0).disabled = self.oTableOption.DataManipulationObjectLock;
+            $(self.selector).find("#divCodeWriterButtons [data-codename=ControllerWrite]").get(0).disabled = self.oTableOption.ControllerLock;
+            $(self.selector).find("#divCodeWriterButtons [data-codename=DictionaryWrite]").get(0).disabled =  self.oTableOption.DictionaryLock;
+            $(self.selector).find("#divCodeWriterButtons [data-codename=FormViewWrite]").get(0).disabled = self.oTableOption.FormViewLock;
+            $(self.selector).find("#divCodeWriterButtons [data-codename=GridViewWrite]").get(0).disabled = self.oTableOption.GridViewLock;
+            $(self.selector).find("#divCodeWriterButtons [data-codename=TreeListWrite]").get(0).disabled = self.oTableOption.TreeListLock;
+            $(self.selector).find("#divCodeWriterButtons [data-codename=SearchViewWrite]").get(0).disabled = self.oTableOption.SearchViewLock;
+
+            //btnWriteAll
+        }
+
+        function fCodeWriterButtonsVisibility() {
+            if (self.tableOptionExists) {
+                $(self.selector).find('#divCodeWriterButtons').show('slow');
+            } else {
+                $(self.selector).find('#divCodeWriterButtons').hide();
+            }
+        }
+
+        function fVisibilityRefresh() {
+            var dataItem = self.dsTableOption_Fields.get(self.selected_columnName);
+
+            //FormComponentType ise veya FormComponentFilterType ise
+            $(self.selector).find('#tabForm .form-group.row[data-component-type]').each(function (index) {
+                if ($(this).attr("data-component-type").split(",").indexOf(dataItem.FormComponentType) >= 0) {
+                    $(this).show();
+                } else if ($(this).attr("data-component-type").split(",").indexOf(dataItem.FormComponentFilterType) >= 0) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+
+            //GridComponentType ise veya GridComponentFilterType ise
+            $(self.selector).find('#tabListView .form-group.row[data-component-type]').each(function (index) {
+                if ($(this).attr("data-component-type").split(",").indexOf(dataItem.GridComponentType) >= 0) {
+                    $(this).show();
+                } else if ($(this).attr("data-component-type").split(",").indexOf(dataItem.GridComponentFilterType) >= 0) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        }
+
+
+        self.prepare = function () {
+            $(window).on("resize", function () {
+                //gridFieldOption
+                var $gridFieldOption = $(self.selector).find("#gridFieldOption");
+                $gridFieldOption.height($(window).height() - $gridFieldOption.offset().top - 30);
+            });
+
+            // bootstrapt tabs event
+            $(self.selector).find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                //e.target // newly activated tab
+                //e.relatedTarget // previous active tab
+                $(window).resize();
+            });
+
+            self.msTableCuds = $(self.selector).find("#TableCuds").kendoMultiSelect({
+                valuePrimitive: true,
+                autoClose: false,
+                dataValueField: 'value',
+                dataTextField: 'text',
+                dataSource: self.dsTableCuds
+            }).getKendoMultiSelect();
+
+
+            self.ddGridViewCrudEditorType = $(self.selector).find("#GridViewCrudEditorType").kendoDropDownList({
+                optionLabel: ' ',
+                dataSource: self.dsGridViewCrudEditorType
+            }).getKendoDropDownList();
+
+            self.ddGridViewMasterColumnName = $(self.selector).find("#GridViewMasterColumnName").kendoDropDownList({
+                optionLabel: ' ',
+                filter: "startswith",
+                dataSource: self.dsAktiveTableColumnList
+            }).getKendoDropDownList();
+
+            self.ddParentColumnName = $(self.selector).find("#ParentColumnName").kendoDropDownList({
+                optionLabel: ' ',
+                filter: "startswith",
+                dataSource: self.dsAktiveTableColumnList
+            }).getKendoDropDownList();
+
+            self.ddGridViewRowStyleStatusColumnName = $(self.selector).find("#GridViewRowStyleStatusColumnName").kendoDropDownList({
+                optionLabel: ' ',
+                filter: "startswith",
+                dataSource: self.dsAktiveTableColumnList
+            }).getKendoDropDownList();
+
+            self.ddGridViewOnayButtonColumnName = $(self.selector).find("#GridViewOnayButtonColumnName").kendoDropDownList({
+                optionLabel: ' ',
+                filter: "startswith",
+                dataSource: self.dsAktiveTableColumnList
+            }).getKendoDropDownList();
+
+           self.ntbGridViewDataSourcePageSize = $(self.selector).find("#GridViewDataSourcePageSize").kendoNumericTextBox({
+                decimals: 0, spinners: false, step: 1, format: "n0"
+            }).getKendoNumericTextBox();
+
+            self.ddSearchViewType = $(self.selector).find("#SearchViewType").kendoDropDownList({
+                optionLabel: ' ',
+                dataSource: self.dsSearchViewType
+            }).getKendoDropDownList();
+
+
+            self.ddSearchViewCrudEditorType = $(self.selector).find("#SearchViewCrudEditorType").kendoDropDownList({
+                optionLabel: ' ',
+                dataSource: self.dsSearchViewCrudEditorType
+            }).getKendoDropDownList();
+
+            //-------------------------------------------------------------------
+
+            $(self.selector).find("#btnSetTableOption").click(function (e) {
+                fSetOptions();
+            });
+
+            //
+            $(self.selector).find("#btnAutoCreateAll").click(function (e) {
+                fSetOptions();
+                setTimeout(function () {
+                    fCodeWrite("*");
+                },250);
+            });
+
+            $(self.selector).find("#divCodeWriterButtons [data-codename]").click(function (e) {
+                fSetOptions();
+                setTimeout(function () {
+                    var $elm = $(e.currentTarget);
+                    var codeName = $elm.attr("data-codename");
+                    fCodeWrite(codeName);
+                },250);
+            });
+
+
+            $(self.selector).find("#btnBack").click(function (e) {
+                kendo.ui.progress($(self.selector), true); //progress On
+                window.location.assign("/");
+            });
+
+
+            $(self.selector).find("#gridFieldOption table thead [name=btnReOrder]").click(function (e) {
+                var orderField = $(e.currentTarget).attr("data-order-field");
+                for (var i = 0; i < self.dsTableOption_Fields.data().length; i++) {
+                    var dataItem = self.dsTableOption_Fields.data()[i];
+                    var newOrderValue = dataItem.ColumnOrder - 1;
+
+                    dataItem.set(orderField,newOrderValue);
+                    var $tbody = $(self.selector).find("#gridFieldOption table tbody");
+                    $tbody.find("tr#"+dataItem.ColumnName+" td[name="+orderField+"]").html(newOrderValue);
+                }
+            });
+
+            $(self.selector).find("#gridFieldOption table tbody").on("click", "tr", function (e) {
+                if (self.selected_columnName !== e.currentTarget.id) {
+                    self.selected_columnName = e.currentTarget.id;
+
+                    $(e.currentTarget).closest("tbody").find("tr").removeClass("table-primary");
+                    $(e.currentTarget).addClass("table-primary");
+
+                    //bind
+                    var dataItem = self.dsTableOption_Fields.get(self.selected_columnName);
+                    kendo.bind($(self.selector), dataItem);
+                    //dataSource read
+                    self.dsReferansTableColumnList.read();
+
+                    //ColumnReferansDisplayColumnNames set value
+                    if (dataItem.ColumnReferansDisplayColumnNames !== null && dataItem.ColumnReferansDisplayColumnNames.length > 0) {
+                        self.msColumnReferansDisplayColumnNames.value(dataItem.ColumnReferansDisplayColumnNames.split(","));
+                    }
+
+                    //ColumnReferansSortColumnNames set value
+                    if (dataItem.ColumnReferansSortColumnNames !== null && dataItem.ColumnReferansSortColumnNames.length > 0) {
+                        self.msColumnReferansSortColumnNames.value(dataItem.ColumnReferansSortColumnNames.split(","));
+                    }
+
+                    //FormColumnShowRoleGroupIds set value
+                    if (dataItem.FormColumnShowRoleGroupIds !== null && dataItem.FormColumnShowRoleGroupIds.length > 0) {
+                        self.msFormColumnShowRoleGroupIds.value(dataItem.FormColumnShowRoleGroupIds.split(","));
+                    }
+
+                    //GridColumnShowRoleGroupIds set value
+                    if (dataItem.GridColumnShowRoleGroupIds !== null && dataItem.GridColumnShowRoleGroupIds.length > 0) {
+                        self.msGridColumnShowRoleGroupIds.value(dataItem.GridColumnShowRoleGroupIds.split(","));
+                    }
+
+                    //visibilityRefresh
+                    fVisibilityRefresh();
+                }
+            });
+
+            //Column
+            $(self.selector).find("#divFieldOption [name=ColumnDefault]").kendoComboBox({
+                dataSource: self.dsColumnDefault
+            });
+
+            $(self.selector).find("#divFieldOption [name=ColumnReadConvertValue]").kendoDropDownList({
+                dataSource: self.dsColumnReadConvertValue
+            });
+
+            $(self.selector).find("#ColumnWriteConvertColumnName").kendoDropDownList({
+                optionLabel: ' ',
+                dataSource: self.dsAktiveTableColumnList
+            }).getKendoDropDownList();
+
+            $(self.selector).find("#divFieldOption [name=ColumnWriteConvertValue]").kendoDropDownList({
+                dataSource: self.dsColumnWriteConvertValue
+            });
+
+            self.cbColumnReferansTableName = $(self.selector).find("#divFieldOption [name=ColumnReferansTableName]").kendoComboBox({
+                valuePrimitive: true,
+                dataSource: self.dsTableList,
+                change: function (e) {
+                    //var value = this.value();
+                    //burada bazı componentleri göster gizle yapılacak
+                    self.cbColumnReferansValueColumnName.dataSource.read();
+                    self.msColumnReferansDisplayColumnNames.dataSource.read();
+                    self.msColumnReferansSortColumnNames.dataSource.read();
+
+                    self.cbColumnReferansFilterField.dataSource.read();
+
+                    self.ddColumnReferansFilterValueColumnName.refresh();
+                }
+            }).getKendoComboBox();
+
+            self.cbColumnReferansValueColumnName = $(self.selector).find("#divFieldOption [name=ColumnReferansValueColumnName]").kendoComboBox({
+                dataSource: self.dsReferansTableColumnList
+            }).getKendoComboBox();
+
+
+            self.msColumnReferansDisplayColumnNames = $(self.selector).find("#divFieldOption [name=ColumnReferansDisplayColumnNames]").kendoMultiSelect({
+                valuePrimitive: true,
+                autoClose: false,
+                dataSource: self.dsReferansTableColumnList
+            }).getKendoMultiSelect();
+
+            self.msColumnReferansSortColumnNames = $(self.selector).find("#divFieldOption [name=ColumnReferansSortColumnNames]").kendoMultiSelect({
+                valuePrimitive: true,
+                autoClose: false,
+                dataSource: self.dsReferansTableColumnList
+            }).getKendoMultiSelect();
+
+
+            //ColumnReferansFilterField
+            self.cbColumnReferansFilterField = $(self.selector).find("#divFieldOption [name=ColumnReferansFilterField]").kendoComboBox({
+                dataSource: self.dsReferansTableColumnList
+            }).getKendoComboBox();
+
+            //ColumnReferansFilterOperator
+            self.cbColumnReferansFilterOperator = $(self.selector).find("#divFieldOption [name=ColumnReferansFilterOperator]").kendoComboBox({
+                dataSource: self.dsFilterOperatorForSql
+            }).getKendoComboBox();
+
+
+            $(self.selector).find("#divFieldOption [name=ColumnReferansJsonDataSource]").kendoDropDownList({
+                dataSource: self.dsColumnReferansJson
+            });
+
+            $(self.selector).find("#ColumnCurrentFilterValueColumnName").kendoDropDownList({
+                optionLabel: ' ',
+                dataSource: self.dsAktiveTableColumnList
+            }).getKendoDropDownList();
+
+           self.ddColumnReferansFilterValueColumnName = $(self.selector).find("#ColumnReferansFilterValueColumnName").kendoComboBox({
+                optionLabel: ' ',
+                dataSource: self.dsReferansTableColumnList
+            }).getKendoComboBox();
+
+
+            //Form
+            $(self.selector).find("#divFieldOption [name=FormOrder]").kendoNumericTextBox({
+                decimals: 0, spinners: false, step: 1, format: "n0"
+            });
+            $(self.selector).find("#divFieldOption [name=FormViewTab]").kendoDropDownList({
+                dataSource: self.dsTabs
+            });
+
+            $(self.selector).find("#divFieldOption [name=FormComponentType]").kendoDropDownList({
+                dataSource: self.dsFormComponentType,
+                change: function (e) {
+                    var value = this.value();
+                    fVisibilityRefresh();
+                }
+            });
+
+
+            $(self.selector).find("#divFieldOption [name=FormComponentFilterType]").kendoDropDownList({
+                dataSource: self.dsComponentFilterType,
+                change: function (e) {
+                    var value = this.value();
+                    fVisibilityRefresh();
+                }
+            });
+
+            $(self.selector).find("#divFieldOption [name=FormComponentHeight]").kendoNumericTextBox({
+                decimals: 0, spinners: false, step: 1, format: "n0"
+            });
+
+            $(self.selector).find("#divFieldOption [name=FormResetPasswordMailColumnName]").kendoDropDownList({
+                optionLabel: ' ',
+                dataSource: self.dsAktiveTableColumnList
+            });
+
+            $(self.selector).find("#divFieldOption [name=FormVisibilityColumnName]").kendoDropDownList({
+                optionLabel: ' ',
+                dataSource: self.dsAktiveTableColumnList
+            });
+
+
+            self.msFormColumnShowRoleGroupIds = $(self.selector).find("#divFieldOption [name=FormColumnShowRoleGroupIds]").kendoMultiSelect({
+                valuePrimitive: true,
+                autoClose: false,
+                dataValueField: 'value',
+                dataTextField: 'text',
+                dataSource: self.dsEnmSahipTur
+            }).getKendoMultiSelect();
+
+            //Grid
+            $(self.selector).find("#divFieldOption [name=GridOrder]").kendoNumericTextBox({
+                decimals: 0, spinners: false, step: 1, format: "n0"
+            });
+
+
+            $(self.selector).find("#divFieldOption [name=GridFindTab]").kendoDropDownList({
+                optionLabel: ' ',
+                dataSource: self.dsTabs
+            });
+
+            $(self.selector).find("#divFieldOption [name=GridFindDefaultValue]").kendoDropDownList({
+                optionLabel: ' ',
+                dataSource: self.dsFindDefaultValue
+            });
+
+            $(self.selector).find("#divFieldOption [name=GridDataSourceSortDir]").kendoDropDownList({
+                dataSource: self.dsSortDir
+            });
+
+            $(self.selector).find("#divFieldOption [name=GridComponentType]").kendoDropDownList({
+                dataSource: self.dsGridComponentType,
+                change: function (e) {
+                    var value = this.value();
+                    fVisibilityRefresh();
+                }
+            });
+
+            $(self.selector).find("#divFieldOption [name=GridComponentFilterType]").kendoDropDownList({
+                dataSource: self.dsComponentFilterType,
+                change: function (e) {
+                    var value = this.value();
+                    fVisibilityRefresh();
+                }
+            });
+
+
+
+            $(self.selector).find("#divFieldOption [name=GridComponentWidth]").kendoNumericTextBox({
+                decimals: 0, spinners: false, step: 1, format: "n0"
+            });
+
+            self.msGridColumnShowRoleGroupIds = $(self.selector).find("#divFieldOption [name=GridColumnShowRoleGroupIds]").kendoMultiSelect({
+                valuePrimitive: true,
+                autoClose: false,
+                dataValueField: 'value',
+                dataTextField: 'text',
+                dataSource: self.dsEnmSahipTur
+            }).getKendoMultiSelect();
+
+
+            //-------------------------------------
+            $(self.selector).find("#btnTableDictionaryTitleTr").click(function () {
+                var text = $(self.selector).find("#TableDictionaryTitleEn").val();
+                if (text.length > 0) {
+                    self.Cevir(text, "tr", "en", $(self.selector).find("#TableDictionaryTitleTr"));
+                }
+            });
+
+            $(self.selector).find("#btnTableDictionaryTitleEn").click(function () {
+                var text = $(self.selector).find("#TableDictionaryTitleTr").val();
+                if (text.length > 0) {
+                    self.Cevir(text, "en", "tr", $(self.selector).find("#TableDictionaryTitleEn"));
+                }
+            });
+
+            //-----------------------------------------------------------------------
+            $(self.selector).find("#btnTableDictionaryShortTitleTr").click(function () {
+                var text = $(self.selector).find("#TableDictionaryShortTitleEn").val();
+                if (text.length > 0) {
+                    self.Cevir(text, "tr", "en", $(self.selector).find("#TableDictionaryShortTitleTr"));
+                }
+            });
+
+            $(self.selector).find("#btnTableDictionaryShortTitleEn").click(function () {
+                var text = $(self.selector).find("#TableDictionaryShortTitleTr").val();
+                if (text.length > 0) {
+                    self.Cevir(text, "en", "tr", $(self.selector).find("#TableDictionaryShortTitleEn"));
+                }
+            });
+
+
+            //-------------------------------------
+            $(self.selector).find("#btnColumnDictionaryTr").click(function () {
+                var text = $(self.selector).find("[name=ColumnDictionaryEn]").val();
+                if (text.length > 0) {
+                    self.Cevir(text, "tr", "en", $(self.selector).find("[name=ColumnDictionaryTr]"));
+                }
+            });
+
+            $(self.selector).find("#btnColumnDictionaryEn").click(function () {
+                var text = $(self.selector).find("[name=ColumnDictionaryTr]").val();
+                if (text.length > 0) {
+                    self.Cevir(text, "en", "tr", $(self.selector).find("[name=ColumnDictionaryEn]"));
+                }
+            });
+            //---------------------------------------------------------------------------
+
+
+            //Search
+            $(self.selector).find("#divFieldOption [name=SearchOrder]").kendoNumericTextBox({
+                decimals: 0, spinners: false, step: 1, format: "n0"
+            });
+
+            $(self.selector).find("#divFieldOption [name=SearchShowType]").kendoDropDownList({
+                optionLabel: ' ',
+                dataSource: self.dsShowType
+            }).getKendoDropDownList();
+
+
+
+            $(self.selector).find("#divFieldOption [name=SearchFindTab]").kendoDropDownList({
+                optionLabel: ' ',
+                dataSource: self.dsTabs
+            });
+
+            //en son
+            fGetOptions();
+        };
+
+        //-------------------------
+        self.Cevir = function (text, target, source, elm) {
+
+            var _data = {
+                _text: text,
+                _target: target,
+                _source: source,
+                _titleCase: true
+            };
+
+            $.ajax({
+                url: "/Home/TranslateWithApi",
+                data: _data,
+                type: "POST", dataType: "json",
+                beforeSend: function (xhr, settings) {
+                    kendo.ui.progress($(self.selector), true); //progress On
+                },
+                complete: function (xhr, status) {
+                    kendo.ui.progress($(self.selector), false); //progress Off
+                },
+                success: function (result, textStatus, jqXHR) {
+                    if (result.bError) {
+                        alert(result.sMessage);
+                    } else {
+                        $(elm).val(result.sTranslatedText);
+                        $(elm).trigger("change");
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.statusText + "-" + jqXHR.statusText + " (" + this.url + ")");
+                }
+            });
+
+        };
+
+        return self;
+    }();
+
+</script>
+

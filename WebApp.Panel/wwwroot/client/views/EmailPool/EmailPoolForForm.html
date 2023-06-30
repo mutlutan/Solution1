@@ -1,0 +1,466 @@
+
+
+<div id='EmailPoolForForm'>
+    <div id='divButtonGroup' class='mnButtonGroup float-end'>
+        <button id='btnKaydet' type='button' class='btn btn-outline-success text-nowrap' data-langkey-title='xLng.Kaydet'> <i class='fa fa-save'></i> </button>
+    </div>
+
+    <div class='mnFormElementContainer' style='padding-bottom:15px;'>
+        <div id='tabstrip'>
+            <ul>
+                <li data-tab-key='I'> <span data-langkey-text='xLng.EmailPool.FormViewTab.I'></span> </li>
+            </ul>
+            <div data-tab-key='I'>
+                <div class='row'>
+                    <div class='col-md-12'>
+                         <div name='divEmailTemplateId' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='mn-required-span' data-langkey-text='xLng.EmailPool.EmailTemplateId'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                 <input name='EmailTemplateId' data-bind='value:EmailTemplateId' />
+                                 <span class='k-invalid-msg' data-for='EmailTemplateId'></span>
+                             </div>
+                         </div>
+
+                         <div name='divEmailPoolStatusId' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='mn-required-span' data-langkey-text='xLng.EmailPool.EmailPoolStatusId'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                 <input name='EmailPoolStatusId' data-bind='value:EmailPoolStatusId' />
+                                 <span class='k-invalid-msg' data-for='EmailPoolStatusId'></span>
+                             </div>
+                         </div>
+
+                         <div name='divTryQuantity' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='mn-required-span' data-langkey-text='xLng.EmailPool.TryQuantity'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                 <input name='TryQuantity' type='number' data-bind='value:TryQuantity' data-langkey-placeholder='xLng.EmailPool.TryQuantity' />
+                                 <span class='k-invalid-msg' data-for='TryQuantity'></span>
+                             </div>
+                         </div>
+
+                         <div name='divLastTryDate' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='' data-langkey-text='xLng.EmailPool.LastTryDate'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                 <input name='LastTryDate' data-bind='value:LastTryDate' />
+                                 <span class='k-invalid-msg' data-for='LastTryDate'></span>
+                             </div>
+                         </div>
+
+                         <div name='divDescription' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='' data-langkey-text='xLng.EmailPool.Description'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                 <textarea name='Description' class='form-control' data-bind='value:Description' data-langkey-placeholder='xLng.EmailPool.Description'  style='height:50px;'  ></textarea>
+                             </div>
+                         </div>
+
+                         <div name='divEmailTo' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='' data-langkey-text='xLng.EmailPool.EmailTo'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                 <input name='EmailTo' type='text' class='form-control d-inline' data-bind='value:EmailTo' data-langkey-placeholder='xLng.EmailPool.EmailTo'   maxlength='500' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divEmailCc' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='' data-langkey-text='xLng.EmailPool.EmailCc'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                 <input name='EmailCc' type='text' class='form-control d-inline' data-bind='value:EmailCc' data-langkey-placeholder='xLng.EmailPool.EmailCc'    autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divEmailBcc' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='' data-langkey-text='xLng.EmailPool.EmailBcc'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                 <input name='EmailBcc' type='text' class='form-control d-inline' data-bind='value:EmailBcc' data-langkey-placeholder='xLng.EmailPool.EmailBcc'    autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divEmailSubject' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='' data-langkey-text='xLng.EmailPool.EmailSubject'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                 <textarea name='EmailSubject' class='form-control' data-bind='value:EmailSubject' data-langkey-placeholder='xLng.EmailPool.EmailSubject'  style='height:38px;'  ></textarea>
+                             </div>
+                         </div>
+
+                         <div name='divEmailContent' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='' data-langkey-text='xLng.EmailPool.EmailContent'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                 <textarea name='EmailContent' type='text' class='form-control' data-bind='value:EmailContent' data-langkey-placeholder='xLng.EmailPool.EmailContent' style='height:150px;'></textarea>
+                             </div>
+                         </div>
+
+
+                    </div>
+
+                    <div class='col-lg-6 col-md-12'>
+
+                    </div>
+
+                    <div class='col-lg-6 col-md-12'>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+ window.EmailPoolForForm = function () {
+     var self = {};
+     self.opt = null;
+     self.title = 'xLng.EmailPool.Title';
+     self.selector = '#EmailPoolForForm';
+     self.primaryKey = 'Id';
+     self.tableName = 'EmailPool';
+     self.apiUrlPrefix = '/Panel/Api' + self.tableName;
+
+     function fCreateDataSource() {
+         self.dataSource = new kendo.data.DataSource({
+             transport: {
+                 read: { type: 'POST', url: self.apiUrlPrefix + '/Read', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 create: { type: 'POST', url: self.apiUrlPrefix + '/Create', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 update: { type: 'POST', url: self.apiUrlPrefix + '/Update', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 destroy: { type: 'POST', url: self.apiUrlPrefix + '/Delete', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 parameterMap: function (data, operation) {
+                     if (operation === 'read') {
+                         return kendo.stringify(data);
+                     }
+                     else if (operation === 'create' || operation === 'update') {
+                         data.LastTryDate = kendo.toString(data.LastTryDate, 's');
+                         data.CreateDate = kendo.toString(data.CreateDate, 's');
+                         data.UpdateDate = kendo.toString(data.UpdateDate, 's');
+
+                         return kendo.stringify(data);
+                     }
+                     else if (operation === 'destroy') {
+                         return kendo.stringify(data);
+                     }
+                 }
+             },
+             pageSize: 10, serverPaging: true, serverSorting: true, serverFiltering: true, serverGrouping: true, serverAggregates: true,
+             schema: {
+                 errors: 'Errors', data: 'Data', total: 'Total', aggregates: 'AggregateResults',
+                 model: {
+                     id: self.primaryKey,
+                     fields: {
+                         Id: { type: 'number', defaultValue: null },
+                         EmailTemplateId: { type: 'number' },
+                         EmailPoolStatusId: { type: 'number' },
+                         TryQuantity: { type: 'number' },
+                         LastTryDate: { type: 'date' },
+                         Description: { type: 'string' },
+                         EmailTo: { type: 'string' },
+                         EmailCc: { type: 'string' },
+                         EmailBcc: { type: 'string' },
+                         EmailSubject: { type: 'string' },
+                         EmailContent: { type: 'string' },
+                         UniqueId: { type: 'string', editable:false },
+                         CreateDate: { type: 'date', editable:false },
+                         CreatedUserId: { type: 'number', editable:false },
+                         UpdateDate: { type: 'date', editable:false },
+                         UpdatedUserId: { type: 'number', editable:false },
+                         CcEmailTemplateIdName: { type: 'string' },
+                         CcEmailPoolStatusIdName: { type: 'string' }
+                     }
+                 }
+             },
+             error: function (e) {
+                 if (e.xhr === null) { mnNotification.warning(e.errors); } else { mnErrorHandler.Handle(e.xhr); }
+                 //this.cancelChanges();
+             },
+             requestStart: function (e) {
+                 setTimeout(function () {
+                     kendo.ui.progress($(self.selector), true); //progress On
+                 });
+             },
+             requestEnd: function (e) {
+                 setTimeout(function () {
+                     kendo.ui.progress($(self.selector), false); //progress Off
+                 });
+
+                 if (e.response !== undefined && e.response.Errors === null) {
+                     if (e.type === 'create' || e.type === 'update' || e.type === 'destroy') {
+                         mnLookup.listRead(self.tableName);
+                     }
+                     if (e.type === 'create') {
+                         mnNotification.success(mnLang.TranslateWithWord('xLng.KayitEklendi'));
+                     }
+                     if (e.type === 'update') {
+                         mnNotification.success(mnLang.TranslateWithWord('xLng.KayitDuzeltildi'));
+                     }
+                     if (e.type === 'destroy') {
+                         mnNotification.success(mnLang.TranslateWithWord('xLng.KayitSilindi'));
+                     }
+
+                     if (e.response.Data.length > 0) {
+                     }
+                 }
+             },
+             change: function (e) {
+                 if (e.items[0] !== undefined) {
+                     if (e.items[0].get(self.primaryKey) === null) {
+                         $.ajax({
+                             url: self.apiUrlPrefix + '/GetByNew', type: 'GET', dataType: 'json', async: false,
+                             success: function (result) {
+                                 e.items[0].Id = result.Id;
+                                 e.items[0].EmailTemplateId = result.EmailTemplateId;
+                                 e.items[0].EmailPoolStatusId = result.EmailPoolStatusId;
+                                 e.items[0].TryQuantity = result.TryQuantity;
+                                 e.items[0].LastTryDate = kendo.parseDate(result.LastTryDate);
+                                 e.items[0].Description = result.Description;
+                                 e.items[0].EmailTo = result.EmailTo;
+                                 e.items[0].EmailCc = result.EmailCc;
+                                 e.items[0].EmailBcc = result.EmailBcc;
+                                 e.items[0].EmailSubject = result.EmailSubject;
+                                 e.items[0].EmailContent = result.EmailContent;
+                                 e.items[0].UniqueId = result.UniqueId;
+                                 e.items[0].CreateDate = kendo.parseDate(result.CreateDate);
+                                 e.items[0].CreatedUserId = result.CreatedUserId;
+                                 e.items[0].UpdateDate = kendo.parseDate(result.UpdateDate);
+                                 e.items[0].UpdatedUserId = result.UpdatedUserId;
+                                 //computed alanların tanımlanması
+                                 e.items[0].CcEmailTemplateIdName = result.CcEmailTemplateIdName;
+                                 e.items[0].CcEmailPoolStatusIdName = result.CcEmailPoolStatusIdName;
+                                 //filterdan gelen default value set için
+                                 $(self.opt.filters).each(function (index, row) {
+                                     if (row.filterColumnName !== 'Id') {
+                                        e.items[0].set(row.filterColumnName, row.filterValue);
+                                     }
+                                 });
+
+                             },
+                             error: function (xhr, status) {
+                                 mnErrorHandler.Handle(xhr);
+                             }
+                         });
+                     }
+                     // Bind
+                     kendo.bind($(self.selector), e.items[0]);
+
+                     //validator refresh
+                     setTimeout(function () {
+                        fValidateAll();
+                     },1000);
+
+                 }
+
+                 // Yetki
+                 fYetkiUygula();
+
+                 // ve gerekebilecek diğer işlemler
+                 // ...
+             }
+         });
+     }
+
+     function fValidateAll() {
+        $(self.selector).find('#tabstrip ul li[data-tab-key]').removeClass('mn-invalid');
+        let rValid = true;
+
+        if (!self.validatorI.validate()) {
+            rValid = false;
+            $(self.selector).find('#tabstrip ul li[data-tab-key=I]').addClass('mn-invalid')
+        }
+        
+        return rValid
+     }
+
+     function fCreateFormElements() {
+         // tabstrip
+         self.tabstrip = $(self.selector).find('#tabstrip').kendoTabStrip({
+             animation: false, tabPosition: 'top'
+         }).getKendoTabStrip();
+         self.tabstrip.select(0);
+
+         //create validators
+         self.validatorI = mnApp.createValidator($(self.selector).find('.mnFormElementContainer div[data-tab-key=I]'), mnApp.validatorErrorTemplateIconMsg);
+
+         //butonlar
+         $(self.selector).find('#btnKaydet').click(function (e) {
+             mnApi.controlDisableWait($(e.target));
+             if (fValidateAll()) {
+                 if (self.dataSource.at(0).dirty) {
+                     self.dataSource.sync();
+                 } else {
+                     mnAlert.warning(mnLang.TranslateWithWord('xLng.KayyittaDegisiklikYapmadiniz'));
+                 }
+             } else {
+                 mnAlert.warning(mnLang.TranslateWithWord('xLng.DoldurulmasiGerekenAlanlarVar'));
+             }
+         });
+
+         //Diğer Form elementleri
+         $(self.selector).find('[name=EmailTemplateId]').kendoDropDownList({
+             valuePrimitive: true,
+             optionLabel: mnLang.TranslateWithWord('xLng.Seciniz'),
+             dataValueField: 'value',
+             dataTextField: 'text',
+             dataSource: mnLookup.listLoad({
+                 ViewName: 'EmailPoolForForm',
+                 ViewFieldName: 'EmailTemplateId',
+                 TableName: 'EmailTemplate',
+                 ValueField: 'Id',
+                 TextField: 'Name',
+                 OtherFields: '',
+                 Filters: [
+                     { Field: 'Id', Operator: '>=', Value: '0' }
+                 ],
+                 Sorts: [
+                                 { Field: 'Name', Dir: 'asc' }
+                 ]
+             }),
+             open: function (e) {
+             },
+             close: function (e) {
+             }
+         }).getKendoDropDownList();
+
+         $(self.selector).find('[name=EmailPoolStatusId]').kendoDropDownList({
+             valuePrimitive: true,
+             optionLabel: mnLang.TranslateWithWord('xLng.Seciniz'),
+             dataValueField: 'value',
+             dataTextField: 'text',
+             dataSource: mnLookup.listLoad({
+                 ViewName: 'EmailPoolForForm',
+                 ViewFieldName: 'EmailPoolStatusId',
+                 TableName: 'EmailPoolStatus',
+                 ValueField: 'Id',
+                 TextField: 'Name',
+                 OtherFields: '',
+                 Filters: [
+                     { Field: 'Id', Operator: '>=', Value: '0' }
+                 ],
+                 Sorts: [
+                                 { Field: 'Name', Dir: 'asc' }
+                 ]
+             }),
+             open: function (e) {
+             },
+             close: function (e) {
+             }
+         }).getKendoDropDownList();
+
+         $(self.selector).find('[name=TryQuantity]').kendoNumericTextBox({
+             format: 'n0', decimals: 0, min: 0, spinners: false, step: 0
+         }).getKendoNumericTextBox();
+
+         $(self.selector).find('[name=LastTryDate]').kendoDateTimePicker({
+             componentType: mnApp.kendoDateTimePiker_ComponentType,
+             dateInput: mnApp.kendoDateTimePiker_DateInput
+         }).getKendoDateTimePicker();
+
+         self.keEmailContent = $(self.selector).find('[name=EmailContent]').kendoEditor({
+             serialization: { entities: false },
+             tools: mnApp.kendoEditor_tools_mini,
+             resizable: { content: true },
+             execute: function (e) {
+                if (e.name == 'print') {
+                    //title da istenmeyen birşey yazmasın diye özel boşluk karekteri atıyoruz iframe içindeki tittle a
+                    $(e.sender.wrapper).find('iframe').contents()[0].title = String.fromCharCode(173);
+                }
+             }
+         }).getKendoEditor();
+
+     }
+
+     function fSetAtributeFormElements() {
+         $(self.selector).find('[name=EmailTemplateId]').attr('required', 'required');
+         $(self.selector).find('[name=EmailPoolStatusId]').attr('required', 'required');
+         $(self.selector).find('[name=TryQuantity]').attr('required', 'required');
+     }
+
+     function fYetkiUygula() {
+         //Standart Yetkiler
+         var _C = mnUser.isYetkili(self.tableName + '.D_C.');
+         var _U = mnUser.isYetkili(self.tableName + '.D_U.');
+         var _D = mnUser.isYetkili(self.tableName + '.D_D.');
+
+         //ek yetkiler için)
+         //...
+
+         //Form İçin
+         if (_C || _U) {
+             $(self.selector).find('#btnKaydet').show();
+         } else {
+             $(self.selector).find('#btnKaydet').hide();
+         }
+
+        //form element görünümleri
+        var fieldList = [];
+        fieldList.push({ 'Name': 'EmailTemplateId', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'EmailPoolStatusId', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'TryQuantity', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'LastTryDate', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'Description', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'EmailTo', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'EmailCc', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'EmailBcc', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'EmailSubject', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'EmailContent', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+
+        for (var i in fieldList) {
+            var $elm = $(self.selector).find('.mnFormElementContainer .mnFormElementDiv[name=div' + fieldList[i].Name + ']');
+            if (fieldList[i].Visible) {
+                $elm.show();
+            } else {
+                $elm.hide();
+            }
+        }
+
+     }
+
+
+     function fGorunurlukUygula(dataItem) {
+        if (dataItem != null && dataItem != undefined) {
+            //invisibility
+            //visibility
+        }
+     }
+
+     self.prepare = function () {
+         // form element atribute set
+         fSetAtributeFormElements();
+         // DataSource
+         fCreateDataSource();
+         // form Elementler
+         fCreateFormElements();
+         // Language
+         mnLang.TranslateWithSelector(self.selector);
+     };
+
+     self.beforeShow = function (_opt) {
+         self.opt = $.extend({}, _opt);
+
+         if (self.opt.qprms.Id !== null && self.opt.qprms.Id > 0) {
+             self.dataSource.filter({ field: self.primaryKey, operator: 'eq', value: self.opt.qprms.Id });
+         } else {
+             self.dataSource.data([]); // eski data varsa işleme girmemesi için
+             self.dataSource.add();
+         }
+
+         self.tabstrip.select(0);
+     };
+
+     return self;
+ }();
+</script>

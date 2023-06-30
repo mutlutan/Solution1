@@ -1,0 +1,53 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>disable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="wwwroot\img\smart\**" />
+	  <Content Remove="wwwroot\img\smart\**" />
+	  <EmbeddedResource Remove="wwwroot\img\smart\**" />
+	  <None Remove="wwwroot\img\smart\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+    <PackageReference Include="NetTopologySuite.IO.GeoJSON" Version="3.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+		<PackageReference Include="GoogleAuthenticator" Version="3.0.0" />
+		<PackageReference Include="MailKit" Version="3.4.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.10" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+		<PackageReference Include="Shyjus.BrowserDetector" Version="2.0.0" />
+		<PackageReference Include="Telerik.DataSource" Version="2.1.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\AppBusiness\AppBusiness.csproj" />
+	  <ProjectReference Include="..\AppCommon\AppCommon.csproj" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <!--Publish edilmeyecek dizinler-->
+    <Content Update="wwwroot\Data\Files\**\*" CopyToPublishDirectory="Never" />
+    <Content Update="wwwroot\Data\Thumbs\**\*" CopyToPublishDirectory="Never" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="logs\" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <!--IIS publishde oluşan sertifika hatasını pas geçer(true ise)-->
+    <AllowUntrustedCertificate>True</AllowUntrustedCertificate>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!--WebConfig dosyasının publish anında oluşmasını önler, sunucudakinin üzerine yazılmamış olur(true ise)-->
+    <IsTransformWebConfigDisabled>false</IsTransformWebConfigDisabled>
+    <UserSecretsId>f9550b66-1e63-48d7-becc-89d2c2131239</UserSecretsId>
+  </PropertyGroup>
+
+</Project>

@@ -1,0 +1,23 @@
+﻿[
+  {
+    "key": "xLng.ViewGaSetup.Title",
+    "value": {
+      "tr": "Google Authenticator Setup",
+      "en": "Google Authenticator Setup"
+    }
+  },
+  {
+    "key": "xLng.ViewGaSetup.UserName",
+    "value": {
+      "tr": "Kullanıcı Adı",
+      "en": "User Name"
+    }
+  },
+  {
+    "key": "xLng.ViewGaSetup.Tamam",
+    "value": {
+      "tr": "Tamam",
+      "en": "Okey"
+    }
+  }
+]

@@ -1,0 +1,332 @@
+
+<div id='SmsBildirimForGrid'>
+    <div>
+        <div id='divGrid'></div>
+    </div>
+</div>
+
+<script>
+ window.SmsBildirimForGrid = function () {
+     var self = {};
+     self.opt = null;
+     self.title = 'xLng.SmsBildirim.Title';
+     self.selector = '#SmsBildirimForGrid';
+     self.primaryKey = 'Id';
+     self.tableName = 'SmsBildirim';
+     self.apiUrlPrefix = '/Panel/Api' + self.tableName;
+
+     function fCreateDataSource() {
+         self.dataSource = new kendo.data.DataSource({
+             transport: {
+                 read: { type: 'POST', url: self.apiUrlPrefix + '/Read', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 create: { type: 'POST', url: self.apiUrlPrefix + '/Create', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 update: { type: 'POST', url: self.apiUrlPrefix + '/Update', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 destroy: { type: 'POST', url: self.apiUrlPrefix + '/Delete', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 parameterMap: function (data, operation) {
+                     if (operation === 'read') {
+                         return kendo.stringify(data);
+                     }
+                     else if (operation === 'create' || operation === 'update') {
+                         data.Tarih = kendo.toString(data.Tarih, 's');
+                         data.GonderimTarihi = kendo.toString(data.GonderimTarihi, 's');
+                         return kendo.stringify(data);
+                     }
+                     else if (operation === 'destroy') {
+                         return kendo.stringify(data);
+                     }
+                 }
+             },
+             pageSize: 10, serverPaging: true, serverSorting: true, serverFiltering: true, serverGrouping: true, serverAggregates: true,
+             sort: [
+             ],
+             schema: {
+                 errors: 'Errors', data: 'Data', total: 'Total', aggregates: 'AggregateResults',
+                 model: {
+                     id: self.primaryKey,
+                     fields: {
+                         Id: { type: 'number', defaultValue: null  },
+                         UniqueId: { type: 'string', editable:false },
+                         GonderildiMi: { type: 'boolean' },
+                         Tarih: { type: 'date' },
+                         GonderimTarihi: { type: 'date' },
+                         UyeGrupIds: { type: 'string' },
+                         Baslik: { type: 'string' },
+                         Mesaj: { type: 'string' },
+                         CcGonderildiMi: { type: 'string' },
+                         CcUyeGrupIdsAd: { type: 'string' }
+                     }
+                 }
+             },
+             error: function (e) {
+                 if (e.xhr === null) { mnNotification.warning(e.errors); } else { mnErrorHandler.Handle(e.xhr); }
+                 this.cancelChanges();
+             },
+             requestStart: function (e) {
+             },
+             requestEnd: function (e) {
+                 if (e.response !== undefined && e.response.Errors === null) {
+                     if (e.type === 'create' || e.type === 'update' || e.type === 'destroy') {
+                         mnLookup.listRead(self.tableName);
+                     }
+                     if (e.type === 'create') {
+                         mnNotification.success(mnLang.TranslateWithWord('xLng.KayitEklendi'));
+                     }
+                     if (e.type === 'update') {
+                         mnNotification.success(mnLang.TranslateWithWord('xLng.KayitDuzeltildi'));
+                     }
+                     if (e.type === 'destroy') {
+                         mnNotification.success(mnLang.TranslateWithWord('xLng.KayitSilindi'));
+                     }
+                 }
+             },
+             change: function (e) {
+                 if (e.items[0] !== undefined) {
+                     if (e.items[0].get(self.primaryKey) === null) {
+                         $.ajax({
+                             url: self.apiUrlPrefix + '/GetByNew', type: 'GET', dataType: 'json', async: false,
+                             success: function (result) {
+                                 e.items[0].Id = result.Id;
+                                 e.items[0].UniqueId = result.UniqueId;
+                                 e.items[0].GonderildiMi = result.GonderildiMi;
+                                 e.items[0].Tarih = kendo.parseDate(result.Tarih);
+                                 e.items[0].GonderimTarihi = kendo.parseDate(result.GonderimTarihi);
+                                 e.items[0].UyeGrupIds = result.UyeGrupIds;
+                                 e.items[0].Baslik = result.Baslik;
+                                 e.items[0].Mesaj = result.Mesaj;
+                                 //computed alanların tanımlanması
+                                 e.items[0].CcGonderildiMi = result.CcGonderildiMi;
+                                 e.items[0].CcUyeGrupIdsAd = result.CcUyeGrupIdsAd;
+                                 //filterdan gelen default value set için
+                                 $(self.opt.filters).each(function (index, row) {
+                                     if (row.filterColumnName !== 'Id') {
+                                        e.items[0].set(row.filterColumnName, row.filterValue);
+                                     }
+                                 });
+
+                             },
+                             error: function (xhr, status) {
+                                 mnErrorHandler.Handle(xhr);
+                             }
+                         });
+                     }
+                 }
+                 // ve gerekebilecek diğer işlemler
+                 // ...
+             }
+         });
+     }
+
+     function fCreateGrid() {
+         self.grid = $(self.selector).find('#divGrid').kendoGrid({
+             excel: { allPages: true, fileName: mnLang.TranslateWithWord(self.title) },
+             excelExport: mnApp.exportGridWithTemplatesContentForKendo,
+             autoBind: false, resizable: true, reorderable: true,
+             sortable: { mode: 'multiple', allowUnsort: true, showIndexes: true },
+             pageable: {
+                 refresh: true, pageSizes: mnApp.gridPageSizes_default, buttonCount: 5, input: true,
+                 messages: { itemsPerPage: '' }
+             },
+             editable: {
+                 confirmation: true, mode: 'inline', createAt: 'bottom'
+             },
+             columns: [
+             {
+                 locked: true,
+                 headerTemplate: '<span id="btnEkle" style=" " title="' + mnLang.TranslateWithWord("xLng.Ekle") + '" ></span>'+'<span id="btnSaveAsExcel" style=" " title="' + mnLang.TranslateWithWord("xLng.SaveAsExcel") + '" ></span>',
+                 width: '95px',
+                 command: [
+                     { name: 'edit', buttonType: 'ImageAndText', text: { cancel: '', update: '', edit: '' }, attr: 'style=" " data-langkey-title="xLng.Duzelt" ' },
+                     { name: 'destroy', buttonType: 'ImageAndText', text: '', attr: 'style=" " data-langkey-title="xLng.Sil"' }
+                 ]
+             },
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.SmsBildirim.GonderildiMi'),
+                 field: 'GonderildiMi',
+                 template: '#:CcGonderildiMi#',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '80px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.SmsBildirim.Tarih'),
+                 field: 'Tarih',
+                 format: '{0:g}',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '145px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.SmsBildirim.GonderimTarihi'),
+                 field: 'GonderimTarihi',
+                 format: '{0:g}',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '145px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.SmsBildirim.UyeGrupIds'),
+                 field: 'UyeGrupIds',
+                 template: '#:CcUyeGrupIdsAd#',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '130px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.SmsBildirim.Baslik'),
+                 field: 'Baslik',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '130px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.SmsBildirim.Mesaj'),
+                 field: 'Mesaj',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '130px'
+             },
+
+             {}
+             ],
+             edit: function (e) {
+                 var model=e.model;
+                 this.cancelRow();
+                 mnPageView.create({
+                     viewFolder: 'SmsBildirim',
+                     viewName: 'SmsBildirimForForm',
+                     subTitle: mnLang.TranslateWithWord('xLng.DuzenlemeIslemleri'),
+                     onShow: function (e) {
+                        var qprms = { 'Id': model.Id };
+                         e.beforeShow({'ownerViewName':'SmsBildirimForGrid', 'qprms': qprms });
+                     },
+                     onClose: function (e) {
+                         self.dataSource.read();
+                     }
+                 });
+             },
+             cancel: function (e) {
+                 if (e.model.id !== null) {
+                     e.sender.refresh(); //databound da renklendirme ve button set etme var ise ,cancelden sonra databound çalışmıyor(yetki,renk style ayarlanamıyor) bununla refresh ediyosun
+                 }
+             },
+             dataBound: function (e) {
+                var data = e.sender.dataSource.data();
+                 //yetki
+                 self.YetkiUygula(data);
+
+                 // Language
+                 mnLang.TranslateWithSelector(e.sender.wrapper);
+
+                 //row style
+             },
+             dataSource: self.dataSource
+         }).getKendoGrid();
+
+         self.grid.wrapper.find('#btnEkle').kendoButton({
+             icon: 'plus',
+             click: function () {
+                 mnPageView.create({
+                     viewFolder: 'SmsBildirim',
+                     viewName: 'SmsBildirimForForm',
+                     subTitle: mnLang.TranslateWithWord('xLng.DuzenlemeIslemleri'),
+                     onShow: function (e) {
+                        var qprms = { 'Id': null };
+                         e.beforeShow({'ownerViewName':'SmsBildirimForGrid', 'qprms': qprms });
+                     },
+                     onClose: function (e) {
+                         self.dataSource.read();
+                     }
+                 });
+             }
+         });
+
+         self.grid.wrapper.find('#btnSaveAsExcel').kendoButton({
+             icon: 'excel',
+             click: function () {
+                 kendo.ui.progress(self.grid.wrapper, true); //progress On
+                 self.grid.saveAsExcel();
+             }
+         });
+     }
+
+     self.YetkiUygula = function (_data) {
+         //Standart Yetkiler
+         var _C = mnUser.isYetkili(self.tableName + '.D_C.');
+         var _U = mnUser.isYetkili(self.tableName + '.D_U.');
+         var _D = mnUser.isYetkili(self.tableName + '.D_D.');
+         var _E = mnUser.isYetkili(self.tableName + '.D_E.');
+
+         //ek yetkiler için
+         //...
+
+        //form element görünümleri
+        var fieldList = [];
+
+        for (var i in fieldList) {
+            var $elm = $(self.selector).find('.mnFindElementContainer .mnFindElementDiv[name=div' + fieldList[i].Name + ']');
+            if (fieldList[i].Visible) {
+                $elm.show();
+            } else {
+                $elm.hide();
+            }
+        }
+
+         //grid ekle button için
+         mnApi.controlShowHide(self.grid.wrapper.find('#btnEkle'), _C);
+         //grid exel button için
+         mnApi.controlShowHide(self.grid.wrapper.find('#btnSaveAsExcel'), _E);
+
+         //grid rows için
+         $.each(_data, function (i, row) {
+             var _tr = self.grid.wrapper.find('tr[data-uid=' + row.uid + ']');
+             var tr_U = _U;
+             var tr_D = _D;
+
+             //update-delete button için
+             mnApi.controlEnable(_tr.find('.k-grid-delete'), tr_D);
+
+
+             //row değerine göre yetkiler
+             //...
+
+         });
+     };
+
+     self.prepare = function () {
+         // DataSource
+         fCreateDataSource();
+
+         // Grid
+         fCreateGrid();
+
+         // Language
+         mnLang.TranslateWithSelector(self.selector);
+     };
+
+     self.beforeShow = function (_opt) {
+         self.opt = $.extend({}, _opt);
+
+         self.filter();
+
+     };
+
+     self.filter = function (_data) {
+         self.dataSource.filter(mnApp.find_options_ToFilterList(self));
+     };
+
+     self.close = function () {
+         if ($(self.selector).closest('.k-window-content').getKendoWindow()) {
+             $(self.selector).closest('.k-window-content').getKendoWindow().close(); // popup ise
+         } else {
+             $(self.selector).closest('.mnPageView').find('#btnGeri').click(); // page ise
+         }
+     };
+
+     return self;
+ }();
+</script>

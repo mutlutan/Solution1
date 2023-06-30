@@ -1,0 +1,57 @@
+﻿
+<div id='ViewGaSetup'>
+    <div style="padding : 0px 15px;">
+        <div class="form-group row">
+            <img id="captchaImage" type="image" class="" src="">
+        </div>
+    </div>
+</div>
+
+<script>
+    window.ViewGaSetup = function () {
+        var self = {};
+        self.opt = null;
+        self.title = 'xLng.ViewGaSetup.Title';
+        self.selector = '#ViewGaSetup';
+
+        function fGaSetupCreate() {
+            $.ajax({
+                url: "/Panel/Api/GaSetupCreate",
+                type: "POST", dataType: "json", contentType: "application/json; charset=utf-8",
+                success: function (result, textStatus, jqXHR) {
+                    if (result.Success == true) {
+                        //$(self.selector).find("[name=captchaToken]").val(result.Data.CaptchaToken);
+                        $(self.selector).find("#captchaImage").attr("src", result.Data.QrCodeSetupImageUrl);
+                    } else {
+                        mnAlert.warning(result.Message);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    mnAlert.error(jqXHR.responseText);
+                }
+            });
+        }
+
+        self.prepare = function () {
+
+            // Language
+            mnLang.TranslateWithSelector(self.selector);
+        };
+
+        self.beforeShow = function (_opt) {
+            self.opt = $.extend({}, _opt);
+
+            fGaSetupCreate();
+        };
+
+        self.close = function () {
+            if ($(self.selector).closest('.k-window-content').getKendoWindow()) {
+                $(self.selector).closest('.k-window-content').getKendoWindow().close(); // popup ise
+            } else {
+                $(self.selector).closest('.mnPageView').find('#btnGeri').click(); // page ise
+            }
+        };
+
+        return self;
+    }();
+</script>

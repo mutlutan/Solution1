@@ -1,0 +1,144 @@
+[
+ {
+     "key" : "xLng.Kampanya.Title",
+     "value": {
+         "tr": "Kampanya",
+         "en": "Campaign"
+     }
+ },
+ {
+     "key" : "xLng.Kampanya.ShortTitle",
+     "value": {
+         "tr": "Kampanya",
+         "en": "Campaign"
+     }
+ }
+,
+ {
+     "key" : "xLng.Kampanya.FormViewTab.I",
+     "value": {
+         "tr": "Genel Bilgiler",
+         "en": "General Info"
+     }
+ }
+,
+ {
+     "key" : "xLng.Kampanya.GridFindTab.I",
+     "value": {
+         "tr": "I",
+         "en": "I"
+     }
+ }
+,
+ {
+     "key" : "xLng.Kampanya.Id",
+     "value": {
+         "tr": "Id",
+         "en": "Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.Kampanya.Durum",
+     "value": {
+         "tr": "Durum",
+         "en": "Situation"
+     }
+ }
+,
+ {
+     "key" : "xLng.Kampanya.KampanyaIndirimTipiId",
+     "value": {
+         "tr": "İndirim Türü",
+         "en": "Discount Type"
+     }
+ }
+,
+ {
+     "key" : "xLng.Kampanya.KampanyaTurId",
+     "value": {
+         "tr": "Kampanya Türü",
+         "en": "Campaign Type"
+     }
+ }
+,
+ {
+     "key" : "xLng.Kampanya.UyeGrupIds",
+     "value": {
+         "tr": "Üye Grubu",
+         "en": "Member Group"
+     }
+ }
+,
+ {
+     "key" : "xLng.Kampanya.Ad",
+     "value": {
+         "tr": "Ad",
+         "en": "Ad"
+     }
+ }
+,
+ {
+     "key" : "xLng.Kampanya.AdEng",
+     "value": {
+         "tr": "AdEng",
+         "en": "AdEng"
+     }
+ }
+,
+ {
+     "key" : "xLng.Kampanya.GorselUrl",
+     "value": {
+         "tr": "Görsel(Url)",
+         "en": "Image(Url)"
+     }
+ }
+,
+ {
+     "key" : "xLng.Kampanya.SayfaIcerik",
+     "value": {
+         "tr": "İçerik",
+         "en": "Contents"
+     }
+ }
+,
+ {
+     "key" : "xLng.Kampanya.SayfaIcerikEng",
+     "value": {
+         "tr": "SayfaIcerikEng",
+         "en": "SayfaIcerikEng"
+     }
+ }
+,
+ {
+     "key" : "xLng.Kampanya.BaslangicTarihi",
+     "value": {
+         "tr": "Başlangıç Tarihi",
+         "en": "Starting Date"
+     }
+ }
+,
+ {
+     "key" : "xLng.Kampanya.BitisTarihi",
+     "value": {
+         "tr": "Bitiş Tarihi",
+         "en": "End Date"
+     }
+ }
+,
+ {
+     "key" : "xLng.Kampanya.IndirimDegeri",
+     "value": {
+         "tr": "İndirim Değeri",
+         "en": "Discount Value"
+     }
+ }
+,
+ {
+     "key" : "xLng.Kampanya.CokluKullanim",
+     "value": {
+         "tr": "Çoklu Kullanım",
+         "en": "Multiple Use"
+     }
+ }
+]

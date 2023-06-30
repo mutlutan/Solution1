@@ -1,0 +1,380 @@
+
+<div id='RoleForForm'>
+    
+    <div style='padding-bottom:15px;'>
+        <div class='row col'>
+            <div class='col-md-7 pl-0 pr-0'>
+                <div id='divButtonGroup' class='mnButtonGroup float-end' >
+                    <button id='btnKaydet' type='button' class='btn btn-outline-success text-nowrap' data-langkey-title='xLng.Kaydet' style='position:absolute; right:0px;'> <i class='fa fa-save'></i> </button>
+                </div>
+
+                <div id='tabstrip'>
+                    <ul>
+                        <li> <span data-langkey-text='I'></span> </li>
+                        <!--<li> <span data-langkey-text='II'></span> </li>-->
+                    </ul>
+                    <div class="pl-0 pr-0">
+                        <div id="treeView" style="height:480px; border: 1px solid gainsboro; padding:5px;"></div>
+                    </div>
+
+                    <!--<div>
+                    </div>-->
+                </div>
+            </div>
+
+            <div class='col-md-5 pl-0 pr-0 pt-5'>
+                <div name='divLineNumber' class='mnFormElementDiv form-group row'>
+                    <label class='col-sm-4 col-form-label text-right'>
+                        <span class='mn-required-span' data-langkey-text='xLng.Role.LineNumber'></span>
+                    </label>
+                    <div class='col-sm-8'>
+                        <input name='LineNumber' type='number' data-bind='value:LineNumber' data-langkey-placeholder='xLng.Role.LineNumber' />
+                        <span class='k-invalid-msg' data-for='LineNumber'></span>
+                    </div>
+                </div>
+
+                <div name='divName' class='mnFormElementDiv form-group row'>
+                    <label class='col-sm-4 col-form-label text-right'>
+                        <span class='mn-required-span' data-langkey-text='xLng.Role.Name'></span>
+                    </label>
+                    <div class='col-sm-8'>
+                        <input name='Name' type='text' class='k-textbox' data-bind='value:Name' data-langkey-placeholder='xLng.Role.Name' />
+                        <span class='k-invalid-msg' data-for='Name'></span>
+                    </div>
+                </div>
+
+                <div class='form-group row d-none'>
+                    <label class='col-sm-4 col-form-label text-right' data-langkey-text='xLng.Role.Authority'></label>
+                    <div class='col-sm-8'>
+                        <input name='Authority' type='text' class='k-textbox' data-bind='value:Authority' data-langkey-placeholder='xLng.Role.Authority' />
+                    </div>
+                </div>
+
+                <div name='divCreateDate' class='mnFormElementDiv form-group row'>
+                    <label class='col-sm-4 col-form-label text-right'>
+                        <span class='mn-required-span' data-langkey-text='xLng.Role.CreateDate'></span>
+                    </label>
+                    <div class='col-sm-8'>
+                        <input name='CreateDate' data-bind='value:CreateDate' disabled />
+                        <span class='k-invalid-msg' data-for='CreateDate'></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    window.RoleForForm = function () {
+        var self = {};
+        self.opt = null;
+        self.title = 'xLng.Role.Title';
+        self.selector = '#RoleForForm';
+        self.primaryKey = 'Id';
+        self.tableName = 'Role';
+        self.apiUrlPrefix = '/Panel/Api' + self.tableName;
+
+        function fCreateDataSource() {
+            self.dataSource = new kendo.data.DataSource({
+                transport: {
+                    read: { type: 'POST', url: self.apiUrlPrefix + '/Read', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                    create: { type: 'POST', url: self.apiUrlPrefix + '/Create', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                    update: { type: 'POST', url: self.apiUrlPrefix + '/Update', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                    destroy: { type: 'POST', url: self.apiUrlPrefix + '/Delete', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                    parameterMap: function (data, operation) {
+                        if (operation == 'read') {
+                            return kendo.stringify(data);
+                        }
+                        else if (operation == 'create' || operation == 'update') {
+                            data.CreateDate = kendo.toString(data.CreateDate, 's');
+                            return kendo.stringify(data);
+                        }
+                        else if (operation == 'destroy') {
+                            return { _id: data[self.primaryKey] };
+                        }
+                    }
+                },
+                pageSize: 10, serverPaging: true, serverSorting: true, serverFiltering: true, serverGrouping: true, serverAggregates: true,
+                schema: {
+                    errors: 'Errors', data: 'Data', total: 'Total', aggregates: 'Aggregates',
+                    model: {
+                        id: self.primaryKey,
+                        fields: {
+                            Id: { type: 'number', defaultValue: null },
+                            LineNumber: { type: 'number' },
+                            Name: { type: 'string' },
+                            Authority: { type: 'string' },
+                            CreateDate: { type: 'date', editable: false },
+                        }
+                    }
+                },
+                error: function (e) {
+                    if (e.xhr == null) { mnNotification.warning(e.errors); } else { mnErrorHandler.Handle(e.xhr); }
+                    //this.cancelChanges();
+                },
+                requestStart: function (e) {
+                    setTimeout(function () {
+                        kendo.ui.progress($(self.selector), true); //progress On
+                    });
+                },
+                requestEnd: function (e) {
+                    setTimeout(function () {
+                        kendo.ui.progress($(self.selector), false); //progress Off
+                    });
+
+                    if (e.response != undefined && e.response.Errors == null) {
+                        if (e.type == 'create' || e.type == 'update' || e.type == 'destroy') {
+                            self.isDirty = true;
+                            mnLookup.listRead(self.tableName);
+                        }
+                        if (e.type == 'create') {
+                            mnNotification.success(mnLang.TranslateWithWord('xLng.KayitEklendi'));
+                        }
+                        if (e.type == 'update') {
+                            mnNotification.success(mnLang.TranslateWithWord('xLng.KayitDuzeltildi'));
+                        }
+                        if (e.type == 'destroy') {
+                            mnNotification.success(mnLang.TranslateWithWord('xLng.KayitSilindi'));
+                        }
+
+                        if (e.response.Data.length > 0) {
+                            //yetki yansıt
+                            fYetkileriTreelereYansit(e.response.Data[0]);
+                        }
+                    }
+                },
+                change: function (e) {
+                    if (e.items[0] != undefined) {
+                        if (e.items[0].get(self.primaryKey) == null) {
+                            $.ajax({
+                                url: self.apiUrlPrefix + '/GetByNew', type: 'GET', dataType: 'json', async: false,
+                                success: function (result) {
+                                    e.items[0].Id = result.Id;
+                                    e.items[0].LineNumber = result.LineNumber;
+                                    e.items[0].Name = result.Name;
+                                    e.items[0].Authority = result.Authority;
+                                    e.items[0].CreateDate = kendo.parseDate(result.CreateDate);
+                                    //filterdan gelen default value set için
+                                    $(self.opt.filters).each(function (index, row) {
+                                        e.items[0].set(row.filterColumnName, row.filterValue);
+                                    });
+
+                                },
+                                error: function (xhr, status) {
+                                    mnErrorHandler.Handle(xhr);
+                                }
+                            });
+                        }
+                        // Bind
+                        kendo.bind($(self.selector), e.items[0]);
+                    }
+                    // Yetki
+                    fYetkiUygula(e.items);
+                    // ve gerekebilecek diğer işlemler
+                    // ...
+                }
+            });
+        }
+
+        function fCreateFormElements() {
+            // tabstrip
+            self.tabstrip = $(self.selector).find('#tabstrip').kendoTabStrip({
+                animation: false, tabPosition: 'top'
+            }).getKendoTabStrip();
+            self.tabstrip.select(0);
+
+            //validator
+            self.validator = $(self.selector).kendoValidator({
+                errorTemplate: mnApp.validatorErrorTemplate,
+                messages: {
+                    required: mnLang.TranslateWithWord('xLng.Gerekli'),
+                    validmask: '', //mnLang.TranslateWithWord('xLng.Gecersiz'),
+                },
+                validate: function (e) {
+                    //genel olarak validate çağrıldığında, console.log('valid' + e.valid);
+                },
+                validateInput: function (e) {
+                    //Her eleman için validate edilince, console.log('input ' + e.input.attr('name') + ' changed to valid: ' + e.valid);
+                    var $elm = $(e.input);
+                    if ($elm.hasClass('k-textbox')) {
+                        $elm = $(e.input);
+                    } else if ($elm.closest('.k-widget').hasClass('k-widget')) {
+                        $elm = $elm.closest('.k-widget');
+                    }
+
+                    if (e.valid) {
+                        $elm.removeClass('is-invalid');
+                    } else {
+                        $elm.addClass('is-invalid');
+                    }
+                },
+                rules: {
+                    custom: function (input) {
+                        //Get the MultiSelect instance
+                        var ms = input.data('kendoMultiSelect');
+                        if (ms != undefined) {
+                            if (input.is('[min]') && ms.value().length < $(input).attr('min')) {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                }
+            }).getKendoValidator();
+
+            //butonlar
+            $(self.selector).find('#btnKaydet').click(function (e) {
+                mnApi.controlDisableWait($(e.target));
+                if (self.validator.validate()) {
+                    
+                    //-------------TreeView data reead-----------------------------
+                    var checkedNodes = [];
+                    checkedNodeIds(self.treeView.dataSource.view(), checkedNodes);
+                    if (checkedNodes.length > 0) {
+                        self.dataSource.at(0).set("Authority", checkedNodes.join(","));
+                    } else {
+                        self.dataSource.at(0).set("Authority", "");
+                    }
+                    //--------------------------------------------------------------
+
+                    if (self.dataSource.at(0).dirty) {
+                        self.dataSource.sync();
+                    } else {
+                        mnAlert.warning(mnLang.TranslateWithWord('xLng.KayyittaDegisiklikYapmadiniz'));
+                    }
+                } else {
+                    mnAlert.warning(mnLang.TranslateWithWord('xLng.DoldurulmasiGerekenAlanlarVar'));
+                }
+            });
+
+            //Diğer Form elementleri
+            $(self.selector).find('[name=LineNumber]').kendoNumericTextBox({
+                format: 'n0', decimals: 0, min: 0, spinners: false, step: 0
+            }).getKendoNumericTextBox();
+
+            $(self.selector).find('[name=CreateDate]').kendoDateTimePicker({
+                componentType: mnApp.kendoDateTimePiker_ComponentType,
+                dateInput: mnApp.kendoDateTimePiker_DateInput
+            }).getKendoDateTimePicker();
+
+        }
+
+        function fYetkileriTreelereYansit(dataItem) {
+            var sYetki_Array = [];
+            var sYetki = dataItem.Authority;
+            if (sYetki != null || undefined || '') {
+                sYetki_Array = sYetki.split(",");
+            }
+
+            $.each($(self.treeView.wrapper).find(".k-checkbox"), function (index, elm) {
+                var node = $(elm).closest(".k-item");
+                var dataItem = self.treeView.dataSource.getByUid(node.attr("data-uid"));
+                var bTF = sYetki_Array.indexOf(dataItem.id) >= 0
+                $(elm).prop("checked", bTF).change();
+            });
+        }
+
+        function fSetAtributeFormElements() {
+            $(self.selector).find('[name=LineNumber]').attr('required', 'required');
+            $(self.selector).find().attr('required', 'required');
+            $(self.selector).find('[name=CreateDate]').attr('required', 'required');
+        }
+
+        function fYetkiUygula() {
+            //Standart Yetkiler
+            var _C = mnUser.isYetkili(self.tableName + '.D_C.');
+            var _U = mnUser.isYetkili(self.tableName + '.D_U.');
+            var _D = mnUser.isYetkili(self.tableName + '.D_D.');
+
+            //ek yetkiler için)
+            //...
+
+            //Form İçin
+            if (_C || _U) {
+                $(self.selector).find('#btnKaydet').show();
+            } else {
+                $(self.selector).find('#btnKaydet').hide();
+            }
+        }
+
+        function fCreateTreeView() {
+
+            self.treeView = $(self.selector).find('#treeView').kendoTreeView({
+                animation: false,
+                //dataTextField: "text",
+                //dataSpriteCssClassField: "cssClass",
+                checkboxes: {
+                    checkChildren: true
+                },
+                //select: function (e) {
+                //    // clears selection
+                //    e.preventDefault();
+                //    setTimeout(function () {
+                //        $(e.node).find(".k-state-focused").removeClass("k-state-focused");
+                //    });
+                //},
+                //template: '<i class="#=item.cssClass#"></i> <span class=" pl-2"> #=item.text# (#=item.yetkiGrups#) </span>', 
+                template: '<i class="#=item.cssClass#"></i> <span class=" pl-2"> #=item.text#</span>', 
+                dataSource: mnYetkiSablon.authorityList  
+            }).getKendoTreeView();
+
+        }
+
+        // function that gathers IDs of checked nodes
+        function checkedNodeIds(nodes, checkedNodes) {
+            for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].checked) {
+                    checkedNodes.push(nodes[i].id);
+                }
+
+                if (nodes[i].hasChildren) {
+                    checkedNodeIds(nodes[i].children.view(), checkedNodes);
+                }
+            }
+        }
+
+        self.prepare = function () {
+            // form element atribute set
+            fSetAtributeFormElements();
+            // DataSource
+            fCreateDataSource();
+            // form Elementler
+            fCreateFormElements();
+
+            fCreateTreeView();
+
+            //$(window).on("resize", function () {
+            //    //treeView
+            //    var $elm = $(self.selector).find("#treeView");
+            //    $elm.height($(window).height() - $elm.offset().top - 50 - 15);
+            //    //$elm.slimScroll({
+            //    //    height: $elm.height().toString() + 'px'
+            //    //});
+            //});
+
+            // Language
+            mnLang.TranslateWithSelector(self.selector);
+        };
+
+        self.beforeShow = function (_opt) {
+            self.opt = $.extend({}, _opt);
+    
+            if (self.opt.qprms.Id !== null && self.opt.qprms.Id > 0) {
+                self.dataSource.filter({ field: self.primaryKey, operator: 'eq', value: self.opt.qprms.Id });
+            } else {
+                self.dataSource.data([]); // eski data varsa işleme girmemesi için
+                self.dataSource.add();
+            }
+
+            //self.tabstrip.select(0);
+
+            //en son yapılacaklar
+            //setTimeout(function () {
+            //    $(window).resize();
+            //});
+        };
+
+        return self;
+    }();
+</script>

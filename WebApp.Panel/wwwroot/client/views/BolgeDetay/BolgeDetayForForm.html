@@ -1,0 +1,439 @@
+
+
+<div id='BolgeDetayForForm'>
+    <div id='divButtonGroup' class='mnButtonGroup float-end'>
+        <button id='btnKaydet' type='button' class='btn btn-outline-success text-nowrap' data-langkey-title='xLng.Kaydet'> <i class='fa fa-save'></i> </button>
+    </div>
+
+    <div class='mnFormElementContainer' style='padding-bottom:15px;'>
+        <div id='tabstrip'>
+            <ul>
+                <li data-tab-key='I'> <span data-langkey-text='xLng.BolgeDetay.FormViewTab.I'></span> </li>
+            </ul>
+            <div data-tab-key='I'>
+                <div class='row'>
+                    <div class='col-md-12'>
+                         <div name='divDurum' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                <label style='font-weight:normal;'>
+                                    <input name='Durum' type='checkbox' data-bind='checked:Durum' style='width: 24px; height: 24px; vertical-align: middle;'  />
+                                    <span data-langkey-Text='xLng.BolgeDetay.Durum'></span>
+                                </label>
+                             </div>
+                         </div>
+
+                         <div name='divParkEdilebilirMi' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                <label style='font-weight:normal;'>
+                                    <input name='ParkEdilebilirMi' type='checkbox' data-bind='checked:ParkEdilebilirMi' style='width: 24px; height: 24px; vertical-align: middle;'  />
+                                    <span data-langkey-Text='xLng.BolgeDetay.ParkEdilebilirMi'></span>
+                                </label>
+                             </div>
+                         </div>
+
+                         <div name='divBolgeDetayTurId' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='mn-required-span' data-langkey-text='xLng.BolgeDetay.BolgeDetayTurId'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                 <input name='BolgeDetayTurId' data-bind='value:BolgeDetayTurId' />
+                                 <span class='k-invalid-msg' data-for='BolgeDetayTurId'></span>
+                             </div>
+                         </div>
+
+                         <div name='divAd' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='' data-langkey-text='xLng.BolgeDetay.Ad'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                 <input name='Ad' type='text' class='form-control d-inline' data-bind='value:Ad' data-langkey-placeholder='xLng.BolgeDetay.Ad'   maxlength='300' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divPolygon' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='' data-langkey-text='xLng.BolgeDetay.Polygon'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10' style='position:relative;' >
+                                 <textarea name='Polygon' class='form-control' data-bind='value:Polygon' data-langkey-placeholder='xLng.BolgeDetay.Polygon'  style='height:150px;'  ></textarea>
+                                 <button id='btnClearPolygon' class='btn btn-link btn-sm' style='position:absolute; top:-6px; right:7px;'>
+                                     <i class='fa fa-trash-o'></i>
+                                 </button>
+                                 <div class='mt-1' style='height:450px;'>
+                                     <comp-google-map name='Polygon' center='{ "lat": 39.9187725, "lng": 32.85806 }' zoom='11' map-type-id='roadmap'></comp-google-map>
+                                 </div>
+                             </div>
+                         </div>
+
+
+                    </div>
+
+                    <div class='col-lg-6 col-md-12'>
+
+                    </div>
+
+                    <div class='col-lg-6 col-md-12'>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+ window.BolgeDetayForForm = function () {
+     var self = {};
+     self.opt = null;
+     self.title = 'xLng.BolgeDetay.Title';
+     self.selector = '#BolgeDetayForForm';
+     self.primaryKey = 'Id';
+     self.tableName = 'BolgeDetay';
+     self.apiUrlPrefix = '/Panel/Api' + self.tableName;
+
+     function fCreateDataSource() {
+         self.dataSource = new kendo.data.DataSource({
+             transport: {
+                 read: { type: 'POST', url: self.apiUrlPrefix + '/Read', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 create: { type: 'POST', url: self.apiUrlPrefix + '/Create', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 update: { type: 'POST', url: self.apiUrlPrefix + '/Update', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 destroy: { type: 'POST', url: self.apiUrlPrefix + '/Delete', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 parameterMap: function (data, operation) {
+                     if (operation === 'read') {
+                         return kendo.stringify(data);
+                     }
+                     else if (operation === 'create' || operation === 'update') {
+                         data.CreateDate = kendo.toString(data.CreateDate, 's');
+                         data.UpdateDate = kendo.toString(data.UpdateDate, 's');
+                         //Geometry data için
+                         if (data.Polygon != null && data.Polygon.trim().length > 0) {
+							data.Polygon = JSON.parse(data.Polygon);
+                         } else {
+							data.Polygon = null;
+                         }
+
+                         return kendo.stringify(data);
+                     }
+                     else if (operation === 'destroy') {
+                         return kendo.stringify(data);
+                     }
+                 }
+             },
+             pageSize: 10, serverPaging: true, serverSorting: true, serverFiltering: true, serverGrouping: true, serverAggregates: true,
+             schema: {
+                 errors: 'Errors', data: 'Data', total: 'Total', aggregates: 'AggregateResults',
+                 model: {
+                     id: self.primaryKey,
+                     fields: {
+                         Id: { type: 'number', defaultValue: null },
+                         UniqueId: { type: 'string', editable:false },
+                         Durum: { type: 'boolean' },
+                         ParkEdilebilirMi: { type: 'boolean' },
+                         BolgeId: { type: 'number' },
+                         BolgeDetayTurId: { type: 'number' },
+                         Ad: { type: 'string' },
+                         CreateDate: { type: 'date', editable:false },
+                         CreatedUserId: { type: 'number', editable:false },
+                         UpdateDate: { type: 'date', editable:false },
+                         UpdatedUserId: { type: 'number', editable:false },
+                         CcDurum: { type: 'string' },
+                         CcParkEdilebilirMi: { type: 'string' },
+                         CcBolgeDetayTurIdAd: { type: 'string' }
+                     }
+                 }
+             },
+             error: function (e) {
+                 if (e.xhr === null) { mnNotification.warning(e.errors); } else { mnErrorHandler.Handle(e.xhr); }
+                 //this.cancelChanges();
+             },
+             requestStart: function (e) {
+                 setTimeout(function () {
+                     kendo.ui.progress($(self.selector), true); //progress On
+                 });
+             },
+             requestEnd: function (e) {
+                 setTimeout(function () {
+                     kendo.ui.progress($(self.selector), false); //progress Off
+                 });
+
+                 if (e.response !== undefined && e.response.Errors === null) {
+                     if (e.type === 'create' || e.type === 'update' || e.type === 'destroy') {
+                         mnLookup.listRead(self.tableName);
+                     }
+                     if (e.type === 'create') {
+                         mnNotification.success(mnLang.TranslateWithWord('xLng.KayitEklendi'));
+                     }
+                     if (e.type === 'update') {
+                         mnNotification.success(mnLang.TranslateWithWord('xLng.KayitDuzeltildi'));
+                     }
+                     if (e.type === 'destroy') {
+                         mnNotification.success(mnLang.TranslateWithWord('xLng.KayitSilindi'));
+                     }
+
+                     if (e.response.Data.length > 0) {
+						 //mapEditor polygon
+						 self.mapEditorPolygon.fnDeleteAllPolygons();
+                         if (e.response.Data[0].Polygon != null) {
+							self.mapEditorPolygon.drawingManager.setDrawingMode('');
+							e.response.Data[0].Polygon = JSON.stringify(e.response.Data[0].Polygon);
+							let itemPolygon = JSON.parse(e.response.Data[0].Polygon);
+							let polyCoords = itemPolygon.coordinates[0].map(d => {
+								return new google.maps.LatLng(d[0], d[1]);
+							});
+							self.mapEditorPolygon.fnAddPolygon({ paths: polyCoords, 'editable': true, 'draggable': true });
+                         } else {
+							self.mapEditorPolygon.drawingManager.setDrawingMode('polygon');
+                         }
+                     }
+                 }
+             },
+             change: function (e) {
+                 if (e.items[0] !== undefined) {
+                     if (e.items[0].get(self.primaryKey) === null) {
+                         $.ajax({
+                             url: self.apiUrlPrefix + '/GetByNew', type: 'GET', dataType: 'json', async: false,
+                             success: function (result) {
+                                 e.items[0].Id = result.Id;
+                                 e.items[0].UniqueId = result.UniqueId;
+                                 e.items[0].Durum = result.Durum;
+                                 e.items[0].ParkEdilebilirMi = result.ParkEdilebilirMi;
+                                 e.items[0].BolgeId = result.BolgeId;
+                                 e.items[0].BolgeDetayTurId = result.BolgeDetayTurId;
+                                 e.items[0].Ad = result.Ad;
+                                 e.items[0].Polygon = result.Polygon;
+                                 e.items[0].CreateDate = kendo.parseDate(result.CreateDate);
+                                 e.items[0].CreatedUserId = result.CreatedUserId;
+                                 e.items[0].UpdateDate = kendo.parseDate(result.UpdateDate);
+                                 e.items[0].UpdatedUserId = result.UpdatedUserId;
+                                 //computed alanların tanımlanması
+                                 e.items[0].CcDurum = result.CcDurum;
+                                 e.items[0].CcParkEdilebilirMi = result.CcParkEdilebilirMi;
+                                 e.items[0].CcBolgeDetayTurIdAd = result.CcBolgeDetayTurIdAd;
+                                 //filterdan gelen default value set için
+                                 $(self.opt.filters).each(function (index, row) {
+                                     if (row.filterColumnName !== 'Id') {
+                                        e.items[0].set(row.filterColumnName, row.filterValue);
+                                     }
+                                 });
+
+                                 //(MapEditor için, new row da ilk durum set ediliyor)
+                                 self.mapEditorPolygon.fnDeleteAllPolygons();
+                                 self.mapEditorPolygon.drawingManager.setDrawingMode('polygon');
+                             },
+                             error: function (xhr, status) {
+                                 mnErrorHandler.Handle(xhr);
+                             }
+                         });
+                     }
+                     // Bind
+                     kendo.bind($(self.selector), e.items[0]);
+
+                     //validator refresh
+                     setTimeout(function () {
+                        fValidateAll();
+                     },1000);
+
+                 }
+
+                 // Yetki
+                 fYetkiUygula();
+
+                 // ve gerekebilecek diğer işlemler
+                 // ...
+             }
+         });
+     }
+
+     function fValidateAll() {
+        $(self.selector).find('#tabstrip ul li[data-tab-key]').removeClass('mn-invalid');
+        let rValid = true;
+
+        if (!self.validatorI.validate()) {
+            rValid = false;
+            $(self.selector).find('#tabstrip ul li[data-tab-key=I]').addClass('mn-invalid')
+        }
+        
+        return rValid
+     }
+
+     function fCreateFormElements() {
+         // tabstrip
+         self.tabstrip = $(self.selector).find('#tabstrip').kendoTabStrip({
+             animation: false, tabPosition: 'top'
+         }).getKendoTabStrip();
+         self.tabstrip.select(0);
+
+         //create validators
+         self.validatorI = mnApp.createValidator($(self.selector).find('.mnFormElementContainer div[data-tab-key=I]'), mnApp.validatorErrorTemplateIconMsg);
+
+         //butonlar
+         $(self.selector).find('#btnKaydet').click(function (e) {
+             mnApi.controlDisableWait($(e.target));
+             if (fValidateAll()) {
+                 if (self.dataSource.at(0).dirty) {
+                     self.dataSource.sync();
+                 } else {
+                     mnAlert.warning(mnLang.TranslateWithWord('xLng.KayyittaDegisiklikYapmadiniz'));
+                 }
+             } else {
+                 mnAlert.warning(mnLang.TranslateWithWord('xLng.DoldurulmasiGerekenAlanlarVar'));
+             }
+         });
+
+         //Diğer Form elementleri
+         $(self.selector).find('[name=BolgeDetayTurId]').kendoDropDownList({
+             valuePrimitive: true,
+             optionLabel: mnLang.TranslateWithWord('xLng.Seciniz'),
+             dataValueField: 'value',
+             dataTextField: 'text',
+             dataSource: mnLookup.listLoad({
+                 ViewName: 'BolgeDetayForForm',
+                 ViewFieldName: 'BolgeDetayTurId',
+                 TableName: 'BolgeDetayTur',
+                 ValueField: 'Id',
+                 TextField: 'Ad',
+                 OtherFields: '',
+                 Filters: [
+                     { Field: 'Id', Operator: '>=', Value: '0' }
+                 ],
+                 Sorts: [
+                                 { Field: 'Ad', Dir: 'asc' }
+                 ]
+             }),
+             open: function (e) {
+             },
+             close: function (e) {
+             }
+         }).getKendoDropDownList();
+
+		 //TextArea üzerinde MapEditor için data clear
+         $(self.selector).find('#btnClearPolygon').click(function (e) {
+            var dataItem = self.dataSource.at(0);
+            dataItem.set('Polygon', null);
+         });
+
+			//mapEditor instance
+			self.mapEditorPolygon = $(self.selector).find('comp-google-map[name=Polygon]').get(0);
+			//mapEditor overlaycomplete
+			self.mapEditorPolygon.addEventListener('overlaycomplete', (event) => {
+				//console.log('event overlaycomplete', event, event.detail.value);
+				event.target.drawingManager.setDrawingMode(null); // Şekil çizdikten sonra çizim dışı moda geri dönün.
+				let elmMapEditor = event.target;
+				if (elmMapEditor.polygons.length > 0) {
+					var itemValue = { 'type': 'Polygon', 'coordinates': [[]] };
+					elmMapEditor.polygons.forEach((p) => {
+						p.getPath().getArray().forEach((position) => {
+							var latLng = [position.lat(), position.lng()];
+							itemValue.coordinates[0].push(latLng);
+						});
+					});
+					//son pointi oluşturuyoruz, kapama pointi
+					let coordinatesLength = itemValue.coordinates[0].length;
+					if (itemValue.coordinates[0][0] != itemValue.coordinates[0][coordinatesLength - 1]) {
+						itemValue.coordinates[0].push(itemValue.coordinates[0][0]);
+					}
+					self.dataSource.at(0).set('Polygon', JSON.stringify(itemValue));
+				}
+			});
+			//mapEditor polygonSet_at
+			self.mapEditorPolygon.addEventListener('polygonSet_at', (event) => {
+				//console.log('event', event, event.detail.value);
+				let elmMapEditor = event.target;
+				if (elmMapEditor.polygons.length > 0) {
+					var itemValue = { "type": "Polygon", "coordinates": [[]] };
+					elmMapEditor.polygons.forEach((p) => {
+						p.getPath().getArray().forEach((position) => {
+							var latLng = [position.lat(), position.lng()];
+							itemValue.coordinates[0].push(latLng);
+						});
+					});
+					//son pointi oluşturuyoruz, kapama pointi
+					let coordinatesLength = itemValue.coordinates[0].length;
+					if (itemValue.coordinates[0][0] != itemValue.coordinates[0][coordinatesLength - 1]) {
+						itemValue.coordinates[0].push(itemValue.coordinates[0][0]);
+					}
+					self.dataSource.at(0).set('Polygon', JSON.stringify(itemValue));
+				}
+			});
+
+     }
+
+     function fSetAtributeFormElements() {
+         $(self.selector).find('[name=BolgeDetayTurId]').attr('required', 'required');
+     }
+
+     function fYetkiUygula() {
+         //Standart Yetkiler
+         var _C = mnUser.isYetkili(self.tableName + '.D_C.');
+         var _U = mnUser.isYetkili(self.tableName + '.D_U.');
+         var _D = mnUser.isYetkili(self.tableName + '.D_D.');
+
+         //ek yetkiler için)
+         //...
+
+         //Form İçin
+         if (_C || _U) {
+             $(self.selector).find('#btnKaydet').show();
+         } else {
+             $(self.selector).find('#btnKaydet').hide();
+         }
+
+        //form element görünümleri
+        var fieldList = [];
+        fieldList.push({ 'Name': 'Durum', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'ParkEdilebilirMi', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'BolgeDetayTurId', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'Ad', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'Polygon', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+
+        for (var i in fieldList) {
+            var $elm = $(self.selector).find('.mnFormElementContainer .mnFormElementDiv[name=div' + fieldList[i].Name + ']');
+            if (fieldList[i].Visible) {
+                $elm.show();
+            } else {
+                $elm.hide();
+            }
+        }
+
+     }
+
+
+     function fGorunurlukUygula(dataItem) {
+        if (dataItem != null && dataItem != undefined) {
+            //invisibility
+            //visibility
+        }
+     }
+
+     self.prepare = function () {
+         // form element atribute set
+         fSetAtributeFormElements();
+         // DataSource
+         fCreateDataSource();
+         // form Elementler
+         fCreateFormElements();
+         // Language
+         mnLang.TranslateWithSelector(self.selector);
+     };
+
+     self.beforeShow = function (_opt) {
+         self.opt = $.extend({}, _opt);
+
+         if (self.opt.qprms.Id !== null && self.opt.qprms.Id > 0) {
+             self.dataSource.filter({ field: self.primaryKey, operator: 'eq', value: self.opt.qprms.Id });
+         } else {
+             self.dataSource.data([]); // eski data varsa işleme girmemesi için
+             self.dataSource.add();
+         }
+
+         self.tabstrip.select(0);
+     };
+
+     return self;
+ }();
+</script>

@@ -1,0 +1,48 @@
+[
+ {
+     "key" : "xLng.MobilBildirimUye.Title",
+     "value": {
+         "tr": "Üye(ler)",
+         "en": "Member(S)"
+     }
+ },
+ {
+     "key" : "xLng.MobilBildirimUye.ShortTitle",
+     "value": {
+         "tr": "Üye(ler)",
+         "en": "Member(S)"
+     }
+ }
+,
+ {
+     "key" : "xLng.MobilBildirimUye.FormViewTab.I",
+     "value": {
+         "tr": "Genel Bilgiler",
+         "en": "General Info"
+     }
+ }
+,
+ {
+     "key" : "xLng.MobilBildirimUye.Id",
+     "value": {
+         "tr": "Id",
+         "en": "Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.MobilBildirimUye.MobilBildirimId",
+     "value": {
+         "tr": "Mobil Bildirim ",
+         "en": "Mobile Notification"
+     }
+ }
+,
+ {
+     "key" : "xLng.MobilBildirimUye.UyeId",
+     "value": {
+         "tr": "Üye",
+         "en": "Member"
+     }
+ }
+]

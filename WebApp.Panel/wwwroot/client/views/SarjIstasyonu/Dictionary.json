@@ -1,0 +1,160 @@
+[
+ {
+     "key" : "xLng.SarjIstasyonu.Title",
+     "value": {
+         "tr": "Şarj İstasyonları",
+         "en": "Charging Stations"
+     }
+ },
+ {
+     "key" : "xLng.SarjIstasyonu.ShortTitle",
+     "value": {
+         "tr": "Şarj İstasyonları",
+         "en": "Charging Stations"
+     }
+ }
+,
+ {
+     "key" : "xLng.SarjIstasyonu.FormViewTab.I",
+     "value": {
+         "tr": "Genel Bilgiler",
+         "en": "General Info"
+     }
+ }
+,
+ {
+     "key" : "xLng.SarjIstasyonu.GridFindTab.I",
+     "value": {
+         "tr": "I",
+         "en": "I"
+     }
+ }
+,
+ {
+     "key" : "xLng.SarjIstasyonu.Id",
+     "value": {
+         "tr": "Id",
+         "en": "Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.SarjIstasyonu.UniqueId",
+     "value": {
+         "tr": "Unique Id",
+         "en": "Unique Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.SarjIstasyonu.Sira",
+     "value": {
+         "tr": "Sıra",
+         "en": "Order"
+     }
+ }
+,
+ {
+     "key" : "xLng.SarjIstasyonu.Durum",
+     "value": {
+         "tr": "Durum",
+         "en": "Durum"
+     }
+ }
+,
+ {
+     "key" : "xLng.SarjIstasyonu.Ad",
+     "value": {
+         "tr": "Ad",
+         "en": "Ad"
+     }
+ }
+,
+ {
+     "key" : "xLng.SarjIstasyonu.Aciklama",
+     "value": {
+         "tr": "Açıklama",
+         "en": "Content"
+     }
+ }
+,
+ {
+     "key" : "xLng.SarjIstasyonu.MusaitlikDurum",
+     "value": {
+         "tr": "Müsait Mi?",
+         "en": "Is It Available?"
+     }
+ }
+,
+ {
+     "key" : "xLng.SarjIstasyonu.Konum",
+     "value": {
+         "tr": "Konum",
+         "en": "Konum"
+     }
+ }
+,
+ {
+     "key" : "xLng.SarjIstasyonu.YazilimVersiyon",
+     "value": {
+         "tr": "Yazılım Versiyonu",
+         "en": "Software Version"
+     }
+ }
+,
+ {
+     "key" : "xLng.SarjIstasyonu.YazilimVersiyonNo",
+     "value": {
+         "tr": "Yazılım Versiyon No",
+         "en": "Software Version Number"
+     }
+ }
+,
+ {
+     "key" : "xLng.SarjIstasyonu.ModelNo",
+     "value": {
+         "tr": "Model Numarası",
+         "en": "ModelNo"
+     }
+ }
+,
+ {
+     "key" : "xLng.SarjIstasyonu.SeriNo",
+     "value": {
+         "tr": "Seri No",
+         "en": "Serial Number"
+     }
+ }
+,
+ {
+     "key" : "xLng.SarjIstasyonu.CreateDate",
+     "value": {
+         "tr": "Eklenme Zamanı",
+         "en": "Time To Add"
+     }
+ }
+,
+ {
+     "key" : "xLng.SarjIstasyonu.CreatedUserId",
+     "value": {
+         "tr": "Ekleyen Kullanıcı",
+         "en": "User Who Added"
+     }
+ }
+,
+ {
+     "key" : "xLng.SarjIstasyonu.UpdateDate",
+     "value": {
+         "tr": "Değiştirme Zamanı",
+         "en": "Update Time"
+     }
+ }
+,
+ {
+     "key" : "xLng.SarjIstasyonu.UpdatedUserId",
+     "value": {
+         "tr": "Değiştiren Kullanıcı",
+         "en": "User Who Changed"
+     }
+ }
+]

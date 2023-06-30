@@ -1,0 +1,88 @@
+[
+ {
+     "key" : "xLng.VwAracStatuLog.Title",
+     "value": {
+         "tr": "Araç Api Log",
+         "en": "Vehicle API Log"
+     }
+ },
+ {
+     "key" : "xLng.VwAracStatuLog.ShortTitle",
+     "value": {
+         "tr": "Araç Api Log",
+         "en": "Vehicle API Log"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwAracStatuLog.FormViewTab.I",
+     "value": {
+         "tr": "Genel Bilgiler",
+         "en": "General Info"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwAracStatuLog.GridFindTab.I",
+     "value": {
+         "tr": "I",
+         "en": "I"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwAracStatuLog.Id",
+     "value": {
+         "tr": "Id",
+         "en": "Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwAracStatuLog.ImeiNo",
+     "value": {
+         "tr": "Araç No",
+         "en": "Vehicle Number"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwAracStatuLog.ReportId",
+     "value": {
+         "tr": "Rapor No",
+         "en": "Report No."
+     }
+ }
+,
+ {
+     "key" : "xLng.VwAracStatuLog.Durum",
+     "value": {
+         "tr": "Durum",
+         "en": "Durum"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwAracStatuLog.Tarih",
+     "value": {
+         "tr": "İşlem Tarihi",
+         "en": "Transaction Date"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwAracStatuLog.RequestData",
+     "value": {
+         "tr": "Request Data",
+         "en": "Request Data"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwAracStatuLog.ResponseData",
+     "value": {
+         "tr": "Response Data",
+         "en": "Response Data"
+     }
+ }
+]

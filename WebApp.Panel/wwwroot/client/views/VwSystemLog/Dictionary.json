@@ -1,0 +1,128 @@
+[
+ {
+     "key" : "xLng.VwSystemLog.Title",
+     "value": {
+         "tr": "Sistem Log",
+         "en": "System Log"
+     }
+ },
+ {
+     "key" : "xLng.VwSystemLog.ShortTitle",
+     "value": {
+         "tr": "Sistem Log",
+         "en": "System Log"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwSystemLog.FormViewTab.I",
+     "value": {
+         "tr": "Genel Bilgiler",
+         "en": "General Info"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwSystemLog.GridFindTab.I",
+     "value": {
+         "tr": "I",
+         "en": "I"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwSystemLog.Id",
+     "value": {
+         "tr": "Id",
+         "en": "Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwSystemLog.UserId",
+     "value": {
+         "tr": "Kullanıcı",
+         "en": "User"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwSystemLog.UserType",
+     "value": {
+         "tr": "Kullanıcı Tipi",
+         "en": "User Type"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwSystemLog.UserName",
+     "value": {
+         "tr": "Kullanıcı Adı",
+         "en": "User Name"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwSystemLog.UserIp",
+     "value": {
+         "tr": "IP Adres",
+         "en": "Ip Address"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwSystemLog.UserBrowser",
+     "value": {
+         "tr": "Browser",
+         "en": "Browser"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwSystemLog.UserSessionGuid",
+     "value": {
+         "tr": "Kullanıcı Session Guid",
+         "en": "User Session Guid"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwSystemLog.ProcessTypeId",
+     "value": {
+         "tr": "İşlem Türü",
+         "en": "Operation Type"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwSystemLog.ProcessDate",
+     "value": {
+         "tr": "İşlem Tarihi",
+         "en": "Transaction Date"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwSystemLog.ProcessName",
+     "value": {
+         "tr": "İşlem Adı",
+         "en": "Transaction Name"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwSystemLog.ProcessContent",
+     "value": {
+         "tr": "İşlem Açıklama",
+         "en": "Operation Description"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwSystemLog.ProcessingTime",
+     "value": {
+         "tr": "İşlem Zamanı",
+         "en": "Processing Time"
+     }
+ }
+]

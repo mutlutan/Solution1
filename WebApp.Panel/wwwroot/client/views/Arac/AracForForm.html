@@ -1,0 +1,620 @@
+
+
+<div id='AracForForm'>
+    <div id='divButtonGroup' class='mnButtonGroup float-end'>
+        <button id='btnKaydet' type='button' class='btn btn-outline-success text-nowrap' data-langkey-title='xLng.Kaydet'> <i class='fa fa-save'></i> </button>
+    </div>
+
+    <div class='mnFormElementContainer' style='padding-bottom:15px;'>
+        <div id='tabstrip'>
+            <ul>
+                <li data-tab-key='I'> <span data-langkey-text='xLng.Arac.FormViewTab.I'></span> </li>
+            </ul>
+            <div data-tab-key='I'>
+                <div class='row'>
+                    <div class='col-md-12'>
+                         <div name='divSira' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='mn-required-span' data-langkey-text='xLng.Arac.Sira'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                 <input name='Sira' type='number' data-bind='value:Sira' data-langkey-placeholder='xLng.Arac.Sira' />
+                                 <span class='k-invalid-msg' data-for='Sira'></span>
+                             </div>
+                         </div>
+
+                         <div name='divDurum' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                <label style='font-weight:normal;'>
+                                    <input name='Durum' type='checkbox' data-bind='checked:Durum' style='width: 24px; height: 24px; vertical-align: middle;'  />
+                                    <span data-langkey-Text='xLng.Arac.Durum'></span>
+                                </label>
+                             </div>
+                         </div>
+
+                         <div name='divAd' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='mn-required-span' data-langkey-text='xLng.Arac.Ad'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                 <input name='Ad' type='text' class='form-control d-inline' data-bind='value:Ad' data-langkey-placeholder='xLng.Arac.Ad'   maxlength='300' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divMarka' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='mn-required-span' data-langkey-text='xLng.Arac.Marka'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                 <input name='Marka' type='text' class='form-control d-inline' data-bind='value:Marka' data-langkey-placeholder='xLng.Arac.Marka'   maxlength='50' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divModel' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='' data-langkey-text='xLng.Arac.Model'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                 <input name='Model' type='text' class='form-control d-inline' data-bind='value:Model' data-langkey-placeholder='xLng.Arac.Model'   maxlength='50' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divImeiNo' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='' data-langkey-text='xLng.Arac.ImeiNo'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                 <input name='ImeiNo' type='text' class='form-control d-inline' data-bind='value:ImeiNo' data-langkey-placeholder='xLng.Arac.ImeiNo'   maxlength='15' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divAciklama' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='' data-langkey-text='xLng.Arac.Aciklama'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                 <textarea name='Aciklama' type='text' class='form-control' data-bind='value:Aciklama' data-langkey-placeholder='xLng.Arac.Aciklama' style='height:50px;'></textarea>
+                             </div>
+                         </div>
+
+                         <div name='divSonKonum' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='' data-langkey-text='xLng.Arac.SonKonum'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10' style='position:relative;' >
+                                 <textarea name='SonKonum' class='form-control' data-bind='value:SonKonum' data-langkey-placeholder='xLng.Arac.SonKonum'  readonly  style='height:50px;'  ></textarea>
+                                 <button id='btnClearSonKonum' class='btn btn-link btn-sm' style='position:absolute; top:-6px; right:7px;'>
+                                     <i class='fa fa-trash-o'></i>
+                                 </button>
+                                 <div class='mt-1' style='height:150px;'>
+                                     <comp-google-map name='SonKonum' center='{ "lat": 39.9187725, "lng": 32.85806 }' zoom='11' map-type-id='roadmap'></comp-google-map>
+                                 </div>
+                             </div>
+                         </div>
+
+                         <div name='divResim' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='' data-langkey-text='xLng.Arac.Resim'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                 <div name='FileSearchEditWrapperResim' class='mnSearchEdit k-space-right'>
+                                    <input name='Resim' class='form-control border-0 font-weight-light' type='text' data-bind='value:Resim' data-langkey-placeholder='xLng.Arac.Resim'  maxlength='300' />
+                                    <button name='btnPreview' class='btn btn-link'> <i class='fa fa-fw fa-picture-o'></i> </button>
+                                    <button name='btnClear' class='btn btn-light'> <i class='fa fa-fw fa-close'></i> </button>
+                                    <button name='btnSearch' class='btn btn-light'> <i class='fa fa-fw fa-search'></i> </button>
+                                 </div>
+                                 <span class='k-invalid-msg' data-for='Resim'></span>
+                             </div>
+                         </div>
+
+                         <div name='divSarjOrani' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='' data-langkey-text='xLng.Arac.SarjOrani'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                 <input name='SarjOrani' type='number' data-bind='value:SarjOrani' data-langkey-placeholder='xLng.Arac.SarjOrani' />
+                                 <span class='k-invalid-msg' data-for='SarjOrani'></span>
+                             </div>
+                         </div>
+
+                         <div name='divArizaDurumu' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                <label style='font-weight:normal;'>
+                                    <input name='ArizaDurumu' type='checkbox' data-bind='checked:ArizaDurumu' style='width: 24px; height: 24px; vertical-align: middle;'  />
+                                    <span data-langkey-Text='xLng.Arac.ArizaDurumu'></span>
+                                </label>
+                             </div>
+                         </div>
+
+                         <div name='divKilitDurumu' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                <label style='font-weight:normal;'>
+                                    <input name='KilitDurumu' type='checkbox' data-bind='checked:KilitDurumu' style='width: 24px; height: 24px; vertical-align: middle;'  />
+                                    <span data-langkey-Text='xLng.Arac.KilitDurumu'></span>
+                                </label>
+                             </div>
+                         </div>
+
+                         <div name='divBlokeDurum' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                <label style='font-weight:normal;'>
+                                    <input name='BlokeDurum' type='checkbox' data-bind='checked:BlokeDurum' style='width: 24px; height: 24px; vertical-align: middle;'  />
+                                    <span data-langkey-Text='xLng.Arac.BlokeDurum'></span>
+                                </label>
+                             </div>
+                         </div>
+
+                         <div name='divAcilUyariIstemi' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                <label style='font-weight:normal;'>
+                                    <input name='AcilUyariIstemi' type='checkbox' data-bind='checked:AcilUyariIstemi' style='width: 24px; height: 24px; vertical-align: middle;'  />
+                                    <span data-langkey-Text='xLng.Arac.AcilUyariIstemi'></span>
+                                </label>
+                             </div>
+                         </div>
+
+                         <div name='divKilometreSayaci' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                                <span class='mn-required-span' data-langkey-text='xLng.Arac.KilometreSayaci'></span>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                 <input name='KilometreSayaci' type='number' data-bind='value:KilometreSayaci' data-langkey-placeholder='xLng.Arac.KilometreSayaci' />
+                                 <span class='k-invalid-msg' data-for='KilometreSayaci'></span>
+                             </div>
+                         </div>
+
+                         <div name='divSarjOluyorMu' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-md-2 col-form-label'>
+                             </label>
+                             <div class='col-sm-8 col-md-10'>
+                                <label style='font-weight:normal;'>
+                                    <input name='SarjOluyorMu' type='checkbox' data-bind='checked:SarjOluyorMu' style='width: 24px; height: 24px; vertical-align: middle;'  />
+                                    <span data-langkey-Text='xLng.Arac.SarjOluyorMu'></span>
+                                </label>
+                             </div>
+                         </div>
+
+
+                    </div>
+
+                    <div class='col-lg-6 col-md-12'>
+                         <div name='divQrKod' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='' data-langkey-text='xLng.Arac.QrKod'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='QrKod' type='text' class='form-control d-inline' data-bind='value:QrKod' data-langkey-placeholder='xLng.Arac.QrKod'   maxlength='20' autocomplete='off' />
+                             </div>
+                         </div>
+
+
+                    </div>
+
+                    <div class='col-lg-6 col-md-12'>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+ window.AracForForm = function () {
+     var self = {};
+     self.opt = null;
+     self.title = 'xLng.Arac.Title';
+     self.selector = '#AracForForm';
+     self.primaryKey = 'Id';
+     self.tableName = 'Arac';
+     self.apiUrlPrefix = '/Panel/Api' + self.tableName;
+
+     function fCreateDataSource() {
+         self.dataSource = new kendo.data.DataSource({
+             transport: {
+                 read: { type: 'POST', url: self.apiUrlPrefix + '/Read', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 create: { type: 'POST', url: self.apiUrlPrefix + '/Create', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 update: { type: 'POST', url: self.apiUrlPrefix + '/Update', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 destroy: { type: 'POST', url: self.apiUrlPrefix + '/Delete', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 parameterMap: function (data, operation) {
+                     if (operation === 'read') {
+                         return kendo.stringify(data);
+                     }
+                     else if (operation === 'create' || operation === 'update') {
+                         data.CreateDate = kendo.toString(data.CreateDate, 's');
+                         data.UpdateDate = kendo.toString(data.UpdateDate, 's');
+                         //Geometry data için
+                         if (data.SonKonum != null && data.SonKonum.trim().length > 0) {
+							data.SonKonum = JSON.parse(data.SonKonum);
+                         } else {
+							data.SonKonum = null;
+                         }
+
+                         return kendo.stringify(data);
+                     }
+                     else if (operation === 'destroy') {
+                         return kendo.stringify(data);
+                     }
+                 }
+             },
+             pageSize: 10, serverPaging: true, serverSorting: true, serverFiltering: true, serverGrouping: true, serverAggregates: true,
+             schema: {
+                 errors: 'Errors', data: 'Data', total: 'Total', aggregates: 'AggregateResults',
+                 model: {
+                     id: self.primaryKey,
+                     fields: {
+                         Id: { type: 'number', defaultValue: null },
+                         UniqueId: { type: 'string', editable:false },
+                         Sira: { type: 'number' },
+                         Durum: { type: 'boolean' },
+                         Ad: { type: 'string' },
+                         Marka: { type: 'string' },
+                         Model: { type: 'string' },
+                         ImeiNo: { type: 'string' },
+                         Aciklama: { type: 'string' },
+                         Resim: { type: 'string' },
+                         SarjOrani: { type: 'number' },
+                         ArizaDurumu: { type: 'boolean' },
+                         KilitDurumu: { type: 'boolean' },
+                         BlokeDurum: { type: 'boolean' },
+                         AcilUyariIstemi: { type: 'boolean' },
+                         CreateDate: { type: 'date', editable:false },
+                         CreatedUserId: { type: 'number', editable:false },
+                         UpdateDate: { type: 'date', editable:false },
+                         UpdatedUserId: { type: 'number', editable:false },
+                         KilometreSayaci: { type: 'number' },
+                         SarjOluyorMu: { type: 'boolean' },
+                         QrKod: { type: 'string' },
+                         CcDurum: { type: 'string' },
+                         CcArizaDurumu: { type: 'string' },
+                         CcKilitDurumu: { type: 'string' },
+                         CcBlokeDurum: { type: 'string' },
+                         CcAcilUyariIstemi: { type: 'string' },
+                         CcSarjOluyorMu: { type: 'string' }
+                     }
+                 }
+             },
+             error: function (e) {
+                 if (e.xhr === null) { mnNotification.warning(e.errors); } else { mnErrorHandler.Handle(e.xhr); }
+                 //this.cancelChanges();
+             },
+             requestStart: function (e) {
+                 setTimeout(function () {
+                     kendo.ui.progress($(self.selector), true); //progress On
+                 });
+             },
+             requestEnd: function (e) {
+                 setTimeout(function () {
+                     kendo.ui.progress($(self.selector), false); //progress Off
+                 });
+
+                 if (e.response !== undefined && e.response.Errors === null) {
+                     if (e.type === 'create' || e.type === 'update' || e.type === 'destroy') {
+                         mnLookup.listRead(self.tableName);
+                     }
+                     if (e.type === 'create') {
+                         mnNotification.success(mnLang.TranslateWithWord('xLng.KayitEklendi'));
+                     }
+                     if (e.type === 'update') {
+                         mnNotification.success(mnLang.TranslateWithWord('xLng.KayitDuzeltildi'));
+                     }
+                     if (e.type === 'destroy') {
+                         mnNotification.success(mnLang.TranslateWithWord('xLng.KayitSilindi'));
+                     }
+
+                     if (e.response.Data.length > 0) {
+						 //mapEditor marker
+						 self.mapEditorSonKonum.fnDeleteAllMarkers();
+                         if (e.response.Data[0].SonKonum != null) {
+							self.mapEditorSonKonum.drawingManager.setDrawingMode('');
+							e.response.Data[0].SonKonum = JSON.stringify(e.response.Data[0].SonKonum);
+							let itemSonKonum = JSON.parse(e.response.Data[0].SonKonum);
+							let lat = parseFloat(itemSonKonum.coordinates[0]);
+							let lng = parseFloat(itemSonKonum.coordinates[1]);
+							self.mapEditorSonKonum.fnAddMarker({ 'title': self.tableName, position: { 'lat': lat, 'lng': lng }, 'draggable': true, 'icon': '/img/maps/markers/bicycle_icon.png' });
+                         } else {
+							self.mapEditorSonKonum.drawingManager.setDrawingMode('marker');
+                         }
+                     }
+                 }
+             },
+             change: function (e) {
+                 if (e.items[0] !== undefined) {
+                     if (e.items[0].get(self.primaryKey) === null) {
+                         $.ajax({
+                             url: self.apiUrlPrefix + '/GetByNew', type: 'GET', dataType: 'json', async: false,
+                             success: function (result) {
+                                 e.items[0].Id = result.Id;
+                                 e.items[0].UniqueId = result.UniqueId;
+                                 e.items[0].Sira = result.Sira;
+                                 e.items[0].Durum = result.Durum;
+                                 e.items[0].Ad = result.Ad;
+                                 e.items[0].Marka = result.Marka;
+                                 e.items[0].Model = result.Model;
+                                 e.items[0].ImeiNo = result.ImeiNo;
+                                 e.items[0].Aciklama = result.Aciklama;
+                                 e.items[0].Resim = result.Resim;
+                                 e.items[0].SonKonum = result.SonKonum;
+                                 e.items[0].SarjOrani = result.SarjOrani;
+                                 e.items[0].ArizaDurumu = result.ArizaDurumu;
+                                 e.items[0].KilitDurumu = result.KilitDurumu;
+                                 e.items[0].BlokeDurum = result.BlokeDurum;
+                                 e.items[0].AcilUyariIstemi = result.AcilUyariIstemi;
+                                 e.items[0].CreateDate = kendo.parseDate(result.CreateDate);
+                                 e.items[0].CreatedUserId = result.CreatedUserId;
+                                 e.items[0].UpdateDate = kendo.parseDate(result.UpdateDate);
+                                 e.items[0].UpdatedUserId = result.UpdatedUserId;
+                                 e.items[0].KilometreSayaci = result.KilometreSayaci;
+                                 e.items[0].SarjOluyorMu = result.SarjOluyorMu;
+                                 e.items[0].QrKod = result.QrKod;
+                                 //computed alanların tanımlanması
+                                 e.items[0].CcDurum = result.CcDurum;
+                                 e.items[0].CcArizaDurumu = result.CcArizaDurumu;
+                                 e.items[0].CcKilitDurumu = result.CcKilitDurumu;
+                                 e.items[0].CcBlokeDurum = result.CcBlokeDurum;
+                                 e.items[0].CcAcilUyariIstemi = result.CcAcilUyariIstemi;
+                                 e.items[0].CcSarjOluyorMu = result.CcSarjOluyorMu;
+                                 //filterdan gelen default value set için
+                                 $(self.opt.filters).each(function (index, row) {
+                                     if (row.filterColumnName !== 'Id') {
+                                        e.items[0].set(row.filterColumnName, row.filterValue);
+                                     }
+                                 });
+
+                                 //(MapEditor için, new row da ilk durum set ediliyor)
+                                 self.mapEditorSonKonum.fnDeleteAllMarkers();
+                                 self.mapEditorSonKonum.drawingManager.setDrawingMode('marker');
+                             },
+                             error: function (xhr, status) {
+                                 mnErrorHandler.Handle(xhr);
+                             }
+                         });
+                     }
+                     // Bind
+                     kendo.bind($(self.selector), e.items[0]);
+
+                     //validator refresh
+                     setTimeout(function () {
+                        fValidateAll();
+                     },1000);
+
+                 }
+
+                 // Yetki
+                 fYetkiUygula();
+
+                 // ve gerekebilecek diğer işlemler
+                 // ...
+             }
+         });
+     }
+
+     function fValidateAll() {
+        $(self.selector).find('#tabstrip ul li[data-tab-key]').removeClass('mn-invalid');
+        let rValid = true;
+
+        if (!self.validatorI.validate()) {
+            rValid = false;
+            $(self.selector).find('#tabstrip ul li[data-tab-key=I]').addClass('mn-invalid')
+        }
+        
+        return rValid
+     }
+
+     function fCreateFormElements() {
+         // tabstrip
+         self.tabstrip = $(self.selector).find('#tabstrip').kendoTabStrip({
+             animation: false, tabPosition: 'top'
+         }).getKendoTabStrip();
+         self.tabstrip.select(0);
+
+         //create validators
+         self.validatorI = mnApp.createValidator($(self.selector).find('.mnFormElementContainer div[data-tab-key=I]'), mnApp.validatorErrorTemplateIconMsg);
+
+         //butonlar
+         $(self.selector).find('#btnKaydet').click(function (e) {
+             mnApi.controlDisableWait($(e.target));
+             if (fValidateAll()) {
+                 if (self.dataSource.at(0).dirty) {
+                     self.dataSource.sync();
+                 } else {
+                     mnAlert.warning(mnLang.TranslateWithWord('xLng.KayyittaDegisiklikYapmadiniz'));
+                 }
+             } else {
+                 mnAlert.warning(mnLang.TranslateWithWord('xLng.DoldurulmasiGerekenAlanlarVar'));
+             }
+         });
+
+         //Diğer Form elementleri
+         $(self.selector).find('[name=Sira]').kendoNumericTextBox({
+             format: 'n0', decimals: 0, min: 0, spinners: false, step: 0
+         }).getKendoNumericTextBox();
+
+         self.keAciklama = $(self.selector).find('[name=Aciklama]').kendoEditor({
+             serialization: { entities: false },
+             tools: mnApp.kendoEditor_tools_mini,
+             resizable: { content: true },
+             execute: function (e) {
+                if (e.name == 'print') {
+                    //title da istenmeyen birşey yazmasın diye özel boşluk karekteri atıyoruz iframe içindeki tittle a
+                    $(e.sender.wrapper).find('iframe').contents()[0].title = String.fromCharCode(173);
+                }
+             }
+         }).getKendoEditor();
+
+		 //TextArea üzerinde MapEditor için data clear
+         $(self.selector).find('#btnClearSonKonum').click(function (e) {
+            var dataItem = self.dataSource.at(0);
+            dataItem.set('SonKonum', null);
+         });
+
+			//mapEditor instance
+			self.mapEditorSonKonum = $(self.selector).find('comp-google-map[name=SonKonum]').get(0);
+			//mapEditor overlaycomplete
+			self.mapEditorSonKonum.addEventListener('overlaycomplete', (event) => {
+				//console.log('event overlaycomplete', event, event.detail.value);
+				event.target.drawingManager.setDrawingMode(null); // Şekil çizdikten sonra çizim dışı moda geri dönün.
+				let elmMapEditor = event.target;
+				if (elmMapEditor.markers.length > 0) {
+					var lat = elmMapEditor.markers[0].position.lat();
+					var lng = elmMapEditor.markers[0].position.lng();
+					var itemValue = { 'type': 'Point', 'coordinates': [lat, lng] };
+					self.dataSource.at(0).set('SonKonum', JSON.stringify(itemValue));
+				}
+			});
+			//mapEditor markerDragend
+			self.mapEditorSonKonum.addEventListener('markerDragend', (event) => {
+				//console.log('event markerDragend', event, event.detail.value);
+				let elmMapEditor = event.target;
+				if (elmMapEditor.markers.length > 0) {
+					var lat = elmMapEditor.markers[0].position.lat();
+					var lng = elmMapEditor.markers[0].position.lng();
+					var itemValue = { "type": "Point", "coordinates": [lat, lng] };
+					self.dataSource.at(0).set('SonKonum', JSON.stringify(itemValue));
+				}
+			});
+
+         $(self.selector).find('[name=FileSearchEditWrapperResim] [name=btnSearch]').click(function (e) {
+             var dataItem = self.dataSource.at(0);
+             mnPopupView.create({
+                viewFolder: '_Dosyalar',
+                viewName: 'viewDosyalar',
+                subTitle: mnLang.TranslateWithWord('xLng.AramaIslemleri'),
+                onShow: function (e) {
+                    e.beforeShow({ 'ownerViewName':'AracForForm' });
+                },
+                onClose: function (e) {
+                    if (e.opt.isSelected) {
+                        dataItem.set('Resim', e.opt.selectedDataItem.FileUrl);
+                    }
+                    fValidateAll();
+                }
+             });
+         });
+
+         $(self.selector).find('[name=FileSearchEditWrapperResim] [name=btnClear]').click(function (e) {
+            var dataItem = self.dataSource.at(0);
+            dataItem.set('Resim', '');
+            fValidateAll();
+         });
+
+         $(self.selector).find('[name=FileSearchEditWrapperResim] [name=btnPreview]').click(function (e) {
+            var dataItem = self.dataSource.at(0);
+            var url = dataItem.get('Resim');
+            if (url != null && url.length > 0) {
+                window.open(url, '_blank');
+            } else {
+                e.preventDefault();
+            }
+         });
+
+         $(self.selector).find('[name=SarjOrani]').kendoNumericTextBox({
+             format: 'n2', decimals: 2, min: 0, spinners: false, step: 0
+         }).getKendoNumericTextBox();
+
+         $(self.selector).find('[name=KilometreSayaci]').kendoNumericTextBox({
+             format: 'n2', decimals: 2, min: 0, spinners: false, step: 0
+         }).getKendoNumericTextBox();
+
+     }
+
+     function fSetAtributeFormElements() {
+         $(self.selector).find('[name=Sira]').attr('required', 'required');
+         $(self.selector).find('[name=Ad]').attr('required', 'required');
+         $(self.selector).find('[name=Marka]').attr('required', 'required');
+         $(self.selector).find('[name=KilometreSayaci]').attr('required', 'required');
+     }
+
+     function fYetkiUygula() {
+         //Standart Yetkiler
+         var _C = mnUser.isYetkili(self.tableName + '.D_C.');
+         var _U = mnUser.isYetkili(self.tableName + '.D_U.');
+         var _D = mnUser.isYetkili(self.tableName + '.D_D.');
+
+         //ek yetkiler için)
+         //...
+
+         //Form İçin
+         if (_C || _U) {
+             $(self.selector).find('#btnKaydet').show();
+         } else {
+             $(self.selector).find('#btnKaydet').hide();
+         }
+
+        //form element görünümleri
+        var fieldList = [];
+        fieldList.push({ 'Name': 'Sira', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'Durum', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'Ad', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'Marka', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'Model', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'ImeiNo', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'Aciklama', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'Resim', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'SonKonum', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'SarjOrani', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'ArizaDurumu', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'KilitDurumu', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'BlokeDurum', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'AcilUyariIstemi', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'KilometreSayaci', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'SarjOluyorMu', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'QrKod', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+
+        for (var i in fieldList) {
+            var $elm = $(self.selector).find('.mnFormElementContainer .mnFormElementDiv[name=div' + fieldList[i].Name + ']');
+            if (fieldList[i].Visible) {
+                $elm.show();
+            } else {
+                $elm.hide();
+            }
+        }
+
+     }
+
+
+     function fGorunurlukUygula(dataItem) {
+        if (dataItem != null && dataItem != undefined) {
+            //invisibility
+            //visibility
+        }
+     }
+
+     self.prepare = function () {
+         // form element atribute set
+         fSetAtributeFormElements();
+         // DataSource
+         fCreateDataSource();
+         // form Elementler
+         fCreateFormElements();
+         // Language
+         mnLang.TranslateWithSelector(self.selector);
+     };
+
+     self.beforeShow = function (_opt) {
+         self.opt = $.extend({}, _opt);
+
+         if (self.opt.qprms.Id !== null && self.opt.qprms.Id > 0) {
+             self.dataSource.filter({ field: self.primaryKey, operator: 'eq', value: self.opt.qprms.Id });
+         } else {
+             self.dataSource.data([]); // eski data varsa işleme girmemesi için
+             self.dataSource.add();
+         }
+
+         self.tabstrip.select(0);
+     };
+
+     return self;
+ }();
+</script>

@@ -1,0 +1,160 @@
+[
+ {
+     "key" : "xLng.EmailPool.Title",
+     "value": {
+         "tr": "Mail Bildirim",
+         "en": "Mail Notification"
+     }
+ },
+ {
+     "key" : "xLng.EmailPool.ShortTitle",
+     "value": {
+         "tr": "Mail Bildirim",
+         "en": "Mail Notification"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailPool.FormViewTab.I",
+     "value": {
+         "tr": "Genel Bilgiler",
+         "en": "General Info"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailPool.GridFindTab.I",
+     "value": {
+         "tr": "I",
+         "en": "I"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailPool.Id",
+     "value": {
+         "tr": "Id",
+         "en": "Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailPool.EmailTemplateId",
+     "value": {
+         "tr": "E-mail Şablon",
+         "en": "Email Template"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailPool.EmailPoolStatusId",
+     "value": {
+         "tr": "E-mail Status",
+         "en": "Email Status"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailPool.TryQuantity",
+     "value": {
+         "tr": "Deneme Sayısı",
+         "en": "Number Of Attempts"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailPool.LastTryDate",
+     "value": {
+         "tr": "Son Deneme Tarihi",
+         "en": "Last Trial Date"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailPool.Description",
+     "value": {
+         "tr": "Tanım",
+         "en": "Definition"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailPool.EmailTo",
+     "value": {
+         "tr": "Gönderilen",
+         "en": "Sent"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailPool.EmailCc",
+     "value": {
+         "tr": "Cc",
+         "en": "Cc"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailPool.EmailBcc",
+     "value": {
+         "tr": "Bcc",
+         "en": "Bcc"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailPool.EmailSubject",
+     "value": {
+         "tr": "Konu",
+         "en": "Subject"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailPool.EmailContent",
+     "value": {
+         "tr": "İçerik",
+         "en": "Contents"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailPool.UniqueId",
+     "value": {
+         "tr": "Unique Id",
+         "en": "Unique Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailPool.CreateDate",
+     "value": {
+         "tr": "Eklenme Zamanı",
+         "en": "Time To Add"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailPool.CreatedUserId",
+     "value": {
+         "tr": "Ekleyen Kullanıcı",
+         "en": "User Who Added"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailPool.UpdateDate",
+     "value": {
+         "tr": "Değiştirme Zamanı",
+         "en": "Update Time"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailPool.UpdatedUserId",
+     "value": {
+         "tr": "Değiştiren Kullanıcı",
+         "en": "User Who Changed"
+     }
+ }
+]

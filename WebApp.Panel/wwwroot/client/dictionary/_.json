@@ -1,0 +1,1312 @@
+﻿[
+  {
+    "key": "xLng.TumHaklariSaklidir",
+    "value": {
+      "tr": "Tüm Hakları Saklıdır",
+      "en": "All Rights Reserved",
+      "ar": "كل الحقوق محفوظة"
+    }
+  },
+  {
+    "key": "xLng.TarayiciUyumMesaji",
+    "value": {
+      "tr": "Chrome / Edge tarayıcılarının güncel versiyonlarını destekler.",
+      "en": "Supports current versions of Chrome / Edge browsers.",
+      "ar": "يدعم الإصدارات الحالية من متصفحات Chrome / Edge."
+    }
+  },
+  {
+    "key": "xLng.GirisMesaji",
+    "value": {
+      "tr": "Sevgili öğrenciler, bilgileriniz okullarınızdan tarafımıza ulaştığında hesaplarınız tanımlacaktır. Giriş problemleri için lütfen öğretmenleriniz ile iletişime geçiniz.",
+      "en": "Dear students, your accounts will be defined when your information reaches us from your schools. Please contact your teachers for login problems.",
+      "ar": "الطلاب الأعزاء ، سيتم تحديد حساباتك عندما تصل إلينا معلوماتك من مدارسك. يرجى الاتصال بمعلمينك لمشاكل تسجيل الدخول."
+    }
+  },
+  {
+    "key": "xLng.GoogleAuthenticatorCode",
+    "value": {
+      "tr": "Google Authenticator Kodu",
+      "en": "Google Authenticator Code",
+      "ar": "كود Google Authenticator"
+    }
+  },
+  {
+    "key": "xLng.GaKoduGecersiz",
+    "value": {
+      "tr": "Ga Kodu Geçersiz!",
+      "en": "Ga Code Invalid!",
+      "ar": "كود Ga غير صالح!"
+    }
+  },
+  {
+    "key": "xLng.BeniHatirla",
+    "value": {
+      "tr": "Beni hatırla",
+      "en": "Remember me",
+      "ar": "تذكرنى"
+    }
+  },
+  {
+    "key": "xLng.Sayin",
+    "value": {
+      "tr": "Sayın",
+      "en": "Dear",
+      "ar": "العزيز"
+    }
+  },
+  {
+    "key": "xLng.Hosgeldiniz",
+    "value": {
+      "tr": "Hoşgeldiniz",
+      "en": "Welcome",
+      "ar": "أهلا وسهلا بكم"
+    }
+  },
+  {
+    "key": "xLng.SadeceBirYerdenGirisYapabilirsiniz",
+    "value": {
+      "tr": "Aynı anda yalnızca bir cihazdan oturum açabilirsiniz!",
+      "en": "You can only sign in from one device at a time!",
+      "ar": "يمكنك تسجيل الدخول فقط من جهاز واحد في وقت واحد!"
+    }
+  },
+  {
+    "key": "xLng.FarkliBirCihazdanOturumAcmaGirisimiOldu",
+    "value": {
+      "tr": "Farklı bir cihazdan oturum açma girişimi oldu!",
+      "en": "An attempt was made to log in from a different device!",
+      "ar": "جرت محاولة لتسجيل الدخول من جهاز مختلف!"
+    }
+  },
+  {
+    "key": "xLng.UygulamadanCikmakIstediginizdenEminmisiniz",
+    "value": {
+      "tr": "Uygulamadan çıkmak istediğinizden emin misiniz?",
+      "en": "Are you sure you want to exit the application?",
+      "ar": "هل أنت متأكد من أنك تريد الخروج من التطبيق؟"
+    }
+  },
+  {
+    "key": "xLng.GecersizBirIstekYaptiniz",
+    "value": {
+      "tr": "Geçersiz bir istek yaptınız",
+      "en": "You made an invalid request",
+      "ar": "لقد تقدمت بطلب غير صحيح"
+    }
+  },
+  {
+    "key": "xLng.IstekBasarisizOldu",
+    "value": {
+      "tr": "İstek başarısız oldu",
+      "en": "Request failed",
+      "ar": "الطلب فشل"
+    }
+  },
+  {
+    "key": "xLng.VeriModeliDonusturulemedi",
+    "value": {
+      "tr": "Veri modeli dönüştürme başarısız oldu",
+      "en": "Data model conversion failed",
+      "ar": "فشل تحويل نموذج البيانات"
+    }
+  },
+  {
+    "key": "xLng.Mesaj",
+    "value": {
+      "tr": "Mesaj",
+      "en": "Message",
+      "ar": "رسالة"
+    }
+  },
+  {
+    "key": "xLng.Hata",
+    "value": {
+      "tr": "Hata",
+      "en": "Error",
+      "ar": "خطأ"
+    }
+  },
+  {
+    "key": "xLng.Onay",
+    "value": {
+      "tr": "Onay",
+      "en": "Approval",
+      "ar": "موافقة"
+    }
+  },
+  {
+    "key": "xLng.Onayla",
+    "value": {
+      "tr": "Onayla",
+      "en": "Approve",
+      "ar": "يوافق"
+    }
+  },
+  {
+    "key": "xLng.Onayli",
+    "value": {
+      "tr": "Onaylı",
+      "en": "Approved",
+      "ar": "وافق"
+    }
+  },
+
+  {
+    "key": "xLng.Beklemede",
+    "value": {
+      "tr": "Beklemede",
+      "en": "Pending",
+      "ar": "قيد الانتظار"
+    }
+  },
+  {
+    "key": "xLng.Gonder",
+    "value": {
+      "tr": "Gönder",
+      "en": "Submit",
+      "ar": "إرسال"
+    }
+  },
+
+  {
+    "key": "xLng.Evet",
+    "value": {
+      "tr": "Evet",
+      "en": "Yes",
+      "ar": "نعم فعلا"
+    }
+  },
+  {
+    "key": "xLng.Hayir",
+    "value": {
+      "tr": "Hayır",
+      "en": "No",
+      "ar": "لا"
+    }
+  },
+
+  {
+    "key": "xLng.Aktif",
+    "value": {
+      "tr": "Aktif",
+      "en": "Active",
+      "ar": "نشيط"
+    }
+  },
+  {
+    "key": "xLng.Pasif",
+    "value": {
+      "tr": "Pasif",
+      "en": "Passive",
+      "ar": "مبني للمجهول"
+    }
+  },
+
+  {
+    "key": "xLng.Cevrimici",
+    "value": {
+      "tr": "Çevrimiçi",
+      "en": "Online",
+      "ar": "على الانترنت"
+    }
+  },
+  {
+    "key": "xLng.Cevrimdisi",
+    "value": {
+      "tr": "Çevrimdışı",
+      "en": "Offline",
+      "ar": "غير متصل"
+    }
+  },
+
+  {
+    "key": "xLng.Dogru",
+    "value": {
+      "tr": "Doğru",
+      "en": "True",
+      "ar": "صحيح"
+    }
+  },
+  {
+    "key": "xLng.Yanlis",
+    "value": {
+      "tr": "Yanlış",
+      "en": "False",
+      "ar": "خاطئة"
+    }
+  },
+  {
+    "key": "xLng.Bugun",
+    "value": {
+      "tr": "Bugün",
+      "en": "Today",
+      "ar": "اليوم"
+    }
+  },
+  {
+    "key": "xLng.Gunluk",
+    "value": {
+      "tr": "Günlük",
+      "en": "Daily",
+      "ar": "اليومي"
+    }
+  },
+  {
+    "key": "xLng.Haftalik",
+    "value": {
+      "tr": "Haftalık",
+      "en": "Weekly",
+      "ar": "أسبوعي"
+    }
+  },
+  {
+    "key": "xLng.Aylik",
+    "value": {
+      "tr": "Aylık",
+      "en": "Monthly",
+      "ar": "شهريا"
+    }
+  },
+  {
+    "key": "xLng.Yil",
+    "value": {
+      "tr": "Yıl",
+      "en": "Year",
+      "ar": "عام"
+    }
+  },
+  {
+    "key": "xLng.Ay",
+    "value": {
+      "tr": "Ay",
+      "en": "Month",
+      "ar": "شهر"
+    }
+  },
+  {
+    "key": "xLng.Hafta",
+    "value": {
+      "tr": "Hafta",
+      "en": "Week",
+      "ar": "أسبوع"
+    }
+  },
+  {
+    "key": "xLng.Gun",
+    "value": {
+      "tr": "Gün",
+      "en": "Day",
+      "ar": "يوم"
+    }
+  },
+  {
+    "key": "xLng.Gun.Monday",
+    "value": {
+      "tr": "Pazartesi",
+      "en": "Monday",
+      "ar": "الإثنين"
+    }
+  },
+  {
+    "key": "xLng.Gun.Tuesday",
+    "value": {
+      "tr": "Salı",
+      "en": "Tuesday",
+      "ar": "الثلاثاء"
+    }
+  },
+  {
+    "key": "xLng.Gun.Wednesday",
+    "value": {
+      "tr": "Çarşamba",
+      "en": "Wednesday",
+      "ar": "الأربعاء"
+    }
+  },
+  {
+    "key": "xLng.Gun.Thursday",
+    "value": {
+      "tr": "Perşembe",
+      "en": "Thursday",
+      "ar": "الخميس"
+    }
+  },
+  {
+    "key": "xLng.Gun.Friday",
+    "value": {
+      "tr": "Cuma",
+      "en": "Friday",
+      "ar": "يوم الجمعة"
+    }
+  },
+  {
+    "key": "xLng.Gun.Saturday",
+    "value": {
+      "tr": "Cumartesi",
+      "en": "Saturday",
+      "ar": "يوم السبت"
+    }
+  },
+  {
+    "key": "xLng.Gun.Sunday",
+    "value": {
+      "tr": "Pazar",
+      "en": "Sunday",
+      "ar": "الأحد"
+    }
+  },
+
+
+  {
+    "key": "xLng.Tamam",
+    "value": {
+      "tr": "Tamam",
+      "en": "Done",
+      "ar": "فعله"
+    }
+  },
+
+  {
+    "key": "xLng.Tamamlandi",
+    "value": {
+      "tr": "Tamamlandı",
+      "en": "Completed",
+      "ar": "منجز"
+    }
+  },
+
+  {
+    "key": "xLng.GirisYap",
+    "value": {
+      "tr": "Giriş Yap",
+      "en": "Login",
+      "ar": "تسجيل الدخول"
+    }
+  },
+  {
+    "key": "xLng.Giris",
+    "value": {
+      "tr": "Giriş",
+      "en": "Login",
+      "ar": "تسجيل الدخول"
+    }
+  },
+  {
+    "key": "xLng.Cikis",
+    "value": {
+      "tr": "Çıkış",
+      "en": "Exit",
+      "ar": "ىخرج"
+    }
+  },
+  {
+    "key": "xLng.OkulSeciniz",
+    "value": {
+      "tr": "Okulunuzu Seçiniz",
+      "en": "Choose school",
+      "ar": "اختر المدرسة"
+    }
+  },
+  {
+    "key": "xLng.Email",
+    "value": {
+      "tr": "Email",
+      "en": "Email",
+      "ar": "بريد إلكتروني"
+    }
+  },
+  {
+    "key": "xLng.KullaniciAd",
+    "value": {
+      "tr": "Kullanıcı Adı",
+      "en": "User Name",
+      "ar": "اسم المستخدم"
+    }
+  },
+  {
+    "key": "xLng.Sifre",
+    "value": {
+      "tr": "Şifre",
+      "en": "Password",
+      "ar": "كلمه السر"
+    }
+  },
+  {
+    "key": "xLng.SifremiUnuttum",
+    "value": {
+      "tr": "Şifremi Unuttum",
+      "en": "I forgot my password",
+      "ar": "لقد نسيت كلمة المرور"
+    }
+  },
+  {
+    "key": "xLng.SifreGecersiz",
+    "value": {
+      "tr": "Şifre geçersiz",
+      "en": "The password is invalid",
+      "ar": "كلمة المرور غير صالحة"
+    }
+  },
+  {
+    "key": "xLng.EskiSifreGecersiz",
+    "value": {
+      "tr": "Eski şifre geçersiz",
+      "en": "Old password is invalid",
+      "ar": "كلمة المرور القديمة غير صالحة"
+    }
+  },
+  {
+    "key": "xLng.EnAzAltiKarekterBirHarfBirSayi",
+    "value": {
+      "tr": "En az sekiz karakter, en az bir harf ve bir sayı",
+      "en": "Minimum six characters, at least one letter and one number",
+      "ar": "الحد الأدنى ستة أحرف ، حرف واحد على الأقل ورقم واحد"
+    }
+  },
+  {
+    "key": "xLng.SifrelerUyusmuyor",
+    "value": {
+      "tr": "Şifreler uyuşmuyor",
+      "en": "Passwords do not match",
+      "ar": "كلمة المرور غير مطابقة"
+    }
+  },
+  {
+    "key": "xLng.KullanicininKisiTanimiEksik",
+    "value": {
+      "tr": "Kullanıcının kişi tanımı eksik",
+      "en": "The user's person definition is missing",
+      "ar": "تعريف شخص المستخدم مفقود"
+    }
+  },
+  {
+    "key": "xLng.KullaniciveyaSifreGecersiz",
+    "value": {
+      "tr": "Kullanıcı veya şifre geçersiz",
+      "en": "User or password is invalid",
+      "ar": "المستخدم أو كلمة المرور غير صالحين"
+    }
+  },
+  {
+    "key": "xLng.KullaniciOnaysiz",
+    "value": {
+      "tr": "Kullanıcı onaysız",
+      "en": "User is not approved",
+      "ar": "مستخدم غير معتمد"
+    }
+  },
+  {
+    "key": "xLng.KullaniciOnaylandı",
+    "value": {
+      "tr": "Kullanıcı onaylandı",
+      "en": "User approved",
+      "ar": "وافق المستخدم"
+    }
+  },
+  {
+    "key": "xLng.HesabinizAskiyaAlinmistir",
+    "value": {
+      "tr": "Hesabınız askıya alınmıştır.",
+      "en": "Your account has been suspended.",
+      "ar": "تم تعليق حسابك."
+    }
+  },
+  {
+    "key": "xLng.Profilim",
+    "value": {
+      "tr": "Profilim",
+      "en": "My Profile",
+      "ar": "تغيير كلمة السر"
+    }
+  },
+  {
+    "key": "xLng.SifreDegistir",
+    "value": {
+      "tr": "Şifre değiştir",
+      "en": "Change password",
+      "ar": "تغيير كلمة السر"
+    }
+  },
+  {
+    "key": "xLng.SifreSifirla",
+    "value": {
+      "tr": "Şifreyi sıfırla",
+      "en": "Reset password",
+      "ar": "إعادة تعيين كلمة المرور"
+    }
+  },
+  {
+    "key": "xLng.EskiSifre",
+    "value": {
+      "tr": "Eski Şifre",
+      "en": "Old password",
+      "ar": "كلمة المرور القديمة"
+    }
+  },
+  {
+    "key": "xLng.SifreOnay",
+    "value": {
+      "tr": "Şifre onay",
+      "en": "Confirm password",
+      "ar": "تأكيد كلمة المرور"
+    }
+  },
+  {
+    "key": "xLng.YeniSifreKayitliMailAdresineGonderildi",
+    "value": {
+      "tr": "Yeni şifre kayıtlı mail adresine gönderildi",
+      "en": "New password sent to registered mail",
+      "ar": "كلمة المرور الجديدة المرسلة إلى البريد المسجل"
+    }
+  },
+  {
+    "key": "xLng.YeniSifrenizKayitEdildi",
+    "value": {
+      "tr": "Yeni şifreniz kayıt edildi",
+      "en": "Your new password has been registered",
+      "ar": "تم تسجيل كلمة المرور الجديدة الخاصة بك"
+    }
+  },
+  {
+    "key": "xLng.MailAdresiTaninlanmamis",
+    "value": {
+      "tr": "Mail adresi tanımlanmamış",
+      "en": "Mail address unspecified",
+      "ar": "عنوان البريد غير محدد"
+    }
+  },
+  {
+    "key": "xLng.OturumKapali",
+    "value": {
+      "tr": "Oturum kapalı",
+      "en": "Signed out",
+      "ar": "تسجيل الخروج"
+    }
+  },
+
+  {
+    "key": "xLng.GuvenlikKodu",
+    "value": {
+      "tr": "Güvenlik Kodu",
+      "en": "Security Code",
+      "ar": "رمز الحماية"
+    }
+  },
+  {
+    "key": "xLng.GuvenlikKoduGecersiz",
+    "value": {
+      "tr": "Güvenlik Kodu Geçersiz",
+      "en": "Security Code Invalid",
+      "ar": "رمز الأمان غير صالح"
+    }
+  },
+  {
+    "key": "xLng.IslemIcinYetkiGerekli",
+    "value": {
+      "tr": "İşlem için yetki gerekli",
+      "en": "Authorization required for action",
+      "ar": "التفويض المطلوب للعمل"
+    }
+  },
+
+  {
+    "key": "xLng.DuzenlemeIslemleri",
+    "value": {
+      "tr": "Düzenleme işlemleri...",
+      "en": "Editing operations ...",
+      "ar": "عمليات التحرير ..."
+    }
+  },
+
+  {
+    "key": "xLng.AramaIslemleri",
+    "value": {
+      "tr": "Arama işlemleri...",
+      "en": "Search operations ...",
+      "ar": "عمليات البحث ..."
+    }
+  },
+
+  {
+    "key": "xLng.KayitEklendi",
+    "value": {
+      "tr": "Kayıt eklendi",
+      "en": "Registration added",
+      "ar": "وأضاف التسجيل"
+    }
+  },
+  {
+    "key": "xLng.KayitDuzeltildi",
+    "value": {
+      "tr": "Kayıt düzeltildi",
+      "en": "The record has been fixed",
+      "ar": "تم إصلاح السجل"
+    }
+  },
+  {
+    "key": "xLng.KayitSilindi",
+    "value": {
+      "tr": "Kayıt silindi",
+      "en": "The record was deleted",
+      "ar": "تم حذف السجل"
+    }
+  },
+  {
+    "key": "xLng.IslemYapilacakKayitBulunamadi",
+    "value": {
+      "tr": "İşlem yapılacak kayıt bulunamadı",
+      "en": "The record to be processed was not found",
+      "ar": "لم يتم العثور على السجل المراد معالجته"
+    }
+  },
+  {
+    "key": "xLng.KayyittaDegisiklikYapmadiniz",
+    "value": {
+      "tr": "Kayıtta değişiklik yapmadınız",
+      "en": "You have not made any changes to the registration",
+      "ar": "لم تقم بإجراء أي تغييرات على التسجيل"
+    }
+  },
+  {
+    "key": "xLng.KaydiKopyalamakIstediginizdenEminmisiniz",
+    "value": {
+      "tr": "Kaydı kopyalamak istediğinizden emin misiniz?",
+      "en": "Are you sure about going to copy the record?",
+      "ar": "هل أنت متأكد من الذهاب لنسخ السجل؟"
+    }
+  },
+  {
+    "key": "xLng.KaydiSilmekIstediginizdenEminmisiniz",
+    "value": {
+      "tr": "Kaydı silmek istediğinizden emin misiniz?",
+      "en": "Are you sure you want to delete it?",
+      "ar": "هل أنت متأكد أنك تريد حذف ذلك؟"
+    }
+  },
+  {
+    "key": "xLng.BaglantiliKayitVarSilinemez",
+    "value": {
+      "tr": "Silinmek istenen kayıt ile bağlantılı veriler bulunmaktadır. Silme işlemi gerçekleştirilemez. İlgili kaydın silinebilmesi için öncelikli olarak ilişkili verilerin silinmesi gerekmektedir.",
+      "en": "Erase serves with the organization. Deletion cannot be performed. Before the relevant data can be deleted, the data must be deleted first.",
+      "ar": "يعمل برنامج Erase مع المنظمة. لا يمكن إجراء الحذف. قبل حذف البيانات ذات الصلة ، يجب حذف البيانات أولاً."
+    }
+  },
+  {
+    "key": "xLng.KaydiOnaylamakIstediginizdenEminmisiniz",
+    "value": {
+      "tr": "Kaydı onaylamak istediğinizden emin misiniz?",
+      "en": "Are you sure you want to confirm the registration?",
+      "ar": "هل أنت متأكد من أنك تريد تأكيد التسجيل؟"
+    }
+  },
+  {
+    "key": "xLng.SifreyiSifirlamakIstediginizdenEminmisiniz",
+    "value": {
+      "tr": "Sifreyi sıfırlamak istediğinizden emin misiniz?",
+      "en": "Are you sure you want to reset the password?",
+      "ar": "هل أنت متأكد من أنك تريد إعادة تعيين كلمة المرور؟"
+    }
+  },
+
+  {
+    "key": "xLng.DoldurulmasiGerekenAlanlarVar",
+    "value": {
+      "tr": "Doldurulması gereken alanlar var",
+      "en": "There are areas to fill",
+      "ar": "هناك مناطق لملءها"
+    }
+  },
+
+
+  {
+    "key": "xLng.Kapat",
+    "value": {
+      "tr": "Kapat",
+      "en": "Close",
+      "ar": "قريب"
+    }
+  },
+  {
+    "key": "xLng.Geri",
+    "value": {
+      "tr": "Geri",
+      "en": "Back",
+      "ar": "الى الخلف"
+    }
+  },
+  {
+    "key": "xLng.Filtrele",
+    "value": {
+      "tr": "Filtrele",
+      "en": "Filter",
+      "ar": "منقي"
+    }
+  },
+  {
+    "key": "xLng.Ara",
+    "value": {
+      "tr": "Ara",
+      "en": "Search",
+      "ar": "بحث"
+    }
+  },
+  {
+    "key": "xLng.Bul",
+    "value": {
+      "tr": "Bul",
+      "en": "Find",
+      "ar": "تجد"
+    }
+  },
+  {
+    "key": "xLng.Ekle",
+    "value": {
+      "tr": "Ekle",
+      "en": "Add",
+      "ar": "إضافة"
+    }
+  },
+  {
+    "key": "xLng.Duzelt",
+    "value": {
+      "tr": "Düzelt",
+      "en": "Edit",
+      "ar": "تصحيح"
+    }
+  },
+  {
+    "key": "xLng.Sil",
+    "value": {
+      "tr": "Sil",
+      "en": "Delete",
+      "ar": "حذف"
+    }
+  },
+  {
+    "key": "xLng.Kaydet",
+    "value": {
+      "tr": "Kaydet",
+      "en": "Save",
+      "ar": "حفظ"
+    }
+  },
+  {
+    "key": "xLng.Vazgec",
+    "value": {
+      "tr": "Vazgeç",
+      "en": "Cancel",
+      "ar": "إلغاء"
+    }
+  },
+  {
+    "key": "xLng.Uygula",
+    "value": {
+      "tr": "Uygula",
+      "en": "Apply",
+      "ar": "تطبيق"
+    }
+  },
+  {
+    "key": "xLng.SecDon",
+    "value": {
+      "tr": "Seç",
+      "en": "Select",
+      "ar": "تحديد"
+    }
+  },
+
+  {
+    "key": "xLng.AdresKopyala",
+    "value": {
+      "tr": "Adres Kopyala",
+      "en": "Copy Address",
+      "ar": "نسخ العنوان"
+    }
+  },
+
+  {
+    "key": "xLng.Seciniz",
+    "value": {
+      "tr": "Seçiniz...",
+      "en": "Choose...",
+      "ar": "أختر..."
+    }
+  },
+
+  {
+    "key": "xLng.Gerekli",
+    "value": {
+      "tr": "Gerekli",
+      "en": "Required",
+      "ar": "مطلوب"
+    }
+  },
+  {
+    "key": "xLng.Gecersiz",
+    "value": {
+      "tr": "Geçersiz",
+      "en": "Not valid",
+      "ar": "غير صالح"
+    }
+  },
+  {
+    "key": "xLng.LutfenBuAlaniDoldurunuz",
+    "value": {
+      "tr": "Lütfen bu alanı doldurunuz",
+      "en": "Please fill in this field",
+      "ar": "يرجى ملء هذا الحقل"
+    }
+  },
+  {
+    "key": "xLng.LutfenGecerliBirMailAdresGiriniz",
+    "value": {
+      "tr": "Lütfen geçerli bir mail adresi giriniz",
+      "en": "Please enter a valid email address",
+      "ar": "لو سمحت أدخل بريد إليكتروني صالح"
+    }
+  },
+  {
+    "key": "xLng.GridiginizMailAdresiDahaOnceSistemeKaydedilmis",
+    "value": {
+      "tr": "Girdiğiniz e-posta adresi daha önce sisteme kaydedilmiş",
+      "en": "The e-mail address you entered has been registered in the system before",
+      "ar": "تم تسجيل عنوان البريد الإلكتروني الذي أدخلته في النظام من قبل"
+    }
+  },
+  {
+    "key": "xLng.Detay",
+    "value": {
+      "tr": "Detay",
+      "en": "Detail",
+      "ar": "التفاصيل"
+    }
+  },
+
+  {
+    "key": "xLng.Tiklayiniz",
+    "value": {
+      "tr": "tıklayınız",
+      "en": "click here",
+      "ar": "انقر هنا"
+    }
+  },
+  {
+    "key": "xLng.YapimAsamasinda",
+    "value": {
+      "tr": "Yapım aşamasında",
+      "en": "The under construction",
+      "ar": "تحت الانشاء"
+    }
+  },
+
+  {
+    "key": "xLng.Bos",
+    "value": {
+      "tr": "Boş",
+      "en": "Empty",
+      "ar": "فارغة"
+    }
+  },
+
+  {
+    "key": "xLng.Create",
+    "value": {
+      "tr": "Ekleme",
+      "en": "Create",
+      "ar": "خلق"
+    }
+  },
+  {
+    "key": "xLng.Read",
+    "value": {
+      "tr": "Okuma",
+      "en": "Read",
+      "ar": "اقرأ"
+    }
+  },
+  {
+    "key": "xLng.Update",
+    "value": {
+      "tr": "Değiştirme",
+      "en": "Update",
+      "ar": "تحديث"
+    }
+  },
+  {
+    "key": "xLng.Delete",
+    "value": {
+      "tr": "Silme",
+      "en": "Delete",
+      "ar": "حذف"
+    }
+  },
+  {
+    "key": "xLng.SaveAsExcel",
+    "value": {
+      "tr": "Excel e kaydet",
+      "en": "SaveAsExcel",
+      "ar": "حذف"
+    }
+  },
+  {
+    "key": "xLng.MesajPaneli",
+    "value": {
+      "tr": "Mesaj Paneli",
+      "en": "Message Panel",
+      "ar": "لوحة الرسائل"
+    }
+  },
+  {
+    "key": "xLng.Sinif",
+    "value": {
+      "tr": "Sınıf",
+      "en": "Class",
+      "ar": "صف دراسي"
+    }
+  },
+  {
+    "key": "xLng.Sayfa",
+    "value": {
+      "tr": "Sayfa",
+      "en": "Page",
+      "ar": "صفحة"
+    }
+  },
+  {
+    "key": "xLng.Sirala",
+    "value": {
+      "tr": "Sırala",
+      "en": "Sort",
+      "ar": "نوع"
+    }
+  },
+  {
+    "key": "xLng.Kopyala",
+    "value": {
+      "tr": "Kopyala",
+      "en": "Copy",
+      "ar": "نسخة"
+    }
+  },
+  {
+    "key": "xLng.Yapistir",
+    "value": {
+      "tr": "Yapıştır",
+      "en": "Paste",
+      "ar": "لصق"
+    }
+  },
+  {
+    "key": "xLng.Havuz",
+    "value": {
+      "tr": "Havuz",
+      "en": "Pool",
+      "ar": "حوض السباحة"
+    }
+  },
+  {
+    "key": "xLng.TopluMesaj",
+    "value": {
+      "tr": "Toplu Mesaj",
+      "en": "Bulk Message",
+      "ar": "رسالة مجمعة"
+    }
+  },
+  {
+    "key": "xLng.OturumAcmisKullanicilar",
+    "value": {
+      "tr": "Oturum Açmış Kullanıcılar",
+      "en": "Signed In Users",
+      "ar": "المستخدمون المسجلون للدخول"
+    }
+  },
+  {
+    "key": "xLng.MesajGonderildi",
+    "value": {
+      "tr": "Mesaj Gönderildi",
+      "en": "Message Sent",
+      "ar": "تم إرسال الرسالة"
+    }
+  },
+  {
+    "key": "xLng.GonderdiginizResimBuyuk",
+    "value": {
+      "tr": "Gönderdiğiniz resim büyük (en fazla 300kb yollayınız)",
+      "en": "The picture you sent is large (please send up to 300kb)",
+      "ar": "الصورة التي أرسلتها كبيرة (يرجى إرسال ما يصل إلى 300 كيلو بايت)"
+    }
+  },
+  {
+    "key": "xLng.IsleminizYapilamadiDahaSonraTekrarDeneyebilirsiniz",
+    "value": {
+      "tr": "Geçici bir sorun nedeniyle, işleminiz gerçekleştirilemedi, daha sonra tekrar deneyebilirsiniz.",
+      "en": "Your operation could not be performed due to a temporary problem, you can try again later.",
+      "ar": "تعذّر تنفيذ العملية بسبب مشكلة مؤقتة ، يمكنك إعادة المحاولة لاحقًا."
+    }
+  },
+  {
+    "key": "xLng.MesajinizUlastiEnKisaZamandaIletisimeGecilecektir",
+    "value": {
+      "tr": "Mesajınız ulasti, en kısa zamanda iletişime geçilecektir",
+      "en": "Your message has been received, will be contacted as soon as possible",
+      "ar": "تم استلام رسالتك ، وسيتم الاتصال بك في أقرب وقت ممكن"
+    }
+  },
+  {
+    "key": "xLng.KayitIsleminizTamamlandiGirisYapabilirsiniz",
+    "value": {
+      "tr": "Kayıt İşleminiz Tamamlandı, Giriş Yapabilirsiniz",
+      "en": "Your registration is completed, you can login",
+      "ar": "تم الانتهاء من التسجيل الخاص بك ، يمكنك تسجيل الدخول"
+    }
+  },
+  {
+    "key": "xLng.SistemdeBeklenmeyenBirDurumOlustu",
+    "value": {
+      "tr": "Sistemde beklenmeyen bir durum oluştu. Lütfen daha sonra tekrar deneyiniz.",
+      "en": "An unexpected situation has occurred in the system. Please try again later.",
+      "ar": "حدث موقف غير متوقع في النظام. الرجاء معاودة المحاولة في وقت لاحق."
+    }
+  },
+  {
+    "key": "xLng.DosyaBulunamadi",
+    "value": {
+      "tr": "Dosya Bulunamadı",
+      "en": "File not found",
+      "ar": "لم يتم العثور على الملف"
+    }
+  },
+  {
+    "key": "xLng.UyumHaftasi",
+    "value": {
+      "tr": "Uyum Haftasi",
+      "en": "Compliance Week",
+      "ar": "أسبوع الامتثال"
+    }
+  },
+  {
+    "key": "xLng.DakikaKisa",
+    "value": {
+      "tr": "Dk.",
+      "en": "Min.",
+      "ar": "دقيقة."
+    }
+  },
+  {
+    "key": "xLng.UyeliginiziOnaylayin",
+    "value": {
+      "tr": "Üyeliğinizi onaylayın",
+      "en": "Confirm your membership",
+      "ar": "قم بتأكيد عضويتك"
+    }
+  },
+  {
+    "key": "xLng.UyelikTalebiOnayiMailAdresineGonderildi",
+    "value": {
+      "tr": "Üyelik talebi onayi mail adresinize gönderildi, lütfen kontrol ediniz. <br>E-postamızı almadıysanız lütfen spam kutunuzu kontrol ediniz.",
+      "en": "Membership request confirmation has been sent to your e-mail address, please check.",
+      "ar": "تم إرسال الموافقة على طلب العضوية إلى عنوان بريدك الإلكتروني ، يرجى التحقق."
+    }
+  },
+  {
+    "key": "xLng.UyelikTalebinizAlinamadi",
+    "value": {
+      "tr": "Üyelik talebiniz alınamadı, lütfen daha sonra deneyiniz.",
+      "en": "Your membership request could not be received, please try later.",
+      "ar": "تعذر استلام طلب عضويتك ، يرجى المحاولة لاحقًا."
+    }
+  },
+  {
+    "key": "xLng.KayitIslemiBasariylaYapilmistir",
+    "value": {
+      "tr": "Kayıt işleminiz başarıyla yapılmıştır",
+      "en": "Your registration has been successfully completed.",
+      "ar": "تم تسجيلك بنجاح."
+    }
+  },
+  {
+    "key": "xLng.KayitIslemiYapilamadi",
+    "value": {
+      "tr": "Kayıt işleminiz yapılamadı, lütfen iletişime geçiniz",
+      "en": "Your registration could not be done, please contact",
+      "ar": "لا يمكن أن يتم التسجيل الخاص بك ، يرجى الاتصال"
+    }
+  },
+  {
+    "key": "xLng.IletisimIcinTiklayiniz",
+    "value": {
+      "tr": "İletişim için tıklayınız",
+      "en": "Click for contact",
+      "ar": "انقر للاتصال"
+    }
+  },
+  {
+    "key": "xLng.GirisSayfasiIcinTiklayiniz",
+    "value": {
+      "tr": "Giriş sayfası için tıklayınız",
+      "en": "Click for the login page",
+      "ar": "انقر للحصول على صفحة تسجيل الدخول"
+    }
+  },
+  {
+    "key": "xLng.Indirim",
+    "value": {
+      "tr": "İndirim",
+      "en": "Discount",
+      "ar": "خصم"
+    }
+  },
+  {
+    "key": "xLng.Ornek",
+    "value": {
+      "tr": "Örnek a{0} b{1} c{2}",
+      "en": "Sample a{0} b{1} c{2}",
+      "ar": "عينة"
+    }
+  },
+  {
+    "key": "xLng.UyeliginizPasifDurumdadir",
+    "value": {
+      "tr": "Üyeliğiniz pasif durumdadır.",
+      "en": "Your membership is inactive.",
+      "ar": "عضويتك غير نشطة"
+    }
+  },
+  {
+    "key": "xLng.UyeliginizBlokeDurumdadir",
+    "value": {
+      "tr": "Üyeliğiniz bloke durumdadır.",
+      "en": "Your membership is blocked.",
+      "ar": "تم حظر اشتراكك"
+    }
+  },
+  {
+    "key": "xLng.UyeBilgisiBulunamadi",
+    "value": {
+      "tr": "Üye bilgisi bulunamadı.",
+      "en": "Member information not found.",
+      "ar": "لم يتم العثور على معلومات العضو"
+    }
+  },
+  {
+    "key": "xLng.SistemeKayitliUyeBilgisi",
+    "value": {
+      "tr": "Sisteme kayıtlı üye bilgi/bilgileri (kimlik numarası, gsm ve/veya email).",
+      "en": "Member information/information registered in the system (ID number, gsm and/or e-mail).",
+      "ar": "معلومات الأعضاء / المعلومات المسجلة في النظام (رقم الهوية ، الهاتف و / أو البريد الإلكتروني)"
+    }
+  },
+  {
+    "key": "xLng.GecersizSmsKodu",
+    "value": {
+      "tr": "Sms kodu geçersizdir.",
+      "en": "Sms code is invalid.",
+      "ar": "كود الرسائل القصيرة غير صالح"
+    }
+  },
+  {
+    "key": "xLng.KayitIslemiYapilamadi",
+    "value": {
+      "tr": "Kayıt işlemi yapılırken bir hata meydana geldi. Lütfen yetkili birim ile iletişime geçiniz.",
+      "en": "An error occurred while registering. Please contact the authorized unit.",
+      "ar": "حدث خطأ أثناء التسجيل. يرجى الاتصال بالوحدة المعتمدة."
+    }
+  },
+  {
+    "key": "xLng.MevcutSifreFarkliligi",
+    "value": {
+      "tr": "Mevcut şifre belirtilen şifreden farklılık göstermektedir.",
+      "en": "The current password differs from the specified password.",
+      "ar": "تختلف كلمة المرور الحالية عن كلمة المرور المحددة."
+    }
+  },
+  {
+    "key": "xLng.SifreDegistirmeIslemiBasarili",
+    "value": {
+      "tr": "Şifre değiştirme işlemi başarıyla gerçekleşti.",
+      "en": "Password change was successful.",
+      "ar": "تم تغيير كلمة المرور بنجاح."
+    }
+  },
+  {
+    "key": "xLng.AracBilgisineUlasilamadi",
+    "value": {
+      "tr": "Araç bilgisine ulaşılamadı.",
+      "en": "Vehicle information could not be found.",
+      "ar": "لا يمكن العثور على معلومات السيارة."
+    }
+  },
+  {
+    "key": "xLng.AracKiralamaIcinUygunDegil",
+    "value": {
+      "tr": "Araç kiralama için uygun değil.",
+      "en": "Not suitable for vehicle rental.",
+      "ar": "غير مناسب لتأجير السيارات."
+    }
+  },
+  {
+    "key": "xLng.HesabinizKapatilmistir",
+    "value": {
+      "tr": "Hesabınız kapatılmıştır.",
+      "en": "Your account has been closed",
+      "ar": "تم إغلاق الحساب الخاص بك"
+    }
+  },
+  {
+    "key": "xLng.AracRezervasyonIcinUygunDegil",
+    "value": {
+      "tr": "Araç rezervasyon için uygun değil.",
+      "en": "The vehicle is not available for reservation.",
+      "ar": "السيارة غير متاحة للحجز."
+    }
+  },
+  {
+    "key": "xLng.RezervasyonunuzOlusturulmustur",
+    "value": {
+      "tr": "Rezervasyonunuz oluşturulmuştur.",
+      "en": "Your reservation has been created.",
+      "ar": "تم إنشاء الحجز الخاص بك."
+    }
+  },
+  {
+    "key": "xLng.AracRezerveEdilmis",
+    "value": {
+      "tr": "Araç rezerve edilmiştir.",
+      "en": "The vehicle is reserved.",
+      "ar": "السيارة محجوزة."
+    }
+  },
+  {
+    "key": "xLng.CihazlaBaglantiKurulamadi",
+    "value": {
+      "tr": "Cihaz ile bağlantı kurulamadı.",
+      "en": "Failed to establish a connection with the device.",
+      "ar": "فشل في إنشاء اتصال بالجهاز."
+    }
+  },
+  {
+    "key": "xLng.SistemHatasi",
+    "value": {
+      "tr": "Sistemsel bir hata meydana geldi.Lütfen tekrar deneyiniz.",
+      "en": "A system error has occurred. Please try again.",
+      "ar": "حدث خطأ في النظام. حاول مرة اخرى."
+    }
+  },
+  {
+    "key": "xLng.OdemeIslemiBasarili",
+    "value": {
+      "tr": "Ödemeniz bakiyenizden düşülmüştür.",
+      "en": "Your payment has been deducted from your balance.",
+      "ar": "تم خصم دفعتك من رصيدك."
+    }
+  },
+  {
+    "key": "xLng.CuzdanBakiyenizYetersizdir",
+    "value": {
+      "tr": "Cüzdan bakiyeniz yetersizdir.",
+      "en": "Your wallet balance is insufficient.",
+      "ar": "تم خصم دفعتك من رصيدك."
+    }
+  }
+]

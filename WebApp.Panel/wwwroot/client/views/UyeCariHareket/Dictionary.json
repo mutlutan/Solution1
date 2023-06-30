@@ -1,0 +1,96 @@
+[
+ {
+     "key" : "xLng.UyeCariHareket.Title",
+     "value": {
+         "tr": "Üye Cari Hareket",
+         "en": "Member Current Movement"
+     }
+ },
+ {
+     "key" : "xLng.UyeCariHareket.ShortTitle",
+     "value": {
+         "tr": "Üye Cari Hareket",
+         "en": "Member Current Movement"
+     }
+ }
+,
+ {
+     "key" : "xLng.UyeCariHareket.FormViewTab.I",
+     "value": {
+         "tr": "Genel Bilgiler",
+         "en": "General Info"
+     }
+ }
+,
+ {
+     "key" : "xLng.UyeCariHareket.GridFindTab.I",
+     "value": {
+         "tr": "I",
+         "en": "I"
+     }
+ }
+,
+ {
+     "key" : "xLng.UyeCariHareket.Id",
+     "value": {
+         "tr": "Id",
+         "en": "Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.UyeCariHareket.UniqueId",
+     "value": {
+         "tr": "Unique Id",
+         "en": "Unique Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.UyeCariHareket.UyeId",
+     "value": {
+         "tr": "UyeId",
+         "en": "UyeId"
+     }
+ }
+,
+ {
+     "key" : "xLng.UyeCariHareket.CariHareketTurId",
+     "value": {
+         "tr": "Cari Hareket Türü",
+         "en": "Current Transaction Type"
+     }
+ }
+,
+ {
+     "key" : "xLng.UyeCariHareket.Borc",
+     "value": {
+         "tr": "Borç",
+         "en": "Debt"
+     }
+ }
+,
+ {
+     "key" : "xLng.UyeCariHareket.Alacak",
+     "value": {
+         "tr": "Alacak",
+         "en": "Receivable"
+     }
+ }
+,
+ {
+     "key" : "xLng.UyeCariHareket.Tarih",
+     "value": {
+         "tr": "Tarih",
+         "en": "History"
+     }
+ }
+,
+ {
+     "key" : "xLng.UyeCariHareket.Aciklama",
+     "value": {
+         "tr": "Açıklama",
+         "en": "Explanation"
+     }
+ }
+]

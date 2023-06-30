@@ -1,0 +1,60 @@
+﻿
+
+<div id='ViewError'>
+    <div id="divError" class="h-100">
+        <div class="align-middle">
+            <p id="pCode" class="display-4"></p>
+            <p id="pText" class="h1 font-weight-light"></p>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    #ViewError #divError {
+    }
+</style>
+
+
+<script>
+    window.ViewError = function () {
+        var self = {};
+        self.opt = null;
+        self.area = '_';
+        self.title = 'xLng.ViewError.Title';
+        self.selector = '#ViewError';
+
+        self.prepare = function () {
+            // Language
+            mnLang.TranslateWithSelector(self.selector);
+        };
+
+        self.beforeShow = function (_opt) {
+            //console.log(_opt);
+            self.opt = $.extend({}, _opt);
+
+            if (self.opt.qprms.code == 400) {
+                self.opt.qprms.text = mnLang.TranslateWithWord("xLng.IslemIcinYetkiGerekli")
+            } else if (self.opt.qprms.code == 401) {
+                self.opt.text = mnLang.TranslateWithWord("xLng.OturumKapali")
+            } else if (self.opt.qprms.code == 404) {
+                self.opt.qprms.text = mnLang.TranslateWithWord("xLng.DosyaBulunamadi")
+            } else {
+                self.opt.qprms.text = mnLang.TranslateWithWord("xLng.SistemdeBeklenmeyenBirDurumOlustu")
+            }
+
+            $(self.selector).find('#pCode').html(self.opt.qprms.code);
+            $(self.selector).find('#pText').html(self.opt.qprms.text);
+        };
+
+        self.close = function () {
+            if ($(self.selector).closest('.k-window-content').getKendoWindow()) {
+                $(self.selector).closest('.k-window-content').getKendoWindow().close(); // popup ise
+            } else {
+                $(self.selector).closest('.mnPageView').find('#btnGeri').click(); // page ise
+            }
+        };
+
+        return self;
+    }();
+</script>

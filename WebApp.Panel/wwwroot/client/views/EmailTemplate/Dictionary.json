@@ -1,0 +1,128 @@
+[
+ {
+     "key" : "xLng.EmailTemplate.Title",
+     "value": {
+         "tr": "E-mail Şablonu",
+         "en": "Email Template"
+     }
+ },
+ {
+     "key" : "xLng.EmailTemplate.ShortTitle",
+     "value": {
+         "tr": "E-mail Şablonu",
+         "en": "Email Template"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailTemplate.FormViewTab.I",
+     "value": {
+         "tr": "Genel Bilgiler",
+         "en": "General Info"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailTemplate.GridFindTab.I",
+     "value": {
+         "tr": "I",
+         "en": "I"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailTemplate.Id",
+     "value": {
+         "tr": "Id",
+         "en": "Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailTemplate.EmailLetterheadId",
+     "value": {
+         "tr": "E-mail Antet",
+         "en": "Email Letterhead"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailTemplate.Name",
+     "value": {
+         "tr": "E-mail",
+         "en": "Name"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailTemplate.EmailCc",
+     "value": {
+         "tr": "E-mail Cc",
+         "en": "E-mail Cc"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailTemplate.EmailBcc",
+     "value": {
+         "tr": "E-mail Bcc",
+         "en": "E-mail Bcc"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailTemplate.EmailSubject",
+     "value": {
+         "tr": "Konu",
+         "en": "Subject"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailTemplate.EmailContent",
+     "value": {
+         "tr": "İçerik",
+         "en": "Content"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailTemplate.UniqueId",
+     "value": {
+         "tr": "Unique Id",
+         "en": "Unique Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailTemplate.CreateDate",
+     "value": {
+         "tr": "Eklenme Zamanı",
+         "en": "Time To Add"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailTemplate.CreatedUserId",
+     "value": {
+         "tr": "Ekleyen Kullanıcı",
+         "en": "User Who Added"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailTemplate.UpdateDate",
+     "value": {
+         "tr": "Değiştirme Zamanı",
+         "en": "Update Time"
+     }
+ }
+,
+ {
+     "key" : "xLng.EmailTemplate.UpdatedUserId",
+     "value": {
+         "tr": "Değiştiren Kullanıcı",
+         "en": "User Who Changed"
+     }
+ }
+]

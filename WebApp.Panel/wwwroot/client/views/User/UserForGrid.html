@@ -1,0 +1,473 @@
+
+<div id='UserForGrid'>
+    <div>
+        <div class='mnFindPanel'>
+            <div class='mnFindPanelRow'>
+                <div class='mnFindElementContainer'>
+                    <div name='divIsActive' class='mnFindElementDiv'>
+                        <label class='col-form-label me-2' data-langkey-text='xLng.User.IsActive'></label>
+                        <input type='text' style='width:100px' data-find_option='auto' data-find_type='System.Boolean' data-find_field='IsActive' data-find_operator='eq' />
+                    </div>
+
+                    <div name='divUserName' class='mnFindElementDiv'>
+                        <label class='col-form-label me-2' data-langkey-text='xLng.User.UserName'></label>
+                        <input type='text' class='form-control d-inline' style='width:130px' data-find_option='auto' data-find_type='System.String' data-find_field='UserName' data-find_operator='contains' autocomplete='off' />
+                    </div>
+
+                    <div name='divValidityDate' class='mnFindElementDiv'>
+                        <label class='col-form-label me-2' data-langkey-text='xLng.User.ValidityDate'></label>
+                        <input type='text' class='me-2' style='width:165px' data-find_option='auto' data-find_type='System.DateTime' data-find_field='ValidityDate' data-find_operator='gte' />
+                        <input type='text' style='width:165px' data-find_option='auto' data-find_type='System.DateTime' data-find_field='ValidityDate' data-find_operator='lte' />
+                    </div>
+
+                </div>
+            </div>
+
+            <div id='divButtonGroup' class='float-end pb-2'>
+                <button id='btnFlitreUygula' type='button' class='btn btn-outline-warning btn-sm text-nowrap mn-hover-color-white' data-langkey-title='xLng.Uygula'> <i class='fa fa-binoculars'></i> <span data-langkey-text='xLng.Uygula'></span> </button>
+            </div>
+        </div>
+
+        <div id='divGrid'></div>
+    </div>
+</div>
+
+<script>
+ window.UserForGrid = function () {
+     var self = {};
+     self.opt = null;
+     self.title = 'xLng.User.Title';
+     self.selector = '#UserForGrid';
+     self.primaryKey = 'Id';
+     self.tableName = 'User';
+     self.apiUrlPrefix = '/Panel/Api' + self.tableName;
+
+     function fCreateDataSource() {
+         self.dataSource = new kendo.data.DataSource({
+             transport: {
+                 read: { type: 'POST', url: self.apiUrlPrefix + '/Read', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 create: { type: 'POST', url: self.apiUrlPrefix + '/Create', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 update: { type: 'POST', url: self.apiUrlPrefix + '/Update', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 destroy: { type: 'POST', url: self.apiUrlPrefix + '/Delete', dataType: 'json', contentType: 'application/json; charset=utf-8' },
+                 parameterMap: function (data, operation) {
+                     if (operation === 'read') {
+                         return kendo.stringify(data);
+                     }
+                     else if (operation === 'create' || operation === 'update') {
+                         data.ValidityDate = kendo.toString(data.ValidityDate, 's');
+                         data.CreateDate = kendo.toString(data.CreateDate, 's');
+                         data.UpdateDate = kendo.toString(data.UpdateDate, 's');
+                         return kendo.stringify(data);
+                     }
+                     else if (operation === 'destroy') {
+                         return kendo.stringify(data);
+                     }
+                 }
+             },
+             pageSize: 10, serverPaging: true, serverSorting: true, serverFiltering: true, serverGrouping: true, serverAggregates: true,
+             sort: [
+             ],
+             schema: {
+                 errors: 'Errors', data: 'Data', total: 'Total', aggregates: 'AggregateResults',
+                 model: {
+                     id: self.primaryKey,
+                     fields: {
+                         Id: { type: 'number', defaultValue: null  },
+                         IsActive: { type: 'boolean' },
+                         IsEmailConfirmed: { type: 'boolean' },
+                         IdentificationNumber: { type: 'string' },
+                         NameSurname: { type: 'string' },
+                         ResidenceAddress: { type: 'string' },
+                         Avatar: { type: 'string' },
+                         UserName: { type: 'string' },
+                         UserPassword: { type: 'string' },
+                         RoleIds: { type: 'string' },
+                         GaSecretKey: { type: 'string' },
+                         SessionGuid: { type: 'string', editable:false },
+                         ValidityDate: { type: 'date' },
+                         UniqueId: { type: 'string', editable:false },
+                         CreateDate: { type: 'date', editable:false },
+                         CreatedUserId: { type: 'number', editable:false },
+                         UpdateDate: { type: 'date', editable:false },
+                         UpdatedUserId: { type: 'number', editable:false },
+                         CcIsActive: { type: 'string' },
+                         CcIsEmailConfirmed: { type: 'string' },
+                         CcRoleIdsName: { type: 'string' }
+                     }
+                 }
+             },
+             error: function (e) {
+                 if (e.xhr === null) { mnNotification.warning(e.errors); } else { mnErrorHandler.Handle(e.xhr); }
+                 this.cancelChanges();
+             },
+             requestStart: function (e) {
+             },
+             requestEnd: function (e) {
+                 if (e.response !== undefined && e.response.Errors === null) {
+                     if (e.type === 'create' || e.type === 'update' || e.type === 'destroy') {
+                         mnLookup.listRead(self.tableName);
+                     }
+                     if (e.type === 'create') {
+                         mnNotification.success(mnLang.TranslateWithWord('xLng.KayitEklendi'));
+                     }
+                     if (e.type === 'update') {
+                         mnNotification.success(mnLang.TranslateWithWord('xLng.KayitDuzeltildi'));
+                     }
+                     if (e.type === 'destroy') {
+                         mnNotification.success(mnLang.TranslateWithWord('xLng.KayitSilindi'));
+                     }
+                 }
+             },
+             change: function (e) {
+                 if (e.items[0] !== undefined) {
+                     if (e.items[0].get(self.primaryKey) === null) {
+                         $.ajax({
+                             url: self.apiUrlPrefix + '/GetByNew', type: 'GET', dataType: 'json', async: false,
+                             success: function (result) {
+                                 e.items[0].Id = result.Id;
+                                 e.items[0].IsActive = result.IsActive;
+                                 e.items[0].IsEmailConfirmed = result.IsEmailConfirmed;
+                                 e.items[0].IdentificationNumber = result.IdentificationNumber;
+                                 e.items[0].NameSurname = result.NameSurname;
+                                 e.items[0].ResidenceAddress = result.ResidenceAddress;
+                                 e.items[0].Avatar = result.Avatar;
+                                 e.items[0].UserName = result.UserName;
+                                 e.items[0].UserPassword = result.UserPassword;
+                                 e.items[0].RoleIds = result.RoleIds;
+                                 e.items[0].GaSecretKey = result.GaSecretKey;
+                                 e.items[0].SessionGuid = result.SessionGuid;
+                                 e.items[0].ValidityDate = kendo.parseDate(result.ValidityDate);
+                                 e.items[0].UniqueId = result.UniqueId;
+                                 e.items[0].CreateDate = kendo.parseDate(result.CreateDate);
+                                 e.items[0].CreatedUserId = result.CreatedUserId;
+                                 e.items[0].UpdateDate = kendo.parseDate(result.UpdateDate);
+                                 e.items[0].UpdatedUserId = result.UpdatedUserId;
+                                 //computed alanların tanımlanması
+                                 e.items[0].CcIsActive = result.CcIsActive;
+                                 e.items[0].CcIsEmailConfirmed = result.CcIsEmailConfirmed;
+                                 e.items[0].CcRoleIdsName = result.CcRoleIdsName;
+                                 //filterdan gelen default value set için
+                                 $(self.opt.filters).each(function (index, row) {
+                                     if (row.filterColumnName !== 'Id') {
+                                        e.items[0].set(row.filterColumnName, row.filterValue);
+                                     }
+                                 });
+
+                             },
+                             error: function (xhr, status) {
+                                 mnErrorHandler.Handle(xhr);
+                             }
+                         });
+                     }
+                 }
+                 // ve gerekebilecek diğer işlemler
+                 // ...
+             }
+         });
+     }
+
+     function fCreateGrid() {
+         self.grid = $(self.selector).find('#divGrid').kendoGrid({
+             excel: { allPages: true, fileName: mnLang.TranslateWithWord(self.title) },
+             excelExport: mnApp.exportGridWithTemplatesContentForKendo,
+             autoBind: false, resizable: true, reorderable: true,
+             sortable: { mode: 'multiple', allowUnsort: true, showIndexes: true },
+             pageable: {
+                 refresh: true, pageSizes: mnApp.gridPageSizes_default, buttonCount: 5, input: true,
+                 messages: { itemsPerPage: '' }
+             },
+             editable: {
+                 confirmation: true, mode: 'inline', createAt: 'bottom'
+             },
+             columns: [
+             {
+                 locked: true,
+                 headerTemplate: '<span id="btnEkle" style=" " title="' + mnLang.TranslateWithWord("xLng.Ekle") + '" ></span>'+'<span id="btnSaveAsExcel" style=" " title="' + mnLang.TranslateWithWord("xLng.SaveAsExcel") + '" ></span>',
+                 width: '95px',
+                 command: [
+                     { name: 'edit', buttonType: 'ImageAndText', text: { cancel: '', update: '', edit: '' }, attr: 'style=" " data-langkey-title="xLng.Duzelt" ' },
+                     { name: 'destroy', buttonType: 'ImageAndText', text: '', attr: 'style=" " data-langkey-title="xLng.Sil"' }
+                 ]
+             },
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.User.IsActive'),
+                 field: 'IsActive',
+                 template: '#:CcIsActive#',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '80px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.User.IsEmailConfirmed'),
+                 field: 'IsEmailConfirmed',
+                 template: '#:CcIsEmailConfirmed#',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '80px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.User.IdentificationNumber'),
+                 field: 'IdentificationNumber',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '130px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.User.NameSurname'),
+                 field: 'NameSurname',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '130px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.User.ResidenceAddress'),
+                 field: 'ResidenceAddress',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '130px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.User.UserName'),
+                 field: 'UserName',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '130px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.User.Avatar'),
+                 field: 'Avatar',
+                 template:"<img name='Avatar' src='#:Avatar || ''#' class='' style='width:28px; height:30px;' />", 
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '130px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.User.RoleIds'),
+                 field: 'RoleIds',
+                 template: '#:CcRoleIdsName#',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '130px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.User.GaSecretKey'),
+                 field: 'GaSecretKey',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '130px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.User.SessionGuid'),
+                 field: 'SessionGuid',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '130px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.User.ValidityDate'),
+                 field: 'ValidityDate',
+                 format: '{0:d}',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '110px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.User.CreateDate'),
+                 field: 'CreateDate',
+                 format: '{0:g}',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '145px'
+             },
+
+             {}
+             ],
+             edit: function (e) {
+                 var model=e.model;
+                 this.cancelRow();
+                 mnPageView.create({
+                     viewFolder: 'User',
+                     viewName: 'UserForForm',
+                     subTitle: mnLang.TranslateWithWord('xLng.DuzenlemeIslemleri'),
+                     onShow: function (e) {
+                        var qprms = { 'Id': model.Id };
+                         e.beforeShow({'ownerViewName':'UserForGrid', 'qprms': qprms });
+                     },
+                     onClose: function (e) {
+                         self.dataSource.read();
+                     }
+                 });
+             },
+             cancel: function (e) {
+                 if (e.model.id !== null) {
+                     e.sender.refresh(); //databound da renklendirme ve button set etme var ise ,cancelden sonra databound çalışmıyor(yetki,renk style ayarlanamıyor) bununla refresh ediyosun
+                 }
+             },
+             dataBound: function (e) {
+                var data = e.sender.dataSource.data();
+                 //yetki
+                 self.YetkiUygula(data);
+
+                 // Language
+                 mnLang.TranslateWithSelector(e.sender.wrapper);
+
+                 //row style
+             },
+             dataSource: self.dataSource
+         }).getKendoGrid();
+
+         self.grid.wrapper.find('#btnEkle').kendoButton({
+             icon: 'plus',
+             click: function () {
+                 mnPageView.create({
+                     viewFolder: 'User',
+                     viewName: 'UserForForm',
+                     subTitle: mnLang.TranslateWithWord('xLng.DuzenlemeIslemleri'),
+                     onShow: function (e) {
+                        var qprms = { 'Id': null };
+                         e.beforeShow({'ownerViewName':'UserForGrid', 'qprms': qprms });
+                     },
+                     onClose: function (e) {
+                         self.dataSource.read();
+                     }
+                 });
+             }
+         });
+
+         self.grid.wrapper.find('#btnSaveAsExcel').kendoButton({
+             icon: 'excel',
+             click: function () {
+                 kendo.ui.progress(self.grid.wrapper, true); //progress On
+                 self.grid.saveAsExcel();
+             }
+         });
+     }
+
+     function fCreateFindElements() {
+         // Find Panel
+         self.mnFindPanel = $(self.selector).find('.mnFindPanel').kendoExpansionPanel({
+             title: mnLang.TranslateWithWord('xLng.Filtrele')
+         }).data('kendoExpansionPanel');
+
+         // filter buton
+         $(self.selector).find('#btnFlitreUygula').click(function (e) {
+             self.filter();
+         });
+
+         // filter tetikleyicileri
+         $(self.selector).find('[data-find_option]').keydown(function (e) {
+             if (e.which === 13) {
+                 e.preventDefault();
+                 self.filter();
+             }
+         });
+
+         // Filter elementleri
+         $(self.selector).find('[data-find_field=IsActive]').kendoDropDownList({
+             valuePrimitive: true,
+             optionLabel: mnLang.TranslateWithWord('xLng.Seciniz'),
+             dataValueField: 'value',
+             dataTextField: 'text',
+             dataSource: mnLookup.list.dsAktifPasif
+         }).getKendoDropDownList();
+
+         $(self.selector).find('[data-find_field=ValidityDate]').kendoDatePicker({
+            componentType: mnApp.kendoDatePiker_ComponentType,
+            dateInput: mnApp.kendoDatePiker_DateInput
+         }).getKendoDatePicker();
+
+     }
+
+     self.YetkiUygula = function (_data) {
+         //Standart Yetkiler
+         var _C = mnUser.isYetkili(self.tableName + '.D_C.');
+         var _U = mnUser.isYetkili(self.tableName + '.D_U.');
+         var _D = mnUser.isYetkili(self.tableName + '.D_D.');
+         var _E = mnUser.isYetkili(self.tableName + '.D_E.');
+
+         //ek yetkiler için
+         //...
+
+        //form element görünümleri
+        var fieldList = [];
+        fieldList.push({ 'Name': 'IsActive', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'UserName', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'ValidityDate', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+
+        for (var i in fieldList) {
+            var $elm = $(self.selector).find('.mnFindElementContainer .mnFindElementDiv[name=div' + fieldList[i].Name + ']');
+            if (fieldList[i].Visible) {
+                $elm.show();
+            } else {
+                $elm.hide();
+            }
+        }
+
+         //grid ekle button için
+         mnApi.controlShowHide(self.grid.wrapper.find('#btnEkle'), _C);
+         //grid exel button için
+         mnApi.controlShowHide(self.grid.wrapper.find('#btnSaveAsExcel'), _E);
+
+         //grid rows için
+         $.each(_data, function (i, row) {
+             var _tr = self.grid.wrapper.find('tr[data-uid=' + row.uid + ']');
+             var tr_U = _U;
+             var tr_D = _D;
+
+             //update-delete button için
+             mnApi.controlEnable(_tr.find('.k-grid-delete'), tr_D);
+
+
+             //row değerine göre yetkiler
+             //...
+
+         });
+     };
+
+     self.prepare = function () {
+         // DataSource
+         fCreateDataSource();
+
+         // find Elementler
+         fCreateFindElements();
+
+         // Grid
+         fCreateGrid();
+
+         // Language
+         mnLang.TranslateWithSelector(self.selector);
+     };
+
+     self.beforeShow = function (_opt) {
+         self.opt = $.extend({}, _opt);
+
+         self.filter();
+
+     };
+
+     self.filter = function (_data) {
+         self.dataSource.filter(mnApp.find_options_ToFilterList(self));
+     };
+
+     self.close = function () {
+         if ($(self.selector).closest('.k-window-content').getKendoWindow()) {
+             $(self.selector).closest('.k-window-content').getKendoWindow().close(); // popup ise
+         } else {
+             $(self.selector).closest('.mnPageView').find('#btnGeri').click(); // page ise
+         }
+     };
+
+     return self;
+ }();
+</script>
