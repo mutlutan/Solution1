@@ -55,15 +55,17 @@ namespace AppPushNotification.Firesbase
         {
         }
 
-        /// <summary>
-        /// Initialize FirebaseSender
-        /// </summary>
-        /// <param name="settings">Firebase Service Account Key JSON file settings. FirebaseSettings record can be used as a target of deserialization
-        /// of the Firebase SDK key file e.g. myproject-12345-abc123123.json</param>
-        /// <param name="http">HTTP client</param>
-        /// <param name="serializer">Customized JSON serializer</param>
-        public FirebaseSender(FirebaseSettings settings, HttpClient http, IJsonSerializer serializer)
-        {
+		/// <summary>
+		/// Initialize FirebaseSender
+		/// </summary>
+		/// <param name="settings">Firebase Service Account Key JSON file settings. FirebaseSettings record can be used as a target of deserialization
+		/// of the Firebase SDK key file e.g. myproject-12345-abc123123.json</param>
+		/// <param name="http">HTTP client</param>
+		/// <param name="serializer">Customized JSON serializer</param>
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+		public FirebaseSender(FirebaseSettings settings, HttpClient http, IJsonSerializer serializer)
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+		{
             this.http = http ?? throw new ArgumentNullException(nameof(http));
             this.serializer = serializer ?? throw new ArgumentNullException(nameof(serializer));
             this.settings = settings ?? throw new ArgumentNullException(nameof(settings));

@@ -102,7 +102,7 @@ namespace AppPushNotification.Apple
             return new ApnsResponse
             {
                 IsSuccess = success,
-                Error = success ? null : serializer.Deserialize<ApnsError>(content)
+                Error = serializer.Deserialize<ApnsError>(content)
             };
         }
 

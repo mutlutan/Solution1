@@ -69,7 +69,9 @@ namespace AppBusiness
         public string UserIp { get; set; }
         public string UserBrowser { get; set; }
 
-        public Business(MemoryCache memoryCache, AppConfig appConfig)
+		public string LogDirectory { get; set; } = "logs";
+
+		public Business(MemoryCache memoryCache, AppConfig appConfig)
         {
             this.memoryCache = memoryCache;
             this.appConfig = appConfig;
@@ -167,20 +169,19 @@ namespace AppBusiness
         static readonly object LogKilit = new();
         public void LogSaveForFile(EnmLogTur logTur, string icerik)
         {
-            string logDirectory = "logs";
             string strAy = DateTime.Today.ToString("yyyy.MM");
             string strGun = DateTime.Today.ToString("yyyy.MM.dd");
 
             try
             {
-                if (!Directory.Exists(logDirectory))
+                if (!Directory.Exists(this.LogDirectory))
                 {
-                    Directory.CreateDirectory(logDirectory);
+                    Directory.CreateDirectory(this.LogDirectory);
                 }
 
                 lock (LogKilit)
                 {
-                    StreamWriter dosya = System.IO.File.AppendText(logDirectory + "/log_" + strAy + ".txt");
+                    StreamWriter dosya = System.IO.File.AppendText(this.LogDirectory + "/log_" + strAy + ".txt");
                     dosya.WriteLine(logTur.ToString() + " : " + icerik);
                     dosya.Close();
                 }
@@ -191,7 +192,7 @@ namespace AppBusiness
                 {
                     lock (LogKilit)
                     {
-                        StreamWriter dosya = System.IO.File.AppendText(logDirectory + "/log_err_" + strGun + ".txt");
+                        StreamWriter dosya = System.IO.File.AppendText(this.LogDirectory + "/log_err_" + strGun + ".txt");
                         dosya.WriteLine("hata(" + DateTime.Now.ToString() + "):" + ex.Message);
                         dosya.Close();
                     }
@@ -244,32 +245,15 @@ namespace AppBusiness
         #endregion
 
         #region token işlemleri
-        public static string JWTKey
+        public string JWTKey
         {
             get
             {
-                string key = "SMARTBIKE-JWT-KEY-00000000000000001" + "-" + "v.01"; //JWT key;
-                return key;
-            }
+                return this.AppName.Replace(" ","")+ "-JWT-KEY-00000000000000001" + "-" + "v.01";
+			}
         }
 
         #region JWT Token(Captcha Token; captcha verisi taşımada kullanılır, şifreli olmalıdır  )
-        public string GenerateCaptchaToken(MoCaptchaToken moCaptchaToken)
-        {
-            var securityKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(JWTKey));
-
-            string jsonText = System.Text.Json.JsonSerializer.Serialize(moCaptchaToken);
-
-            var token = new System.IdentityModel.Tokens.Jwt.JwtSecurityToken(
-                claims: new System.Security.Claims.Claim[]{
-                    new System.Security.Claims.Claim("Data", jsonText.MyToEncrypt(JWTKey))
-                },
-                signingCredentials: new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512),
-                expires: DateTime.Now.AddMinutes(2)
-            );
-
-            return new System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler().WriteToken(token);
-        }
 
         public bool ValidateCaptchaToken(string captchaCode, string captchaToken)
         {
@@ -287,14 +271,14 @@ namespace AppBusiness
                         ValidateIssuer = false,   // oluşturulan jetonda bir yayıncı yok
                         ValidateLifetime = true,
                         ClockSkew = TimeSpan.Zero,
-                        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(JWTKey)) // The same key as the one that generate the token
+                        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(this.JWTKey)) // The same key as the one that generate the token
                     };
 
                     System.Security.Principal.IPrincipal principal = tokenHandler.ValidateToken(authToken, validationParameters, out SecurityToken validatedToken);
 
                     var data = ((System.Security.Claims.ClaimsIdentity)principal.Identity).Claims.Select(s => new { s.Type, s.Value });
                     string jsonText = data.Where(c => c.Type == "Data").FirstOrDefault()?.Value ?? "";
-                    moCaptchaToken = System.Text.Json.JsonSerializer.Deserialize<MoCaptchaToken>(jsonText.MyToDecrypt(JWTKey));
+                    moCaptchaToken = System.Text.Json.JsonSerializer.Deserialize<MoCaptchaToken>(jsonText.MyToDecrypt(this.JWTKey));
 
                     rV = moCaptchaToken?.Code == captchaCode;
                 }
@@ -311,7 +295,7 @@ namespace AppBusiness
         #region JWT Token(User Token; api için login olunduğunda oluşur )
         public string GenerateUserToken(EnmClaimType claimType, string jsonText)
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JWTKey));
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.JWTKey));
 
             var token = new System.IdentityModel.Tokens.Jwt.JwtSecurityToken(
                 claims: new System.Security.Claims.Claim[]{
@@ -342,7 +326,7 @@ namespace AppBusiness
                         ValidateAudience = false, // oluşturulan jetonda izleyici yok
                         ValidateIssuer = false,   // oluşturulan jetonda bir yayıncı yok
                         ValidateLifetime = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JWTKey)) // The same key as the one that generate the token
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.JWTKey)) // The same key as the one that generate the token
                     };
 
                     System.Security.Principal.IPrincipal principal = tokenHandler.ValidateToken(authToken, validationParameters, out SecurityToken validatedToken);
@@ -481,36 +465,6 @@ namespace AppBusiness
         #endregion
 
         #region Kullanıcı
-        public MoResponse<MoCreateCaptchaResponse> CreateCaptcha(string code)
-        {
-            MoResponse<MoCreateCaptchaResponse> response = new() { Data = new MoCreateCaptchaResponse() };
-
-            try
-            {
-                var moCaptchaToken = new MoCaptchaToken()
-                {
-                    Code = code ?? MyCaptcha.NewText()
-                };
-
-                var captcha = MyCaptcha.Make(moCaptchaToken.Code, 250, 100);
-                var x = GenerateCaptchaToken(moCaptchaToken);
-
-                response.Data = new MoCreateCaptchaResponse
-                {
-                    CaptchaImage = captcha,
-                    CaptchaToken = GenerateCaptchaToken(moCaptchaToken)
-                };
-
-                response.Success = true;
-            }
-            catch (Exception ex)
-            {
-                response.Message.Add(ex.MyLastInner().Message);
-                WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
-            }
-
-            return response;
-        }
 
         public User GetUser(int userId)
         {
@@ -1022,10 +976,11 @@ namespace AppBusiness
             return queryResult;
 
         }
-        #endregion
+		#endregion
 
-        #region kendo filter
-        public Telerik.DataSource.FilterOperator ToKendoFilterOperator(string filterOperator)
+		#region kendo filter
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>")]
+		public Telerik.DataSource.FilterOperator ToKendoFilterOperator(string filterOperator)
         {
             var rV = filterOperator.ToLower() switch
             {
@@ -1704,10 +1659,12 @@ namespace AppBusiness
             MoResponse<AracModel> result = new();
             try
             {
-                Dictionary<string, string> header = new();
-                header.Add("MAPTEX-API-KEY", request.MaptexApiKey);
+				Dictionary<string, string> header = new()
+				{
+					{ "MAPTEX-API-KEY", request.MaptexApiKey }
+				};
 
-                var response = GetOrPostRestService(new HttpClientModel
+				var response = GetOrPostRestService(new HttpClientModel
                 {
                     ContentType = "application/json",
                     HeaderParams = header,

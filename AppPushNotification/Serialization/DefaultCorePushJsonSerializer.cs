@@ -21,10 +21,10 @@ namespace AppPushNotification.Serialization
         public TObject Deserialize<TObject>(string json)
         {
             var options = GetJsonSerializerOptions();
-            var obj = JsonSerializer.Deserialize<TObject>(json, options);
-
-            return obj;
-        }
+#pragma warning disable CS8603 // Possible null reference return.
+			return JsonSerializer.Deserialize<TObject>(json, options);
+#pragma warning restore CS8603 // Possible null reference return.
+		}
 
         protected virtual JsonSerializerOptions GetJsonSerializerOptions()
         {

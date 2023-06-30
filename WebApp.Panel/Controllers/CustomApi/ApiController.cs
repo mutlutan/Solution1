@@ -35,30 +35,6 @@ namespace WebApp.Panel.Controllers
             return Json(resultObject);
         }
 
-        //Rate limiting kullanılmalı, şimdilik metod kullanılmıyo, GA kullanılıyor yerine
-        /// <summary>
-        /// Captcha üretim metodu, dönüşte resim ve token döner, token validate için kullanılır
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost("CreateCaptcha")]
-        [ResponseCache(Duration = 0)]
-        public IActionResult CreateCaptcha()
-        {
-            MoResponse<MoCreateCaptchaResponse> response = new();
-
-            try
-            {
-                response = business.CreateCaptcha(null);
-            }
-            catch (Exception ex)
-            {
-                response.Message.Add(ex.Message);
-                business.WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
-            }
-
-            return Json(response);
-        }
-
         //login
         [HttpPost("Login")]
         [ResponseCache(Duration = 0)]

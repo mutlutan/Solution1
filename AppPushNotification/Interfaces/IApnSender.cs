@@ -12,7 +12,7 @@ namespace AppPushNotification.Interfaces
         Task<ApnsResponse> SendAsync(
             object notification,
             string deviceToken,
-            string apnsId = null,
+            string? apnsId = null,
             int apnsExpiration = 0,
             int apnsPriority = 10,
             ApnPushType apnPushType = ApnPushType.Alert,

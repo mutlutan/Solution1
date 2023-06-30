@@ -10,7 +10,7 @@ namespace AppPushNotification.Apple
     {
         public bool IsSuccess { get; set; }
 
-        public ApnsError Error { get; set; }
+        public ApnsError Error { get; set; } = new ApnsError();
     }
 
     public class ApnsError
@@ -18,7 +18,7 @@ namespace AppPushNotification.Apple
         /// <summary>
         /// Use <see cref="ApnsErrorReasons"/> to compare against
         /// </summary>
-        public string Reason { get; set; }
+        public string Reason { get; set; } = "";
         public long? Timestamp { get; set; }
     }
 
