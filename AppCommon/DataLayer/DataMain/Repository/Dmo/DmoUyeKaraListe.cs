@@ -2,16 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using AppData.Main.Repository;
-using AppData.Main.Models;
-using AppData.Main.Repository.Dto;
 using AppCommon;
+using AppCommon.DataLayer.DataMain.Repository;
+using AppCommon.DataLayer.DataMain.Models;
+using AppCommon.DataLayer.DataMain.Repository.Dto;
 
-namespace AppData.Main.Repository.Dmo
+namespace AppCommon.DataLayer.DataMain.Repository.Dmo
 {
     public class DmoUyeKaraListe : BaseDmo
     {
-        public DmoUyeKaraListe(DataContext dataContext) : base(dataContext) { }
+        public DmoUyeKaraListe(MainDataContext dataContext) : base(dataContext) { }
 
         public IQueryable<DtoUyeKaraListe> Get()
         {

@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using AppCommon;
-using AppData.Main.Models;
+using AppCommon.DataLayer.DataMain.Models;
 
-namespace AppData.Main.Repository.Dto
+namespace AppCommon.DataLayer.DataMain.Repository.Dto
 {
     public partial class DtoEmailTemplate : EmailTemplate
     {
-        protected readonly DataContext dataContext;
+        protected readonly MainDataContext dataContext;
 
         public string CcEmailLetterheadIdDescription { get; set; } = "";
 
         //Constructor
-        public DtoEmailTemplate(DataContext dataContext)
+        public DtoEmailTemplate(MainDataContext dataContext)
         {
             this.dataContext = dataContext;
         }

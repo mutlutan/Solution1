@@ -50,6 +50,7 @@
                          UniqueId: { type: 'string', editable:false },
                          AracId: { type: 'number' },
                          UyeId: { type: 'number' },
+                         AracRezervasyonId: { type: 'number' },
                          BirimFiyat: { type: 'number' },
                          Mesafe: { type: 'number' },
                          Tutar: { type: 'number' },
@@ -61,7 +62,6 @@
                          CreatedUserId: { type: 'number', editable:false },
                          UpdateDate: { type: 'date', editable:false },
                          UpdatedUserId: { type: 'number', editable:false },
-                         AracRezervasyonId: { type: 'number' },
                          CcAracIdAd: { type: 'string' },
                          CcUyeIdAd: { type: 'string' }
                      }
@@ -99,6 +99,7 @@
                                  e.items[0].UniqueId = result.UniqueId;
                                  e.items[0].AracId = result.AracId;
                                  e.items[0].UyeId = result.UyeId;
+                                 e.items[0].AracRezervasyonId = result.AracRezervasyonId;
                                  e.items[0].BirimFiyat = result.BirimFiyat;
                                  e.items[0].Mesafe = result.Mesafe;
                                  e.items[0].Tutar = result.Tutar;
@@ -110,7 +111,6 @@
                                  e.items[0].CreatedUserId = result.CreatedUserId;
                                  e.items[0].UpdateDate = kendo.parseDate(result.UpdateDate);
                                  e.items[0].UpdatedUserId = result.UpdatedUserId;
-                                 e.items[0].AracRezervasyonId = result.AracRezervasyonId;
                                  //computed alanların tanımlanması
                                  e.items[0].CcAracIdAd = result.CcAracIdAd;
                                  e.items[0].CcUyeIdAd = result.CcUyeIdAd;

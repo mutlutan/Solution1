@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using Newtonsoft.Json;
 using AppCommon;
+using AppCommon.DataLayer.DataMain.Models;
 
 #nullable disable
 
@@ -165,7 +166,7 @@ namespace WebApp.Panel.Codes
 			return MyApp.AuthorityJsonLangKeyList;
 		}
 
-		public static MoResponse<MoAuthority> GetAuthorityTemplate(AppData.Main.Models.DataContext dataContext)
+		public static MoResponse<MoAuthority> GetAuthorityTemplate(MainDataContext dataContext)
 		{
 			MoResponse<MoAuthority> response = new();
 

@@ -2,14 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using AppData.Main.Models;
 using AppCommon;
+using AppCommon.DataLayer.DataMain.Models;
 
-namespace AppData.Main.Repository.Dto
+namespace AppCommon.DataLayer.DataMain.Repository.Dto
 {
     public partial class DtoMobilBildirim : MobilBildirim
     {
-        protected readonly DataContext dataContext;
+        protected readonly MainDataContext dataContext;
 
         public string CcGonderildiMi
         {
@@ -40,7 +40,7 @@ namespace AppData.Main.Repository.Dto
         }
 
         //Constructor
-        public DtoMobilBildirim(DataContext dataContext)
+        public DtoMobilBildirim(MainDataContext dataContext)
         {
             this.dataContext = dataContext;
         }

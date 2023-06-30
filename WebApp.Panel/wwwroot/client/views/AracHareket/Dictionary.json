@@ -127,18 +127,18 @@
  }
 ,
  {
-     "key" : "xLng.AracHareket.UpdateDate",
-     "value": {
-         "tr": "Değiştirme Zamanı",
-         "en": "Update Time"
-     }
- }
-,
- {
      "key" : "xLng.AracHareket.AracRezervasyonId",
      "value": {
          "tr": "AracRezervasyonId",
          "en": "AracRezervasyonId"
+     }
+ }
+,
+ {
+     "key" : "xLng.AracHareket.UpdateDate",
+     "value": {
+         "tr": "Değiştirme Zamanı",
+         "en": "Update Time"
      }
  }
 ,

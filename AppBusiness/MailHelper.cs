@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AppCommon;
-using AppData.Main.Models;
+using AppCommon.DataLayer.DataMain.Models;
 using Microsoft.EntityFrameworkCore;
 
 #nullable disable
@@ -45,10 +45,10 @@ namespace AppBusiness
 
 	public class MailHelper : IDisposable
 	{
-		private readonly DataContext dataContext;
+		private readonly MainDataContext dataContext;
 		private Parameter parametre;
 
-		public MailHelper(DataContext _dataContext)
+		public MailHelper(MainDataContext _dataContext)
 		{
 			dataContext = _dataContext;
 			parametre = new Parameter();

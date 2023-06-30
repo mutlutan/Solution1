@@ -1,4 +1,5 @@
 ﻿using AppCommon;
+using AppCommon.DataLayer.DataMain.Models;
 using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
 using System;
@@ -19,10 +20,10 @@ namespace AppBusiness
 
     public class CacheHelper : IDisposable
     {
-        public readonly AppData.Main.Models.DataContext dataContext;
+        public readonly MainDataContext dataContext;
         private readonly IMemoryCache memoryCache;
 
-        public CacheHelper(AppData.Main.Models.DataContext _dataContext, IMemoryCache _memoryCache)
+        public CacheHelper(MainDataContext _dataContext, IMemoryCache _memoryCache)
         {
             this.dataContext = _dataContext;
             this.memoryCache = _memoryCache;
@@ -38,9 +39,9 @@ namespace AppBusiness
             };
         }
 
-        public AppData.Main.Models.Parameter GetParameter()
+        public Parameter GetParameter()
         {
-            if (memoryCache.TryGetValue(EnmCacheKey.Parameter, out AppData.Main.Models.Parameter parameterCache))
+            if (memoryCache.TryGetValue(EnmCacheKey.Parameter, out Parameter parameterCache))
             {
                 return parameterCache;
             }
@@ -54,9 +55,9 @@ namespace AppBusiness
             }
         }
 
-        public List<AppData.Main.Models.User> GetUserList()
+        public List<User> GetUserList()
         {
-            if (memoryCache.TryGetValue(EnmCacheKey.UserList, out List<AppData.Main.Models.User> userListCache))
+            if (memoryCache.TryGetValue(EnmCacheKey.UserList, out List<User> userListCache))
             {
                 return userListCache;
             }

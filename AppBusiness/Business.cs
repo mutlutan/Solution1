@@ -457,9 +457,9 @@ namespace AppBusiness
         #endregion
 
         #region parameterler
-        public AppData.Main.Models.Parameter GetParameter()
+        public Parameter GetParameter()
         {
-            AppData.Main.Models.Parameter rV = new();
+            Parameter rV = new();
             try
             {
                 var data = dataContext.Parameter.AsNoTracking()
@@ -512,14 +512,14 @@ namespace AppBusiness
             return response;
         }
 
-        public AppData.Main.Models.User GetUser(int userId)
+        public User GetUser(int userId)
         {
-            AppData.Main.Models.User rV = new();
+            User rV = new();
             try
             {
                 rV = this.repository.dataContext.User
                     .Where(c => c.Id == userId)
-                    .FirstOrDefault() ?? new AppData.Main.Models.User();
+                    .FirstOrDefault() ?? new User();
 
 
             }

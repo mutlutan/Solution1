@@ -15,6 +15,10 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dto
         {
             get { return (this.Durum ? this.dataContext.TranslateTo("xLng.Aktif") : this.dataContext.TranslateTo("xLng.Pasif")); }
         }
+        public string CcSarjOluyorMu
+        {
+            get { return (this.SarjOluyorMu ? this.dataContext.TranslateTo("xLng.Aktif") : this.dataContext.TranslateTo("xLng.Pasif")); }
+        }
         public string CcArizaDurumu
         {
             get { return (this.ArizaDurumu ? this.dataContext.TranslateTo("xLng.Aktif") : this.dataContext.TranslateTo("xLng.Pasif")); }
@@ -31,13 +35,9 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dto
         {
             get { return (this.AcilUyariIstemi ? this.dataContext.TranslateTo("xLng.Aktif") : this.dataContext.TranslateTo("xLng.Pasif")); }
         }
-        public string CcSarjOluyorMu
-        {
-            get { return (this.SarjOluyorMu ? this.dataContext.TranslateTo("xLng.Aktif") : this.dataContext.TranslateTo("xLng.Pasif")); }
-        }
 
         //Constructor
-        public DtoArac(DataContext dataContext)
+        public DtoArac(MainDataContext dataContext)
         {
             this.dataContext = dataContext;
         }

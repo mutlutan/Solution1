@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using AppCommon;
-using AppData.Main.Repository;
-using AppData.Main.Models;
-using AppData.Main.Repository.Dto;
+using AppCommon.DataLayer.DataMain.Repository;
+using AppCommon.DataLayer.DataMain.Models;
+using AppCommon.DataLayer.DataMain.Repository.Dto;
 
-namespace AppData.Main.Repository.Dmo
+namespace AppCommon.DataLayer.DataMain.Repository.Dmo
 {
     public class DmoParameter : BaseDmo
     {
-        public DmoParameter(DataContext dataContext) : base(dataContext) { }
+        public DmoParameter(MainDataContext dataContext) : base(dataContext) { }
 
         public IQueryable<DtoParameter> Get()
         {
@@ -106,9 +106,9 @@ namespace AppData.Main.Repository.Dmo
          row.MapTexBaseServiceUrl = _model.MapTexBaseServiceUrl;
          row.MaptexApiKey = _model.MaptexApiKey;
          row.AracRezervasyonSure = _model.AracRezervasyonSure;
+         row.AracSarjUyariLimit = _model.AracSarjUyariLimit;
          row.MasterpassMerchantId = _model.MasterpassMerchantId;
          row.MasterpassServiceUrl = _model.MasterpassServiceUrl;
-         row.AracSarjUyariLimit = _model.AracSarjUyariLimit;
 
          if (!isNew)
          {

@@ -2,14 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using AppData.Main.Models;
 using AppCommon;
+using AppCommon.DataLayer.DataMain.Models;
 
-namespace AppData.Main.Repository.Dto
+namespace AppCommon.DataLayer.DataMain.Repository.Dto
 {
     public partial class DtoUser : User
     {
-        protected readonly DataContext dataContext;
+        protected readonly MainDataContext dataContext;
 
         public string CcIsActive
         {
@@ -44,7 +44,7 @@ namespace AppData.Main.Repository.Dto
         }
 
         //Constructor
-        public DtoUser(DataContext dataContext)
+        public DtoUser(MainDataContext dataContext)
         {
             this.dataContext = dataContext;
         }

@@ -1,12 +1,6 @@
-﻿using WebApp.Panel.Codes;
+﻿using System;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using NetTopologySuite.Geometries;
-using NetTopologySuite;
-using AppBusiness;
-using AppData.Main.Models;
 using AppCommon;
-using RTools_NTS.Util;
 
 namespace WebApp.Panel.Controllers
 {
@@ -43,7 +37,7 @@ namespace WebApp.Panel.Controllers
             //    ImeiNo = "868159055278985"
             //});
             //21347585128
-            this.business.OgrenciMi("2e2e14a1208kdhy!q4llsmhwfa9011", "21347585128");
+            //this.business.OgrenciMi("2e2e14a1208kdhy!q4llsmhwfa9011", "21347585128");
 
 
             #endregion
@@ -110,31 +104,6 @@ namespace WebApp.Panel.Controllers
             }
         }
 
-        //https://localhost:44309/Home/EndVehicleTrip?token=TOKEN-001-MSM&qrCode=29992212121
-        public string EndVehicleTrip(string token,string qrCode)
-        {
-            if (token == "TOKEN-001-MSM")
-            {
-                return this.business.EndVehicleTrip(qrCode);
-            }
-            else
-            {
-                return "Token geçersiz";
-            }
-        }
 
-
-        //https://localhost:44309/Home/EndVehicleTripAll?token=TOKEN-001-MSM
-        public string EndVehicleTripAll(string token)
-        {
-            if (token == "TOKEN-001-MSM")
-            {
-                return this.business.EndVehicleTripAll();
-            }
-            else
-            {
-                return "Token geçersiz";
-            }
-        }
     }
 }

@@ -118,10 +118,13 @@
                          Marka: { type: 'string' },
                          Model: { type: 'string' },
                          ImeiNo: { type: 'string' },
+                         QrKod: { type: 'string' },
                          Aciklama: { type: 'string' },
                          Resim: { type: 'string' },
                          SonKonum: { type: 'string' },
+                         KilometreSayaci: { type: 'number' },
                          SarjOrani: { type: 'number' },
+                         SarjOluyorMu: { type: 'boolean' },
                          ArizaDurumu: { type: 'boolean' },
                          KilitDurumu: { type: 'boolean' },
                          BlokeDurum: { type: 'boolean' },
@@ -130,15 +133,12 @@
                          CreatedUserId: { type: 'number', editable:false },
                          UpdateDate: { type: 'date', editable:false },
                          UpdatedUserId: { type: 'number', editable:false },
-                         KilometreSayaci: { type: 'number' },
-                         SarjOluyorMu: { type: 'boolean' },
-                         QrKod: { type: 'string' },
                          CcDurum: { type: 'string' },
+                         CcSarjOluyorMu: { type: 'string' },
                          CcArizaDurumu: { type: 'string' },
                          CcKilitDurumu: { type: 'string' },
                          CcBlokeDurum: { type: 'string' },
-                         CcAcilUyariIstemi: { type: 'string' },
-                         CcSarjOluyorMu: { type: 'string' }
+                         CcAcilUyariIstemi: { type: 'string' }
                      }
                  }
              },
@@ -178,10 +178,13 @@
                                  e.items[0].Marka = result.Marka;
                                  e.items[0].Model = result.Model;
                                  e.items[0].ImeiNo = result.ImeiNo;
+                                 e.items[0].QrKod = result.QrKod;
                                  e.items[0].Aciklama = result.Aciklama;
                                  e.items[0].Resim = result.Resim;
                                  e.items[0].SonKonum = result.SonKonum;
+                                 e.items[0].KilometreSayaci = result.KilometreSayaci;
                                  e.items[0].SarjOrani = result.SarjOrani;
+                                 e.items[0].SarjOluyorMu = result.SarjOluyorMu;
                                  e.items[0].ArizaDurumu = result.ArizaDurumu;
                                  e.items[0].KilitDurumu = result.KilitDurumu;
                                  e.items[0].BlokeDurum = result.BlokeDurum;
@@ -190,16 +193,13 @@
                                  e.items[0].CreatedUserId = result.CreatedUserId;
                                  e.items[0].UpdateDate = kendo.parseDate(result.UpdateDate);
                                  e.items[0].UpdatedUserId = result.UpdatedUserId;
-                                 e.items[0].KilometreSayaci = result.KilometreSayaci;
-                                 e.items[0].SarjOluyorMu = result.SarjOluyorMu;
-                                 e.items[0].QrKod = result.QrKod;
                                  //computed alanların tanımlanması
                                  e.items[0].CcDurum = result.CcDurum;
+                                 e.items[0].CcSarjOluyorMu = result.CcSarjOluyorMu;
                                  e.items[0].CcArizaDurumu = result.CcArizaDurumu;
                                  e.items[0].CcKilitDurumu = result.CcKilitDurumu;
                                  e.items[0].CcBlokeDurum = result.CcBlokeDurum;
                                  e.items[0].CcAcilUyariIstemi = result.CcAcilUyariIstemi;
-                                 e.items[0].CcSarjOluyorMu = result.CcSarjOluyorMu;
                                  //filterdan gelen default value set için
                                  $(self.opt.filters).each(function (index, row) {
                                      if (row.filterColumnName !== 'Id') {

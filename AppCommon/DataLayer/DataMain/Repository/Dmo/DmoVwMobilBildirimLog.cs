@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using AppCommon;
-using AppData.Main.Repository;
-using AppData.Main.Models;
-using AppData.Main.Repository.Dto;
+using AppCommon.DataLayer.DataMain.Repository;
+using AppCommon.DataLayer.DataMain.Models;
+using AppCommon.DataLayer.DataMain.Repository.Dto;
 
-namespace AppData.Main.Repository.Dmo
+namespace AppCommon.DataLayer.DataMain.Repository.Dmo
 {
     public class DmoVwMobilBildirimLog : BaseDmo
     {
-        public DmoVwMobilBildirimLog(DataContext dataContext) : base(dataContext) { }
+        public DmoVwMobilBildirimLog(MainDataContext dataContext) : base(dataContext) { }
 
         public IQueryable<DtoVwMobilBildirimLog> Get()
         {

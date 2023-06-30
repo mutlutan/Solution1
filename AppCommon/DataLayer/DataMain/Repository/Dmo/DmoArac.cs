@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using AppCommon;
 using AppCommon.DataLayer.DataMain.Repository;
 using AppCommon.DataLayer.DataMain.Models;
-using AppData.Main.Repository.Dto;
+using AppCommon.DataLayer.DataMain.Repository.Dto;
 
 namespace AppCommon.DataLayer.DataMain.Repository.Dmo
 {
@@ -26,10 +26,13 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
                     Marka = s.Marka,
                     Model = s.Model,
                     ImeiNo = s.ImeiNo,
+                    QrKod = s.QrKod,
                     Aciklama = s.Aciklama,
                     Resim = s.Resim,
                     SonKonum = s.SonKonum,
+                    KilometreSayaci = s.KilometreSayaci,
                     SarjOrani = s.SarjOrani,
+                    SarjOluyorMu = s.SarjOluyorMu,
                     ArizaDurumu = s.ArizaDurumu,
                     KilitDurumu = s.KilitDurumu,
                     BlokeDurum = s.BlokeDurum,
@@ -37,10 +40,7 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
                     CreateDate = s.CreateDate,
                     CreatedUserId = s.CreatedUserId,
                     UpdateDate = s.UpdateDate,
-                    UpdatedUserId = s.UpdatedUserId,
-                    KilometreSayaci = s.KilometreSayaci,
-                    SarjOluyorMu = s.SarjOluyorMu,
-                    QrKod = s.QrKod
+                    UpdatedUserId = s.UpdatedUserId
                 });
      }
 
@@ -52,16 +52,16 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
                 UniqueId = Guid.NewGuid(),
                 Sira = 0,
                 Durum = true,
+                KilometreSayaci = 0,
                 SarjOrani = 0,
+                SarjOluyorMu = true,
                 ArizaDurumu = false,
                 KilitDurumu = false,
                 BlokeDurum = false,
                 AcilUyariIstemi = false,
                 CreateDate = DateTime.Now,
                 CreatedUserId = this.dataContext.UserId,
-                UpdatedUserId = 0,
-                KilometreSayaci = 0,
-                SarjOluyorMu = true
+                UpdatedUserId = 0
             };
 
             return row;
@@ -99,10 +99,13 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
          row.Marka = _model.Marka;
          row.Model = _model.Model;
          row.ImeiNo = _model.ImeiNo;
+         row.QrKod = _model.QrKod;
          row.Aciklama = _model.Aciklama;
          row.Resim = _model.Resim;
          row.SonKonum = _model.SonKonum;
+         row.KilometreSayaci = _model.KilometreSayaci;
          row.SarjOrani = _model.SarjOrani;
+         row.SarjOluyorMu = _model.SarjOluyorMu;
          row.ArizaDurumu = _model.ArizaDurumu;
          row.KilitDurumu = _model.KilitDurumu;
          row.BlokeDurum = _model.BlokeDurum;
@@ -111,9 +114,6 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
          row.CreatedUserId = _model.CreatedUserId;
          row.UpdateDate = DateTime.Now;
          row.UpdatedUserId = this.dataContext.UserId;
-         row.KilometreSayaci = _model.KilometreSayaci;
-         row.SarjOluyorMu = _model.SarjOluyorMu;
-         row.QrKod = _model.QrKod;
 
          if (!isNew)
          {
