@@ -5126,7 +5126,7 @@ namespace WebApp1.Codes
 			}
 
 			sbCodes.AppendLine("         self.grid.wrapper.find('#btnSaveAsExcel').kendoButton({");
-			sbCodes.AppendLine("             icon: 'excel',");
+			sbCodes.AppendLine("             icon: 'file-excel',");
 			sbCodes.AppendLine("             click: function () {");
 			sbCodes.AppendLine("                 kendo.ui.progress(self.grid.wrapper, true); //progress On");
 			sbCodes.AppendLine("                 self.grid.saveAsExcel();");
