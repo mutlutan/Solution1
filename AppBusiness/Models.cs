@@ -37,14 +37,7 @@ namespace AppBusiness
     #endregion
 
     #region Araç-İstasyon Api Modelleri Request-Response-Result
-    public class ErrorResponse
-    {
-        [JsonPropertyName("errorCode")]
-        public int ErrorCode { get; set; }
 
-        [JsonPropertyName("errorDetails")]
-        public string ErrorDetails { get; set; }
-    }
     public class AracApiRequestModel
     {
         public string MaptexApiKey { get; set; } = "06AF2D0E-4475-4262-AF39-48061DEC8D2A";
@@ -54,16 +47,7 @@ namespace AppBusiness
         public string FilterRestrictTime { get; set; } = "update-since";
         public DateTime FilterTimeStamp { get; set; } = DateTime.Now.AddDays(-1);
     }
-    public class DucktApiRequestModel
-    {
-        public string DucktBaseServiceUrl { get; set; } = "https://api.duckt.app:8444";
-        public string Token { get; set; } = "";
-        public string VehicleId { get; set; } = "";
-        public string StationId { get; set; } = "";
-        public string UserName { get; set; } = "";
-        public string Password { get; set; } = "";
-        public string Param { get; set; } = "station=0"; //param=> station=stationId, port=portId, vehicle=vehicleId, user
-    }
+    
 
     // Araçların Model
     public class AracModel
@@ -136,258 +120,10 @@ namespace AppBusiness
         [JsonPropertyName("maximumSpeed")]
         public int MaximumSpeed { get; set; }
     }
-    public class AracDataResponse
-    {
-        [JsonPropertyName("IMEI")]
-        public string IMEI { get; set; }
-
-        [JsonPropertyName("timestamp")]
-        public DateTime Timestamp { get; set; }
-
-        [JsonPropertyName("value")]
-        public bool Value { get; set; }
-    }
-    public class AracInfo
-    {
-        [JsonPropertyName("lastContact")]
-        public DateTime LastContact { get; set; }
-
-        [JsonPropertyName("deviceManufacturer")]
-        public string DeviceManufacturer { get; set; }
-
-        [JsonPropertyName("deviceType")]
-        public string DeviceType { get; set; }
-
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        [JsonPropertyName("smsNumber")]
-        public string SmsNumber { get; set; }
-
-        [JsonPropertyName("extendedProperties")]
-        public List<AracExtendedProperty> ExtendedProperties { get; set; }
-    }
-    public class AracExtendedProperty
-    {
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-        [JsonPropertyName("value")]
-        public string Value { get; set; }
-    }
-    public class AracCloneRequest
-    {
-        [JsonPropertyName("IMEI")]
-        public string IMEI { get; set; }
-
-        [JsonPropertyName("Name")]
-        public string Name { get; set; }
-
-        [JsonPropertyName("SmsNumber")]
-        public string SmsNumber { get; set; }
-    }
-    public class AracHizLimitRequest
-    {
-        [JsonPropertyName("SpeedLimit")]
-        public int SpeedLimit { get; set; }
-    }
-    public class AracTemelDonanimYazilimRequest
-    {
-        [JsonPropertyName("LoadCommand")]
-        public string LoadCommand { get; set; }
-    }
+ 
     #endregion
 
-    #region Duckt Api Modelleri
-    public class TokenResponseModel
-    {
-        [JsonPropertyName("jwt")]
-        public string Jwt { get; set; }
-    }
-    public class RegisterVehicleRequestModel
-    {
-        [JsonPropertyName("adapter")]
-        public string Adapter { get; set; }
 
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        [JsonPropertyName("vehicleType")]
-        public string VehicleType { get; set; } //"SCOOTER" veya "BICYCLE"
-
-        [JsonPropertyName("model")]
-        public string Model { get; set; }
-
-        [JsonPropertyName("callbackUrl")]
-        public string CallbackUrl { get; set; }
-    }
-    public class RegisterVehicleResponseModel
-    {
-        [JsonPropertyName("id")]
-        public int Id { get; set; }
-
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        [JsonPropertyName("model")]
-        public string Model { get; set; }
-
-        [JsonPropertyName("adapter")]
-        public string Adapter { get; set; }
-
-        [JsonPropertyName("callbackUrl")]
-        public string CallbackUrl { get; set; }
-    }
-    public class StationRequestModel
-    {
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        [JsonPropertyName("lat")]
-        public double Lat { get; set; }
-
-        [JsonPropertyName("lng")]
-        public double Lng { get; set; }
-    }
-    public class StationResponseModel
-    {
-        [JsonPropertyName("id")]
-        public int Id { get; set; }
-
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        [JsonPropertyName("ducktName")]
-        public string DucktName { get; set; }
-
-        [JsonPropertyName("lat")]
-        public int Lat { get; set; }
-
-        [JsonPropertyName("lng")]
-        public int Lng { get; set; }
-
-        [JsonPropertyName("ports")]
-        public List<Port> Ports { get; set; }
-    }
-    public class Port
-    {
-        [JsonPropertyName("id")]
-        public int Id { get; set; }
-
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-    }
-    public class CallbackRequestModel
-    {
-
-        [JsonPropertyName("status")]
-        public string Status { get; set; } //LOCKED - UNLOCKED
-
-        [JsonPropertyName("station")]
-        public string Station { get; set; }
-
-        [JsonPropertyName("port")]
-        public string Port { get; set; }
-
-        [JsonPropertyName("lat")]
-        public double Lat { get; set; }
-
-        [JsonPropertyName("lng")]
-        public double Lng { get; set; }
-
-        [JsonPropertyName("vehicle")]
-        public string Vehicle { get; set; }
-
-        [JsonPropertyName("vehicleType")]
-        public string VehicleType { get; set; } // SCOOTER - BICYCLE
-
-        [JsonPropertyName("adapter")]
-        public string Adapter { get; set; }
-
-        [JsonPropertyName("time")]
-        public DateTime Time { get; set; }
-
-        [JsonPropertyName("cardId")]
-        public string CardId { get; set; }
-    }
-    public class StatusResponseModel
-    {
-        [JsonPropertyName("status")]
-        public string Status { get; set; }
-
-        [JsonPropertyName("station")]
-        public string Station { get; set; }
-
-        [JsonPropertyName("port")]
-        public string Port { get; set; }
-
-        [JsonPropertyName("lat")]
-        public int Lat { get; set; }
-
-        [JsonPropertyName("lng")]
-        public int Lng { get; set; }
-
-        [JsonPropertyName("vehicle")]
-        public string Vehicle { get; set; }
-
-        [JsonPropertyName("vehicleType")]
-        public string VehicleType { get; set; }
-
-        [JsonPropertyName("adapter")]
-        public string Adapter { get; set; }
-
-        [JsonPropertyName("time")]
-        public DateTime Time { get; set; }
-
-        [JsonPropertyName("cardId")]
-        public string CardId { get; set; }
-    }
-    public class HealthResponseModel
-    {
-        [JsonPropertyName("station")]
-        public string Station { get; set; }
-
-        [JsonPropertyName("isOnline")]
-        public bool IsOnline { get; set; }
-
-        [JsonPropertyName("time")]
-        public DateTime Time { get; set; }
-    }
-    public class VehicleUpdateRequestModel
-    {
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        [JsonPropertyName("vehicleType")]
-        public string VehicleType { get; set; }
-
-        [JsonPropertyName("model")]
-        public string Model { get; set; }
-
-        [JsonPropertyName("callbackUrl")]
-        public string CallbackUrl { get; set; }
-    }
-    public class VehicleUpdateResponseModel
-    {
-        [JsonPropertyName("id")]
-        public int Id { get; set; }
-
-        [JsonPropertyName("adapter")]
-        public string Adapter { get; set; }
-
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        [JsonPropertyName("vehicleType")]
-        public string VehicleType { get; set; }
-
-        [JsonPropertyName("model")]
-        public string Model { get; set; }
-
-        [JsonPropertyName("callbackUrl")]
-        public string CallbackUrl { get; set; }
-    }
-
-    #endregion
 
     #region Mobile Service Modelleri
     public class MoLoginRequest
@@ -535,78 +271,7 @@ namespace AppBusiness
         public decimal Ammount { get; set; }
     }
 
-    public class MoMemberDrivingHistoryRequest
-    {
-        [JsonPropertyName("page")]
-        public int Page { get; set; }
 
-        [JsonPropertyName("pageSize")]
-        public int PageSize { get; set; }
-
-        [JsonPropertyName("dateRange")]
-        public int DateRange { get; set; }
-
-    }
-    public class MoMemberDrivingHistory
-    {
-        public string DrivingDate { get; set; } = "";
-        public decimal Amount { get; set; }
-        public int DrivingTime { get; set; }
-        public string Vehicle { get; set; } = "";
-    }
-
-    public class MoLocationRequest
-    {
-        [JsonPropertyName("latitude")]
-        public double Latitude { get; set; }
-
-        [JsonPropertyName("longitude")]
-        public double Longitude { get; set; }
-
-        [JsonPropertyName("distance")]
-        public int Distance { get; set; } //metre
-
-    }
-
-    public class MoRentVehicleRequest
-    {
-        [JsonPropertyName("uniqCode")]
-        public string UniqCode { get; set; }
-    }
-    public class MoVehicleDetailRequest
-    {
-        [JsonPropertyName("uniqId")]
-        public string UniqId { get; set; }
-    }
-    public class MoVehicleQrCodeRequest
-    {
-        [JsonPropertyName("qrCode")]
-        public string QrCode { get; set; }
-    }
-    public class MoVehicle
-    {
-        public string Type { get; set; } = "";
-        public string Name { get; set; } = "";
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
-        public string UniqId { get; set; } = "";
-        public bool IsAvailable { get; set; }
-        public int Distance { get; set; }//metre
-        public Point Location { get; set; }
-        public double ChargeRate { get; set; }
-    }
-    public class MoStation
-    {
-        public string Type { get; set; } = "";
-        public string Name { get; set; } = "";
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
-        public string UniqId { get; set; } = "";
-        public bool IsAvailable { get; set; }
-        public int Distance { get; set; }//metre
-        public Point Location { get; set; }
-        public int VehicleCount { get; set; }
-    }
 
     public class MoParameter
     {
@@ -614,40 +279,6 @@ namespace AppBusiness
         public Int64 MasterpassMerchantId { get; set; }
     }
 
-    public class MoReservationRequest
-    {
-        [JsonPropertyName("uniqId")]
-        public string UniqId { get; set; }
-
-        [JsonPropertyName("reservationDuration")]
-        public int ReservationDuration { get; set; }
-    }
-    public class RezervasyonInfo
-    {
-        public string UniqId { get; set; }
-        public string Vehicle { get; set; }
-        public string Statu { get; set; }
-        public DateTime ReservationDate { get; set; }
-        public DateTime CreatedDate { get; set; }
-    }
-
-    public class MoVehicleFileRequest
-    {
-        [JsonPropertyName("vehicleImageBase64")]
-        public string VehicleImageBase64 { get; set; }
-
-        [JsonPropertyName("uniqId")]
-        public string UniqId { get; set; }
-    }
-
-    public class MoMemberTripStateRequest
-    {
-        [JsonPropertyName("uniqId")]
-        public string UniqId { get; set; }
-
-        [JsonPropertyName("state")]
-        public string State { get; set; }
-    }
 
     #endregion
 
@@ -829,57 +460,5 @@ namespace AppBusiness
     }
 
     #endregion
-    #region Firebase Token
-    public class MoFcmRegistrationTokenRequest
-    {
-        [JsonPropertyName("fcmRegistrationToken")]
-        public string FcmRegistrationToken { get; set; }
-    }
-    #endregion
-    public class MobileAppState
-    {
-        public string VehicleUniqId { get; set; }
-        public string State { get; set; }
-    }
-    public class MobileAppStateResponse
-    {
-        public string State { get; set; }
-        public DateTime StartDate { get; set; }
-        public decimal UnitPrice { get; set; }
-        public double TripTime { get; set; }
-        public string UniqueId { get; set; }
-        public string QrCode { get; set; }
-        public decimal ChargeRate { get; set; }
-    }
-
-    public class MoCampaignRequest
-    {
-        [JsonPropertyName("campaignId")]
-        public int CampaignId { get; set; }
-    }
-    public class MoCampaingHead
-    {
-        public int Id { get; set; }
-        public string Ad { get; set; }
-        public string GorselUrl { get; set; }
-        public DateTime? BaslangicTarih { get; set; }
-        public DateTime? BitisTarih { get; set; }
-
-    }
-    public class MoCampaing 
-    { 
-        public int Id { get; set; }
-        public int IndirimTurId { get; set; }
-        public int TurId { get; set; }
-        public string IndirimTurAd { get; set; }
-        public string TurAd { get; set; }
-        public string Ad { get; set; }
-        public string GorselUrl { get; set; }
-        public string Icerik { get; set; }
-        public DateTime? BaslangicTarih { get; set; }
-        public DateTime? BitisTarih { get; set; }
-        public decimal IndirimDegeri { get; set; }
-
-    }
 
 }
