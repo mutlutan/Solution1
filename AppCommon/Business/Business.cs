@@ -2784,11 +2784,11 @@ namespace AppCommon.Business
 					Id = 102,
 					LineNumber = 2,
 					TemplateName = "template1",
-					Title = "Arac",//this.dataContext.TranslateTo("xLng.User.ShortTitle"),
-					IconClass = "fa fa-fw fa-4x fa-bicycle",
+					Title = "Uye",//this.dataContext.TranslateTo("xLng.User.ShortTitle"),
+					IconClass = "fa fa-fw fa-4x fa-id-card-o",
 					IconStyle = "color:blue;",
-					DetailUrl = "#/Arac",
-					Query = "Select Count(*) From Arac"
+					DetailUrl = "#/Uye",
+					Query = "Select Count(*) From Uye"
 				});
 
 				response.Data = dashboardList;
