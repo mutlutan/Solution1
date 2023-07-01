@@ -8,8 +8,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using WebApp.Panel.Codes;
-using AppBusiness;
 using AppCommon;
+using AppCommon.Business;
 
 namespace WebApp.Panel.Controllers
 {

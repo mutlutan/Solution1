@@ -1,19 +1,13 @@
-﻿
-using System;
+﻿using System;
 using System.IO;
 using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using WebApi.Codes;
-using AppBusiness;
 using Microsoft.Extensions.Options;
 using Shyjus.BrowserDetection;
 using Microsoft.Extensions.Caching.Memory;
 using System.Reflection;
 using AppCommon;
+using AppCommon.Business;
 
 namespace WebApp.Panel.Codes
 {

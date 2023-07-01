@@ -36,10 +36,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Telerik.DataSource" Version="2.1.2" />
+    <PackageReference Include="GoogleAuthenticator" Version="3.0.0" />
+    <PackageReference Include="MailKit" Version="3.4.1" />
   </ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Business\" />
-	</ItemGroup>
 
 </Project>

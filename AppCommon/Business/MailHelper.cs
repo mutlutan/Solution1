@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 #nullable disable
 
-namespace AppBusiness
+namespace AppCommon.Business
 {
     //gmail göndeririken hata alınıyor olabilir, Google hesabınızın dışarıdan harici bir uygulama tarafından kullanılmasına izin verilmiyor olmasıdır.
     //aşağıdaki linke girip devam et demek yeterli

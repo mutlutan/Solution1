@@ -2,10 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Shyjus.BrowserDetection;
 using WebApi.Codes;
-using AppBusiness;
 using Microsoft.Extensions.Options;
 using AppCommon;
-
+using AppCommon.Business;
 #nullable disable
 
 namespace WebApp.Panel.Controllers

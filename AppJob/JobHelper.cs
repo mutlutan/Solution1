@@ -1,5 +1,5 @@
-﻿using AppBusiness;
-using AppCommon;
+﻿using AppCommon;
+using AppCommon.Business;
 using CronNET;
 using Microsoft.Extensions.Caching.Memory;
 

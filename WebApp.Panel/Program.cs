@@ -1,6 +1,5 @@
-
-using AppBusiness;
 using AppCommon;
+using AppCommon.Business;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using WebApp.Panel.Codes;

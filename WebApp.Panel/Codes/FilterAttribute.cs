@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
-using AppBusiness;
 using AppCommon;
+using AppCommon.Business;
 
 namespace WebApp.Panel.Codes
 {

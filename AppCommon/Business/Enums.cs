@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppBusiness
+namespace AppCommon.Business
 {
 	#region MyRegion
 

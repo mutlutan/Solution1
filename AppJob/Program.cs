@@ -1,5 +1,5 @@
-using AppBusiness;
 using AppCommon;
+using AppCommon.Business;
 using AppJob;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;

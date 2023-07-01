@@ -18,7 +18,7 @@ using AppCommon.DataLayer.DataLog.Models;
 
 #nullable disable
 
-namespace AppBusiness
+namespace AppCommon.Business
 {
 	#region token models
 	public class MoCaptchaToken

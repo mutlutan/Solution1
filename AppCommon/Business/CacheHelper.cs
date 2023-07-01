@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using Telerik.DataSource.Extensions;
 
-namespace AppBusiness
+namespace AppCommon.Business
 {
     public enum EnmCacheKey
     {
