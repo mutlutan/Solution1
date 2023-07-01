@@ -43,7 +43,7 @@ namespace WebApp.Panel.Controllers
             //ViewBag.ActionName = this.ControllerContext.RouteData.Values["action"].ToString();
             ViewBag.Culture = "tr-TR";
             ViewBag.Language = System.Globalization.CultureInfo.GetCultureInfo(ViewBag.Culture).Parent.IetfLanguageTag;
-            ViewBag.GirisImageUrl = "/img/account/giris.png?v." + Codes.MyApp.Version;
+            ViewBag.LoginImageUrl = "/img/account/login.png?v." + Codes.MyApp.Version;
             ViewBag.LogoImageUrl = "/img/logo/logo-yatay.png?v." + Codes.MyApp.Version;
             ViewBag.Title = Codes.MyApp.AppName;
             ViewBag.Version = Codes.MyApp.Version;

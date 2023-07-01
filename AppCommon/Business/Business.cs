@@ -589,19 +589,26 @@ namespace AppCommon.Business
 						this.dataContext.SaveChanges();
 
 						#region Google Auth
-
-						if (!string.IsNullOrEmpty(userModel.GaSecretKey.MyToTrim()))
+						if (this.appConfig.UseAuthenticator)
 						{
-							moUserToken.IsGoogleSecretKey = true;
-							var googleValidate = this.GoogleValidateTwoFactorPIN(userModel.GaSecretKey.MyToTrim(), input.GaCode);
-							if (googleValidate.Success)
+							if (!string.IsNullOrEmpty(userModel.GaSecretKey.MyToTrim()))
 							{
-								moUserToken.IsGoogleValidate = true;
+								moUserToken.IsGoogleSecretKey = true;
+								var googleValidate = this.GoogleValidateTwoFactorPIN(userModel.GaSecretKey.MyToTrim(), input.GaCode);
+								if (googleValidate.Success)
+								{
+									moUserToken.IsGoogleValidate = true;
+								}
+								else
+								{
+									response.Message.Add(dataContext.TranslateTo("xLng.GaKoduGecersiz"));
+								}
 							}
-							else
-							{
-								response.Message.Add(dataContext.TranslateTo("xLng.GaKoduGecersiz"));
-							}
+						}
+						else
+						{
+							moUserToken.IsGoogleSecretKey = true; //GA'yı pas geçer
+							moUserToken.IsGoogleValidate = true; //GA'yı pas geçer
 						}
 
 						response.Data.UserToken = this.GenerateUserToken(EnmClaimType.User, System.Text.Json.JsonSerializer.Serialize(moUserToken));
@@ -610,8 +617,6 @@ namespace AppCommon.Business
 						response.Data.IsGoogleValidate = moUserToken.IsGoogleValidate;
 						response.Data.IsPasswordDateValid = moUserToken.IsPasswordDateValid;
 
-						//response.Data.IsGoogleSecretKey = true; //GA'yı pas geçer
-						//response.Data.IsGoogleValidate = true; //GA'yı pas geçer
 
 						#endregion
 

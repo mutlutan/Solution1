@@ -29,7 +29,7 @@ namespace WebApp.Panel.Codes
 		#endregion
 
 		#region app Version
-		public static string AppName1 { get; set; } = "SmartBike";
+		public static string AppName1 { get; set; } = "Solution1";
 		public static string AppName2 { get; set; } = "Panel";
 		public static string AppName
 		{
