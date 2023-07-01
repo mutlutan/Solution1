@@ -14,7 +14,6 @@ namespace WebApp.Panel.Controllers
             {
                 ViewBag.UserName = "admin";
                 ViewBag.Password = "1";
-                //ViewBag.GaCode = "0";
             }
 
             ViewBag.UseAuthenticator = this.business.appConfig.UseAuthenticator;
