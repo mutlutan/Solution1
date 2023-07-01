@@ -467,9 +467,6 @@ namespace AppBusiness
         [JsonPropertyName("culture")]
         public string Culture { get; set; } = "tr-TR";
 
-        [JsonPropertyName("gsm")]
-        public string Gsm { get; set; } = "";
-
         [JsonPropertyName("email")]
         public string Email { get; set; } = "";
     }

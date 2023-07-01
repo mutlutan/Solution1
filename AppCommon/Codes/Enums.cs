@@ -40,22 +40,7 @@ namespace AppCommon
         Bloke = 2,
         Deleted = 3
     }
-    public enum EnmUyeSmsTur
-    {
-        Login = 1,
-        Register = 2,
-        NewPassword = 3
-    }
-
-    public enum EnmUyeSurusGecmisi
-    {
-        TumZaman = 0,
-        BirHafta = 1,
-        BirAy = 2,
-        UcAy = 3,
-        AltiAy = 4,
-        BirYil = 5
-    }
+ 
     public enum EnmUyeCuzdanHareketTur
     {
         KarttanYukleme = 1,
@@ -70,21 +55,6 @@ namespace AppCommon
         CuzdandanOdeme = 2,
         CuzdanaIade = 3,
         Tahakkuk = 4
-    }
-    public enum EnmVehicleStation
-    {
-        [Description("vehicle")]
-        Vehicle,
-
-        [Description("station")]
-        Station
-    }
-    public enum EnmAracRezervasyonDurum
-    {
-        Rezerve = 11,
-        Kullanildi = 12,
-        Kullanilmadi = 13,
-        IptalEdildi = 14
     }
 
     #endregion
