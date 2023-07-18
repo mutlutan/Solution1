@@ -81,7 +81,7 @@
 	VALUES (1, 0, N'https://qq.com', N'info@qq.com', N'mail.qq.com', 587, 0, N'info@qq.com', N'123', N'AIzaSyDHnQDsewS54EKaP3Rkxuh3npv6uW60mko', N'https://ffsapi.yourassetsonline.com:8446', N'644BEEC9-9875-466C-9A6D-DC2F01285FCC',60,0,0);
 	
 	/*Role Tanımları*/
-	CREATE SEQUENCE dbo.sqRole AS INT START WITH 2001 INCREMENT BY 13; 
+	CREATE SEQUENCE dbo.sqRole AS INT START WITH 2001 INCREMENT BY 1; 
 	CREATE TABLE dbo.Role(
 		Id			INT NOT NULL,
 
@@ -101,7 +101,6 @@
 	CREATE UNIQUE INDEX UX_Role_Name ON Role (Name);
 	INSERT INTO Role (Id, UniqueId, IsActive, LineNumber, Name) VALUES (0, newid(), 0, -9, N'');
 	INSERT INTO Role (Id, UniqueId, IsActive, LineNumber, Name) VALUES (1001, newid(), 1, -8, N'Admin');
-	INSERT INTO Role (Id, UniqueId, IsActive, LineNumber, Name) VALUES (1002, newid(), 1, -7, N'Supervisor');
 	INSERT INTO Role (Id, UniqueId, IsActive, LineNumber, Name) VALUES (Next Value For dbo.sqRole, newid(), 1, 1, N'User');
 
 	/*Cinsiyet*/
@@ -158,11 +157,10 @@
 	CREATE INDEX IX_User_IsActive ON [User] (IsActive);
 	CREATE INDEX IX_User_CreateDate ON [User] (CreateDate);
 	INSERT INTO [User] (Id, IsActive, IsEmailConfirmed, UserName, UserPassword, RoleIds, GaSecretKey, UniqueId) VALUES (0, 0, 0, N'', N'', 0, N'', newid());
-	INSERT INTO [User] (Id, IsActive, IsEmailConfirmed, UserName, UserPassword, RoleIds, GaSecretKey, UniqueId) VALUES (Next Value For dbo.sqUser, 1, 1, N'Admin', N'07', '1001', N'3fed0d4a-6e0a-408f-af50-caced92fafc4', newid());
-	INSERT INTO [User] (Id, IsActive, IsEmailConfirmed, UserName, UserPassword, RoleIds, GaSecretKey, UniqueId) VALUES (Next Value For dbo.sqUser, 1, 1, N'Developer', N'07', '1001', N'6740c820-5086-49ed-b70a-daec330f3d77', newid());
-	INSERT INTO [User] (Id, IsActive, IsEmailConfirmed, UserName, UserPassword, RoleIds, GaSecretKey, UniqueId) VALUES (Next Value For dbo.sqUser, 1, 1, N'rubuplus', N'07', '1001', N'40d6becd-ee0b-4a4c-a96f-8177a2ae4754', newid());
-	INSERT INTO [User] (Id, IsActive, IsEmailConfirmed, UserName, UserPassword, RoleIds, GaSecretKey, UniqueId) VALUES (Next Value For dbo.sqUser, 1, 1, N'scepni', N'070A0602030E', '1001', N'fe98b69d-c16a-47b3-9d4f-9b4ba73ee40e', newid());
-	INSERT INTO [User] (Id, IsActive, IsEmailConfirmed, UserName, UserPassword, RoleIds, GaSecretKey, UniqueId) VALUES (Next Value For dbo.sqUser, 1, 1, N'Per1', N'07', '2027', N'', newid());
+	INSERT INTO [User] (Id, IsActive, IsEmailConfirmed, UserName, UserPassword, RoleIds, GaSecretKey, UniqueId) VALUES (Next Value For dbo.sqUser, 1, 1, N'Admin', N'07', '1001', N'', newid());
+	INSERT INTO [User] (Id, IsActive, IsEmailConfirmed, UserName, UserPassword, RoleIds, GaSecretKey, UniqueId) VALUES (Next Value For dbo.sqUser, 1, 1, N'Developer1', N'07', '1001', N'', newid());
+	INSERT INTO [User] (Id, IsActive, IsEmailConfirmed, UserName, UserPassword, RoleIds, GaSecretKey, UniqueId) VALUES (Next Value For dbo.sqUser, 1, 1, N'Developer2', N'07', '1001', N'', newid());
+	INSERT INTO [User] (Id, IsActive, IsEmailConfirmed, UserName, UserPassword, RoleIds, GaSecretKey, UniqueId) VALUES (Next Value For dbo.sqUser, 1, 1, N'Person1', N'07', '2001', N'', newid());
 
 
 	/*Dashboard Tanımları*/

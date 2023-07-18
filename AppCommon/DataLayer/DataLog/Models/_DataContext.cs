@@ -151,7 +151,7 @@ namespace AppCommon.DataLayer.DataLog.Models
 		{
 			string rV = "";
 
-			var resourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(Assembly.GetExecutingAssembly().GetName().Name + ".SqlScript." + fileName);
+			var resourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(Assembly.GetExecutingAssembly().GetName().Name + ".DataLayer.DataLog.SqlScript." + fileName);
 			if (resourceStream != null)
 			{
 				using var reader = new StreamReader(resourceStream, Encoding.UTF8);
@@ -164,8 +164,9 @@ namespace AppCommon.DataLayer.DataLog.Models
 		private StringBuilder CreateTables()
 		{
 			var LogList = new System.Text.StringBuilder();
-
-			LogList.Append(this.RunScript(";", GetResourceSqlScript("111_Tables.sql")).ToString() + "Tablolar oluşturuldu. \n");
+			string sqlScriptText = GetResourceSqlScript("111_Tables.sql");
+			string sonucText = this.RunScript(";", sqlScriptText).ToString();
+			LogList.Append(sonucText + "Tablolar oluşturuldu. \n");
 
 			return LogList;
 		}
@@ -173,8 +174,9 @@ namespace AppCommon.DataLayer.DataLog.Models
 		private StringBuilder CreateViews()
 		{
 			var LogList = new System.Text.StringBuilder();
-
-			LogList.Append(this.RunScriptWithGo(GetResourceSqlScript("201_Views.sql")).ToString() + "Viewlar oluşturuldu & güncellendi. \n");
+			string sqlScriptText = GetResourceSqlScript("201_Views.sql");
+			string sonucText = this.RunScriptWithGo(sqlScriptText).ToString();
+			LogList.Append(sonucText + "Viewlar oluşturuldu & güncellendi. \n");
 
 			return LogList;
 		}

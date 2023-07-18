@@ -340,7 +340,7 @@ namespace AppCommon.DataLayer.DataMain.Models
         {
             string rV = "";
 
-            var resourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(Assembly.GetExecutingAssembly().GetName().Name + ".SqlScript." + fileName);
+            var resourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(Assembly.GetExecutingAssembly().GetName().Name + ".DataLayer.DataMain.SqlScript." + fileName);
             if (resourceStream != null)
             {
                 using var reader = new StreamReader(resourceStream, Encoding.UTF8);
