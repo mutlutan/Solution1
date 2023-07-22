@@ -39,6 +39,14 @@
  }
 ,
  {
+     "key" : "xLng.Uye.IsActive",
+     "value": {
+         "tr": "IsActive",
+         "en": "IsActive"
+     }
+ }
+,
+ {
      "key" : "xLng.Uye.UniqueId",
      "value": {
          "tr": "Unique Id",
@@ -47,10 +55,10 @@
  }
 ,
  {
-     "key" : "xLng.Uye.UyeDurumId",
+     "key" : "xLng.Uye.IsConfirmed",
      "value": {
-         "tr": "Üye Durumu",
-         "en": "Member Status"
+         "tr": "IsConfirmed",
+         "en": "IsConfirmed"
      }
  }
 ,
@@ -63,82 +71,58 @@
  }
 ,
  {
-     "key" : "xLng.Uye.UyelikTarihi",
+     "key" : "xLng.Uye.NameSurname",
      "value": {
-         "tr": "Üyelik Tarihi",
-         "en": "UyelikTarihi"
+         "tr": "NameSurname",
+         "en": "NameSurname"
      }
  }
 ,
  {
-     "key" : "xLng.Uye.Email",
+     "key" : "xLng.Uye.CountryCode",
      "value": {
-         "tr": "E-mail",
-         "en": "E-mail"
+         "tr": "CountryCode",
+         "en": "CountryCode"
      }
  }
 ,
  {
-     "key" : "xLng.Uye.Sifre",
+     "key" : "xLng.Uye.UserName",
      "value": {
-         "tr": "Sifre",
-         "en": "Password"
+         "tr": "UserName",
+         "en": "UserName"
      }
  }
 ,
  {
-     "key" : "xLng.Uye.KimlikNumarasi",
+     "key" : "xLng.Uye.UserPassword",
      "value": {
-         "tr": "Kimlik Numarası",
-         "en": "Identification Number"
+         "tr": "UserPassword",
+         "en": "UserPassword"
      }
  }
 ,
  {
-     "key" : "xLng.Uye.Ad",
+     "key" : "xLng.Uye.SessionGuid",
      "value": {
-         "tr": "Ad",
-         "en": "Ad"
+         "tr": "SessionGuid",
+         "en": "SessionGuid"
      }
  }
 ,
  {
-     "key" : "xLng.Uye.Soyad",
+     "key" : "xLng.Uye.ValidityDate",
      "value": {
-         "tr": "Soyad",
-         "en": "Soyad"
+         "tr": "ValidityDate",
+         "en": "ValidityDate"
      }
  }
 ,
  {
-     "key" : "xLng.Uye.Gsm",
+     "key" : "xLng.Uye.CreateDate",
      "value": {
-         "tr": "Gsm No",
-         "en": "Gsm Number"
-     }
- }
-,
- {
-     "key" : "xLng.Uye.DogumTarihi",
-     "value": {
-         "tr": "Doğum Tarihi",
-         "en": "Date Of Birth"
-     }
- }
-,
- {
-     "key" : "xLng.Uye.UyelikDogrulama",
-     "value": {
-         "tr": "Üyelik Doğrulama",
-         "en": "Membership Verification"
-     }
- }
-,
- {
-     "key" : "xLng.Uye.CinsiyetId",
-     "value": {
-         "tr": "Cinsiyet ",
-         "en": "Gender"
+         "tr": "Eklenme Zamanı",
+         "en": "Time To Add"
      }
  }
 ,
@@ -151,66 +135,26 @@
  }
 ,
  {
-     "key" : "xLng.Uye.SifreSifirlamaKod",
+     "key" : "xLng.Uye.CreatedUserId",
      "value": {
-         "tr": "Şifre Sıfırlama Kodu",
-         "en": "Password Reset Code"
+         "tr": "Ekleyen Kullanıcı",
+         "en": "User Who Added"
      }
  }
 ,
  {
-     "key" : "xLng.Uye.KvkkOnayi",
+     "key" : "xLng.Uye.UpdateDate",
      "value": {
-         "tr": "KVKK Onayi",
-         "en": "Kvkk Approval"
+         "tr": "Değiştirme Zamanı",
+         "en": "Update Time"
      }
  }
 ,
  {
-     "key" : "xLng.Uye.UyelikSozlesmeOnayi",
+     "key" : "xLng.Uye.UpdatedUserId",
      "value": {
-         "tr": "Üyelik Sözleşme Onayı",
-         "en": "Membership Agreement Confirmation"
-     }
- }
-,
- {
-     "key" : "xLng.Uye.AydinlatmaMetniOnayi",
-     "value": {
-         "tr": "Aydınlatma Metni Onayı",
-         "en": "Lighting Text Approval"
-     }
- }
-,
- {
-     "key" : "xLng.Uye.CuzdanBakiye",
-     "value": {
-         "tr": "Bakiye",
-         "en": "Balance"
-     }
- }
-,
- {
-     "key" : "xLng.Uye.MsisdnDogrulama",
-     "value": {
-         "tr": "MsisdnDogrulama",
-         "en": "MsisdnDogrulama"
-     }
- }
-,
- {
-     "key" : "xLng.Uye.FcmRegistrationToken",
-     "value": {
-         "tr": "FcmRegistrationToken",
-         "en": "FcmRegistrationToken"
-     }
- }
-,
- {
-     "key" : "xLng.Uye.MobileAppState",
-     "value": {
-         "tr": "MobileAppState",
-         "en": "MobileAppState"
+         "tr": "Değiştiren Kullanıcı",
+         "en": "User Who Changed"
      }
  }
 ]

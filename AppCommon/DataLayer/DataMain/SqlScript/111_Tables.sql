@@ -281,6 +281,18 @@
 
 	/*  M O D U L   */
 
+	/*Uye(Müşteri) Durumu*/
+	CREATE TABLE dbo.UyeDurum (
+		Id			INT NOT NULL,
+		
+		Ad			NVARCHAR(50),
+
+		CONSTRAINT PK_UyeDurum PRIMARY KEY (Id)
+	);
+	INSERT INTO UyeDurum (Id, Ad) VALUES (0, N'Pasif');
+	INSERT INTO UyeDurum (Id, Ad) VALUES (1, N'Aktif');
+	INSERT INTO UyeDurum (Id, Ad) VALUES (2, N'Bloke');
+	INSERT INTO UyeDurum (Id, Ad) VALUES (3, N'Deleted'); /*(müşteri açısından delete anlamında)*/
 
 	/*Üye Grubu (Standart,Influencer vb.)*/
 	CREATE SEQUENCE dbo.sqUyeGrup AS INT START WITH 1 INCREMENT BY 1;
@@ -302,9 +314,10 @@
 	CREATE TABLE dbo.Uye(
 		Id								INT NOT NULL,
 
-		IsActive		BIT NOT NULL,
-		IsConfirmed		BIT NOT NULL, /* Is Email Confirmed */
+		UyeDurumId		INT NOT NULL,/* 0-Aktif, 1-Pasif, 2-Bloke, 3-Deleted(müşteri açısından delete anlamında) */
 		UyeGrupId		INT NOT NULL,
+
+		IsConfirmed		BIT NOT NULL, /* Is Email Confirmed */
 
 		NameSurname		NVARCHAR(100), 
 		CountryCode		NVARCHAR(50), /*ülke*/
@@ -323,6 +336,7 @@
 		UpdatedUserId	INT,
 
 		CONSTRAINT PK_Uye PRIMARY KEY  (Id),
+		CONSTRAINT FK_Uye_UyeDurumId FOREIGN KEY (UyeDurumId) REFERENCES UyeDurum(Id),
 		CONSTRAINT FK_Uye_UyeGrupId FOREIGN KEY (UyeGrupId) REFERENCES UyeGrup(Id)
     );
 

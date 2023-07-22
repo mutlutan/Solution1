@@ -85,18 +85,33 @@ namespace AppCommon
         public string CaptchaToken { get; set; } = "";
     }
 
-    public class MoBaseToken
-    {
-        public int UserId { get; set; }
-        public string UniqueId { get; set; } = "";
-        public string Culture { get; set; } = "tr-TR";
+	public class MoCaptchaToken
+	{
+		public string Code { get; set; } = "";
+	}
 
-    }
 
-    #endregion
+	public class MoUserToken
+	{
+		public string SessionGuid { get; set; } = "";
+		public string Culture { get; set; } = "tr-TR";
+		public EnmYetkiGrup YetkiGrup { get; set; }
+		public int UserId { get; set; }
+		public string UserName { get; set; } = "";
+		public bool IsUserLogin { get; set; } = false;
+		public bool IsGoogleSecretKey { get; set; } = false;
+		public bool IsGoogleValidate { get; set; } = false;
 
-    #region Google Authenticator
-    public class MoGoogleAuthenticatorSetupResponse
+		public string RoleIds { get; set; } = "";
+		public string NameSurname { get; set; } = "";
+
+		public bool IsPasswordDateValid { get; set; } = false;
+	}
+
+	#endregion
+
+	#region Google Authenticator
+	public class MoGoogleAuthenticatorSetupResponse
     {
         public string GaCode { get; set; } = "";
         public string GaSecretKey { get; set; } = "";

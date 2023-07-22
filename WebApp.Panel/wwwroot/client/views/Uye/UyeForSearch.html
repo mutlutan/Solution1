@@ -27,8 +27,9 @@
                          return kendo.stringify(data);
                      }
                      else if (operation === 'create' || operation === 'update') {
-                         data.UyelikTarihi = kendo.toString(data.UyelikTarihi, 's');
-                         data.DogumTarihi = kendo.toString(data.DogumTarihi, 's');
+                         data.ValidityDate = kendo.toString(data.ValidityDate, 's');
+                         data.CreateDate = kendo.toString(data.CreateDate, 's');
+                         data.UpdateDate = kendo.toString(data.UpdateDate, 's');
                          return kendo.stringify(data);
                      }
                      else if (operation === 'destroy') {
@@ -45,36 +46,24 @@
                      id: self.primaryKey,
                      fields: {
                          Id: { type: 'number', defaultValue: null  },
-                         UniqueId: { type: 'string', editable:false },
-                         UyeDurumId: { type: 'number' },
+                         IsActive: { type: 'boolean' },
+                         IsConfirmed: { type: 'boolean' },
                          UyeGrupId: { type: 'number' },
-                         UyelikTarihi: { type: 'date', editable:false },
-                         Email: { type: 'string' },
-                         Sifre: { type: 'string' },
-                         KimlikNumarasi: { type: 'string' },
-                         Ad: { type: 'string' },
-                         Soyad: { type: 'string' },
-                         Gsm: { type: 'string' },
-                         DogumTarihi: { type: 'date' },
-                         CinsiyetId: { type: 'number' },
+                         NameSurname: { type: 'string' },
+                         CountryCode: { type: 'string' },
                          Avatar: { type: 'string' },
-                         UyelikDogrulama: { type: 'boolean' },
-                         SifreSifirlamaKod: { type: 'string' },
-                         KvkkOnayi: { type: 'boolean' },
-                         UyelikSozlesmeOnayi: { type: 'boolean' },
-                         AydinlatmaMetniOnayi: { type: 'boolean' },
-                         CuzdanBakiye: { type: 'number' },
-                         MsisdnDogrulama: { type: 'boolean' },
-                         FcmRegistrationToken: { type: 'string' },
-                         MobileAppState: { type: 'string' },
-                         CcUyeDurumIdAd: { type: 'string' },
-                         CcUyeGrupIdAd: { type: 'string' },
-                         CcCinsiyetIdAd: { type: 'string' },
-                         CcUyelikDogrulama: { type: 'string' },
-                         CcKvkkOnayi: { type: 'string' },
-                         CcUyelikSozlesmeOnayi: { type: 'string' },
-                         CcAydinlatmaMetniOnayi: { type: 'string' },
-                         CcMsisdnDogrulama: { type: 'string' }
+                         UserName: { type: 'string' },
+                         UserPassword: { type: 'string' },
+                         SessionGuid: { type: 'string' },
+                         ValidityDate: { type: 'date' },
+                         UniqueId: { type: 'string', editable:false },
+                         CreateDate: { type: 'date', editable:false },
+                         CreatedUserId: { type: 'number', editable:false },
+                         UpdateDate: { type: 'date', editable:false },
+                         UpdatedUserId: { type: 'number', editable:false },
+                         CcIsActive: { type: 'string' },
+                         CcIsConfirmed: { type: 'string' },
+                         CcUyeGrupIdAd: { type: 'string' }
                      }
                  }
              },
@@ -107,37 +96,25 @@
                              url: self.apiUrlPrefix + '/GetByNew', type: 'GET', dataType: 'json', async: false,
                              success: function (result) {
                                  e.items[0].Id = result.Id;
-                                 e.items[0].UniqueId = result.UniqueId;
-                                 e.items[0].UyeDurumId = result.UyeDurumId;
+                                 e.items[0].IsActive = result.IsActive;
+                                 e.items[0].IsConfirmed = result.IsConfirmed;
                                  e.items[0].UyeGrupId = result.UyeGrupId;
-                                 e.items[0].UyelikTarihi = kendo.parseDate(result.UyelikTarihi);
-                                 e.items[0].Email = result.Email;
-                                 e.items[0].Sifre = result.Sifre;
-                                 e.items[0].KimlikNumarasi = result.KimlikNumarasi;
-                                 e.items[0].Ad = result.Ad;
-                                 e.items[0].Soyad = result.Soyad;
-                                 e.items[0].Gsm = result.Gsm;
-                                 e.items[0].DogumTarihi = kendo.parseDate(result.DogumTarihi);
-                                 e.items[0].CinsiyetId = result.CinsiyetId;
+                                 e.items[0].NameSurname = result.NameSurname;
+                                 e.items[0].CountryCode = result.CountryCode;
                                  e.items[0].Avatar = result.Avatar;
-                                 e.items[0].UyelikDogrulama = result.UyelikDogrulama;
-                                 e.items[0].SifreSifirlamaKod = result.SifreSifirlamaKod;
-                                 e.items[0].KvkkOnayi = result.KvkkOnayi;
-                                 e.items[0].UyelikSozlesmeOnayi = result.UyelikSozlesmeOnayi;
-                                 e.items[0].AydinlatmaMetniOnayi = result.AydinlatmaMetniOnayi;
-                                 e.items[0].CuzdanBakiye = result.CuzdanBakiye;
-                                 e.items[0].MsisdnDogrulama = result.MsisdnDogrulama;
-                                 e.items[0].FcmRegistrationToken = result.FcmRegistrationToken;
-                                 e.items[0].MobileAppState = result.MobileAppState;
+                                 e.items[0].UserName = result.UserName;
+                                 e.items[0].UserPassword = result.UserPassword;
+                                 e.items[0].SessionGuid = result.SessionGuid;
+                                 e.items[0].ValidityDate = kendo.parseDate(result.ValidityDate);
+                                 e.items[0].UniqueId = result.UniqueId;
+                                 e.items[0].CreateDate = kendo.parseDate(result.CreateDate);
+                                 e.items[0].CreatedUserId = result.CreatedUserId;
+                                 e.items[0].UpdateDate = kendo.parseDate(result.UpdateDate);
+                                 e.items[0].UpdatedUserId = result.UpdatedUserId;
                                  //computed alanların tanımlanması
-                                 e.items[0].CcUyeDurumIdAd = result.CcUyeDurumIdAd;
+                                 e.items[0].CcIsActive = result.CcIsActive;
+                                 e.items[0].CcIsConfirmed = result.CcIsConfirmed;
                                  e.items[0].CcUyeGrupIdAd = result.CcUyeGrupIdAd;
-                                 e.items[0].CcCinsiyetIdAd = result.CcCinsiyetIdAd;
-                                 e.items[0].CcUyelikDogrulama = result.CcUyelikDogrulama;
-                                 e.items[0].CcKvkkOnayi = result.CcKvkkOnayi;
-                                 e.items[0].CcUyelikSozlesmeOnayi = result.CcUyelikSozlesmeOnayi;
-                                 e.items[0].CcAydinlatmaMetniOnayi = result.CcAydinlatmaMetniOnayi;
-                                 e.items[0].CcMsisdnDogrulama = result.CcMsisdnDogrulama;
                                  //filterdan gelen default value set için
                                  $(self.opt.filters).each(function (index, row) {
                                      if (row.filterColumnName !== 'Id') {
@@ -182,11 +159,20 @@
              },
              {
                  hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Uye.UyeDurumId'),
-                 field: 'UyeDurumId',
-                 template: '#:CcUyeDurumIdAd#',
+                 title: mnLang.TranslateWithWord('xLng.Uye.IsActive'),
+                 field: 'IsActive',
+                 template: '#:CcIsActive#',
                  attributes: { 'class': 'text-nowrap' },
-                 width: '100px'
+                 width: '80px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.Uye.IsConfirmed'),
+                 field: 'IsConfirmed',
+                 template: '#:CcIsConfirmed#',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '80px'
              },
 
              {
@@ -200,65 +186,48 @@
 
              {
                  hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Uye.UyelikTarihi'),
-                 field: 'UyelikTarihi',
-                 format: '{0:g}',
-                 attributes: { 'class': 'text-nowrap' },
-                 width: '145px'
-             },
-
-             {
-                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Uye.Email'),
-                 field: 'Email',
+                 title: mnLang.TranslateWithWord('xLng.Uye.NameSurname'),
+                 field: 'NameSurname',
                  attributes: { 'class': 'text-nowrap' },
                  width: '130px'
              },
 
              {
                  hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Uye.Sifre'),
-                 field: 'Sifre',
+                 title: mnLang.TranslateWithWord('xLng.Uye.CountryCode'),
+                 field: 'CountryCode',
                  attributes: { 'class': 'text-nowrap' },
                  width: '130px'
              },
 
              {
                  hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Uye.KimlikNumarasi'),
-                 field: 'KimlikNumarasi',
+                 title: mnLang.TranslateWithWord('xLng.Uye.UserName'),
+                 field: 'UserName',
                  attributes: { 'class': 'text-nowrap' },
                  width: '130px'
              },
 
              {
                  hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Uye.Ad'),
-                 field: 'Ad',
+                 title: mnLang.TranslateWithWord('xLng.Uye.UserPassword'),
+                 field: 'UserPassword',
                  attributes: { 'class': 'text-nowrap' },
                  width: '130px'
              },
 
              {
                  hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Uye.Soyad'),
-                 field: 'Soyad',
+                 title: mnLang.TranslateWithWord('xLng.Uye.SessionGuid'),
+                 field: 'SessionGuid',
                  attributes: { 'class': 'text-nowrap' },
                  width: '130px'
              },
 
              {
                  hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Uye.Gsm'),
-                 field: 'Gsm',
-                 attributes: { 'class': 'text-nowrap' },
-                 width: '130px'
-             },
-
-             {
-                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Uye.DogumTarihi'),
-                 field: 'DogumTarihi',
+                 title: mnLang.TranslateWithWord('xLng.Uye.ValidityDate'),
+                 field: 'ValidityDate',
                  format: '{0:d}',
                  attributes: { 'class': 'text-nowrap' },
                  width: '110px'
@@ -266,95 +235,8 @@
 
              {
                  hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Uye.UyelikDogrulama'),
-                 field: 'UyelikDogrulama',
-                 template: '#:CcUyelikDogrulama#',
-                 attributes: { 'class': 'text-nowrap' },
-                 width: '80px'
-             },
-
-             {
-                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Uye.CinsiyetId'),
-                 field: 'CinsiyetId',
-                 template: '#:CcCinsiyetIdAd#',
-                 attributes: { 'class': 'text-nowrap' },
-                 width: '100px'
-             },
-
-             {
-                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
                  title: mnLang.TranslateWithWord('xLng.Uye.Avatar'),
                  field: 'Avatar',
-                 attributes: { 'class': 'text-nowrap' },
-                 width: '130px'
-             },
-
-             {
-                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Uye.SifreSifirlamaKod'),
-                 field: 'SifreSifirlamaKod',
-                 attributes: { 'class': 'text-nowrap' },
-                 width: '130px'
-             },
-
-             {
-                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Uye.KvkkOnayi'),
-                 field: 'KvkkOnayi',
-                 template: '#:CcKvkkOnayi#',
-                 attributes: { 'class': 'text-nowrap' },
-                 width: '80px'
-             },
-
-             {
-                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Uye.UyelikSozlesmeOnayi'),
-                 field: 'UyelikSozlesmeOnayi',
-                 template: '#:CcUyelikSozlesmeOnayi#',
-                 attributes: { 'class': 'text-nowrap' },
-                 width: '80px'
-             },
-
-             {
-                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Uye.AydinlatmaMetniOnayi'),
-                 field: 'AydinlatmaMetniOnayi',
-                 template: '#:CcAydinlatmaMetniOnayi#',
-                 attributes: { 'class': 'text-nowrap' },
-                 width: '80px'
-             },
-
-             {
-                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Uye.CuzdanBakiye'),
-                 field: 'CuzdanBakiye',
-                 format: '{0:n2}',
-                 attributes: { 'class': 'text-nowrap' },
-                 width: '100px'
-             },
-
-             {
-                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Uye.MsisdnDogrulama'),
-                 field: 'MsisdnDogrulama',
-                 template: '#:CcMsisdnDogrulama#',
-                 attributes: { 'class': 'text-nowrap' },
-                 width: '80px'
-             },
-
-             {
-                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Uye.FcmRegistrationToken'),
-                 field: 'FcmRegistrationToken',
-                 attributes: { 'class': 'text-nowrap' },
-                 width: '130px'
-             },
-
-             {
-                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Uye.MobileAppState'),
-                 field: 'MobileAppState',
                  attributes: { 'class': 'text-nowrap' },
                  width: '130px'
              },

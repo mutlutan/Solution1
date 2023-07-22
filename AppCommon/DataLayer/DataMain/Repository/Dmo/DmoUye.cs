@@ -19,31 +19,22 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
                 .Select(s => new DtoUye(this.dataContext)
                 {
                     Id = s.Id,
-                    UniqueId = s.UniqueId,
                     UyeDurumId = s.UyeDurumId,
+                    IsConfirmed = s.IsConfirmed,
                     UyeGrupId = s.UyeGrupId,
-                    UyelikTarihi = s.UyelikTarihi,
-                    Email = s.Email,
-                    Sifre = string.Empty,
-                    KimlikNumarasi = s.KimlikNumarasi,
-                    Ad = s.Ad,
-                    Soyad = s.Soyad,
-                    Gsm = s.Gsm,
-                    DogumTarihi = s.DogumTarihi,
-                    CinsiyetId = s.CinsiyetId,
+                    NameSurname = s.NameSurname,
+                    CountryCode = s.CountryCode,
                     Avatar = s.Avatar,
-                    UyelikDogrulama = s.UyelikDogrulama,
-                    SifreSifirlamaKod = s.SifreSifirlamaKod,
-                    KvkkOnayi = s.KvkkOnayi,
-                    UyelikSozlesmeOnayi = s.UyelikSozlesmeOnayi,
-                    AydinlatmaMetniOnayi = s.AydinlatmaMetniOnayi,
-                    CuzdanBakiye = s.CuzdanBakiye,
-                    MsisdnDogrulama = s.MsisdnDogrulama,
-                    FcmRegistrationToken = s.FcmRegistrationToken,
-                    MobileAppState = s.MobileAppState,
-                    CcUyeDurumIdAd = s.UyeDurum.Ad.MyToTrim(),
-                    CcUyeGrupIdAd = s.UyeGrup.Ad.MyToTrim(),
-                    CcCinsiyetIdAd = s.Cinsiyet.Ad.MyToTrim()
+                    UserName = s.UserName,
+                    UserPassword = s.UserPassword,
+                    SessionGuid = s.SessionGuid,
+                    ValidityDate = s.ValidityDate,
+                    UniqueId = s.UniqueId,
+                    CreateDate = s.CreateDate,
+                    CreatedUserId = s.CreatedUserId,
+                    UpdateDate = s.UpdateDate,
+                    UpdatedUserId = s.UpdatedUserId,
+                    CcUyeGrupIdAd = s.UyeGrup.Ad.MyToTrim()
                 });
      }
 
@@ -52,16 +43,13 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
             //Default değerler ile bir row döner, Burada field default değerleri veriliyor...
             DtoUye row = new(this.dataContext) {
                 Id = 0,
-                UniqueId = Guid.NewGuid(),
                 UyeDurumId = 0,
+                IsConfirmed = true,
                 UyeGrupId = 0,
-                CinsiyetId = 0,
-                UyelikDogrulama = false,
-                KvkkOnayi = false,
-                UyelikSozlesmeOnayi = false,
-                AydinlatmaMetniOnayi = false,
-                CuzdanBakiye = 0,
-                MsisdnDogrulama = true
+                UniqueId = Guid.NewGuid(),
+                CreateDate = DateTime.Now,
+                CreatedUserId = this.dataContext.UserId,
+                UpdatedUserId = 0
             };
 
             return row;
@@ -92,33 +80,21 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
                 }
             }
 
-         row.UniqueId = _model.UniqueId;
          row.UyeDurumId = _model.UyeDurumId;
+         row.IsConfirmed = _model.IsConfirmed;
          row.UyeGrupId = _model.UyeGrupId;
-         row.UyelikTarihi = _model.UyelikTarihi;
-         row.Email = _model.Email;
-
-         if (!string.IsNullOrEmpty(_model.Sifre))
-         {
-             row.Sifre = _model.Sifre.MyToEncryptPassword();
-         }
-
-         row.KimlikNumarasi = _model.KimlikNumarasi;
-         row.Ad = _model.Ad;
-         row.Soyad = _model.Soyad;
-         row.Gsm = _model.Gsm;
-         row.DogumTarihi = _model.DogumTarihi;
-         row.CinsiyetId = _model.CinsiyetId;
+         row.NameSurname = _model.NameSurname;
+         row.CountryCode = _model.CountryCode;
          row.Avatar = _model.Avatar;
-         row.UyelikDogrulama = _model.UyelikDogrulama;
-         row.SifreSifirlamaKod = _model.SifreSifirlamaKod;
-         row.KvkkOnayi = _model.KvkkOnayi;
-         row.UyelikSozlesmeOnayi = _model.UyelikSozlesmeOnayi;
-         row.AydinlatmaMetniOnayi = _model.AydinlatmaMetniOnayi;
-         row.CuzdanBakiye = _model.CuzdanBakiye;
-         row.MsisdnDogrulama = _model.MsisdnDogrulama;
-         row.FcmRegistrationToken = _model.FcmRegistrationToken;
-         row.MobileAppState = _model.MobileAppState;
+         row.UserName = _model.UserName;
+         row.UserPassword = _model.UserPassword;
+         row.SessionGuid = _model.SessionGuid;
+         row.ValidityDate = _model.ValidityDate;
+         row.UniqueId = _model.UniqueId;
+         row.CreateDate = _model.CreateDate;
+         row.CreatedUserId = _model.CreatedUserId;
+         row.UpdateDate = DateTime.Now;
+         row.UpdatedUserId = this.dataContext.UserId;
 
          if (!isNew)
          {

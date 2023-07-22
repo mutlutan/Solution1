@@ -11,29 +11,15 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dto
     {
         protected readonly MainDataContext dataContext;
 
-        public string CcUyeDurumIdAd { get; set; } = "";
+        public string CcIsActive
+        {
+            get { return (0==0 ? this.dataContext.TranslateTo("xLng.Aktif") : this.dataContext.TranslateTo("xLng.Pasif")); }
+        }
+        public string CcIsConfirmed
+        {
+            get { return (this.IsConfirmed ? this.dataContext.TranslateTo("xLng.Aktif") : this.dataContext.TranslateTo("xLng.Pasif")); }
+        }
         public string CcUyeGrupIdAd { get; set; } = "";
-        public string CcCinsiyetIdAd { get; set; } = "";
-        public string CcUyelikDogrulama
-        {
-            get { return (this.UyelikDogrulama ? this.dataContext.TranslateTo("xLng.Aktif") : this.dataContext.TranslateTo("xLng.Pasif")); }
-        }
-        public string CcKvkkOnayi
-        {
-            get { return (this.KvkkOnayi ? this.dataContext.TranslateTo("xLng.Aktif") : this.dataContext.TranslateTo("xLng.Pasif")); }
-        }
-        public string CcUyelikSozlesmeOnayi
-        {
-            get { return (this.UyelikSozlesmeOnayi ? this.dataContext.TranslateTo("xLng.Aktif") : this.dataContext.TranslateTo("xLng.Pasif")); }
-        }
-        public string CcAydinlatmaMetniOnayi
-        {
-            get { return (this.AydinlatmaMetniOnayi ? this.dataContext.TranslateTo("xLng.Aktif") : this.dataContext.TranslateTo("xLng.Pasif")); }
-        }
-        public string CcMsisdnDogrulama
-        {
-            get { return (this.MsisdnDogrulama ? this.dataContext.TranslateTo("xLng.Aktif") : this.dataContext.TranslateTo("xLng.Pasif")); }
-        }
 
         //Constructor
         public DtoUye(MainDataContext dataContext)

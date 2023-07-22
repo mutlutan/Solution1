@@ -24,8 +24,8 @@ namespace AppCommon.DataLayer.DataMain.Models
         public string? MapTexBaseServiceUrl { get; set; }
         public string? MaptexApiKey { get; set; }
         public int AracRezervasyonSure { get; set; }
+        public decimal AracSarjUyariLimit { get; set; }
         public long MasterpassMerchantId { get; set; }
         public string? MasterpassServiceUrl { get; set; }
-        public decimal AracSarjUyariLimit { get; set; }
     }
 }

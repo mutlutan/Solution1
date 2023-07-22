@@ -37,9 +37,9 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
                     MapTexBaseServiceUrl = s.MapTexBaseServiceUrl,
                     MaptexApiKey = s.MaptexApiKey,
                     AracRezervasyonSure = s.AracRezervasyonSure,
+                    AracSarjUyariLimit = s.AracSarjUyariLimit,
                     MasterpassMerchantId = s.MasterpassMerchantId,
-                    MasterpassServiceUrl = s.MasterpassServiceUrl,
-                    AracSarjUyariLimit = s.AracSarjUyariLimit
+                    MasterpassServiceUrl = s.MasterpassServiceUrl
                 });
      }
 
@@ -52,8 +52,8 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
                 EmailPort = 0,
                 EmailEnableSsl = true,
                 AracRezervasyonSure = 0,
-                MasterpassMerchantId = 0,
-                AracSarjUyariLimit = 0
+                AracSarjUyariLimit = 0,
+                MasterpassMerchantId = 0
             };
 
             return row;

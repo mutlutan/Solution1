@@ -7,7 +7,6 @@ namespace AppCommon.DataLayer.DataMain.Models
     {
         public UyeGrup()
         {
-            Fiyat = new HashSet<Fiyat>();
             Uye = new HashSet<Uye>();
         }
 
@@ -16,7 +15,6 @@ namespace AppCommon.DataLayer.DataMain.Models
         public bool Durum { get; set; }
         public string? Ad { get; set; }
 
-        public virtual ICollection<Fiyat> Fiyat { get; set; }
         public virtual ICollection<Uye> Uye { get; set; }
     }
 }

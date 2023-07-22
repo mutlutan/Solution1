@@ -354,9 +354,9 @@
                          MapTexBaseServiceUrl: { type: 'string' },
                          MaptexApiKey: { type: 'string' },
                          AracRezervasyonSure: { type: 'number' },
+                         AracSarjUyariLimit: { type: 'number' },
                          MasterpassMerchantId: { type: 'string' },
                          MasterpassServiceUrl: { type: 'string' },
-                         AracSarjUyariLimit: { type: 'number' },
                          CcAuditLog: { type: 'string' },
                          CcAuditLogTables: { type: 'string' },
                          CcEmailEnableSsl: { type: 'string' }
@@ -425,9 +425,9 @@
                                  e.items[0].MapTexBaseServiceUrl = result.MapTexBaseServiceUrl;
                                  e.items[0].MaptexApiKey = result.MaptexApiKey;
                                  e.items[0].AracRezervasyonSure = result.AracRezervasyonSure;
+                                 e.items[0].AracSarjUyariLimit = result.AracSarjUyariLimit;
                                  e.items[0].MasterpassMerchantId = result.MasterpassMerchantId;
                                  e.items[0].MasterpassServiceUrl = result.MasterpassServiceUrl;
-                                 e.items[0].AracSarjUyariLimit = result.AracSarjUyariLimit;
                                  //computed alanların tanımlanması
                                  e.items[0].CcAuditLog = result.CcAuditLog;
                                  e.items[0].CcAuditLogTables = result.CcAuditLogTables;
@@ -610,9 +610,9 @@
         fieldList.push({ 'Name': 'MapTexBaseServiceUrl', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'MaptexApiKey', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'AracRezervasyonSure', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'AracSarjUyariLimit', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'MasterpassMerchantId', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'MasterpassServiceUrl', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
-        fieldList.push({ 'Name': 'AracSarjUyariLimit', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
 
         for (var i in fieldList) {
             var $elm = $(self.selector).find('.mnFormElementContainer .mnFormElementDiv[name=div' + fieldList[i].Name + ']');
