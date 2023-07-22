@@ -81,7 +81,7 @@
 	CREATE INDEX IX_AuditLog_PrimaryKeyValue ON AuditLog (PrimaryKeyValue);
 
 	
-	/* UserLog - User OturumLog*/
+	/* UserLog - User Oturum Log*/
     CREATE TABLE dbo.UserLog(
 		Id				UNIQUEIDENTIFIER NOT NULL,
 
@@ -107,57 +107,3 @@
 	CREATE INDEX IX_UserLog_UserIp ON UserLog (UserIp);
 	CREATE INDEX IX_UserLog_UserBrowser ON UserLog (UserBrowser);
 	CREATE INDEX IX_UserLog_UserSessionGuid ON UserLog (UserSessionGuid);
-
-
-	/* SmsLog - Sms Gönderim Logları*/
-    CREATE TABLE dbo.SmsLog(
-		Id				UNIQUEIDENTIFIER NOT NULL,
-
-		SmsBildirimId	INT NOT NULL,
-		Durum			BIT NOT NULL, 
-		Tarih			DATETIME NOT NULL,
-		MesajData		NVARCHAR(MAX),
-		ResponseData	NVARCHAR(MAX),
-
-		CONSTRAINT PK_SmsLog PRIMARY KEY (Id)
-	);
-	CREATE INDEX IX_SmsLog_SmsBildirimId ON SmsLog (SmsBildirimId);
-	CREATE INDEX IX_SmsLog_Tarih ON SmsLog (Tarih);
-	CREATE INDEX IX_SmsLog_Durum ON SmsLog (Durum);
-
-
-	/* MobilBildirimLog - Mobil Notification Gönderim Logları*/
-    CREATE TABLE dbo.MobilBildirimLog(
-		Id				UNIQUEIDENTIFIER NOT NULL,
-
-		MobilBildirimId	INT NOT NULL,
-		Durum			BIT NOT NULL, 
-		Tarih			DATETIME NOT NULL,
-		MesajData		NVARCHAR(MAX),
-		ResponseData	NVARCHAR(MAX),
-
-		CONSTRAINT PK_MobilBildirimLog PRIMARY KEY (Id)
-	);
-	CREATE INDEX IX_MobilBildirimLog_MobilBildirimId ON MobilBildirimLog (MobilBildirimId);
-	CREATE INDEX IX_MobilBildirimLog_Tarih ON MobilBildirimLog (Tarih);
-	CREATE INDEX IX_MobilBildirimLog_Durum ON MobilBildirimLog (Durum);
-
-
-	/* AracStatuLog - Araç Güncel Bilgileri Logları*/
-    CREATE TABLE dbo.AracStatuLog(
-		Id				UNIQUEIDENTIFIER NOT NULL,
-
-		ImeiNo			NVARCHAR(50),
-		ReportId		INT NOT NULL,
-		Durum			BIT NOT NULL, 
-		Tarih			DATETIME NOT NULL,
-		RequestData		NVARCHAR(MAX),
-		ResponseData	NVARCHAR(MAX),
-
-		CONSTRAINT PK_AracStatuLog PRIMARY KEY (Id)
-	);
-	CREATE INDEX IX_AracStatuLog_ReportId ON AracStatuLog (ReportId);
-	CREATE INDEX IX_AracStatuLog_Tarih ON AracStatuLog (Tarih);
-	CREATE INDEX IX_AracStatuLog_Durum ON AracStatuLog (Durum);
-	CREATE INDEX IX_AracStatuLog_ImeiNo ON AracStatuLog (ImeiNo);
-

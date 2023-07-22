@@ -11,8 +11,6 @@
     <None Remove="DataLayer\DataLog\SqlScript\201_Views.sql" />
     <None Remove="DataLayer\DataMain\SqlScript\111_Tables.sql" />
     <None Remove="DataLayer\DataMain\SqlScript\121_Insert.sql" />
-    <None Remove="DataLayer\DataMain\SqlScript\122_Insert.sql" />
-    <None Remove="DataLayer\DataMain\SqlScript\123_Insert.sql" />
     <None Remove="DataLayer\DataMain\SqlScript\201_Views.sql" />
   </ItemGroup>
 
@@ -21,8 +19,6 @@
     <EmbeddedResource Include="DataLayer\DataLog\SqlScript\201_Views.sql" />
     <EmbeddedResource Include="DataLayer\DataMain\SqlScript\111_Tables.sql" />
     <EmbeddedResource Include="DataLayer\DataMain\SqlScript\121_Insert.sql" />
-    <EmbeddedResource Include="DataLayer\DataMain\SqlScript\122_Insert.sql" />
-    <EmbeddedResource Include="DataLayer\DataMain\SqlScript\123_Insert.sql" />
     <EmbeddedResource Include="DataLayer\DataMain\SqlScript\201_Views.sql" />
   </ItemGroup>
 

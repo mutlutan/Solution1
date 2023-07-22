@@ -356,8 +356,6 @@ namespace AppCommon.DataLayer.DataMain.Models
 
             LogList.Append(this.RunScript(";", GetResourceSqlScript("111_Tables.sql")).ToString() + "Tablolar oluşturuldu. \n");
             LogList.Append(this.RunScriptWithGo(GetResourceSqlScript("121_Insert.sql")).ToString() + "Varsayılan kayıtlar eklendi(121). \n");
-            LogList.Append(this.RunScriptWithGo(GetResourceSqlScript("122_Insert.sql")).ToString() + "Varsayılan kayıtlar eklendi(122). \n");
-            LogList.Append(this.RunScriptWithGo(GetResourceSqlScript("123_Insert.sql")).ToString() + "Varsayılan kayıtlar eklendi(123). \n");
 
             return LogList;
         }
