@@ -16,33 +16,13 @@ namespace AppCommon.DataLayer.DataLog.Models
         {
         }
 
-        public virtual DbSet<AracStatuLog> AracStatuLog { get; set; } = null!;
         public virtual DbSet<AuditLog> AuditLog { get; set; } = null!;
-        public virtual DbSet<MobilBildirimLog> MobilBildirimLog { get; set; } = null!;
-        public virtual DbSet<SmsLog> SmsLog { get; set; } = null!;
         public virtual DbSet<SystemLog> SystemLog { get; set; } = null!;
         public virtual DbSet<UserLog> UserLog { get; set; } = null!;
         public virtual DbSet<Version> Version { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AracStatuLog>(entity =>
-            {
-                entity.HasIndex(e => e.Durum, "IX_AracStatuLog_Durum");
-
-                entity.HasIndex(e => e.ImeiNo, "IX_AracStatuLog_ImeiNo");
-
-                entity.HasIndex(e => e.ReportId, "IX_AracStatuLog_ReportId");
-
-                entity.HasIndex(e => e.Tarih, "IX_AracStatuLog_Tarih");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.Property(e => e.ImeiNo).HasMaxLength(50);
-
-                entity.Property(e => e.Tarih).HasColumnType("datetime");
-            });
-
             modelBuilder.Entity<AuditLog>(entity =>
             {
                 entity.HasIndex(e => e.OperationDate, "IX_AuditLog_OperationDate");
@@ -105,32 +85,6 @@ namespace AppCommon.DataLayer.DataLog.Models
                 entity.Property(e => e.UserType)
                     .HasMaxLength(50)
                     .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<MobilBildirimLog>(entity =>
-            {
-                entity.HasIndex(e => e.Durum, "IX_MobilBildirimLog_Durum");
-
-                entity.HasIndex(e => e.MobilBildirimId, "IX_MobilBildirimLog_MobilBildirimId");
-
-                entity.HasIndex(e => e.Tarih, "IX_MobilBildirimLog_Tarih");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.Property(e => e.Tarih).HasColumnType("datetime");
-            });
-
-            modelBuilder.Entity<SmsLog>(entity =>
-            {
-                entity.HasIndex(e => e.Durum, "IX_SmsLog_Durum");
-
-                entity.HasIndex(e => e.SmsBildirimId, "IX_SmsLog_SmsBildirimId");
-
-                entity.HasIndex(e => e.Tarih, "IX_SmsLog_Tarih");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.Property(e => e.Tarih).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<SystemLog>(entity =>
