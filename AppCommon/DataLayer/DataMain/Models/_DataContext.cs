@@ -13,10 +13,10 @@ using AppCommon;
 
 namespace AppCommon.DataLayer.DataMain.Models
 {
-    //PM> run //diğer komutlar  -Verbose
-    //Scaffold-DbContext "Server=.;Database=smart_bike_main;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -outputDir Models -context MainDataContext -Force -NoPluralize -NoOnConfiguring
+	//PM> run //diğer komutlar  -Verbose
+	//Scaffold-DbContext "Server=.;Database=solution1_main;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -outputDir DataLayer\DataMain\Models -context MainDataContext -Force -NoPluralize -NoOnConfiguring
 
-    public partial class MainDataContext : DbContext
+	public partial class MainDataContext : DbContext
     {
         #region new prop
         public int UserId { get; set; } = 0;

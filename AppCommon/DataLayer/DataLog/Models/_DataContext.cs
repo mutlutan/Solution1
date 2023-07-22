@@ -12,7 +12,7 @@ using AppCommon.DataLayer.DataLog.Migration;
 namespace AppCommon.DataLayer.DataLog.Models
 {
 	//PM> run //diğer komutlar  -Verbose
-	//Scaffold-DbContext "Server=.;Database=smart_bike_log;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -outputDir Models -context LogDataContext -Force -NoPluralize -NoOnConfiguring
+	//Scaffold-DbContext "Server=.;Database=solution1_log;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -outputDir DataLayer\DataLog\Models -context LogDataContext -Force -NoPluralize -NoOnConfiguring
 
 	public partial class LogDataContext : DbContext
 	{
