@@ -103,24 +103,38 @@
 	INSERT INTO Role (Id, UniqueId, IsActive, LineNumber, Name) VALUES (1001, newid(), 1, -8, N'Admin');
 	INSERT INTO Role (Id, UniqueId, IsActive, LineNumber, Name) VALUES (Next Value For dbo.sqRole, newid(), 1, 1, N'User');
 
-	/*Cinsiyet*/
-	CREATE TABLE dbo.Cinsiyet(
+	/*Gender - Cinsiyet*/
+	CREATE TABLE dbo.Gender(
 		Id			INT NOT NULL,
 
-		Durum		BIT NOT NULL,  
-		Sira		INT NOT NULL,
-		Ad		    NVARCHAR(50) NOT NULL,
-		AdEng		NVARCHAR(50) NOT NULL,
+		IsActive	BIT NOT NULL,
+		LineNumber	INT NOT NULL,
+		Name		NVARCHAR(100) NOT NULL,
 		
-		CONSTRAINT PK_Cinsiyet PRIMARY KEY (Id)
+		CONSTRAINT PK_Gender PRIMARY KEY (Id)
 	);
-	CREATE UNIQUE INDEX UX_Cinsiyet_Ad ON Cinsiyet (Ad);
-	CREATE INDEX IX_Cinsiyet_Durum ON Cinsiyet (Durum);
-	INSERT INTO Cinsiyet (Id, Durum, Sira, Ad, AdEng) VALUES (0, 1, 0, N'', N'');
-	INSERT INTO Cinsiyet (Id, Durum, Sira, Ad, AdEng) VALUES (1, 1, 1, N'Erkek', N'Male');
-	INSERT INTO Cinsiyet (Id, Durum, Sira, Ad, AdEng) VALUES (2, 1, 2, N'Kadın', N'Female');
-	INSERT INTO Cinsiyet (Id, Durum, Sira, Ad, AdEng) VALUES (3, 1, 3, N'Belirtmek istemiyorum', N'Not want to specify');
+	CREATE UNIQUE INDEX UX_Gender_Name ON Gender (Name);
+	CREATE INDEX IX_Gender_IsActive ON Gender (IsActive);
+	INSERT INTO Gender (Id, IsActive, LineNumber, Name) VALUES (0, 1, 0, N'');
+	INSERT INTO Gender (Id, IsActive, LineNumber, Name) VALUES (1, 1, 1, N'Male');
+	INSERT INTO Gender (Id, IsActive, LineNumber, Name) VALUES (2, 1, 2, N'Female');
+	INSERT INTO Gender (Id, IsActive, LineNumber, Name) VALUES (3, 1, 3, N'Not want to specify');
 
+	/*Country Ulke*/
+	CREATE SEQUENCE dbo.sqCountry AS INT START WITH 1 INCREMENT BY 1;
+	CREATE TABLE dbo.Country(
+		Id			INT NOT NULL,
+
+		IsActive	BIT NOT NULL,
+		LineNumber	INT NOT NULL,
+		Code		VARCHAR(100) NOT NULL,
+		Name		NVARCHAR(100) NOT NULL,
+		
+		CONSTRAINT PK_Country PRIMARY KEY (Id)
+	);
+	CREATE UNIQUE INDEX UX_Country_Name ON Country (Name);
+	CREATE INDEX IX_Country_IsActive ON Country (IsActive);
+	INSERT INTO Country (Id, IsActive, LineNumber, Name) VALUES (0, 1, 0, N'');
 
 	/* Kullanıcı (şifre ile giriş yapması muhtemel olan personel kayıtları)*/
 	CREATE SEQUENCE dbo.sqUser AS INT START WITH 1 INCREMENT BY 1;
@@ -279,6 +293,31 @@
 	CREATE INDEX IX_EmailPool_CreateDate ON EmailPool (CreateDate);
 
 
+	/*Para Birim */
+	CREATE SEQUENCE dbo.sqParaBirim AS INT START WITH 1 INCREMENT BY 1;
+	CREATE TABLE dbo.ParaBirim(
+		Id				INT NOT NULL,
+
+		IsActive	BIT NOT NULL,
+		LineNumber	INT NOT NULL,
+		Icon		VARCHAR(10) NOT NULL,
+		Code		VARCHAR(10) NOT NULL,
+		Name		NVARCHAR(20) NOT NULL,/*Tam para birimi, Üst para birimi (faturada yazıya çevrilirken kullanılacak kısım)*/
+		SubName		NVARCHAR(20) NOT NULL,/*Kesirli para birimi, Alt Para Birimi - Kuruş (faturada yazıya çevrilirken kullanılacak kısım)*/
+
+		CONSTRAINT PK_ParaBirim PRIMARY KEY (Id)
+	);
+	CREATE UNIQUE INDEX UX_ParaBirim_Ad ON ParaBirim (Ad);
+	INSERT INTO ParaBirim (Id, IsActive, LineNumber, Icon, Code, Name, SubName) VALUES (0, 1, -9, N'', N'', N'', N'');
+	INSERT INTO ParaBirim (Id, IsActive, LineNumber, Icon, Code, Name, SubName) VALUES (Next Value For dbo.sqParaBirim, 0, 1, N'₺', N'TRY', N'Türk Lirası', N'Kuruş');
+	INSERT INTO ParaBirim (Id, IsActive, LineNumber, Icon, Code, Name, SubName) VALUES (Next Value For dbo.sqParaBirim, 0, 2, N'$', N'USD', N'Dolar', N'Cent');
+	INSERT INTO ParaBirim (Id, IsActive, LineNumber, Icon, Code, Name, SubName) VALUES (Next Value For dbo.sqParaBirim, 0, 3, N'€', N'EUR', N'Euro', N'Cent');
+	INSERT INTO ParaBirim (Id, IsActive, LineNumber, Icon, Code, Name, SubName) VALUES (Next Value For dbo.sqParaBirim, 1, 1, N'₮', N'USDT', N'Tether', N'');
+	INSERT INTO ParaBirim (Id, IsActive, LineNumber, Icon, Code, Name, SubName) VALUES (Next Value For dbo.sqParaBirim, 0, 2, N'₿', N'BTC', N'Bitcoin', N'');
+	INSERT INTO ParaBirim (Id, IsActive, LineNumber, Icon, Code, Name, SubName) VALUES (Next Value For dbo.sqParaBirim, 0, 3, N'⧫', N'ETH', N'Ethereum', N'');
+		
+
+
 	/*  M O D U L   */
 
 	/*Uye(Müşteri) Durumu*/
@@ -320,8 +359,10 @@
 		IsConfirmed		BIT NOT NULL, /* Is Email Confirmed */
 
 		NameSurname		NVARCHAR(100), 
-		CountryCode		NVARCHAR(50), /*ülke*/
+		CountryCode		NVARCHAR(2), /*ülke kodu*/
 		Avatar			VARCHAR(MAX),
+
+		GeoLocation		GEOGRAPHY, /*Üye Konum bilgisi -  automatik de alınabilir, şart değil*/
 
 		UserName		NVARCHAR(100),	/*email adres olabilir*/
 		UserPassword	NVARCHAR(100),	/*Bu alan her update olduğunda, KullaniciSifre tablosuna insert edilecek, history için*/
@@ -339,5 +380,7 @@
 		CONSTRAINT FK_Uye_UyeDurumId FOREIGN KEY (UyeDurumId) REFERENCES UyeDurum(Id),
 		CONSTRAINT FK_Uye_UyeGrupId FOREIGN KEY (UyeGrupId) REFERENCES UyeGrup(Id)
     );
+
+
 
 

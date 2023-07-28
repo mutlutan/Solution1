@@ -61,12 +61,5 @@
       "tr": "Bildirimler",
       "en": "Notifications"
     }
-  },
-  {
-    "key": "xLng.Authority.Menu.Kampanyalar",
-    "value": {
-      "tr": "Kampanyalar",
-      "en": "Campaigns"
-    }
   }
 ]
