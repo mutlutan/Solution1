@@ -28,18 +28,7 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
                     EmailEnableSsl = s.EmailEnableSsl,
                     EmailUserName = s.EmailUserName,
                     EmailPassword = string.Empty,
-                    SmsServiceBaseUrl = s.SmsServiceBaseUrl,
-                    SmsServiceUrl = s.SmsServiceUrl,
-                    SmsServiceUserName = s.SmsServiceUserName,
-                    SmsServicePassword = s.SmsServicePassword,
-                    SmsServiceBaslik = s.SmsServiceBaslik,
-                    GoogleMapApiKey = s.GoogleMapApiKey,
-                    MapTexBaseServiceUrl = s.MapTexBaseServiceUrl,
-                    MaptexApiKey = s.MaptexApiKey,
-                    AracRezervasyonSure = s.AracRezervasyonSure,
-                    AracSarjUyariLimit = s.AracSarjUyariLimit,
-                    MasterpassMerchantId = s.MasterpassMerchantId,
-                    MasterpassServiceUrl = s.MasterpassServiceUrl
+                    GoogleMapApiKey = s.GoogleMapApiKey
                 });
      }
 
@@ -50,10 +39,7 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
                 Id = 0,
                 AuditLog = true,
                 EmailPort = 0,
-                EmailEnableSsl = true,
-                AracRezervasyonSure = 0,
-                AracSarjUyariLimit = 0,
-                MasterpassMerchantId = 0
+                EmailEnableSsl = true
             };
 
             return row;
@@ -97,18 +83,7 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
              row.EmailPassword = _model.EmailPassword.MyToEncryptPassword();
          }
 
-         row.SmsServiceBaseUrl = _model.SmsServiceBaseUrl;
-         row.SmsServiceUrl = _model.SmsServiceUrl;
-         row.SmsServiceUserName = _model.SmsServiceUserName;
-         row.SmsServicePassword = _model.SmsServicePassword;
-         row.SmsServiceBaslik = _model.SmsServiceBaslik;
          row.GoogleMapApiKey = _model.GoogleMapApiKey;
-         row.MapTexBaseServiceUrl = _model.MapTexBaseServiceUrl;
-         row.MaptexApiKey = _model.MaptexApiKey;
-         row.AracRezervasyonSure = _model.AracRezervasyonSure;
-         row.AracSarjUyariLimit = _model.AracSarjUyariLimit;
-         row.MasterpassMerchantId = _model.MasterpassMerchantId;
-         row.MasterpassServiceUrl = _model.MasterpassServiceUrl;
 
          if (!isNew)
          {

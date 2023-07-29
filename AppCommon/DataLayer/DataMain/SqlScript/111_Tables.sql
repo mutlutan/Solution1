@@ -54,31 +54,13 @@
 		EmailUserName		NVARCHAR(100),
 		EmailPassword		NVARCHAR(100),
 
-		/*SMS servis bilgileri*/ 
-		SmsServiceBaseUrl		NVARCHAR(100),
-		SmsServiceUrl			NVARCHAR(100),
-		SmsServiceUserName		NVARCHAR(100),
-		SmsServicePassword		NVARCHAR(100),
-		SmsServiceBaslik		NVARCHAR(30),
-
 		/*Api Key*/
 		GoogleMapApiKey			NVARCHAR(100),
-		MapTexBaseServiceUrl	NVARCHAR(300),
-		MaptexApiKey			NVARCHAR(100),
-
-		/*Araç Rezervasyon Süresi Dakika*/
-		AracRezervasyonSure		INT NOT NULL,
-		AracSarjUyariLimit		DECIMAL(18,2) NOT NULL,
-
-		/*MasterPass Bilgileri*/
-		MasterpassMerchantId BIGINT NOT NULL,
-		MasterpassServiceUrl NVARCHAR(100)
-
 
 		CONSTRAINT PK_Parameter PRIMARY KEY (Id)
 	);
-	INSERT INTO Parameter (Id, AuditLog, SiteAddress, InstitutionEmail, EmailHost, EmailPort, EmailEnableSsl, EmailUserName, EmailPassword, GoogleMapApiKey, MapTexBaseServiceUrl, MaptexApiKey,AracRezervasyonSure, AracSarjUyariLimit, MasterpassMerchantId) 
-	VALUES (1, 0, N'https://qq.com', N'info@qq.com', N'mail.qq.com', 587, 0, N'info@qq.com', N'123', N'AIzaSyDHnQDsewS54EKaP3Rkxuh3npv6uW60mko', N'https://ffsapi.yourassetsonline.com:8446', N'644BEEC9-9875-466C-9A6D-DC2F01285FCC',60,0,0);
+	INSERT INTO Parameter (Id, AuditLog, SiteAddress, InstitutionEmail, EmailHost, EmailPort, EmailEnableSsl, EmailUserName, EmailPassword, GoogleMapApiKey) 
+	VALUES (1, 0, N'https://qq.com', N'info@qq.com', N'mail.qq.com', 587, 0, N'info@qq.com', N'123', N'AIzaSyDHnQDsewS54EKaP3Rkxuh3npv6uW60mko');
 	
 	/*Role Tanımları*/
 	CREATE SEQUENCE dbo.sqRole AS INT START WITH 2001 INCREMENT BY 1; 
@@ -134,7 +116,7 @@
 	);
 	CREATE UNIQUE INDEX UX_Country_Name ON Country (Name);
 	CREATE INDEX IX_Country_IsActive ON Country (IsActive);
-	INSERT INTO Country (Id, IsActive, LineNumber, Name) VALUES (0, 1, 0, N'');
+	INSERT INTO Country (Id, IsActive, LineNumber, Code, Name) VALUES (0, 1, 0, N'', N'');
 
 	/* Kullanıcı (şifre ile giriş yapması muhtemel olan personel kayıtları)*/
 	CREATE SEQUENCE dbo.sqUser AS INT START WITH 1 INCREMENT BY 1;
@@ -294,7 +276,7 @@
 
 
 	/*Para Birim */
-	CREATE SEQUENCE dbo.sqParaBirim AS INT START WITH 1 INCREMENT BY 1;
+	CREATE SEQUENCE dbo.sqParaBirim AS INT START WITH 101 INCREMENT BY 1;
 	CREATE TABLE dbo.ParaBirim(
 		Id				INT NOT NULL,
 
@@ -307,15 +289,15 @@
 
 		CONSTRAINT PK_ParaBirim PRIMARY KEY (Id)
 	);
-	CREATE UNIQUE INDEX UX_ParaBirim_Ad ON ParaBirim (Ad);
-	INSERT INTO ParaBirim (Id, IsActive, LineNumber, Icon, Code, Name, SubName) VALUES (0, 1, -9, N'', N'', N'', N'');
-	INSERT INTO ParaBirim (Id, IsActive, LineNumber, Icon, Code, Name, SubName) VALUES (Next Value For dbo.sqParaBirim, 0, 1, N'₺', N'TRY', N'Türk Lirası', N'Kuruş');
-	INSERT INTO ParaBirim (Id, IsActive, LineNumber, Icon, Code, Name, SubName) VALUES (Next Value For dbo.sqParaBirim, 0, 2, N'$', N'USD', N'Dolar', N'Cent');
-	INSERT INTO ParaBirim (Id, IsActive, LineNumber, Icon, Code, Name, SubName) VALUES (Next Value For dbo.sqParaBirim, 0, 3, N'€', N'EUR', N'Euro', N'Cent');
+	CREATE UNIQUE INDEX UX_ParaBirim_Code ON ParaBirim (Code);
+	CREATE UNIQUE INDEX UX_ParaBirim_Name ON ParaBirim (Name);
+	--INSERT INTO ParaBirim (Id, IsActive, LineNumber, Icon, Code, Name, SubName) VALUES (0, 1, -9, N'', N'', N'', N'');
+	--INSERT INTO ParaBirim (Id, IsActive, LineNumber, Icon, Code, Name, SubName) VALUES (Next Value For dbo.sqParaBirim, 0, 1, N'₺', N'TRY', N'Türk Lirası', N'Kuruş');
+	--INSERT INTO ParaBirim (Id, IsActive, LineNumber, Icon, Code, Name, SubName) VALUES (Next Value For dbo.sqParaBirim, 0, 2, N'$', N'USD', N'Dolar', N'Cent');
+	--INSERT INTO ParaBirim (Id, IsActive, LineNumber, Icon, Code, Name, SubName) VALUES (Next Value For dbo.sqParaBirim, 0, 3, N'€', N'EUR', N'Euro', N'Cent');
 	INSERT INTO ParaBirim (Id, IsActive, LineNumber, Icon, Code, Name, SubName) VALUES (Next Value For dbo.sqParaBirim, 1, 1, N'₮', N'USDT', N'Tether', N'');
 	INSERT INTO ParaBirim (Id, IsActive, LineNumber, Icon, Code, Name, SubName) VALUES (Next Value For dbo.sqParaBirim, 0, 2, N'₿', N'BTC', N'Bitcoin', N'');
 	INSERT INTO ParaBirim (Id, IsActive, LineNumber, Icon, Code, Name, SubName) VALUES (Next Value For dbo.sqParaBirim, 0, 3, N'⧫', N'ETH', N'Ethereum', N'');
-		
 
 
 	/*  M O D U L   */

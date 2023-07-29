@@ -62,12 +62,13 @@
                      id: self.primaryKey,
                      fields: {
                          Id: { type: 'number', defaultValue: null  },
-                         IsActive: { type: 'boolean' },
-                         IsConfirmed: { type: 'boolean' },
+                         UyeDurumId: { type: 'number' },
                          UyeGrupId: { type: 'number' },
+                         IsConfirmed: { type: 'boolean' },
                          NameSurname: { type: 'string' },
                          CountryCode: { type: 'string' },
                          Avatar: { type: 'string' },
+                         GeoLocation: { type: 'string' },
                          UserName: { type: 'string' },
                          UserPassword: { type: 'string' },
                          SessionGuid: { type: 'string' },
@@ -77,9 +78,9 @@
                          CreatedUserId: { type: 'number', editable:false },
                          UpdateDate: { type: 'date', editable:false },
                          UpdatedUserId: { type: 'number', editable:false },
-                         CcIsActive: { type: 'string' },
-                         CcIsConfirmed: { type: 'string' },
-                         CcUyeGrupIdAd: { type: 'string' }
+                         CcUyeDurumIdAd: { type: 'string' },
+                         CcUyeGrupIdAd: { type: 'string' },
+                         CcIsConfirmed: { type: 'string' }
                      }
                  }
              },
@@ -112,12 +113,13 @@
                              url: self.apiUrlPrefix + '/GetByNew', type: 'GET', dataType: 'json', async: false,
                              success: function (result) {
                                  e.items[0].Id = result.Id;
-                                 e.items[0].IsActive = result.IsActive;
-                                 e.items[0].IsConfirmed = result.IsConfirmed;
+                                 e.items[0].UyeDurumId = result.UyeDurumId;
                                  e.items[0].UyeGrupId = result.UyeGrupId;
+                                 e.items[0].IsConfirmed = result.IsConfirmed;
                                  e.items[0].NameSurname = result.NameSurname;
                                  e.items[0].CountryCode = result.CountryCode;
                                  e.items[0].Avatar = result.Avatar;
+                                 e.items[0].GeoLocation = result.GeoLocation;
                                  e.items[0].UserName = result.UserName;
                                  e.items[0].UserPassword = result.UserPassword;
                                  e.items[0].SessionGuid = result.SessionGuid;
@@ -128,9 +130,9 @@
                                  e.items[0].UpdateDate = kendo.parseDate(result.UpdateDate);
                                  e.items[0].UpdatedUserId = result.UpdatedUserId;
                                  //computed alanların tanımlanması
-                                 e.items[0].CcIsActive = result.CcIsActive;
-                                 e.items[0].CcIsConfirmed = result.CcIsConfirmed;
+                                 e.items[0].CcUyeDurumIdAd = result.CcUyeDurumIdAd;
                                  e.items[0].CcUyeGrupIdAd = result.CcUyeGrupIdAd;
+                                 e.items[0].CcIsConfirmed = result.CcIsConfirmed;
                                  //filterdan gelen default value set için
                                  $(self.opt.filters).each(function (index, row) {
                                      if (row.filterColumnName !== 'Id') {
@@ -176,11 +178,11 @@
              },
              {
                  hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Uye.IsActive'),
-                 field: 'IsActive',
-                 template: '#:CcIsActive#',
+                 title: mnLang.TranslateWithWord('xLng.Uye.UyeDurumId'),
+                 field: 'UyeDurumId',
+                 template: '#:CcUyeDurumIdAd#',
                  attributes: { 'class': 'text-nowrap' },
-                 width: '80px'
+                 width: '100px'
              },
 
              {
@@ -215,6 +217,14 @@
                  field: 'CountryCode',
                  attributes: { 'class': 'text-nowrap' },
                  width: '130px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.Uye.GeoLocation'),
+                 field: 'GeoLocation',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '150px'
              },
 
              {

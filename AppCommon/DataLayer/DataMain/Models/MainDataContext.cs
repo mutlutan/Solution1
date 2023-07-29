@@ -17,11 +17,13 @@ namespace AppCommon.DataLayer.DataMain.Models
         }
 
         public virtual DbSet<AuditLog> AuditLog { get; set; } = null!;
-        public virtual DbSet<Cinsiyet> Cinsiyet { get; set; } = null!;
+        public virtual DbSet<Country> Country { get; set; } = null!;
         public virtual DbSet<EmailLetterhead> EmailLetterhead { get; set; } = null!;
         public virtual DbSet<EmailPool> EmailPool { get; set; } = null!;
         public virtual DbSet<EmailPoolStatus> EmailPoolStatus { get; set; } = null!;
         public virtual DbSet<EmailTemplate> EmailTemplate { get; set; } = null!;
+        public virtual DbSet<Gender> Gender { get; set; } = null!;
+        public virtual DbSet<ParaBirim> ParaBirim { get; set; } = null!;
         public virtual DbSet<Parameter> Parameter { get; set; } = null!;
         public virtual DbSet<Role> Role { get; set; } = null!;
         public virtual DbSet<User> User { get; set; } = null!;
@@ -77,18 +79,20 @@ namespace AppCommon.DataLayer.DataMain.Models
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<Cinsiyet>(entity =>
+            modelBuilder.Entity<Country>(entity =>
             {
-                entity.HasIndex(e => e.Durum, "IX_Cinsiyet_Durum");
+                entity.HasIndex(e => e.IsActive, "IX_Country_IsActive");
 
-                entity.HasIndex(e => e.Ad, "UX_Cinsiyet_Ad")
+                entity.HasIndex(e => e.Name, "UX_Country_Name")
                     .IsUnique();
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
-                entity.Property(e => e.Ad).HasMaxLength(50);
+                entity.Property(e => e.Code)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
 
-                entity.Property(e => e.AdEng).HasMaxLength(50);
+                entity.Property(e => e.Name).HasMaxLength(100);
             });
 
             modelBuilder.Entity<EmailLetterhead>(entity =>
@@ -164,11 +168,44 @@ namespace AppCommon.DataLayer.DataMain.Models
                     .HasConstraintName("FK_EmailTemplate_EmailLetterheadId");
             });
 
+            modelBuilder.Entity<Gender>(entity =>
+            {
+                entity.HasIndex(e => e.IsActive, "IX_Gender_IsActive");
+
+                entity.HasIndex(e => e.Name, "UX_Gender_Name")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Name).HasMaxLength(100);
+            });
+
+            modelBuilder.Entity<ParaBirim>(entity =>
+            {
+                entity.HasIndex(e => e.Code, "UX_ParaBirim_Code")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Name, "UX_ParaBirim_Name")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Code)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Icon)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Name).HasMaxLength(20);
+
+                entity.Property(e => e.SubName).HasMaxLength(20);
+            });
+
             modelBuilder.Entity<Parameter>(entity =>
             {
                 entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.Property(e => e.AracSarjUyariLimit).HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.EmailHost).HasMaxLength(100);
 
@@ -180,23 +217,7 @@ namespace AppCommon.DataLayer.DataMain.Models
 
                 entity.Property(e => e.InstitutionEmail).HasMaxLength(100);
 
-                entity.Property(e => e.MapTexBaseServiceUrl).HasMaxLength(300);
-
-                entity.Property(e => e.MaptexApiKey).HasMaxLength(100);
-
-                entity.Property(e => e.MasterpassServiceUrl).HasMaxLength(100);
-
                 entity.Property(e => e.SiteAddress).HasMaxLength(100);
-
-                entity.Property(e => e.SmsServiceBaseUrl).HasMaxLength(100);
-
-                entity.Property(e => e.SmsServiceBaslik).HasMaxLength(30);
-
-                entity.Property(e => e.SmsServicePassword).HasMaxLength(100);
-
-                entity.Property(e => e.SmsServiceUrl).HasMaxLength(100);
-
-                entity.Property(e => e.SmsServiceUserName).HasMaxLength(100);
             });
 
             modelBuilder.Entity<Role>(entity =>
@@ -253,7 +274,7 @@ namespace AppCommon.DataLayer.DataMain.Models
 
                 entity.Property(e => e.Avatar).IsUnicode(false);
 
-                entity.Property(e => e.CountryCode).HasMaxLength(50);
+                entity.Property(e => e.CountryCode).HasMaxLength(2);
 
                 entity.Property(e => e.CreateDate).HasColumnType("datetime");
 
@@ -411,9 +432,13 @@ namespace AppCommon.DataLayer.DataMain.Models
                     .IsUnicode(false);
             });
 
+            modelBuilder.HasSequence<int>("sqCountry");
+
             modelBuilder.HasSequence<int>("sqEmailLetterhead");
 
             modelBuilder.HasSequence<int>("sqEmailPool");
+
+            modelBuilder.HasSequence<int>("sqParaBirim").StartsAt(101);
 
             modelBuilder.HasSequence<int>("sqRole").StartsAt(2001);
 

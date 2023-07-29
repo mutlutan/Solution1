@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using NetTopologySuite.Geometries;
 
 namespace AppCommon.DataLayer.DataMain.Models
 {
@@ -12,6 +13,7 @@ namespace AppCommon.DataLayer.DataMain.Models
         public string? NameSurname { get; set; }
         public string? CountryCode { get; set; }
         public string? Avatar { get; set; }
+        public Geometry? GeoLocation { get; set; }
         public string? UserName { get; set; }
         public string? UserPassword { get; set; }
         public string? SessionGuid { get; set; }

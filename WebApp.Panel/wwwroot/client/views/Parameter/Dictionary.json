@@ -31,26 +31,10 @@
  }
 ,
  {
-     "key" : "xLng.Parameter.FormViewTab.III",
-     "value": {
-         "tr": "Sms Bilgileri",
-         "en": "Sms Info"
-     }
- }
-,
- {
      "key" : "xLng.Parameter.FormViewTab.IV",
      "value": {
          "tr": "Api Bilgileri",
          "en": "Api Info"
-     }
- }
-,
- {
-     "key" : "xLng.Parameter.FormViewTab.V",
-     "value": {
-         "tr": "Araç Ayarları",
-         "en": "Vehicle Settings"
      }
  }
 ,
@@ -135,98 +119,10 @@
  }
 ,
  {
-     "key" : "xLng.Parameter.SmsServiceBaseUrl",
-     "value": {
-         "tr": "Sms Hizmeti Base Url'si",
-         "en": "Sms Service Base Url"
-     }
- }
-,
- {
-     "key" : "xLng.Parameter.SmsServiceUrl",
-     "value": {
-         "tr": "Sms Hizmeti Url (Base Url Harici)",
-         "en": "Sms Service Url (External Base Url)"
-     }
- }
-,
- {
-     "key" : "xLng.Parameter.SmsServiceUserName",
-     "value": {
-         "tr": "Sms Hizmeti Kullanıcı Adı",
-         "en": "Sms Service User Name"
-     }
- }
-,
- {
-     "key" : "xLng.Parameter.SmsServicePassword",
-     "value": {
-         "tr": "Sms Servis Şifresi",
-         "en": "Sms Service Password"
-     }
- }
-,
- {
-     "key" : "xLng.Parameter.SmsServiceBaslik",
-     "value": {
-         "tr": "Sms Hizmet Başlığı",
-         "en": "Sms Service Title"
-     }
- }
-,
- {
      "key" : "xLng.Parameter.GoogleMapApiKey",
      "value": {
          "tr": "Google Map Api Key",
          "en": "Google Map Apı Key"
-     }
- }
-,
- {
-     "key" : "xLng.Parameter.MapTexBaseServiceUrl",
-     "value": {
-         "tr": "MAPTEX Servis Url",
-         "en": "Maptex Service Url"
-     }
- }
-,
- {
-     "key" : "xLng.Parameter.MaptexApiKey",
-     "value": {
-         "tr": "MAPTEX Api Key",
-         "en": "Maptex Api Key"
-     }
- }
-,
- {
-     "key" : "xLng.Parameter.AracRezervasyonSure",
-     "value": {
-         "tr": "Araç Rezervasyon Süresi",
-         "en": "Vehicle Reservation Time"
-     }
- }
-,
- {
-     "key" : "xLng.Parameter.MasterpassMerchantId",
-     "value": {
-         "tr": "Masterpass Merchant Id",
-         "en": "Masterpass Merchant ID"
-     }
- }
-,
- {
-     "key" : "xLng.Parameter.MasterpassServiceUrl",
-     "value": {
-         "tr": "Masterpass Servis Url",
-         "en": "Masterpass Service Url"
-     }
- }
-,
- {
-     "key" : "xLng.Parameter.AracSarjUyariLimit",
-     "value": {
-         "tr": "Araç Şarj Uyarı Limiti (%)",
-         "en": "Vehicle Charge Warning Limit (%)"
      }
  }
 ]

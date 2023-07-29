@@ -22,7 +22,7 @@
             var style = `                                                                                     
                 <style>    
                     .mnSideBarMenu{
-                       font-size: 1.2em;
+                       font-size: 1.1em;
                     }
                     .mnSideBarMenu i:first-child{                                                             
                        color: ${self.opt.itemColor};

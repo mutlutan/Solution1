@@ -54,7 +54,7 @@ namespace WebApp.Panel.Controllers
             DataSourceResult dsr = new();
             try
             {
-                var model = Newtonsoft.Json.JsonConvert.DeserializeObject<Uye>(obj.MyToStr());
+                var model = new NetTopologySuite.IO.GeoJsonReader().Read<Uye>(obj.MyToStr());
                 if (model != null)
                 {
                     Int32 id = this.business.repository.RepUye.CreateOrUpdate(model, true);
@@ -83,7 +83,7 @@ namespace WebApp.Panel.Controllers
             DataSourceResult dsr = new();
             try
             {
-                var model = Newtonsoft.Json.JsonConvert.DeserializeObject<Uye>(obj.MyToStr());
+                var model = new NetTopologySuite.IO.GeoJsonReader().Read<Uye>(obj.MyToStr());
                 if (model != null)
                 {
                     Int32 id = this.business.repository.RepUye.CreateOrUpdate(model, false);

@@ -20,11 +20,12 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
                 {
                     Id = s.Id,
                     UyeDurumId = s.UyeDurumId,
-                    IsConfirmed = s.IsConfirmed,
                     UyeGrupId = s.UyeGrupId,
+                    IsConfirmed = s.IsConfirmed,
                     NameSurname = s.NameSurname,
                     CountryCode = s.CountryCode,
                     Avatar = s.Avatar,
+                    GeoLocation = s.GeoLocation,
                     UserName = s.UserName,
                     UserPassword = s.UserPassword,
                     SessionGuid = s.SessionGuid,
@@ -34,6 +35,7 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
                     CreatedUserId = s.CreatedUserId,
                     UpdateDate = s.UpdateDate,
                     UpdatedUserId = s.UpdatedUserId,
+                    CcUyeDurumIdAd = s.UyeDurum.Ad.MyToTrim(),
                     CcUyeGrupIdAd = s.UyeGrup.Ad.MyToTrim()
                 });
      }
@@ -44,8 +46,8 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
             DtoUye row = new(this.dataContext) {
                 Id = 0,
                 UyeDurumId = 0,
-                IsConfirmed = true,
                 UyeGrupId = 0,
+                IsConfirmed = true,
                 UniqueId = Guid.NewGuid(),
                 CreateDate = DateTime.Now,
                 CreatedUserId = this.dataContext.UserId,
@@ -81,11 +83,12 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
             }
 
          row.UyeDurumId = _model.UyeDurumId;
-         row.IsConfirmed = _model.IsConfirmed;
          row.UyeGrupId = _model.UyeGrupId;
+         row.IsConfirmed = _model.IsConfirmed;
          row.NameSurname = _model.NameSurname;
          row.CountryCode = _model.CountryCode;
          row.Avatar = _model.Avatar;
+         row.GeoLocation = _model.GeoLocation;
          row.UserName = _model.UserName;
          row.UserPassword = _model.UserPassword;
          row.SessionGuid = _model.SessionGuid;

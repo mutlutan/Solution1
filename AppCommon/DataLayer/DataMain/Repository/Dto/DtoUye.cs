@@ -11,15 +11,12 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dto
     {
         protected readonly MainDataContext dataContext;
 
-        public string CcIsActive
-        {
-            get { return (0==0 ? this.dataContext.TranslateTo("xLng.Aktif") : this.dataContext.TranslateTo("xLng.Pasif")); }
-        }
+        public string CcUyeDurumIdAd { get; set; } = "";
+        public string CcUyeGrupIdAd { get; set; } = "";
         public string CcIsConfirmed
         {
             get { return (this.IsConfirmed ? this.dataContext.TranslateTo("xLng.Aktif") : this.dataContext.TranslateTo("xLng.Pasif")); }
         }
-        public string CcUyeGrupIdAd { get; set; } = "";
 
         //Constructor
         public DtoUye(MainDataContext dataContext)

@@ -39,10 +39,10 @@
  }
 ,
  {
-     "key" : "xLng.Uye.IsActive",
+     "key" : "xLng.Uye.UyeDurumId",
      "value": {
-         "tr": "IsActive",
-         "en": "IsActive"
+         "tr": "UyeDurumId",
+         "en": "UyeDurumId"
      }
  }
 ,
@@ -83,6 +83,14 @@
      "value": {
          "tr": "CountryCode",
          "en": "CountryCode"
+     }
+ }
+,
+ {
+     "key" : "xLng.Uye.GeoLocation",
+     "value": {
+         "tr": "GeoLocation",
+         "en": "GeoLocation"
      }
  }
 ,
