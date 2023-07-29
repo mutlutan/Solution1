@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AppCommon.DataLayer.DataMain.Models
 {
-    public partial class ParaBirim
+    public partial class Currency
     {
         public int Id { get; set; }
         public bool IsActive { get; set; }

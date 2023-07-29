@@ -27,6 +27,9 @@ namespace AppCommon.DataLayer.DataMain.Repository
         public DmoUye RepUye { get; private set; }
         public DmoUyeGrup RepUyeGrup { get; private set; }
         
+        public DmoCountry RepCountry { get; private set; }
+
+        public DmoCurrency RepCurrency { get; private set; }
         /*code_definition_end*/
 
         public Repository(MainDataContext context)
@@ -44,6 +47,9 @@ namespace AppCommon.DataLayer.DataMain.Repository
             this.RepEmailPool = new DmoEmailPool(this.dataContext);
             this.RepUye = new DmoUye(this.dataContext);
             this.RepUyeGrup = new DmoUyeGrup(this.dataContext);
+            this.RepCountry = new DmoCountry(this.dataContext);
+
+            this.RepCurrency = new DmoCurrency(this.dataContext);
             /*code_constructor_end*/
         }
 

@@ -18,12 +18,12 @@ namespace AppCommon.DataLayer.DataMain.Models
 
         public virtual DbSet<AuditLog> AuditLog { get; set; } = null!;
         public virtual DbSet<Country> Country { get; set; } = null!;
+        public virtual DbSet<Currency> Currency { get; set; } = null!;
         public virtual DbSet<EmailLetterhead> EmailLetterhead { get; set; } = null!;
         public virtual DbSet<EmailPool> EmailPool { get; set; } = null!;
         public virtual DbSet<EmailPoolStatus> EmailPoolStatus { get; set; } = null!;
         public virtual DbSet<EmailTemplate> EmailTemplate { get; set; } = null!;
         public virtual DbSet<Gender> Gender { get; set; } = null!;
-        public virtual DbSet<ParaBirim> ParaBirim { get; set; } = null!;
         public virtual DbSet<Parameter> Parameter { get; set; } = null!;
         public virtual DbSet<Role> Role { get; set; } = null!;
         public virtual DbSet<User> User { get; set; } = null!;
@@ -93,6 +93,29 @@ namespace AppCommon.DataLayer.DataMain.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.Name).HasMaxLength(100);
+            });
+
+            modelBuilder.Entity<Currency>(entity =>
+            {
+                entity.HasIndex(e => e.Code, "UX_Currency_Code")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Name, "UX_Currency_Name")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Code)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Icon)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Name).HasMaxLength(20);
+
+                entity.Property(e => e.SubName).HasMaxLength(20);
             });
 
             modelBuilder.Entity<EmailLetterhead>(entity =>
@@ -178,29 +201,6 @@ namespace AppCommon.DataLayer.DataMain.Models
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Name).HasMaxLength(100);
-            });
-
-            modelBuilder.Entity<ParaBirim>(entity =>
-            {
-                entity.HasIndex(e => e.Code, "UX_ParaBirim_Code")
-                    .IsUnique();
-
-                entity.HasIndex(e => e.Name, "UX_ParaBirim_Name")
-                    .IsUnique();
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.Property(e => e.Code)
-                    .HasMaxLength(10)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Icon)
-                    .HasMaxLength(10)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Name).HasMaxLength(20);
-
-                entity.Property(e => e.SubName).HasMaxLength(20);
             });
 
             modelBuilder.Entity<Parameter>(entity =>
@@ -434,11 +434,11 @@ namespace AppCommon.DataLayer.DataMain.Models
 
             modelBuilder.HasSequence<int>("sqCountry");
 
+            modelBuilder.HasSequence<int>("sqCurrency").StartsAt(101);
+
             modelBuilder.HasSequence<int>("sqEmailLetterhead");
 
             modelBuilder.HasSequence<int>("sqEmailPool");
-
-            modelBuilder.HasSequence<int>("sqParaBirim").StartsAt(101);
 
             modelBuilder.HasSequence<int>("sqRole").StartsAt(2001);
 

@@ -1,0 +1,64 @@
+[
+ {
+     "key" : "xLng.Country.Title",
+     "value": {
+         "tr": "Ülke",
+         "en": "Country"
+     }
+ },
+ {
+     "key" : "xLng.Country.ShortTitle",
+     "value": {
+         "tr": "Ülke",
+         "en": "Country"
+     }
+ }
+,
+ {
+     "key" : "xLng.Country.FormViewTab.I",
+     "value": {
+         "tr": "Genel Bilgiler",
+         "en": "General Info"
+     }
+ }
+,
+ {
+     "key" : "xLng.Country.Id",
+     "value": {
+         "tr": "Id",
+         "en": "Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.Country.IsActive",
+     "value": {
+         "tr": "Aktif",
+         "en": "Is Active"
+     }
+ }
+,
+ {
+     "key" : "xLng.Country.LineNumber",
+     "value": {
+         "tr": "Sıra",
+         "en": "Line Number"
+     }
+ }
+,
+ {
+     "key" : "xLng.Country.Code",
+     "value": {
+         "tr": "Kod",
+         "en": "Code"
+     }
+ }
+,
+ {
+     "key" : "xLng.Country.Name",
+     "value": {
+         "tr": "Adı",
+         "en": "Name"
+     }
+ }
+]

@@ -1,0 +1,80 @@
+[
+ {
+     "key" : "xLng.ParaBirim.Title",
+     "value": {
+         "tr": "Para Birim",
+         "en": "Currency"
+     }
+ },
+ {
+     "key" : "xLng.ParaBirim.ShortTitle",
+     "value": {
+         "tr": "Para Birim",
+         "en": "Currency"
+     }
+ }
+,
+ {
+     "key" : "xLng.ParaBirim.FormViewTab.I",
+     "value": {
+         "tr": "Genel Bilgiler",
+         "en": "General Info"
+     }
+ }
+,
+ {
+     "key" : "xLng.ParaBirim.Id",
+     "value": {
+         "tr": "Id",
+         "en": "Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.ParaBirim.IsActive",
+     "value": {
+         "tr": "Aktif",
+         "en": "Is Active"
+     }
+ }
+,
+ {
+     "key" : "xLng.ParaBirim.LineNumber",
+     "value": {
+         "tr": "Sira",
+         "en": "Line Number"
+     }
+ }
+,
+ {
+     "key" : "xLng.ParaBirim.Icon",
+     "value": {
+         "tr": "Simge",
+         "en": "Icon"
+     }
+ }
+,
+ {
+     "key" : "xLng.ParaBirim.Code",
+     "value": {
+         "tr": "Kod",
+         "en": "Code"
+     }
+ }
+,
+ {
+     "key" : "xLng.ParaBirim.Name",
+     "value": {
+         "tr": "Adı",
+         "en": "Name"
+     }
+ }
+,
+ {
+     "key" : "xLng.ParaBirim.SubName",
+     "value": {
+         "tr": "Alt Ad",
+         "en": "Sub Name"
+     }
+ }
+]

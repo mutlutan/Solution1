@@ -275,9 +275,9 @@
 	CREATE INDEX IX_EmailPool_CreateDate ON EmailPool (CreateDate);
 
 
-	/*Para Birim */
-	CREATE SEQUENCE dbo.sqParaBirim AS INT START WITH 101 INCREMENT BY 1;
-	CREATE TABLE dbo.ParaBirim(
+	/*Currency Para Birim */
+	CREATE SEQUENCE dbo.sqCurrency AS INT START WITH 101 INCREMENT BY 1;
+	CREATE TABLE dbo.Currency(
 		Id				INT NOT NULL,
 
 		IsActive	BIT NOT NULL,
@@ -287,17 +287,17 @@
 		Name		NVARCHAR(20) NOT NULL,/*Tam para birimi, Üst para birimi (faturada yazıya çevrilirken kullanılacak kısım)*/
 		SubName		NVARCHAR(20) NOT NULL,/*Kesirli para birimi, Alt Para Birimi - Kuruş (faturada yazıya çevrilirken kullanılacak kısım)*/
 
-		CONSTRAINT PK_ParaBirim PRIMARY KEY (Id)
+		CONSTRAINT PK_Currency PRIMARY KEY (Id)
 	);
-	CREATE UNIQUE INDEX UX_ParaBirim_Code ON ParaBirim (Code);
-	CREATE UNIQUE INDEX UX_ParaBirim_Name ON ParaBirim (Name);
-	--INSERT INTO ParaBirim (Id, IsActive, LineNumber, Icon, Code, Name, SubName) VALUES (0, 1, -9, N'', N'', N'', N'');
-	--INSERT INTO ParaBirim (Id, IsActive, LineNumber, Icon, Code, Name, SubName) VALUES (Next Value For dbo.sqParaBirim, 0, 1, N'₺', N'TRY', N'Türk Lirası', N'Kuruş');
-	--INSERT INTO ParaBirim (Id, IsActive, LineNumber, Icon, Code, Name, SubName) VALUES (Next Value For dbo.sqParaBirim, 0, 2, N'$', N'USD', N'Dolar', N'Cent');
-	--INSERT INTO ParaBirim (Id, IsActive, LineNumber, Icon, Code, Name, SubName) VALUES (Next Value For dbo.sqParaBirim, 0, 3, N'€', N'EUR', N'Euro', N'Cent');
-	INSERT INTO ParaBirim (Id, IsActive, LineNumber, Icon, Code, Name, SubName) VALUES (Next Value For dbo.sqParaBirim, 1, 1, N'₮', N'USDT', N'Tether', N'');
-	INSERT INTO ParaBirim (Id, IsActive, LineNumber, Icon, Code, Name, SubName) VALUES (Next Value For dbo.sqParaBirim, 0, 2, N'₿', N'BTC', N'Bitcoin', N'');
-	INSERT INTO ParaBirim (Id, IsActive, LineNumber, Icon, Code, Name, SubName) VALUES (Next Value For dbo.sqParaBirim, 0, 3, N'⧫', N'ETH', N'Ethereum', N'');
+	CREATE UNIQUE INDEX UX_Currency_Code ON Currency (Code);
+	CREATE UNIQUE INDEX UX_Currency_Name ON Currency (Name);
+	--INSERT INTO Currency (Id, IsActive, LineNumber, Icon, Code, Name, SubName) VALUES (0, 1, -9, N'', N'', N'', N'');
+	--INSERT INTO Currency (Id, IsActive, LineNumber, Icon, Code, Name, SubName) VALUES (Next Value For dbo.sqCurrency, 0, 1, N'₺', N'TRY', N'Türk Lirası', N'Kuruş');
+	--INSERT INTO Currency (Id, IsActive, LineNumber, Icon, Code, Name, SubName) VALUES (Next Value For dbo.sqCurrency, 0, 2, N'$', N'USD', N'Dolar', N'Cent');
+	--INSERT INTO Currency (Id, IsActive, LineNumber, Icon, Code, Name, SubName) VALUES (Next Value For dbo.sqCurrency, 0, 3, N'€', N'EUR', N'Euro', N'Cent');
+	INSERT INTO Currency (Id, IsActive, LineNumber, Icon, Code, Name, SubName) VALUES (Next Value For dbo.sqCurrency, 1, 1, N'₮', N'USDT', N'Tether', N'');
+	INSERT INTO Currency (Id, IsActive, LineNumber, Icon, Code, Name, SubName) VALUES (Next Value For dbo.sqCurrency, 0, 2, N'₿', N'BTC', N'Bitcoin', N'');
+	INSERT INTO Currency (Id, IsActive, LineNumber, Icon, Code, Name, SubName) VALUES (Next Value For dbo.sqCurrency, 0, 3, N'⧫', N'ETH', N'Ethereum', N'');
 
 
 	/*  M O D U L   */

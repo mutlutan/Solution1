@@ -1,0 +1,80 @@
+[
+ {
+     "key" : "xLng.Currency.Title",
+     "value": {
+         "tr": "Para Birimi",
+         "en": "Currency"
+     }
+ },
+ {
+     "key" : "xLng.Currency.ShortTitle",
+     "value": {
+         "tr": "Para Birimi",
+         "en": "Currency"
+     }
+ }
+,
+ {
+     "key" : "xLng.Currency.FormViewTab.I",
+     "value": {
+         "tr": "Genel Bilgiler",
+         "en": "General Info"
+     }
+ }
+,
+ {
+     "key" : "xLng.Currency.Id",
+     "value": {
+         "tr": "Id",
+         "en": "Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.Currency.IsActive",
+     "value": {
+         "tr": "Aktif",
+         "en": "Is Active"
+     }
+ }
+,
+ {
+     "key" : "xLng.Currency.LineNumber",
+     "value": {
+         "tr": "Sıra",
+         "en": "LineNumber"
+     }
+ }
+,
+ {
+     "key" : "xLng.Currency.Icon",
+     "value": {
+         "tr": "Simge",
+         "en": "Icon"
+     }
+ }
+,
+ {
+     "key" : "xLng.Currency.Code",
+     "value": {
+         "tr": "Kod",
+         "en": "Code"
+     }
+ }
+,
+ {
+     "key" : "xLng.Currency.Name",
+     "value": {
+         "tr": "Adı",
+         "en": "Name"
+     }
+ }
+,
+ {
+     "key" : "xLng.Currency.SubName",
+     "value": {
+         "tr": "Alt Ad",
+         "en": "SubName"
+     }
+ }
+]
