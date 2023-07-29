@@ -69,14 +69,14 @@
                  destroy: { type: 'POST', url: self.apiUrlPrefix + '/Delete', dataType: 'json', contentType: 'application/json; charset=utf-8' },
                  parameterMap: function (data, operation) {
                      if (operation === 'read') {
-                         return kendo.stringify(data);
+                         return JSON.stringify(data);
                      }
                      else if (operation === 'create' || operation === 'update') {
 
-                         return kendo.stringify(data);
+                         return JSON.stringify(data);
                      }
                      else if (operation === 'destroy') {
-                         return kendo.stringify(data);
+                         return JSON.stringify(data);
                      }
                  }
              },

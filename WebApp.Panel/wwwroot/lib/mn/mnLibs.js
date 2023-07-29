@@ -1,22 +1,22 @@
 ﻿
 // String.Format() (IFormatProvider for .NET).
 //"{0} is dead, but {1} is alive! {0} {2}".format("ASP", "ASP.NET")
-String.prototype.mnStringFormat = function () {
-    var args = arguments;
-    return this.replace(/{(\d+)}/g, function (match, number) {
-        return typeof args[number] !== undefined
-            ? args[number]
-            : match
-            ;
-    });
-};
+//String.prototype.mnStringFormat = function () {
+//    var args = arguments;
+//    return this.replace(/{(\d+)}/g, function (match, number) {
+//        return typeof args[number] !== undefined
+//            ? args[number]
+//            : match
+//            ;
+//    });
+//};
 
 // ilk char upper ediliyor
-String.prototype.mnToTitleCase = function () {
-    return this.replace(/^./, function (match) {
-        return match.toUpperCase();
-    });
-};
+//String.prototype.mnToTitleCase = function () {
+//    return this.replace(/^./, function (match) {
+//        return match.toUpperCase();
+//    });
+//};
 
 //Error handler
 window.mnErrorHandler = function () {

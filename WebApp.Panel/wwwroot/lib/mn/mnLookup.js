@@ -50,17 +50,17 @@ window.mnLookup = function () {
                 self.list.get(_dsName).read();
             }
         } else {
-            
-            //delete opt.ViewName;
-            //delete opt.ViewFieldName;
-            //delete opt.Reload;
-
             var dsTemp = new kendo.data.DataSource({
                 transport: {
                     read: {
                         type: "POST", dataType: "json",
-                        url: "/Lookup/Read",
-                        data: opt
+                        contentType: "application/json; charset=utf-8",
+                        url: "/Panel/Lookup/Read"
+                    },
+                    parameterMap: function (data, operation) {
+                        if (operation === 'read') {
+                            return JSON.stringify(opt);
+                        }
                     }
                 },
                 schema: {
@@ -290,20 +290,20 @@ window.mnLookup = function () {
         //self.list.dsSehirIlce.read();
 
         //ön yükle 2.şekil
-        //self.listLoad({
-        //    TableName: 'Cinsiyet',
-        //    ValueField: "Id",
-        //    TextField: 'Ad',
-        //    OtherFields: '',
-        //    Filters: [
-        //        { Field: 'Id', Operator: '>=', Value: '0', ValueType: 'Int' },
-        //        { Field: 'Durum', Operator: '=', Value: '1', ValueType: 'Boolean' }
-        //    ],
-        //    Sorts: [
-        //        { Field: 'Sira', Dir: 'asc' },
-        //        { Field: 'Ad', Dir: 'asc' }
-        //    ]
-        //}).read();
+        self.listLoad({
+            TableName: 'Gender',
+            ValueField: "Id",
+            TextField: 'Name',
+            OtherFields: '',
+            Filters: [
+                { Field: 'Id', Operator: '>=', Value: '0', ValueType: 'Int' },
+                { Field: 'IsActive', Operator: '=', Value: '1', ValueType: 'Boolean' }
+            ],
+            Sorts: [
+                { Field: 'LineNumber', Dir: 'asc' },
+                { Field: 'Name', Dir: 'asc' }
+            ]
+        }).read();
 
     };
 

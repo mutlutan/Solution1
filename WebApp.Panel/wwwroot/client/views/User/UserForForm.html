@@ -176,17 +176,17 @@
                  destroy: { type: 'POST', url: self.apiUrlPrefix + '/Delete', dataType: 'json', contentType: 'application/json; charset=utf-8' },
                  parameterMap: function (data, operation) {
                      if (operation === 'read') {
-                         return kendo.stringify(data);
+                         return JSON.stringify(data);
                      }
                      else if (operation === 'create' || operation === 'update') {
                          data.ValidityDate = kendo.toString(data.ValidityDate, 's');
                          data.CreateDate = kendo.toString(data.CreateDate, 's');
                          data.UpdateDate = kendo.toString(data.UpdateDate, 's');
 
-                         return kendo.stringify(data);
+                         return JSON.stringify(data);
                      }
                      else if (operation === 'destroy') {
-                         return kendo.stringify(data);
+                         return JSON.stringify(data);
                      }
                  }
              },

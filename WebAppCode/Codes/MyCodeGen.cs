@@ -2824,7 +2824,7 @@ namespace WebApp1.Codes
 			sbCodes.AppendLine("                 destroy: { type: 'POST', url: self.apiUrlPrefix + '/Delete', dataType: 'json', contentType: 'application/json; charset=utf-8' },");
 			sbCodes.AppendLine("                 parameterMap: function (data, operation) {");
 			sbCodes.AppendLine("                     if (operation === 'read') {");
-			sbCodes.AppendLine("                         return kendo.stringify(data);");
+			sbCodes.AppendLine("                         return JSON.stringify(data);");
 			sbCodes.AppendLine("                     }");
 			sbCodes.AppendLine("                     else if (operation === 'create' || operation === 'update') {");
 
@@ -2856,10 +2856,10 @@ namespace WebApp1.Codes
 			}
 
 			sbCodes.AppendLine("");
-			sbCodes.AppendLine("                         return kendo.stringify(data);");
+			sbCodes.AppendLine("                         return JSON.stringify(data);");
 			sbCodes.AppendLine("                     }");
 			sbCodes.AppendLine("                     else if (operation === 'destroy') {");
-			sbCodes.AppendLine("                         return kendo.stringify(data);");
+			sbCodes.AppendLine("                         return JSON.stringify(data);");
 			sbCodes.AppendLine("                     }");
 			sbCodes.AppendLine("                 }");
 			sbCodes.AppendLine("             },");
@@ -4125,7 +4125,7 @@ namespace WebApp1.Codes
 			sbCodes.AppendLine("                 destroy: { type: 'POST', url: self.apiUrlPrefix + '/Delete', dataType: 'json', contentType: 'application/json; charset=utf-8' },");
 			sbCodes.AppendLine("                 parameterMap: function (data, operation) {");
 			sbCodes.AppendLine("                     if (operation === 'read') {");
-			sbCodes.AppendLine("                         return kendo.stringify(data);");
+			sbCodes.AppendLine("                         return JSON.stringify(data);");
 			sbCodes.AppendLine("                     }");
 			if (_oTableOptions.GridViewCrudEditorType.MyToTrim().Length > 0 || _oTableOptions.SearchViewCrudEditorType.MyToTrim().Length > 0)
 			{
@@ -4146,10 +4146,10 @@ namespace WebApp1.Codes
 					}
 				}
 
-				sbCodes.AppendLine("                         return kendo.stringify(data);");
+				sbCodes.AppendLine("                         return JSON.stringify(data);");
 				sbCodes.AppendLine("                     }");
 				sbCodes.AppendLine("                     else if (operation === 'destroy') {");
-				sbCodes.AppendLine("                         return kendo.stringify(data);");
+				sbCodes.AppendLine("                         return JSON.stringify(data);");
 				sbCodes.AppendLine("                     }");
 			}
 			sbCodes.AppendLine("                 }");
@@ -5905,7 +5905,7 @@ namespace WebApp1.Codes
 			sbCodes.AppendLine("                    destroy: { type: 'POST', url: self.apiUrlPrefix + '/Delete', dataType: 'json', contentType: 'application/json; charset=utf-8' },");
 			sbCodes.AppendLine("                    parameterMap: function (data, operation) {");
 			sbCodes.AppendLine("                        if (operation === 'read') {");
-			sbCodes.AppendLine("                            return kendo.stringify(data);");
+			sbCodes.AppendLine("                            return JSON.stringify(data);");
 			sbCodes.AppendLine("                        }");
 			sbCodes.AppendLine("                        else if (operation === 'create' || operation === 'update') {");
 			sbCodes.AppendLine("                            if (data.Cc" + _oTableOptions.ParentColumnName + " > 0) {");
@@ -5930,10 +5930,10 @@ namespace WebApp1.Codes
 				}
 			}
 
-			sbCodes.AppendLine("                            return kendo.stringify(data);");
+			sbCodes.AppendLine("                            return JSON.stringify(data);");
 			sbCodes.AppendLine("                        }");
 			sbCodes.AppendLine("                        else if (operation === 'destroy') {");
-			sbCodes.AppendLine("                            return kendo.stringify(data);");
+			sbCodes.AppendLine("                            return JSON.stringify(data);");
 			sbCodes.AppendLine("                        }");
 			sbCodes.AppendLine("                    }");
 			sbCodes.AppendLine("                },");

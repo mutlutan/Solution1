@@ -59,6 +59,10 @@
     height: 32px;
 }
 
+.k-grid-container {
+    font-weight: 300;
+}
+
 .k-button-solid-primary:hover {
     background-color: #094eb4;
 }

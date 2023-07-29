@@ -23,8 +23,7 @@ namespace WebApp.Panel.Controllers
 		[AuthenticateRequired]
 		public ActionResult ReadDashboardList()
 		{
-			var response = new MoResponse<List<Dashboard>>();
-			response = this.business.ReadDashboardList();
+			var response = this.business.ReadDashboardList();
 
 			return Ok(response);
 		}
@@ -33,8 +32,7 @@ namespace WebApp.Panel.Controllers
 		[AuthenticateRequired]
 		public ActionResult ReadDashboardData(int id)
 		{
-			var response = new MoResponse<object>();
-			response = this.business.ReadDashboardData(id);
+			var response = this.business.ReadDashboardData(id);
 
 			return Ok(response);
 		}

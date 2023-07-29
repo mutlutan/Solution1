@@ -54,30 +54,6 @@ namespace WebApp.Panel.Controllers
             return Json(response);
         }
 
-        #region lookup
-        //lookup controllerdan taşınır ise diye yazıldı, bi deli taşırsa hazır kod burda
-        //[HttpPost("GetLookup")]
-        //[ResponseCache(Duration = 0)]
-        //[AuthenticateRequired]
-        //public IActionResult GetLookup([FromBody] LookupRequest request)
-        //{
-        //    Kendo.Mvc.UI.DataSourceResult dsr = new();
-        //    try
-        //    {
-        //        var lookupResult = business.GetLookupRead(userToken.Culture, request);
-        //        dsr.Data = lookupResult;
-        //        dsr.Total = lookupResult.Count();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        dsr.Errors = ex.MyLastInner().Message;
-        //        business.WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
-        //    }
-
-        //    return Json(dsr);
-        //}
-        #endregion
-
         [HttpPost("ChangePassword")]
         [ResponseCache(Duration = 0)]
         [AuthenticateRequired]

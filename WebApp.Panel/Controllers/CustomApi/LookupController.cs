@@ -1,41 +1,45 @@
-using System;
-using System.Linq;
+using AppCommon;
+using AppCommon.Business;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Microsoft.AspNetCore.Http;
 using System.Reflection;
 using WebApp.Panel.Codes;
 using Telerik.DataSource;
-using Telerik.DataSource.Extensions;
-using AppCommon;
+
 
 namespace WebApp.Panel.Controllers
 {
+	[Route("Panel/[controller]")]
+    [ApiController]
     public class LookupController : BaseController
     {
         public LookupController(IServiceProvider _serviceProvider) : base(_serviceProvider) { }
 
-        [HttpPost]
+        //lookup,dropdown,combo apileri buraya yazýlýr
+
+        #region lookup
+
+        [HttpPost("Read")]
         [ResponseCache(Duration = 0)]
         [AuthenticateRequired]
-        public ActionResult Read(LookupRequest request)
+        public IActionResult Read([FromBody] LookupRequest request)
         {
             DataSourceResult dsr = new();
+
             try
             {
-                var lookupResult = this.business.GetLookupRead(this.business.UserToken.Culture, request);
-
+                var lookupResult = business.GetLookupRead(this.business.UserToken.Culture, request);
                 dsr.Data = lookupResult;
                 dsr.Total = lookupResult.Count();
             }
             catch (Exception ex)
             {
                 dsr.Errors = ex.MyLastInner().Message;
-                this.business.WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
+                business.WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
             }
 
             return Json(dsr);
         }
+        #endregion
 
         #region Ulke Sehir Ilce lookup
 
@@ -64,28 +68,29 @@ namespace WebApp.Panel.Controllers
 
 
         #region enum listeleri 
-        [ResponseCache(Duration = 0)]
-        [AuthenticateRequired]
-        public ActionResult ReadEnmYetkiGrup()
-        {
-            DataSourceResult dsr = new();
-            try
-            {
-                var enumArray = (EnmYetkiGrup[])Enum.GetValues(typeof(EnmYetkiGrup));
-                var data = enumArray
-                    .Select(s => new { value = (int)s, text = s.ToString() });
+        //[ResponseCache(Duration = 0)]
+        //[AuthenticateRequired]
+        //public ActionResult ReadEnmYetkiGrup()
+        //{
+        //    DataSourceResult dsr = new();
+        //    try
+        //    {
+        //        var enumArray = (EnmYetkiGrup[])Enum.GetValues(typeof(EnmYetkiGrup));
+        //        var data = enumArray
+        //            .Select(s => new { value = (int)s, text = s.ToString() });
 
-                dsr.Data = data;
-                dsr.Total = data.Count();
-            }
-            catch (Exception ex)
-            {
-                dsr.Errors = ex.MyLastInner().Message;
-            }
-            return Json(dsr);
-        }
+        //        dsr.Data = data;
+        //        dsr.Total = data.Count();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        dsr.Errors = ex.MyLastInner().Message;
+        //    }
+        //    return Json(dsr);
+        //}
 
         #endregion
+
 
     }
 }
