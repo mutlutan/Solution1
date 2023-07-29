@@ -2,9 +2,6 @@
 
 <div id='UyeForForm'>
     <div id='divButtonGroup' class='mnButtonGroup float-end'>
-        <button id='btnDetayUyeCariHareket' class='btnDetay btn btn-outline-primary text-nowrap '> <span data-langkey-text='xLng.UyeCariHareket.Title'></span> </button>
-        <button id='btnDetayUyeCuzdanHareket' class='btnDetay btn btn-outline-primary text-nowrap '> <span data-langkey-text='xLng.UyeCuzdanHareket.Title'></span> </button>
-
         <button id='btnKaydet' type='button' class='btn btn-outline-success text-nowrap' data-langkey-title='xLng.Kaydet'> <i class='fa fa-save'></i> </button>
     </div>
 
@@ -20,14 +17,23 @@
                     </div>
 
                     <div class='col-lg-6 col-md-12'>
-                         <div name='divIsActive' class='mnFormElementDiv form-group row'>
+                         <div name='divUyeDurumId' class='mnFormElementDiv form-group row'>
                              <label class='col-sm-4 col-form-label'>
+                                <span class='mn-required-span' data-langkey-text='xLng.Uye.UyeDurumId'></span>
                              </label>
                              <div class='col-sm-8'>
-                                <label style='font-weight:normal;'>
-                                    <input name='IsActive' type='checkbox' data-bind='checked:IsActive' style='width: 24px; height: 24px; vertical-align: middle;'  />
-                                    <span data-langkey-Text='xLng.Uye.IsActive'></span>
-                                </label>
+                                 <input name='UyeDurumId' data-bind='value:UyeDurumId' />
+                                 <span class='k-invalid-msg' data-for='UyeDurumId'></span>
+                             </div>
+                         </div>
+
+                         <div name='divUyeGrupId' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='mn-required-span' data-langkey-text='xLng.Uye.UyeGrupId'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='UyeGrupId' data-bind='value:UyeGrupId' />
+                                 <span class='k-invalid-msg' data-for='UyeGrupId'></span>
                              </div>
                          </div>
 
@@ -39,16 +45,6 @@
                                     <input name='IsConfirmed' type='checkbox' data-bind='checked:IsConfirmed' style='width: 24px; height: 24px; vertical-align: middle;'  />
                                     <span data-langkey-Text='xLng.Uye.IsConfirmed'></span>
                                 </label>
-                             </div>
-                         </div>
-
-                         <div name='divUyeGrupId' class='mnFormElementDiv form-group row'>
-                             <label class='col-sm-4 col-form-label'>
-                                <span class='mn-required-span' data-langkey-text='xLng.Uye.UyeGrupId'></span>
-                             </label>
-                             <div class='col-sm-8'>
-                                 <input name='UyeGrupId' data-bind='value:UyeGrupId' />
-                                 <span class='k-invalid-msg' data-for='UyeGrupId'></span>
                              </div>
                          </div>
 
@@ -67,6 +63,30 @@
                              </label>
                              <div class='col-sm-8'>
                                  <input name='CountryCode' type='text' class='form-control d-inline' data-bind='value:CountryCode' data-langkey-placeholder='xLng.Uye.CountryCode'   maxlength='50' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divAvatar' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='' data-langkey-text='xLng.Uye.Avatar'></span>
+                             </label>
+                             <div class='col-sm-8' >
+                                <img name='Avatar' data-bind='attr:{src:Avatar}' style='border:1px solid silver; cursor:pointer; height:38px; width:27px; ' />
+                             </div>
+                         </div>
+
+                         <div name='divGeoLocation' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='' data-langkey-text='xLng.Uye.GeoLocation'></span>
+                             </label>
+                             <div class='col-sm-8' style='position:relative;' >
+                                 <textarea name='GeoLocation' class='form-control' data-bind='value:GeoLocation' data-langkey-placeholder='xLng.Uye.GeoLocation'  style='height:38px;'  ></textarea>
+                                 <button id='btnClearGeoLocation' class='btn btn-link btn-sm' style='position:absolute; top:-6px; right:7px;'>
+                                     <i class='fa fa-trash-o'></i>
+                                 </button>
+                                 <div class='mt-1' style='height:114px;'>
+                                     <comp-google-map name='GeoLocation' center='{ "lat": 39.9187725, "lng": 32.85806 }' zoom='11' map-type-id='roadmap'></comp-google-map>
+                                 </div>
                              </div>
                          </div>
 
@@ -104,15 +124,6 @@
                              <div class='col-sm-8'>
                                  <input name='ValidityDate' data-bind='value:ValidityDate' />
                                  <span class='k-invalid-msg' data-for='ValidityDate'></span>
-                             </div>
-                         </div>
-
-                         <div name='divAvatar' class='mnFormElementDiv form-group row'>
-                             <label class='col-sm-4 col-form-label'>
-                                <span class='' data-langkey-text='xLng.Uye.Avatar'></span>
-                             </label>
-                             <div class='col-sm-8' >
-                                <img name='Avatar' data-bind='attr:{src:Avatar}' style='border:1px solid silver; cursor:pointer; height:38px; width:27px; ' />
                              </div>
                          </div>
 
@@ -154,6 +165,12 @@
                          data.ValidityDate = kendo.toString(data.ValidityDate, 's');
                          data.CreateDate = kendo.toString(data.CreateDate, 's');
                          data.UpdateDate = kendo.toString(data.UpdateDate, 's');
+                         //Geometry data için
+                         if (data.GeoLocation != null && data.GeoLocation.trim().length > 0) {
+							data.GeoLocation = JSON.parse(data.GeoLocation);
+                         } else {
+							data.GeoLocation = null;
+                         }
 
                          return kendo.stringify(data);
                      }
@@ -169,9 +186,9 @@
                      id: self.primaryKey,
                      fields: {
                          Id: { type: 'number', defaultValue: null },
-                         IsActive: { type: 'boolean' },
-                         IsConfirmed: { type: 'boolean' },
+                         UyeDurumId: { type: 'number' },
                          UyeGrupId: { type: 'number' },
+                         IsConfirmed: { type: 'boolean' },
                          NameSurname: { type: 'string' },
                          CountryCode: { type: 'string' },
                          Avatar: { type: 'string' },
@@ -184,9 +201,9 @@
                          CreatedUserId: { type: 'number', editable:false },
                          UpdateDate: { type: 'date', editable:false },
                          UpdatedUserId: { type: 'number', editable:false },
-                         CcIsActive: { type: 'string' },
-                         CcIsConfirmed: { type: 'string' },
-                         CcUyeGrupIdAd: { type: 'string' }
+                         CcUyeDurumIdAd: { type: 'string' },
+                         CcUyeGrupIdAd: { type: 'string' },
+                         CcIsConfirmed: { type: 'string' }
                      }
                  }
              },
@@ -219,6 +236,18 @@
                      }
 
                      if (e.response.Data.length > 0) {
+						 //mapEditor marker
+						 self.mapEditorGeoLocation.fnDeleteAllMarkers();
+                         if (e.response.Data[0].GeoLocation != null) {
+							self.mapEditorGeoLocation.drawingManager.setDrawingMode('');
+							e.response.Data[0].GeoLocation = JSON.stringify(e.response.Data[0].GeoLocation);
+							let itemGeoLocation = JSON.parse(e.response.Data[0].GeoLocation);
+							let lat = parseFloat(itemGeoLocation.coordinates[0]);
+							let lng = parseFloat(itemGeoLocation.coordinates[1]);
+							self.mapEditorGeoLocation.fnAddMarker({ 'title': self.tableName, position: { 'lat': lat, 'lng': lng }, 'draggable': true, 'icon': '/img/maps/markers/icon.png' });
+                         } else {
+							self.mapEditorGeoLocation.drawingManager.setDrawingMode('marker');
+                         }
                      }
                  }
              },
@@ -229,12 +258,13 @@
                              url: self.apiUrlPrefix + '/GetByNew', type: 'GET', dataType: 'json', async: false,
                              success: function (result) {
                                  e.items[0].Id = result.Id;
-                                 e.items[0].IsActive = result.IsActive;
-                                 e.items[0].IsConfirmed = result.IsConfirmed;
+                                 e.items[0].UyeDurumId = result.UyeDurumId;
                                  e.items[0].UyeGrupId = result.UyeGrupId;
+                                 e.items[0].IsConfirmed = result.IsConfirmed;
                                  e.items[0].NameSurname = result.NameSurname;
                                  e.items[0].CountryCode = result.CountryCode;
                                  e.items[0].Avatar = result.Avatar;
+                                 e.items[0].GeoLocation = result.GeoLocation;
                                  e.items[0].UserName = result.UserName;
                                  e.items[0].UserPassword = result.UserPassword;
                                  e.items[0].SessionGuid = result.SessionGuid;
@@ -245,9 +275,9 @@
                                  e.items[0].UpdateDate = kendo.parseDate(result.UpdateDate);
                                  e.items[0].UpdatedUserId = result.UpdatedUserId;
                                  //computed alanların tanımlanması
-                                 e.items[0].CcIsActive = result.CcIsActive;
-                                 e.items[0].CcIsConfirmed = result.CcIsConfirmed;
+                                 e.items[0].CcUyeDurumIdAd = result.CcUyeDurumIdAd;
                                  e.items[0].CcUyeGrupIdAd = result.CcUyeGrupIdAd;
+                                 e.items[0].CcIsConfirmed = result.CcIsConfirmed;
                                  //filterdan gelen default value set için
                                  $(self.opt.filters).each(function (index, row) {
                                      if (row.filterColumnName !== 'Id') {
@@ -255,6 +285,9 @@
                                      }
                                  });
 
+                                 //(MapEditor için, new row da ilk durum set ediliyor)
+                                 self.mapEditorGeoLocation.fnDeleteAllMarkers();
+                                 self.mapEditorGeoLocation.drawingManager.setDrawingMode('marker');
                              },
                              error: function (xhr, status) {
                                  mnErrorHandler.Handle(xhr);
@@ -268,19 +301,6 @@
                      setTimeout(function () {
                         fValidateAll();
                      },1000);
-
-                     // detay buttons görünürlük için
-                     if (e.items[0].Id > 0) {
-                        $(self.selector).find('#btnDetayUyeCariHareket').show();
-                     } else {
-                        $(self.selector).find('#btnDetayUyeCariHareket').hide();
-                     }
-
-                     if (e.items[0].Id > 0) {
-                        $(self.selector).find('#btnDetayUyeCuzdanHareket').show();
-                     } else {
-                        $(self.selector).find('#btnDetayUyeCuzdanHareket').hide();
-                     }
 
                  }
 
@@ -329,41 +349,32 @@
              }
          });
 
-         $(self.selector).find('#btnDetayUyeCariHareket').click(function (e) {
-            var dataItem = self.dataSource.at(0);
-            mnPageView.create({
-                viewFolder: 'UyeCariHareket',
-                viewName: 'UyeCariHareketForGrid',
-                subTitle: mnLang.TranslateWithWord('xLng.DuzenlemeIslemleri'),
-                onShow: function (e) {
-                    e.beforeShow({
-                        'ownerViewName': 'UyeForForm',
-                        'filters': [
-                            { 'filterColumnName': 'UyeId', 'filterOperator': 'eq', 'filterValue': dataItem.Id }
-                        ]
-                    });
-                }
-            });
-         });
-
-         $(self.selector).find('#btnDetayUyeCuzdanHareket').click(function (e) {
-            var dataItem = self.dataSource.at(0);
-            mnPageView.create({
-                viewFolder: 'UyeCuzdanHareket',
-                viewName: 'UyeCuzdanHareketForGrid',
-                subTitle: mnLang.TranslateWithWord('xLng.DuzenlemeIslemleri'),
-                onShow: function (e) {
-                    e.beforeShow({
-                        'ownerViewName': 'UyeForForm',
-                        'filters': [
-                            { 'filterColumnName': 'UyeId', 'filterOperator': 'eq', 'filterValue': dataItem.Id }
-                        ]
-                    });
-                }
-            });
-         });
-
          //Diğer Form elementleri
+         $(self.selector).find('[name=UyeDurumId]').kendoDropDownList({
+             valuePrimitive: true,
+             optionLabel: mnLang.TranslateWithWord('xLng.Seciniz'),
+             dataValueField: 'value',
+             dataTextField: 'text',
+             dataSource: mnLookup.listLoad({
+                 ViewName: 'UyeForForm',
+                 ViewFieldName: 'UyeDurumId',
+                 TableName: 'UyeDurum',
+                 ValueField: 'Id',
+                 TextField: 'Ad',
+                 OtherFields: '',
+                 Filters: [
+                     { Field: 'Id', Operator: '>=', Value: '0' }
+                 ],
+                 Sorts: [
+                                 { Field: 'Ad', Dir: 'asc' }
+                 ]
+             }),
+             open: function (e) {
+             },
+             close: function (e) {
+             }
+         }).getKendoDropDownList();
+
          $(self.selector).find('[name=UyeGrupId]').kendoDropDownList({
              valuePrimitive: true,
              optionLabel: mnLang.TranslateWithWord('xLng.Seciniz'),
@@ -389,11 +400,6 @@
              }
          }).getKendoDropDownList();
 
-         $(self.selector).find('[name=ValidityDate]').kendoDatePicker({
-            componentType: mnApp.kendoDatePiker_ComponentType,
-            dateInput: mnApp.kendoDatePiker_DateInput
-         }).getKendoDatePicker();
-
          $(self.selector).find('[name=Avatar]').click(function (e) {
              $elmImg = $("<input id='imageFile' type='file' accept='image/*' style='display:none;' />"); 
              $elmImg.change(function () {
@@ -411,9 +417,47 @@
              $elmImg.click();
          });
 
+		 //TextArea üzerinde MapEditor için data clear
+         $(self.selector).find('#btnClearGeoLocation').click(function (e) {
+            var dataItem = self.dataSource.at(0);
+            dataItem.set('GeoLocation', null);
+         });
+
+			//mapEditor instance
+			self.mapEditorGeoLocation = $(self.selector).find('comp-google-map[name=GeoLocation]').get(0);
+			//mapEditor overlaycomplete
+			self.mapEditorGeoLocation.addEventListener('overlaycomplete', (event) => {
+				//console.log('event overlaycomplete', event, event.detail.value);
+				event.target.drawingManager.setDrawingMode(null); // Şekil çizdikten sonra çizim dışı moda geri dönün.
+				let elmMapEditor = event.target;
+				if (elmMapEditor.markers.length > 0) {
+					var lat = elmMapEditor.markers[0].position.lat();
+					var lng = elmMapEditor.markers[0].position.lng();
+					var itemValue = { 'type': 'Point', 'coordinates': [lat, lng] };
+					self.dataSource.at(0).set('GeoLocation', JSON.stringify(itemValue));
+				}
+			});
+			//mapEditor markerDragend
+			self.mapEditorGeoLocation.addEventListener('markerDragend', (event) => {
+				//console.log('event markerDragend', event, event.detail.value);
+				let elmMapEditor = event.target;
+				if (elmMapEditor.markers.length > 0) {
+					var lat = elmMapEditor.markers[0].position.lat();
+					var lng = elmMapEditor.markers[0].position.lng();
+					var itemValue = { "type": "Point", "coordinates": [lat, lng] };
+					self.dataSource.at(0).set('GeoLocation', JSON.stringify(itemValue));
+				}
+			});
+
+         $(self.selector).find('[name=ValidityDate]').kendoDatePicker({
+            componentType: mnApp.kendoDatePiker_ComponentType,
+            dateInput: mnApp.kendoDatePiker_DateInput
+         }).getKendoDatePicker();
+
      }
 
      function fSetAtributeFormElements() {
+         $(self.selector).find('[name=UyeDurumId]').attr('required', 'required');
          $(self.selector).find('[name=UyeGrupId]').attr('required', 'required');
      }
 
@@ -422,14 +466,6 @@
          var _C = mnUser.isYetkili(self.tableName + '.D_C.');
          var _U = mnUser.isYetkili(self.tableName + '.D_U.');
          var _D = mnUser.isYetkili(self.tableName + '.D_D.');
-
-         // menu buttons yetkiler için
-         var btnDetayUyeCariHareket_R = mnUser.isYetkili('UyeCariHareket.D_R.');
-         mnApi.controlEnable($(self.selector).find('#btnDetayUyeCariHareket'), btnDetayUyeCariHareket_R);
-
-         var btnDetayUyeCuzdanHareket_R = mnUser.isYetkili('UyeCuzdanHareket.D_R.');
-         mnApi.controlEnable($(self.selector).find('#btnDetayUyeCuzdanHareket'), btnDetayUyeCuzdanHareket_R);
-
 
          //ek yetkiler için)
          //...
@@ -443,12 +479,13 @@
 
         //form element görünümleri
         var fieldList = [];
-        fieldList.push({ 'Name': 'IsActive', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
-        fieldList.push({ 'Name': 'IsConfirmed', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'UyeDurumId', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'UyeGrupId', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'IsConfirmed', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'NameSurname', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'CountryCode', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'Avatar', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'GeoLocation', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'UserName', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'UserPassword', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'SessionGuid', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });

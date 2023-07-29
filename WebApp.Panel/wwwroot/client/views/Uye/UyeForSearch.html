@@ -170,20 +170,20 @@
 
              {
                  hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Uye.IsConfirmed'),
-                 field: 'IsConfirmed',
-                 template: '#:CcIsConfirmed#',
-                 attributes: { 'class': 'text-nowrap' },
-                 width: '80px'
-             },
-
-             {
-                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
                  title: mnLang.TranslateWithWord('xLng.Uye.UyeGrupId'),
                  field: 'UyeGrupId',
                  template: '#:CcUyeGrupIdAd#',
                  attributes: { 'class': 'text-nowrap' },
                  width: '100px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.Uye.IsConfirmed'),
+                 field: 'IsConfirmed',
+                 template: '#:CcIsConfirmed#',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '80px'
              },
 
              {
@@ -198,6 +198,14 @@
                  hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
                  title: mnLang.TranslateWithWord('xLng.Uye.CountryCode'),
                  field: 'CountryCode',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '130px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.Uye.Avatar'),
+                 field: 'Avatar',
                  attributes: { 'class': 'text-nowrap' },
                  width: '130px'
              },
@@ -241,14 +249,6 @@
                  format: '{0:d}',
                  attributes: { 'class': 'text-nowrap' },
                  width: '110px'
-             },
-
-             {
-                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Uye.Avatar'),
-                 field: 'Avatar',
-                 attributes: { 'class': 'text-nowrap' },
-                 width: '130px'
              },
 
              {}

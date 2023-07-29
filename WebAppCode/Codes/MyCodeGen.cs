@@ -3070,7 +3070,7 @@ namespace WebApp1.Codes
 				{
 					sbCodes.AppendLine("                                 //(MapEditor için, new row da ilk durum set ediliyor)");
 					var customProperty = JsonConvert.DeserializeObject<dynamic>(col.FormComponentCustomProperty.MyToTrim());
-					if (customProperty.type != null)
+					if (customProperty!=null && customProperty.type != null)
 					{
 						if (Convert.ToString(customProperty.type).ToLower() == "marker")
 						{

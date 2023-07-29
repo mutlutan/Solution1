@@ -41,24 +41,8 @@
  {
      "key" : "xLng.Uye.UyeDurumId",
      "value": {
-         "tr": "UyeDurumId",
-         "en": "UyeDurumId"
-     }
- }
-,
- {
-     "key" : "xLng.Uye.UniqueId",
-     "value": {
-         "tr": "Unique Id",
-         "en": "Unique Id"
-     }
- }
-,
- {
-     "key" : "xLng.Uye.IsConfirmed",
-     "value": {
-         "tr": "IsConfirmed",
-         "en": "IsConfirmed"
+         "tr": "Üye Durum",
+         "en": "Member Status"
      }
  }
 ,
@@ -71,66 +55,26 @@
  }
 ,
  {
+     "key" : "xLng.Uye.IsConfirmed",
+     "value": {
+         "tr": "Onaylandı",
+         "en": "IsConfirmed"
+     }
+ }
+,
+ {
      "key" : "xLng.Uye.NameSurname",
      "value": {
-         "tr": "NameSurname",
-         "en": "NameSurname"
+         "tr": "Ad Soyad",
+         "en": "Name Surname"
      }
  }
 ,
  {
      "key" : "xLng.Uye.CountryCode",
      "value": {
-         "tr": "CountryCode",
-         "en": "CountryCode"
-     }
- }
-,
- {
-     "key" : "xLng.Uye.GeoLocation",
-     "value": {
-         "tr": "GeoLocation",
-         "en": "GeoLocation"
-     }
- }
-,
- {
-     "key" : "xLng.Uye.UserName",
-     "value": {
-         "tr": "UserName",
-         "en": "UserName"
-     }
- }
-,
- {
-     "key" : "xLng.Uye.UserPassword",
-     "value": {
-         "tr": "UserPassword",
-         "en": "UserPassword"
-     }
- }
-,
- {
-     "key" : "xLng.Uye.SessionGuid",
-     "value": {
-         "tr": "SessionGuid",
-         "en": "SessionGuid"
-     }
- }
-,
- {
-     "key" : "xLng.Uye.ValidityDate",
-     "value": {
-         "tr": "ValidityDate",
-         "en": "ValidityDate"
-     }
- }
-,
- {
-     "key" : "xLng.Uye.CreateDate",
-     "value": {
-         "tr": "Eklenme Zamanı",
-         "en": "Time To Add"
+         "tr": "Ülke Kodu",
+         "en": "Country Code"
      }
  }
 ,
@@ -139,6 +83,62 @@
      "value": {
          "tr": "Profil Resmi",
          "en": "Profile Picture"
+     }
+ }
+,
+ {
+     "key" : "xLng.Uye.GeoLocation",
+     "value": {
+         "tr": "Coğrafi Konum",
+         "en": "Geo Location"
+     }
+ }
+,
+ {
+     "key" : "xLng.Uye.UserName",
+     "value": {
+         "tr": "Kullanıcı Adı",
+         "en": "User Name"
+     }
+ }
+,
+ {
+     "key" : "xLng.Uye.UserPassword",
+     "value": {
+         "tr": "Kullanıcı Şifresi",
+         "en": "User Password"
+     }
+ }
+,
+ {
+     "key" : "xLng.Uye.SessionGuid",
+     "value": {
+         "tr": "Oturum Rehberi",
+         "en": "Session Guid"
+     }
+ }
+,
+ {
+     "key" : "xLng.Uye.ValidityDate",
+     "value": {
+         "tr": "Geçerlilik Tarihi",
+         "en": "Validity Date"
+     }
+ }
+,
+ {
+     "key" : "xLng.Uye.UniqueId",
+     "value": {
+         "tr": "Unique Id",
+         "en": "Unique Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.Uye.CreateDate",
+     "value": {
+         "tr": "Eklenme Zamanı",
+         "en": "Time To Add"
      }
  }
 ,
