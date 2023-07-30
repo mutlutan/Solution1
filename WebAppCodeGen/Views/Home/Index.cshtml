@@ -10,9 +10,12 @@
     }
 </style>
 
-<div id="viewCodeGenerator" style="padding-top:15px;">
+<div id="viewCodeGenerator" style="padding:15px;">
     <div class="row">
         <div class="col-md-9">
+            <div>
+
+            </div>
             <div id="gridContainer" style="overflow-x:auto; border:1px solid silver; ">
                 <table class="table table-bordered table-hover table-sm table-fixed" style="font-size:0.8em;">
                     <thead class="thead-light">
@@ -108,16 +111,15 @@
             </div>
         </div>
 
-        <div class="col-md-3" style="">
+        <div class="col-md-3">
             <div style="padding:5px 0px;">
-                <button id="btnGenerateTableOptions" class="btn btn-outline-primary" title="Yeni Options Ekler"> New Table Options </button>
+                <button id="btnGenerateTableOptions" class="btn btn-outline-primary mb-1" title="Yeni Options Ekler"> New Table Options </button>
+                <button id="btnReGenerateCode" class="btn btn-outline-warning mb-1" title="Seçilen TableOption datalarında tanımlanmış auto create seçili tüm kodlar yeniden oluşturulur"> Re Generate Code </button>
+                <button id="ReTableOptionSave" class="btn btn-outline-info mb-1" title="Seçilen TableOption datalarını default değerlerine göre tekrar okur ve yeniden kaydeder"> Re Options Save</button>
             </div>
 
-            <div style="padding:5px 0px;">
-                <button id="btnReGenerateCode" class="btn btn-outline-warning" title="Seçilen TableOption datalarında tanımlanmış auto create seçili tüm kodlar yeniden oluşturulur"> Re Generate Code </button>
-                <button id="ReTableOptionSave" class="btn btn-outline-info" title="Seçilen TableOption datalarını default değerlerine göre tekrar okur ve yeniden kaydeder"> Re Options Save</button>
-
-                <textarea id="textAreaReGenerateCodeResult" class="border" style="padding:3px; margin-top:5px; width:100%; background-color:transparent;" disabled></textarea>
+            <div>
+                <textarea id="textAreaReGenerateCodeResult" class="border" style="padding:3px; width:100%; background-color:transparent;" disabled></textarea>
             </div>
         </div>
     </div>
@@ -172,11 +174,11 @@
             $(window).on("resize", function () {
                 //gridContainer
                 var $gridContainer = $(self.selector).find("#gridContainer");
-                $gridContainer.height($(window).height() - $gridContainer.offset().top - 15);
+                $gridContainer.height($(window).height() - $gridContainer.offset().top - 21);
 
                 //$(self.selector).find("#textAreaReGenerateCodeResult")
                 var $textAreaReGenerateCodeResult = $(self.selector).find("#textAreaReGenerateCodeResult");
-                $textAreaReGenerateCodeResult.height($(window).height() - $textAreaReGenerateCodeResult.offset().top - 20);
+                $textAreaReGenerateCodeResult.height($(window).height() - $textAreaReGenerateCodeResult.offset().top - 29);
             });
 
             $(self.selector).find("#gridContainer table tbody").on("click", "tr", function (e) {
