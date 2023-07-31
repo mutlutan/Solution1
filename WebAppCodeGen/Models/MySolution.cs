@@ -17,7 +17,6 @@ namespace WebAppCodeGen.Models
 
     public class MySolution
     {
-        public string FileName { get; set; } = MyApp.DataDirectory + "/Solutions.dat";
         public List<MoSolution> Solutions = new();
 
         public MySolution()
@@ -25,53 +24,25 @@ namespace WebAppCodeGen.Models
             this.ReadAll();
         }
 
-        public void SaveAll()
-        {
-            File.WriteAllText(this.FileName, JsonSerializer.Serialize(this.Solutions));
-        }
-
         public void ReadAll()
         {
-            try
-            {
-                if (!File.Exists(this.FileName))
-                {
-                    this.Insert(new MoSolution()
-                    {
-                        Name = "Solution1",
-                        Directory = "C:\\Yedek\\Projeler\\Solution1",
-                        MainConnectionString = "Server=.;Database=solution1_main;Trusted_Connection=True;Max Pool Size=500;",
-                        LogConnectionString = "Server=.;Database=solution1_log;Trusted_Connection=True;Max Pool Size=500;"
-                    });
-                }
+            var di = new DirectoryInfo(MyApp.DataDirectory);
+            var solutionDirectories = di.GetDirectories(".", SearchOption.TopDirectoryOnly);
 
-                this.Solutions = JsonSerializer.Deserialize<List<MoSolution>>(File.ReadAllText(this.FileName)) ?? new List<MoSolution>();
+            foreach (var dir in solutionDirectories)
+            {
+                var file = dir.GetFiles("_.dat", SearchOption.TopDirectoryOnly).FirstOrDefault();
+                if (file != null)
+                {
+                    var solution = JsonSerializer.Deserialize<MoSolution>(File.ReadAllText(file.FullName)) ?? new MoSolution();
+                    this.Solutions.Add(solution);
+                }
             }
-            catch { }
         }
 
         public MoSolution GetByName(string name)
         {
             return this.Solutions.First(f => f.Name == name);
-        }
-
-        public void Insert(MoSolution model)
-        {
-            this.Solutions.Add(model);
-            this.SaveAll();
-        }
-
-        public void Delete(MoSolution model)
-        {
-            this.Solutions.Remove(model);
-            this.SaveAll();
-        }
-
-        public void Update(MoSolution model)
-        {
-            this.Solutions.Remove(this.GetByName(model.Name));
-            this.Solutions.Add(model);
-            this.SaveAll();
         }
     }
     #endregion
