@@ -2,7 +2,7 @@
 using System.Text.Json;
 using WebApp1.Codes;
 
-namespace WebAppCodeGen.Models
+namespace WebApp1.Models
 {
     #region MySolution
 
