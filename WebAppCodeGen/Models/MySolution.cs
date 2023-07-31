@@ -17,7 +17,7 @@ namespace WebAppCodeGen.Models
 
     public class MySolution
     {
-        public string FileName { get; set; } = MyApp.Env?.ContentRootPath + "/Solution.dat";
+        public string FileName { get; set; } = MyApp.DataDirectory + "/Solutions.dat";
         public List<MoSolution> Solutions = new();
 
         public MySolution()

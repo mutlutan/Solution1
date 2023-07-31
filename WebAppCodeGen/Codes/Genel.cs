@@ -17,6 +17,18 @@ namespace WebApp1.Codes
     public class MyApp
     {
         public static IWebHostEnvironment? Env { get; set; } = null;
+        public static string DataDirectory
+        {
+            get
+            {
+                string path = MyApp.Env?.ContentRootPath + "Solutions";
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                return path;
+            }
+        }
 
         #region app Version
         public static string Version

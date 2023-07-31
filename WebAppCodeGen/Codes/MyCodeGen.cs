@@ -51,11 +51,18 @@ namespace WebApp1.Codes
 
 
         #region directories filename
-        public string TableOptionDirectory
+
+        public string CodeGenTableOptionDirectory
         {
             get
             {
-                return MyApp.Env.ContentRootPath + "\\Data";
+                string path = MyApp.DataDirectory + "\\" + this.moSolution.Name;
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                return path;
             }
         }
 
@@ -83,7 +90,7 @@ namespace WebApp1.Codes
 
         public string GetTableOptionsFullPathFileName(string tableOptionName)
         {
-            return this.TableOptionDirectory + "\\" + tableOptionName + "." + this.CodeGenDataFileExtension;
+            return this.CodeGenTableOptionDirectory + "\\" + tableOptionName + "." + this.CodeGenDataFileExtension;
         }
 
         public string GetRepositoryDirectory()
@@ -247,7 +254,7 @@ namespace WebApp1.Codes
         {
             List<string> SL = new();
 
-            DirectoryInfo diList = new(this.TableOptionDirectory);
+            DirectoryInfo diList = new(this.CodeGenTableOptionDirectory);
             if (diList.Exists)
             {
                 IEnumerable<FileInfo> files = diList.EnumerateFiles(_TableName + "_" + "." + this.CodeGenDataFileExtension, SearchOption.TopDirectoryOnly);
