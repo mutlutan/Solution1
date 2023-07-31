@@ -11,6 +11,7 @@ using Dapper;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using NetTopologySuite.Geometries;
 using Newtonsoft.Json;
+using WebAppCodeGen.Models;
 
 
 #nullable disable
@@ -34,30 +35,23 @@ namespace WebApp1.Codes
     public class MyCodeGen
     {
         readonly System.Data.Common.DbConnection dbConnection;
+        readonly MoSolution moSolution;
 
         #region NameSpace
 
-        public static string CodeGenAppCommonNameSpace { get; set; } = "AppCommon";
+        public string CodeGenAppCommonNameSpace { get; set; } = "AppCommon";
 
-        public static string CodeGenAppDataMainNameSpacePrefix { get; set; } = "AppCommon.DataLayer.DataMain";
+        public string CodeGenAppDataMainNameSpacePrefix { get; set; } = "AppCommon.DataLayer.DataMain";
 
-        public static string CodeGenDataTransferObjectNameSpace { get; set; } = CodeGenAppDataMainNameSpacePrefix + ".Repository.Dto";
+        public string CodeGenDataTransferObjectNameSpace { get { return this.CodeGenAppDataMainNameSpacePrefix + ".Repository.Dto"; } }
 
-        public static string CodeGenProjectNameSpace { get; set; } = "WebApp.Panel";
+        public string CodeGenProjectNameSpace { get; set; } = "WebApp.Panel";
 
         #endregion
 
 
         #region directories filename
-        public static string SolutionDirectory
-        {
-            get
-            {
-                return Directory.GetParent(MyApp.Env.WebRootPath).Parent.ToString();
-            }
-        }
-
-        public static string TableOptionDirectory
+        public string TableOptionDirectory
         {
             get
             {
@@ -65,74 +59,80 @@ namespace WebApp1.Codes
             }
         }
 
-        public static string CodeGenDataFileExtension { get; set; } = "json";
+        public string CodeGenDataFileExtension { get; set; } = "json";
 
-        public static string CodeGenBusinessName { get; set; } = "business"; //busines class name
+        public string CodeGenBusinessName { get; set; } = "business"; //busines class name
 
-        public static string GetCodeGenProjectDirectory()
+        public string GetCodeGenProjectDirectory()
         {
-            return MyCodeGen.SolutionDirectory + "\\" + "WebApp.Panel";
+            return this.moSolution.Directory + "\\" + "WebApp.Panel";
         }
 
-        public static string CodeGenRepositoryProjectDirectory { get; set; } = "AppCommon\\DataLayer\\DataMain\\Repository";
-        public static string CodeGenControllerProjectDirectory { get; set; } = MyCodeGen.GetCodeGenProjectDirectory();
-        public static string CodeGenDictionaryProjectDirectory { get; set; } = MyCodeGen.GetCodeGenProjectDirectory();
-        public static string CodeGenViewProjectDirectory { get; set; } = MyCodeGen.GetCodeGenProjectDirectory();
-
-        public static string CodeGenTableDictionaryFileName { get; set; } = "Dictionary.json";
-
-        public static string GetTableOptionsFullPathFileName(string tableOptionName)
+        public string CodeGenRepositoryProjectDirectory { get; set; } = "AppCommon\\DataLayer\\DataMain\\Repository";
+        public string CodeGenControllerProjectDirectory
         {
-            return MyCodeGen.TableOptionDirectory + "\\" + tableOptionName + "." + MyCodeGen.CodeGenDataFileExtension;
+            get
+            {
+                return this.GetCodeGenProjectDirectory();
+            }
+        }
+        public string CodeGenDictionaryProjectDirectory { get { return this.GetCodeGenProjectDirectory(); } }
+        public string CodeGenViewProjectDirectory { get { return this.GetCodeGenProjectDirectory(); } }
+
+        public string CodeGenTableDictionaryFileName { get; set; } = "Dictionary.json";
+
+        public string GetTableOptionsFullPathFileName(string tableOptionName)
+        {
+            return this.TableOptionDirectory + "\\" + tableOptionName + "." + this.CodeGenDataFileExtension;
         }
 
-        public static string GetRepositoryDirectory()
+        public string GetRepositoryDirectory()
         {
-            return MyCodeGen.SolutionDirectory + "\\" + MyCodeGen.CodeGenRepositoryProjectDirectory;
+            return this.moSolution.Directory + "\\" + this.CodeGenRepositoryProjectDirectory;
         }
 
-        public static string GetDtoDirectory()
+        public string GetDtoDirectory()
         {
-            return MyCodeGen.GetRepositoryDirectory() + "\\" + "Dto";
+            return this.GetRepositoryDirectory() + "\\" + "Dto";
         }
 
-        public static string GetDmoDirectory()
+        public string GetDmoDirectory()
         {
-            return MyCodeGen.GetRepositoryDirectory() + "\\" + "Dmo";
+            return this.GetRepositoryDirectory() + "\\" + "Dmo";
         }
 
-        public static string GetRepFullPathFileName()
+        public string GetRepFullPathFileName()
         {
-            return MyCodeGen.GetRepositoryDirectory() + "\\" + "Rep.cs";
+            return this.GetRepositoryDirectory() + "\\" + "Rep.cs";
         }
 
-        public static string GetControllersDirectory()
+        public string GetControllersDirectory()
         {
-            return MyCodeGen.CodeGenControllerProjectDirectory + "\\" + "Controllers";
+            return this.CodeGenControllerProjectDirectory + "\\" + "Controllers";
         }
 
-        public static string GetDictionaryDirectory(string tableName)
+        public string GetDictionaryDirectory(string tableName)
         {
-            return MyCodeGen.CodeGenDictionaryProjectDirectory + "\\" + "wwwroot\\client\\views\\" + tableName;
+            return this.CodeGenDictionaryProjectDirectory + "\\" + "wwwroot\\client\\views\\" + tableName;
         }
 
-        public static string GetViewDirectory(string tableName)
+        public string GetViewDirectory(string tableName)
         {
-            return MyCodeGen.CodeGenViewProjectDirectory + "\\" + "wwwroot\\client\\views\\" + tableName;
+            return this.CodeGenViewProjectDirectory + "\\" + "wwwroot\\client\\views\\" + tableName;
         }
 
         #endregion
 
         #region prefix
 
-        public static string CodeGen_LangKeyPrefix { get; set; } = "xLng";
-        public static string CodeGen_SequencePrefix { get; set; } = "sq";
-        public static string CodeGen_DtoPrefix { get; set; } = "Dto";
-        public static string CodeGen_DmoPrefix { get; set; } = "Dmo";
-        public static string CodeGen_RepPrefix { get; set; } = "Rep";
-        public static string CodeGen_ControllerRoot { get; set; } = "Panel"; //apinin rootlamasından dolayı gelen ek
-        public static string CodeGen_ControllerPrefix { get; set; } = "Api"; // controller prefix olmayabilir, ancak suffix olacak
-        public static string CodeGen_ControllerSuffix { get; set; } = "Controller";// controller prefix olmayabilir, ancak suffix olacak, başka birşey yazabilir ancak boş olmayacak
+        public string CodeGen_LangKeyPrefix { get; set; } = "xLng";
+        public string CodeGen_SequencePrefix { get; set; } = "sq";
+        public string CodeGen_DtoPrefix { get; set; } = "Dto";
+        public string CodeGen_DmoPrefix { get; set; } = "Dmo";
+        public string CodeGen_RepPrefix { get; set; } = "Rep";
+        public string CodeGen_ControllerRoot { get; set; } = "Panel"; //apinin rootlamasından dolayı gelen ek
+        public string CodeGen_ControllerPrefix { get; set; } = "Api"; // controller prefix olmayabilir, ancak suffix olacak
+        public string CodeGen_ControllerSuffix { get; set; } = "Controller";// controller prefix olmayabilir, ancak suffix olacak, başka birşey yazabilir ancak boş olmayacak
 
         #endregion
 
@@ -155,9 +155,10 @@ namespace WebApp1.Codes
         #endregion
 
         #region constractor
-        public MyCodeGen(string conStr)
+        public MyCodeGen(string solutionName)
         {
-            this.dbConnection = new SqlConnection(conStr);
+            this.moSolution = new MySolution().GetByName(solutionName);
+            this.dbConnection = new SqlConnection(moSolution.MainConnectionString);
         }
         #endregion
 
@@ -242,78 +243,78 @@ namespace WebApp1.Codes
 
         #region functions I static 
 
-        public static List<string> GetTableOptions(string _TableName)
+        public List<string> GetTableOptions(string _TableName)
         {
             List<string> SL = new();
 
-            DirectoryInfo diList = new(MyCodeGen.TableOptionDirectory);
+            DirectoryInfo diList = new(this.TableOptionDirectory);
             if (diList.Exists)
             {
-                IEnumerable<FileInfo> files = diList.EnumerateFiles(_TableName + "_" + "." + MyCodeGen.CodeGenDataFileExtension, SearchOption.TopDirectoryOnly);
+                IEnumerable<FileInfo> files = diList.EnumerateFiles(_TableName + "_" + "." + this.CodeGenDataFileExtension, SearchOption.TopDirectoryOnly);
                 SL.AddRange(files.Select(s => s.Name));
             }
             return SL;
         }
 
 
-        public static List<string> GetDataTransferObjects(string _TableName)
+        public List<string> GetDataTransferObjects(string _TableName)
         {
             List<string> SL = new();
-            DirectoryInfo diList = new(MyCodeGen.GetDtoDirectory());
+            DirectoryInfo diList = new(this.GetDtoDirectory());
             if (diList.Exists)
             {
-                var files = diList.EnumerateFiles(MyCodeGen.CodeGen_DtoPrefix + _TableName + ".cs", SearchOption.TopDirectoryOnly);
+                var files = diList.EnumerateFiles(this.CodeGen_DtoPrefix + _TableName + ".cs", SearchOption.TopDirectoryOnly);
                 SL.AddRange(files.Select(s => s.Name.Substring(0, s.Name.Length - 3)));
             }
             return SL;
         }
 
-        public static List<string> GetDataManipulationObjects(string _TableName)
+        public List<string> GetDataManipulationObjects(string _TableName)
         {
             List<string> SL = new();
-            DirectoryInfo diList = new(MyCodeGen.GetDmoDirectory());
+            DirectoryInfo diList = new(this.GetDmoDirectory());
             if (diList.Exists)
             {
-                var files = diList.EnumerateFiles(MyCodeGen.CodeGen_DmoPrefix + _TableName + ".cs", SearchOption.TopDirectoryOnly);
+                var files = diList.EnumerateFiles(this.CodeGen_DmoPrefix + _TableName + ".cs", SearchOption.TopDirectoryOnly);
                 SL.AddRange(files.Select(s => s.Name.Substring(0, s.Name.Length - 3)));
             }
             return SL;
         }
 
-        public static List<string> GetControllers(string _TableName)
+        public List<string> GetControllers(string _TableName)
         {
             List<string> SL = new();
 
-            DirectoryInfo diList = new(MyCodeGen.GetControllersDirectory());
+            DirectoryInfo diList = new(this.GetControllersDirectory());
             if (diList.Exists)
             {
-                var files = diList.EnumerateFiles(MyCodeGen.CodeGen_ControllerPrefix + _TableName + MyCodeGen.CodeGen_ControllerSuffix + ".cs", SearchOption.TopDirectoryOnly);
+                var files = diList.EnumerateFiles(this.CodeGen_ControllerPrefix + _TableName + this.CodeGen_ControllerSuffix + ".cs", SearchOption.TopDirectoryOnly);
                 SL.AddRange(files.Select(s => s.Name.Substring(0, s.Name.Length - 3)));
             }
 
             return SL;
         }
 
-        public static List<string> GetDictionaries(string _TableName)
+        public List<string> GetDictionaries(string _TableName)
         {
             List<string> SL = new();
 
-            string dir = MyCodeGen.GetDictionaryDirectory(_TableName);
+            string dir = this.GetDictionaryDirectory(_TableName);
             DirectoryInfo diList = new(dir);
             if (diList.Exists)
             {
-                var files = diList.EnumerateFiles(MyCodeGen.CodeGenTableDictionaryFileName, SearchOption.TopDirectoryOnly);
+                var files = diList.EnumerateFiles(this.CodeGenTableDictionaryFileName, SearchOption.TopDirectoryOnly);
                 SL.AddRange(files.Select(s => s.Name.Substring(0, s.Name.Length - 3)));
             }
 
             return SL;
         }
 
-        public static List<string> GetFormViews(string _TableName)
+        public List<string> GetFormViews(string _TableName)
         {
             List<string> SL = new();
 
-            string dir = MyCodeGen.GetViewDirectory(_TableName);
+            string dir = this.GetViewDirectory(_TableName);
             DirectoryInfo diList = new(dir);
             if (diList.Exists)
             {
@@ -324,11 +325,11 @@ namespace WebApp1.Codes
             return SL;
         }
 
-        public static List<string> GetGridViews(string _TableName)
+        public List<string> GetGridViews(string _TableName)
         {
             List<string> SL = new();
 
-            string dir = MyCodeGen.GetViewDirectory(_TableName);
+            string dir = this.GetViewDirectory(_TableName);
             DirectoryInfo diList = new(dir);
             if (diList.Exists)
             {
@@ -339,11 +340,11 @@ namespace WebApp1.Codes
             return SL;
         }
 
-        public static List<string> GetTreeLists(string _TableName)
+        public List<string> GetTreeLists(string _TableName)
         {
             List<string> SL = new();
 
-            string dir = MyCodeGen.GetViewDirectory(_TableName);
+            string dir = this.GetViewDirectory(_TableName);
             DirectoryInfo diList = new(dir);
             if (diList.Exists)
             {
@@ -354,11 +355,11 @@ namespace WebApp1.Codes
             return SL;
         }
 
-        public static List<string> GetSearchViews(string _TableName)
+        public List<string> GetSearchViews(string _TableName)
         {
             List<string> SL = new();
 
-            string dir = MyCodeGen.GetViewDirectory(_TableName);
+            string dir = this.GetViewDirectory(_TableName);
             DirectoryInfo diList = new(dir);
             if (diList.Exists)
             {
@@ -432,7 +433,7 @@ namespace WebApp1.Codes
             MyTableOption tableOption = new(); // mevcut table opt
             MyTableOption rTableOption = new();
 
-            string optionsFileName = MyCodeGen.GetTableOptionsFullPathFileName(_TableOptionName);
+            string optionsFileName = this.GetTableOptionsFullPathFileName(_TableOptionName);
             if (File.Exists(optionsFileName))
             {
                 rTableOption = System.Text.Json.JsonSerializer.Deserialize<MyTableOption>(File.ReadAllText(optionsFileName)) ?? new MyTableOption();
@@ -446,7 +447,7 @@ namespace WebApp1.Codes
                 rTableOption.TableDictionaryShortTitleTr = rTableOption.TableName;
                 rTableOption.TableDictionaryShortTitleEn = rTableOption.TableName;
 
-                string sequenceName = MyCodeGen.CodeGen_SequencePrefix + rTableOption.TableName;
+                string sequenceName = this.CodeGen_SequencePrefix + rTableOption.TableName;
                 if (!this.GetSequences().Where(c => c.Name == sequenceName).Any())
                 {
                     sequenceName = "";
@@ -468,10 +469,10 @@ namespace WebApp1.Codes
 
             var tableInfo = this.GetTableOrViewInfo(rTableOption.TableName);
 
-            rTableOption.DataTransferObjectName = MyCodeGen.CodeGen_DtoPrefix + rTableOption.TableName;
-            rTableOption.DataManipulationObjectName = MyCodeGen.CodeGen_DmoPrefix + rTableOption.TableName;
-            rTableOption.RepositoryName = MyCodeGen.CodeGen_RepPrefix + rTableOption.TableName;
-            rTableOption.ControllerName = MyCodeGen.CodeGen_ControllerPrefix + rTableOption.TableName;
+            rTableOption.DataTransferObjectName = this.CodeGen_DtoPrefix + rTableOption.TableName;
+            rTableOption.DataManipulationObjectName = this.CodeGen_DmoPrefix + rTableOption.TableName;
+            rTableOption.RepositoryName = this.CodeGen_RepPrefix + rTableOption.TableName;
+            rTableOption.ControllerName = this.CodeGen_ControllerPrefix + rTableOption.TableName;
 
             //primary key olmayan tablonun taaa...a.q.
             rTableOption.PrimaryKey = tableInfo.PrimaryKeyColumn?.Name ?? "Id";
@@ -807,11 +808,11 @@ namespace WebApp1.Codes
                 f.ColumnStatus = "Mevcut";
             }
 
-            string optionsFileName = MyCodeGen.GetTableOptionsFullPathFileName(_TableOptionName);
+            string optionsFileName = this.GetTableOptionsFullPathFileName(_TableOptionName);
 
             _TableOption.LangKeyRoot = CodeGen_LangKeyPrefix + "." + _TableOption.TableName;
 
-            _TableOption.DataTransferObjectNameSpace = MyCodeGen.CodeGenDataTransferObjectNameSpace;
+            _TableOption.DataTransferObjectNameSpace = this.CodeGenDataTransferObjectNameSpace;
 
             _TableOption.FormViewName = _TableOption.TableName + "ForForm";
             _TableOption.GridViewName = _TableOption.TableName + "ForGrid";
@@ -830,7 +831,7 @@ namespace WebApp1.Codes
         #region functions II
         public MyTableOption TableOptionLoad(string _TableOptionName)
         {
-            string optionsFileName = MyCodeGen.GetTableOptionsFullPathFileName(_TableOptionName);
+            string optionsFileName = this.GetTableOptionsFullPathFileName(_TableOptionName);
             MyTableOption tableOptions = System.Text.Json.JsonSerializer.Deserialize<MyTableOption>(File.ReadAllText(optionsFileName)) ?? new MyTableOption();
 
             return tableOptions;
@@ -846,7 +847,7 @@ namespace WebApp1.Codes
                 {
                     //----- diskeyazım baş ------------------------------------------
                     StringBuilder sbCodes = this.DataTransferObjectGenerate(oTableOptions);
-                    string codeDirectory = MyCodeGen.GetDtoDirectory();
+                    string codeDirectory = this.GetDtoDirectory();
                     string codeFileName = oTableOptions.DataTransferObjectName + ".cs";
                     if (!Directory.Exists(codeDirectory))
                     {
@@ -883,7 +884,7 @@ namespace WebApp1.Codes
                 {
                     //----- diskeyazım baş ------------------------------------------
                     StringBuilder sbCodes = this.DataManipulationObjectGenerate(oTableOptions);
-                    string codeDirectory = MyCodeGen.GetDmoDirectory();
+                    string codeDirectory = this.GetDmoDirectory();
                     string codeFileName = oTableOptions.DataManipulationObjectName + ".cs";
                     if (!Directory.Exists(codeDirectory))
                     {
@@ -904,7 +905,7 @@ namespace WebApp1.Codes
                 string code_generator_constructor_line = "this." + oTableOptions.RepositoryName + " = new " + oTableOptions.DataManipulationObjectName + "(this.dataContext);";
 
                 List<string> newlines = new();
-                string[] lines = File.ReadAllLines(MyCodeGen.GetRepFullPathFileName());
+                string[] lines = File.ReadAllLines(this.GetRepFullPathFileName());
 
                 foreach (string line in lines)
                 {
@@ -929,7 +930,7 @@ namespace WebApp1.Codes
                     newlines.Add(line);
                 }
 
-                File.WriteAllLines(MyCodeGen.GetRepFullPathFileName(), newlines);
+                File.WriteAllLines(this.GetRepFullPathFileName(), newlines);
                 //------------------------------------------------------------------------------------
 
             }
@@ -953,8 +954,8 @@ namespace WebApp1.Codes
                 {
                     //----- diskeyazım baş ------------------------------------------
                     StringBuilder sbCodes = this.ControllerGenerate(oTableOptions);
-                    string codeDirectory = MyCodeGen.GetControllersDirectory();
-                    string codeFileName = oTableOptions.ControllerName + MyCodeGen.CodeGen_ControllerSuffix + ".cs";
+                    string codeDirectory = this.GetControllersDirectory();
+                    string codeFileName = oTableOptions.ControllerName + this.CodeGen_ControllerSuffix + ".cs";
                     if (!Directory.Exists(codeDirectory))
                     {
                         Directory.CreateDirectory(codeDirectory);
@@ -989,8 +990,8 @@ namespace WebApp1.Codes
                 {
                     //----- diskeyazım baş ------------------------------------------
                     StringBuilder sbCodes = this.DictionaryGenerate(oTableOptions);
-                    string codeDirectory = MyCodeGen.GetDictionaryDirectory(oTableOptions.TableName);
-                    string codeFileName = MyCodeGen.CodeGenTableDictionaryFileName;
+                    string codeDirectory = this.GetDictionaryDirectory(oTableOptions.TableName);
+                    string codeFileName = this.CodeGenTableDictionaryFileName;
 
                     if (!Directory.Exists(codeDirectory))
                     {
@@ -1026,7 +1027,7 @@ namespace WebApp1.Codes
                 {
                     //----- diskeyazım baş ------------------------------------------
                     StringBuilder sbCodes = this.FormViewGenerate(oTableOptions);
-                    string codeDirectory = MyCodeGen.GetViewDirectory(oTableOptions.TableName);
+                    string codeDirectory = this.GetViewDirectory(oTableOptions.TableName);
                     string codeFileName = oTableOptions.FormViewName + ".html";
 
                     if (!Directory.Exists(codeDirectory))
@@ -1062,7 +1063,7 @@ namespace WebApp1.Codes
                 {
                     //----- diskeyazım baş ------------------------------------------
                     StringBuilder sbCodes = this.GridViewGenerate(oTableOptions, false);
-                    string codeDirectory = MyCodeGen.GetViewDirectory(oTableOptions.TableName);
+                    string codeDirectory = this.GetViewDirectory(oTableOptions.TableName);
                     string codeFileName = oTableOptions.GridViewName + ".html";
 
                     if (!Directory.Exists(codeDirectory))
@@ -1100,7 +1101,7 @@ namespace WebApp1.Codes
                 {
                     //----- diskeyazım baş ------------------------------------------
                     StringBuilder sbCodes = this.TreeListGenerate(oTableOptions, false);
-                    string codeDirectory = MyCodeGen.GetViewDirectory(oTableOptions.TableName);
+                    string codeDirectory = this.GetViewDirectory(oTableOptions.TableName);
                     string codeFileName = oTableOptions.TreeListName + ".html";
 
                     if (!Directory.Exists(codeDirectory))
@@ -1148,7 +1149,7 @@ namespace WebApp1.Codes
                         sbCodes = this.GridViewGenerate(oTableOptions, true);
                     }
 
-                    string codeDirectory = MyCodeGen.GetViewDirectory(oTableOptions.TableName);
+                    string codeDirectory = this.GetViewDirectory(oTableOptions.TableName);
                     string codeFileName = oTableOptions.SearchViewName + ".html";
 
                     if (!Directory.Exists(codeDirectory))
@@ -1269,11 +1270,11 @@ namespace WebApp1.Codes
             sbCodes.AppendLine("using System.Collections.Generic;");
             sbCodes.AppendLine("using System.Linq;");
             sbCodes.AppendLine("using Microsoft.EntityFrameworkCore;");
-            sbCodes.AppendLine("using " + MyCodeGen.CodeGenAppCommonNameSpace + ";");
-            sbCodes.AppendLine("using " + MyCodeGen.CodeGenAppDataMainNameSpacePrefix + ".Models;");
+            sbCodes.AppendLine("using " + this.CodeGenAppCommonNameSpace + ";");
+            sbCodes.AppendLine("using " + this.CodeGenAppDataMainNameSpacePrefix + ".Models;");
             sbCodes.AppendLine("");
 
-            sbCodes.AppendLine("namespace " + MyCodeGen.CodeGenAppDataMainNameSpacePrefix + ".Repository.Dto");
+            sbCodes.AppendLine("namespace " + this.CodeGenAppDataMainNameSpacePrefix + ".Repository.Dto");
             sbCodes.AppendLine("{");
             sbCodes.AppendLine("    public partial class " + _oTableOptions.DataTransferObjectName + " : " + _oTableOptions.TableName);
             sbCodes.AppendLine("    {");
@@ -1718,13 +1719,13 @@ namespace WebApp1.Codes
             sbCodes.AppendLine("using System.Collections.Generic;");
             sbCodes.AppendLine("using System.Linq;");
             sbCodes.AppendLine("using Microsoft.EntityFrameworkCore;");
-            sbCodes.AppendLine("using " + MyCodeGen.CodeGenAppCommonNameSpace + ";");
-            sbCodes.AppendLine("using " + MyCodeGen.CodeGenAppDataMainNameSpacePrefix + ".Repository;");
-            sbCodes.AppendLine("using " + MyCodeGen.CodeGenAppDataMainNameSpacePrefix + ".Models;");
-            sbCodes.AppendLine("using " + MyCodeGen.CodeGenAppDataMainNameSpacePrefix + ".Repository.Dto;");
+            sbCodes.AppendLine("using " + this.CodeGenAppCommonNameSpace + ";");
+            sbCodes.AppendLine("using " + this.CodeGenAppDataMainNameSpacePrefix + ".Repository;");
+            sbCodes.AppendLine("using " + this.CodeGenAppDataMainNameSpacePrefix + ".Models;");
+            sbCodes.AppendLine("using " + this.CodeGenAppDataMainNameSpacePrefix + ".Repository.Dto;");
             sbCodes.AppendLine("");
 
-            sbCodes.AppendLine("namespace " + MyCodeGen.CodeGenAppDataMainNameSpacePrefix + ".Repository.Dmo");
+            sbCodes.AppendLine("namespace " + this.CodeGenAppDataMainNameSpacePrefix + ".Repository.Dmo");
             sbCodes.AppendLine("{");
             sbCodes.AppendLine("    public class " + _oTableOptions.DataManipulationObjectName + " : BaseDmo");
             sbCodes.AppendLine("    {");
@@ -2127,9 +2128,9 @@ namespace WebApp1.Codes
             sbCodes.AppendLine("using Microsoft.AspNetCore.Mvc;");
             sbCodes.AppendLine("using Microsoft.Extensions.Options;");
             sbCodes.AppendLine("using Microsoft.AspNetCore.Http;");
-            sbCodes.AppendLine("using " + MyCodeGen.CodeGenAppCommonNameSpace + ";");
-            sbCodes.AppendLine("using " + MyCodeGen.CodeGenProjectNameSpace + ".Codes;");
-            sbCodes.AppendLine("using " + MyCodeGen.CodeGenAppDataMainNameSpacePrefix + ".Models;");
+            sbCodes.AppendLine("using " + this.CodeGenAppCommonNameSpace + ";");
+            sbCodes.AppendLine("using " + this.CodeGenProjectNameSpace + ".Codes;");
+            sbCodes.AppendLine("using " + this.CodeGenAppDataMainNameSpacePrefix + ".Models;");
             sbCodes.AppendLine("using Telerik.DataSource;");
             sbCodes.AppendLine("using Telerik.DataSource.Extensions;");
 
@@ -2137,14 +2138,14 @@ namespace WebApp1.Codes
 
             #endregion
 
-            sbCodes.AppendLine("namespace " + MyCodeGen.CodeGenProjectNameSpace + ".Controllers");
+            sbCodes.AppendLine("namespace " + this.CodeGenProjectNameSpace + ".Controllers");
             sbCodes.AppendLine("{");
 
-            sbCodes.AppendLine("    [Route(\"" + MyCodeGen.CodeGen_ControllerRoot + "/[controller]\")]");
+            sbCodes.AppendLine("    [Route(\"" + this.CodeGen_ControllerRoot + "/[controller]\")]");
             sbCodes.AppendLine("    [ApiController]");
-            sbCodes.AppendLine("    public class " + _oTableOptions.ControllerName + MyCodeGen.CodeGen_ControllerSuffix + " : BaseController");
+            sbCodes.AppendLine("    public class " + _oTableOptions.ControllerName + this.CodeGen_ControllerSuffix + " : BaseController");
             sbCodes.AppendLine("    {");
-            sbCodes.AppendLine("        public " + _oTableOptions.ControllerName + MyCodeGen.CodeGen_ControllerSuffix + "(IServiceProvider _serviceProvider) : base(_serviceProvider) { }");
+            sbCodes.AppendLine("        public " + _oTableOptions.ControllerName + this.CodeGen_ControllerSuffix + "(IServiceProvider _serviceProvider) : base(_serviceProvider) { }");
             sbCodes.AppendLine("");
 
             #region read
@@ -2817,7 +2818,7 @@ namespace WebApp1.Codes
             sbCodes.AppendLine("     self.selector = '#" + _oTableOptions.FormViewName + "';");
             sbCodes.AppendLine("     self.primaryKey = '" + _oTableOptions.PrimaryKey + "';");
             sbCodes.AppendLine("     self.tableName = '" + _oTableOptions.TableName + "';");
-            sbCodes.AppendLine("     self.apiUrlPrefix = '/" + MyCodeGen.CodeGen_ControllerRoot + "/" + MyCodeGen.CodeGen_ControllerPrefix + "' + self.tableName;");
+            sbCodes.AppendLine("     self.apiUrlPrefix = '/" + this.CodeGen_ControllerRoot + "/" + this.CodeGen_ControllerPrefix + "' + self.tableName;");
             sbCodes.AppendLine("");
 
             #region Create DataSource
@@ -4118,7 +4119,7 @@ namespace WebApp1.Codes
             sbCodes.AppendLine("     self.selector = '#" + viewName + "';");
             sbCodes.AppendLine("     self.primaryKey = '" + _oTableOptions.PrimaryKey + "';");
             sbCodes.AppendLine("     self.tableName = '" + _oTableOptions.TableName + "';");
-            sbCodes.AppendLine("     self.apiUrlPrefix = '/" + MyCodeGen.CodeGen_ControllerRoot + "/" + MyCodeGen.CodeGen_ControllerPrefix + "' + self.tableName;");
+            sbCodes.AppendLine("     self.apiUrlPrefix = '/" + this.CodeGen_ControllerRoot + "/" + this.CodeGen_ControllerPrefix + "' + self.tableName;");
             sbCodes.AppendLine("");
 
             #region Create Data Source
@@ -5899,7 +5900,7 @@ namespace WebApp1.Codes
             sbCodes.AppendLine("        self.selector = '#" + viewName + "';");
             sbCodes.AppendLine("        self.primaryKey = '" + _oTableOptions.PrimaryKey + "';");
             sbCodes.AppendLine("        self.tableName = '" + _oTableOptions.TableName + "';");
-            sbCodes.AppendLine("        self.apiUrlPrefix = '/" + MyCodeGen.CodeGen_ControllerRoot + "/" + MyCodeGen.CodeGen_ControllerPrefix + "' + self.tableName;");
+            sbCodes.AppendLine("        self.apiUrlPrefix = '/" + this.CodeGen_ControllerRoot + "/" + this.CodeGen_ControllerPrefix + "' + self.tableName;");
             sbCodes.AppendLine("");
 
             #region DataSource

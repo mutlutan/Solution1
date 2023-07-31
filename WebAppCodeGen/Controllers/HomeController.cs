@@ -21,34 +21,32 @@ namespace WebApp1.Controllers
 
         public IActionResult TableList(string solutionName)
         {
-            var solution = new MySolution().GetByName(solutionName);
+            var myCodeGen = new MyCodeGen(solutionName);
 
-            var myCodeGen = new MyCodeGen(solution.MainConnectionString);
-
-            var MyCodeGenInfoList = new List<MyCodeGenInfo>();
+            var myCodeGenInfoList = new List<MyCodeGenInfo>();
             foreach (var table in myCodeGen.GetTablesOrViews())
             {
-                var tableOptions = MyCodeGen.GetTableOptions(table.Name);
+                var tableOptions = myCodeGen.GetTableOptions(table.Name);
 
-                MyCodeGenInfoList.Add(
+                myCodeGenInfoList.Add(
                     new MyCodeGenInfo
                     {
                         TableName = table.Name,
                         TableOptions = tableOptions,
-                        DataTransferObjects = MyCodeGen.GetDataTransferObjects(table.Name),
-                        DataManipulationObjects = MyCodeGen.GetDataManipulationObjects(table.Name),
-                        Controllers = MyCodeGen.GetControllers(table.Name),
-                        Dictionaries = MyCodeGen.GetDictionaries(table.Name),
-                        FormViews = MyCodeGen.GetFormViews(table.Name),
-                        GridViews = MyCodeGen.GetGridViews(table.Name),
-                        TreeLists = MyCodeGen.GetTreeLists(table.Name),
-                        SearchViews = MyCodeGen.GetSearchViews(table.Name)
+                        DataTransferObjects = myCodeGen.GetDataTransferObjects(table.Name),
+                        DataManipulationObjects = myCodeGen.GetDataManipulationObjects(table.Name),
+                        Controllers = myCodeGen.GetControllers(table.Name),
+                        Dictionaries = myCodeGen.GetDictionaries(table.Name),
+                        FormViews = myCodeGen.GetFormViews(table.Name),
+                        GridViews = myCodeGen.GetGridViews(table.Name),
+                        TreeLists = myCodeGen.GetTreeLists(table.Name),
+                        SearchViews = myCodeGen.GetSearchViews(table.Name)
                     }
                 );
             }
 
-            ViewBag.MyCodeGenInfoList = MyCodeGenInfoList;
-            ViewBag.SolutionName = solution.Name;
+            ViewBag.MyCodeGenInfoList = myCodeGenInfoList;
+            ViewBag.SolutionName = solutionName;
 
 			return View();
         }
@@ -60,8 +58,6 @@ namespace WebApp1.Controllers
         [ResponseCache(Duration = 0)]
         public IActionResult ReadLocks(string _solutionName, string _TableName, string _TableOptionName)
         {
-            var solution = new MySolution().GetByName(_solutionName);
-
             Boolean rError = false;
             string rMessage = "";
             var rLockList = new List<string>();
@@ -79,7 +75,7 @@ namespace WebApp1.Controllers
                 };
 
 
-                var myCodeGen = new MyCodeGen(solution.MainConnectionString);
+                var myCodeGen = new MyCodeGen(_solutionName);
                 var tableOption = myCodeGen.FnTableOptionRead(_TableName, _TableOptionName);
 
                 foreach (var prop in props)
@@ -137,12 +133,10 @@ namespace WebApp1.Controllers
         #region lookup
         public IActionResult GetColumns(string _solutionName, string _TableName)
         {
-            var solution = new MySolution().GetByName(_solutionName);
-
             var rList = new List<string>();
             if (_TableName != null)
             {
-                var myCodeGen = new MyCodeGen(solution.MainConnectionString);
+                var myCodeGen = new MyCodeGen(_solutionName);
                 rList = myCodeGen.GetTableOrViewColumns(_TableName).Select(s => s.Name).ToList();
             }
 
@@ -154,9 +148,7 @@ namespace WebApp1.Controllers
 
         public IActionResult TableOption(string _solutionName, string _TableName, string _TableOptionName)
         {
-            var solution = new MySolution().GetByName(_solutionName);
-
-            ViewBag.SolutionName = solution.Name;
+            ViewBag.SolutionName = _solutionName;
             ViewBag.TableName = _TableName;
             ViewBag.TableOptionName = _TableOptionName;
             if (_TableName == _TableOptionName)
@@ -164,19 +156,19 @@ namespace WebApp1.Controllers
                 ViewBag.TableOptionName = _TableOptionName + "_";
             }
 
-            var myCodeGen = new MyCodeGen(solution.MainConnectionString);
+            var myCodeGen = new MyCodeGen(_solutionName);
 
             List<string> tableAndViews = myCodeGen.GetTablesOrViews().Select(s => s.Name).ToList();
             ViewBag.tableList = tableAndViews;
 
-            ViewBag.DataTransferObjectCount = MyCodeGen.GetDataTransferObjects(_TableName).Count;
-            ViewBag.DataManipulationObjectCount = MyCodeGen.GetDataManipulationObjects(_TableName).Count;
-            ViewBag.ControllerCount = MyCodeGen.GetControllers(_TableName).Count;
-            ViewBag.DictionaryCount = MyCodeGen.GetDictionaries(_TableName).Count;
-            ViewBag.FormViewCount = MyCodeGen.GetFormViews(_TableName).Count;
-            ViewBag.GridViewCount = MyCodeGen.GetGridViews(_TableName).Count;
-            ViewBag.TreeListCount = MyCodeGen.GetTreeLists(_TableName).Count;
-            ViewBag.SearchViewCount = MyCodeGen.GetSearchViews(_TableName).Count;
+            ViewBag.DataTransferObjectCount = myCodeGen.GetDataTransferObjects(_TableName).Count;
+            ViewBag.DataManipulationObjectCount = myCodeGen.GetDataManipulationObjects(_TableName).Count;
+            ViewBag.ControllerCount = myCodeGen.GetControllers(_TableName).Count;
+            ViewBag.DictionaryCount = myCodeGen.GetDictionaries(_TableName).Count;
+            ViewBag.FormViewCount = myCodeGen.GetFormViews(_TableName).Count;
+            ViewBag.GridViewCount = myCodeGen.GetGridViews(_TableName).Count;
+            ViewBag.TreeListCount = myCodeGen.GetTreeLists(_TableName).Count;
+            ViewBag.SearchViewCount = myCodeGen.GetSearchViews(_TableName).Count;
 
             return View();
         }
@@ -185,21 +177,21 @@ namespace WebApp1.Controllers
         [ResponseCache(Duration = 0)]
         public IActionResult TableOptionRead(string _solutionName, string _TableName, string _TableOptionName)
         {
-			var solution = new MySolution().GetByName(_solutionName);
 			Boolean rError = false;
             string rMessage = "";
             bool rExists = false;
             var rTableOption = new MyTableOption();
             try
             {
+                var myCodeGen = new MyCodeGen(_solutionName);
+
                 //dosya varmı?
-                if (System.IO.File.Exists(MyCodeGen.GetTableOptionsFullPathFileName(_TableOptionName)))
+                if (System.IO.File.Exists(myCodeGen.GetTableOptionsFullPathFileName(_TableOptionName)))
                 {
                     rExists = true;
                 }
 
                 //option read
-                var myCodeGen = new MyCodeGen(solution.MainConnectionString);
                 rTableOption = myCodeGen.FnTableOptionRead(_TableName, _TableOptionName);
             }
             catch (Exception ex)
@@ -215,14 +207,13 @@ namespace WebApp1.Controllers
         [ResponseCache(Duration = 0)]
         public IActionResult TableOptionSave(string _solutionName, string _TableOptionName, string _TableOptionText)
         {
-			var solution = new MySolution().GetByName(_solutionName);
 			bool rError;
             string rMessage = string.Empty;
 
 			try
             {
                 //option read
-                var myCodeGen = new MyCodeGen(solution.MainConnectionString);
+                var myCodeGen = new MyCodeGen(_solutionName);
                 var result = myCodeGen.FnTableOptionSave(_TableOptionName, _TableOptionText);
                 rError = result.Error;
                 rMessage = result.Message;
@@ -244,9 +235,8 @@ namespace WebApp1.Controllers
         [ResponseCache(Duration = 0)]
         public IActionResult CodeWrite(string _solutionName, string _TableOptionNames, string _CodeName)
         {
-			var solution = new MySolution().GetByName(_solutionName);
 			var result = new MyCustomResult();
-            var myCodeGen = new MyCodeGen(solution.MainConnectionString);
+            var myCodeGen = new MyCodeGen(_solutionName);
             foreach (var tableOptionName in _TableOptionNames.Split(","))
             {
                 MyCustomResult rV = myCodeGen.CodeWriteAll(tableOptionName, _CodeName);
@@ -260,13 +250,12 @@ namespace WebApp1.Controllers
         [ResponseCache(Duration = 0)]
         public IActionResult ReTableOptionSave(string _solutionName, string _TableOptionNames)
         {
-			var solution = new MySolution().GetByName(_solutionName);
 			var result = new MyCustomResult();
-            var myCodeGen = new MyCodeGen(solution.MainConnectionString);
+            var myCodeGen = new MyCodeGen(_solutionName);
             foreach (var tableOptionName in _TableOptionNames.Split(","))
             {
                 //tümü geldiğinde, tüm options dosyalarının defaultlarıyla read ve write yapılması
-                string optionsFileName = MyCodeGen.GetTableOptionsFullPathFileName(tableOptionName); 
+                string optionsFileName = myCodeGen.GetTableOptionsFullPathFileName(tableOptionName); 
                 if (System.IO.File.Exists(optionsFileName))
                 {
                     var tableOption = myCodeGen.FnTableOptionRead("", tableOptionName);
