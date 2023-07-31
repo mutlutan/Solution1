@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Globalization;
 using WebApp1.Codes;
 using WebApp1.Models;
+using WebAppCodeGen.Models;
 
 namespace WebApp1.Controllers
 {
@@ -20,7 +21,7 @@ namespace WebApp1.Controllers
             this.configuration = this.serviceProvider.GetService(typeof(IConfiguration)) as IConfiguration;
 
             this.connectionString = this.configuration?["ConnectionStrings:MainConnection"];
-        
+
         }
 
         public override void OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext context)

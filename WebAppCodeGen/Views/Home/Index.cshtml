@@ -13,8 +13,14 @@
 <div id="viewCodeGenerator" style="padding:15px;">
     <div class="row">
         <div class="col-md-9">
-            <div>
-
+            <div style="padding:15px;">
+                <select id="selectSolution" class="form-control w-75">
+                    <option>Choose...</option>
+                    @foreach (var item in (List<WebAppCodeGen.Models.MoSolution>)ViewBag.Solutions)
+                    {
+                        <option value="@item.Name">@item.Name (@item.Directory)</option>
+                    }
+                </select>
             </div>
             <div id="gridContainer" style="overflow-x:auto; border:1px solid silver; ">
                 <table class="table table-bordered table-hover table-sm table-fixed" style="font-size:0.8em;">

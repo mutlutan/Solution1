@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Text.Json;
 using WebApp1.Codes;
 using WebApp1.Models;
+using WebAppCodeGen.Models;
 
 namespace WebApp1.Controllers
 {
@@ -13,6 +14,8 @@ namespace WebApp1.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.Solutions = new MySolution().Solutions;
+
             var myCodeGen = new MyCodeGen(this.connectionString);
 
             var MyCodeGenInfoList = new List<MyCodeGenInfo>();

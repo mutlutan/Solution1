@@ -7,6 +7,8 @@ using System.Text;
 using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
 using System.Text.Json;
+using WebAppCodeGen.Models;
+using WebApp1.Models;
 
 namespace WebApp1.Codes
 {
