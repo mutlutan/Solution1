@@ -12,8 +12,8 @@ namespace WebApp1.Controllers
         #region compare
         public IActionResult Index()
         {
-            ViewBag.kaynak = this.connectionString;
-            ViewBag.hedef = this.connectionString;
+            ViewBag.kaynak = "";
+            ViewBag.hedef = "";
 
             return View();
         }

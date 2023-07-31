@@ -1,312 +1,50 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+	ViewData["Title"] = "Home Page";
 }
 
 <style>
-    #viewCodeGenerator #gridContainer table tbody tr td [name=checkboxTableOptionName] {
-        vertical-align: middle;
-        width: 15px;
-        height: 15px;
-    }
+	#viewCodeGenerator  {
+	}
 </style>
 
-<div id="viewCodeGenerator" style="padding:15px;">
-    <div class="row">
-        <div class="col-md-9">
-            <div style="padding:15px;">
-                <select id="selectSolution" class="form-control w-75">
-                    <option>Choose...</option>
-                    @foreach (var item in (List<WebAppCodeGen.Models.MoSolution>)ViewBag.Solutions)
-                    {
-                        <option value="@item.Name">@item.Name (@item.Directory)</option>
-                    }
-                </select>
-            </div>
-            <div id="gridContainer" style="overflow-x:auto; border:1px solid silver; ">
-                <table class="table table-bordered table-hover table-sm table-fixed" style="font-size:0.8em;">
-                    <thead class="thead-light">
-                        <tr>
-                            <th>Table Name</th>
-                            <th>
-                                <input id="chbOptionFilesSelectAll" type="checkbox" style="vertical-align:middle; width:15px; height:15px;" />
-                                Option Files
-                            </th>
-                            <th>Dto</th>
-                            <th>Dmo</th>
-                            <th>Ctrlr</th>
-                            <th>Dict</th>
-                            <th>Form</th>
-                            <th>Grid</th>
-                            <th>TreeList</th>
-                            <th>Search</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (WebApp1.Models.MyCodeGenInfo item in ViewBag.MyCodeGenInfoList)
-                        {
-                            <tr id="@item.TableName">
-                                <td>@item.TableName</td>
-                                <td>
-                                    @foreach (string sOpt in item.TableOptions)
-                                    {
-                                        <input name="checkboxTableOptionName" type="checkbox" data-TableName="@item.TableName" data-TableOptionName="@sOpt.Substring(0, sOpt.Length - 5)" />
-                                        <a name="btnOptionsLink" href="/Home/TableOption?_TableName=@item.TableName&_TableOptionName=@sOpt.Substring(0, sOpt.Length - 5)">@sOpt</a>
-                                        <br />
-                                    }
-                                </td>
+<div id="viewCodeGenerator" class="container">
 
-                                <td name="DataTransferObjectLock">
-                                    @if (item.DataTransferObjects.Count > 0)
-                                    {
-                                        @item.DataTransferObjects.Count
-                                    }
-                                </td>
+	<div class="py-2"></div>
 
-                                <td name="DataManipulationObjectLock">
-                                    @if (item.DataManipulationObjects.Count > 0)
-                                    {
-                                        @item.DataManipulationObjects.Count
-                                    }
-                                </td>
-
-                                <td name="ControllerLock">
-                                    @if (item.Controllers.Count > 0)
-                                    {
-                                        @item.Controllers.Count
-                                    }
-                                </td>
-
-                                <td name="DictionaryLock">
-                                    @if (item.Dictionaries.Count > 0)
-                                    {
-                                        @item.Dictionaries.Count
-                                    }
-                                </td>
-
-                                <td name="FormViewLock">
-                                    @if (item.FormViews.Count > 0)
-                                    {
-                                        @item.FormViews.Count
-                                    }
-                                </td>
-
-                                <td name="GridViewLock">
-                                    @if (item.GridViews.Count > 0)
-                                    {
-                                        @item.GridViews.Count
-                                    }
-                                </td>
-
-                                <td name="TreeListLock">
-                                    @if (item.TreeLists.Count > 0)
-                                    {
-                                        @item.TreeLists.Count
-                                    }
-                                </td>
-
-                                <td name="SearchViewLock">
-                                    @if (item.SearchViews.Count > 0)
-                                    {
-                                        @item.SearchViews.Count
-                                    }
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div style="padding:5px 0px;">
-                <button id="btnGenerateTableOptions" class="btn btn-outline-primary mb-1" title="Yeni Options Ekler"> New Table Options </button>
-                <button id="btnReGenerateCode" class="btn btn-outline-warning mb-1" title="Seçilen TableOption datalarında tanımlanmış auto create seçili tüm kodlar yeniden oluşturulur"> Re Generate Code </button>
-                <button id="ReTableOptionSave" class="btn btn-outline-info mb-1" title="Seçilen TableOption datalarını default değerlerine göre tekrar okur ve yeniden kaydeder"> Re Options Save</button>
-            </div>
-
-            <div>
-                <textarea id="textAreaReGenerateCodeResult" class="border" style="padding:3px; width:100%; background-color:transparent;" disabled></textarea>
-            </div>
-        </div>
-    </div>
-
+	<div class="row">
+		@foreach (var item in (List<WebAppCodeGen.Models.MoSolution>)ViewBag.Solutions)
+		{
+			<div class="col-md-10">
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title">@item.Name</h5>
+						<p class="card-text">@item.Directory</p>
+						<p class="card-text">@item.MainConnectionString</p>
+						<p class="card-text">@item.LogConnectionString</p>
+						<a href="/Home/TableList?solutionName=@item.Name" class="btn btn-primary">Go</a>
+					</div>
+				</div>
+			</div>
+		}
+	</div>
 </div>
 
 <script>
 
-    document.addEventListener("DOMContentLoaded", function () {
-        viewCodeGenerator.prepare();
-    });
+	document.addEventListener("DOMContentLoaded", function () {
+		viewCodeGenerator.prepare();
+	});
 
-    window.viewCodeGenerator = function () {
-        var self = {};
-        self.selector = "#viewCodeGenerator";
+	window.viewCodeGenerator = function () {
+		var self = {};
+		self.selector = "#viewCodeGenerator";
 
-        function fGetLock(tableName, tableOptionName) {
-            var _data = {
-                _TableName: tableName,
-                _TableOptionName: tableOptionName
-            };
+		self.prepare = function () {
 
-            $.ajax({
-                url: "/Home/ReadLocks",
-                data: _data,
-                type: "POST", dataType: "json",
-                success: function (result, textStatus, jqXHR) {
-                    var $tr = $(self.selector).find("#gridContainer table tbody").find("#" + tableName);
-                    $tr.find("td").removeClass("bg-danger").removeClass("text-white");
-                    for (var i = 0; i < result.oLockList.length; i++) {
-                        $tr.find("td[name=" + result.oLockList[i] + "]").addClass("bg-danger").addClass("text-white");;
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert(jqXHR.statusText + "-" + jqXHR.statusText + " (" + this.url + ")");
-                }
-            });
-        }
+		};
 
-        self.ShowLocks = function () {
-            $(self.selector).find("#gridContainer table tbody").find("[name=checkboxTableOptionName]").each(function () {
-                var tableName = $(this).attr("data-TableName");
-                var tableOptionName = $(this).attr("data-TableOptionName");
-                setTimeout(function () {
-                    fGetLock(tableName, tableOptionName);
-                },10);
-            });
-        };
-
-        self.prepare = function () {
-
-            $(window).on("resize", function () {
-                //gridContainer
-                var $gridContainer = $(self.selector).find("#gridContainer");
-                $gridContainer.height($(window).height() - $gridContainer.offset().top - 21);
-
-                //$(self.selector).find("#textAreaReGenerateCodeResult")
-                var $textAreaReGenerateCodeResult = $(self.selector).find("#textAreaReGenerateCodeResult");
-                $textAreaReGenerateCodeResult.height($(window).height() - $textAreaReGenerateCodeResult.offset().top - 29);
-            });
-
-            $(self.selector).find("#gridContainer table tbody").on("click", "tr", function (e) {
-                if (self.selected_tableName != e.currentTarget.id) {
-                    self.selected_tableName = e.currentTarget.id;
-
-                    $(e.currentTarget).closest("tbody").find("tr").removeClass("table-primary");
-                    $(e.currentTarget).addClass("table-primary");
-                }
-            });
-
-            //
-            $(self.selector).find("#gridContainer table #chbOptionFilesSelectAll").click(function (e) {
-                //var $elm = $(e.currentTarget);
-                $(self.selector).find("#gridContainer table tbody [type=checkbox]").click();
-            });
-
-            $(self.selector).find("#btnGenerateTableOptions").click(function (e) {
-                kendo.ui.progress($(self.selector), true); //progress On
-                window.location.assign("/Home/TableOption?_TableName=" + self.selected_tableName + "&_TableOptionName=" + self.selected_tableName);
-            });
-
-            $(self.selector).find('#gridContainer table tbody').on('click', 'a[name=btnOptionsLink]', function (e) {
-                kendo.ui.progress($(self.selector), true); //progress On
-            });
-
-            //
-            $(self.selector).find("#btnReGenerateCode").click(function (e) {
-                var optionNameList = [];
-                $(self.selector).find("[name=checkboxTableOptionName]:checked").each(function () {
-                    optionNameList.push($(this).attr("data-TableOptionName"));
-                });
-
-                if (optionNameList.length > 0) {
-
-                    var _data = {
-                        _TableOptionNames: optionNameList.join(","),
-                        _CodeName: "*"
-                    };
-
-                    $.ajax({
-                        url: "/Home/CodeWrite",
-                        data: _data,
-                        type: "POST", dataType: "json",
-                        beforeSend: function (jqXHR, settings) {
-                            kendo.ui.progress($(self.selector), true); //progress On
-                        },
-                        complete: function (jqXHR, textStatus) {
-                            kendo.ui.progress($(self.selector), false); //progress Off
-                        },
-                        success: function (result, textStatus, jqXHR) {
-                            var $elm = $(self.selector).find("#textAreaReGenerateCodeResult");
-                            $elm.val("");
-                            if (result.bError) {
-                                $elm.css("color", "red");
-                            } else {
-                                $elm.css("color", "green");
-                            }
-                            $elm.val(result.sMessage + "\nİş sonu.");
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            alert(jqXHR.statusText + "-" + jqXHR.statusText + " (" + this.url + ")");
-                        }
-                    });
-                } else {
-                    alert("Option dosyası seçmediniz.");
-                }
-
-            });
-
-            $(self.selector).find("#ReTableOptionSave").click(function (e) {
-                var optionNameList = [];
-                $(self.selector).find("[name=checkboxTableOptionName]:checked").each(function () {
-                    optionNameList.push($(this).attr("data-TableOptionName"));
-                });
-
-                if (optionNameList.length > 0) {
-
-                    var _data = {
-                        _TableOptionNames: optionNameList.join(",")
-                    };
-
-                    $.ajax({
-                        url: "/Home/ReTableOptionSave",
-                        data: _data,
-                        type: "POST", dataType: "json",
-                        beforeSend: function (jqXHR, settings) {
-                            kendo.ui.progress($(self.selector), true); //progress On
-                        },
-                        complete: function (jqXHR, textStatus) {
-                            kendo.ui.progress($(self.selector), false); //progress Off
-                        },
-                        success: function (result, textStatus, jqXHR) {
-                            var $elm = $(self.selector).find("#textAreaReGenerateCodeResult");
-                            $elm.val("");
-                            if (result.bError) {
-                                $elm.css("color", "red");
-                            } else {
-                                $elm.css("color", "green");
-                            }
-                            $elm.val(result.sMessage + "\nİş sonu.");
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            alert(jqXHR.statusText + "-" + jqXHR.statusText + " (" + this.url + ")");
-                        }
-                    });
-                } else {
-                    alert("Option dosyası seçmediniz.");
-                }
-
-            });
-
-            // kilitli olanların dosyalarını işaretliyoruz ekranda
-            self.ShowLocks();
-
-            //first select
-            $(self.selector).find("#gridContainer table tbody tr:first").click();
-
-        };
-
-        return self;
-    }();
+		return self;
+	}();
 
 </script>
 

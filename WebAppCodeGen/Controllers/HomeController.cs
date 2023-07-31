@@ -15,8 +15,15 @@ namespace WebApp1.Controllers
         public IActionResult Index()
         {
             ViewBag.Solutions = new MySolution().Solutions;
+            
+            return View();
+        }
 
-            var myCodeGen = new MyCodeGen(this.connectionString);
+        public IActionResult TableList(string solutionName)
+        {
+            var solution = new MySolution().GetByName(solutionName);
+
+            var myCodeGen = new MyCodeGen(solution.MainConnectionString);
 
             var MyCodeGenInfoList = new List<MyCodeGenInfo>();
             foreach (var table in myCodeGen.GetTablesOrViews())
@@ -41,14 +48,20 @@ namespace WebApp1.Controllers
             }
 
             ViewBag.MyCodeGenInfoList = MyCodeGenInfoList;
-            return View();
+            ViewBag.SolutionName = solution.Name;
+
+			return View();
         }
+
+
 
         #region ReadLocks
         [HttpPost]
         [ResponseCache(Duration = 0)]
-        public IActionResult ReadLocks(string _TableName, string _TableOptionName)
+        public IActionResult ReadLocks(string _solutionName, string _TableName, string _TableOptionName)
         {
+            var solution = new MySolution().GetByName(_solutionName);
+
             Boolean rError = false;
             string rMessage = "";
             var rLockList = new List<string>();
@@ -66,7 +79,7 @@ namespace WebApp1.Controllers
                 };
 
 
-                var myCodeGen = new MyCodeGen(this.connectionString);
+                var myCodeGen = new MyCodeGen(solution.MainConnectionString);
                 var tableOption = myCodeGen.FnTableOptionRead(_TableName, _TableOptionName);
 
                 foreach (var prop in props)
@@ -122,12 +135,14 @@ namespace WebApp1.Controllers
         #endregion
 
         #region lookup
-        public IActionResult GetColumns(string _TableName)
+        public IActionResult GetColumns(string _solutionName, string _TableName)
         {
+            var solution = new MySolution().GetByName(_solutionName);
+
             var rList = new List<string>();
             if (_TableName != null)
             {
-                var myCodeGen = new MyCodeGen(this.connectionString);
+                var myCodeGen = new MyCodeGen(solution.MainConnectionString);
                 rList = myCodeGen.GetTableOrViewColumns(_TableName).Select(s => s.Name).ToList();
             }
 
@@ -137,8 +152,11 @@ namespace WebApp1.Controllers
 
         #region Table Options
 
-        public IActionResult TableOption(string _TableName, string _TableOptionName)
+        public IActionResult TableOption(string _solutionName, string _TableName, string _TableOptionName)
         {
+            var solution = new MySolution().GetByName(_solutionName);
+
+            ViewBag.SolutionName = solution.Name;
             ViewBag.TableName = _TableName;
             ViewBag.TableOptionName = _TableOptionName;
             if (_TableName == _TableOptionName)
@@ -146,7 +164,7 @@ namespace WebApp1.Controllers
                 ViewBag.TableOptionName = _TableOptionName + "_";
             }
 
-            var myCodeGen = new MyCodeGen(this.connectionString);
+            var myCodeGen = new MyCodeGen(solution.MainConnectionString);
 
             List<string> tableAndViews = myCodeGen.GetTablesOrViews().Select(s => s.Name).ToList();
             ViewBag.tableList = tableAndViews;
@@ -165,9 +183,10 @@ namespace WebApp1.Controllers
 
         [HttpPost]
         [ResponseCache(Duration = 0)]
-        public IActionResult TableOptionRead(string _TableName, string _TableOptionName)
+        public IActionResult TableOptionRead(string _solutionName, string _TableName, string _TableOptionName)
         {
-            Boolean rError = false;
+			var solution = new MySolution().GetByName(_solutionName);
+			Boolean rError = false;
             string rMessage = "";
             bool rExists = false;
             var rTableOption = new MyTableOption();
@@ -180,7 +199,7 @@ namespace WebApp1.Controllers
                 }
 
                 //option read
-                var myCodeGen = new MyCodeGen(this.connectionString);
+                var myCodeGen = new MyCodeGen(solution.MainConnectionString);
                 rTableOption = myCodeGen.FnTableOptionRead(_TableName, _TableOptionName);
             }
             catch (Exception ex)
@@ -194,15 +213,16 @@ namespace WebApp1.Controllers
 
         [HttpPost]
         [ResponseCache(Duration = 0)]
-        public IActionResult TableOptionSave(string _TableOptionName, string _TableOptionText)
+        public IActionResult TableOptionSave(string _solutionName, string _TableOptionName, string _TableOptionText)
         {
-            bool rError;
+			var solution = new MySolution().GetByName(_solutionName);
+			bool rError;
             string rMessage = string.Empty;
 
-            try
+			try
             {
                 //option read
-                var myCodeGen = new MyCodeGen(this.connectionString);
+                var myCodeGen = new MyCodeGen(solution.MainConnectionString);
                 var result = myCodeGen.FnTableOptionSave(_TableOptionName, _TableOptionText);
                 rError = result.Error;
                 rMessage = result.Message;
@@ -222,10 +242,11 @@ namespace WebApp1.Controllers
 
         [HttpPost]
         [ResponseCache(Duration = 0)]
-        public IActionResult CodeWrite(string _TableOptionNames, string _CodeName)
+        public IActionResult CodeWrite(string _solutionName, string _TableOptionNames, string _CodeName)
         {
-            var result = new MyCustomResult();
-            var myCodeGen = new MyCodeGen(this.connectionString);
+			var solution = new MySolution().GetByName(_solutionName);
+			var result = new MyCustomResult();
+            var myCodeGen = new MyCodeGen(solution.MainConnectionString);
             foreach (var tableOptionName in _TableOptionNames.Split(","))
             {
                 MyCustomResult rV = myCodeGen.CodeWriteAll(tableOptionName, _CodeName);
@@ -237,10 +258,11 @@ namespace WebApp1.Controllers
 
         [HttpPost]
         [ResponseCache(Duration = 0)]
-        public IActionResult ReTableOptionSave(string _TableOptionNames)
+        public IActionResult ReTableOptionSave(string _solutionName, string _TableOptionNames)
         {
-            var result = new MyCustomResult();
-            var myCodeGen = new MyCodeGen(this.connectionString);
+			var solution = new MySolution().GetByName(_solutionName);
+			var result = new MyCustomResult();
+            var myCodeGen = new MyCodeGen(solution.MainConnectionString);
             foreach (var tableOptionName in _TableOptionNames.Split(","))
             {
                 //tümü geldiğinde, tüm options dosyalarının defaultlarıyla read ve write yapılması

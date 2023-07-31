@@ -11,17 +11,13 @@ namespace WebApp1.Controllers
     {
         protected readonly IServiceProvider serviceProvider;
         public IHttpContextAccessor? accessor;
-        public IConfiguration? configuration;
-        public string? connectionString;
+        //public IConfiguration? configuration;
 
         public BaseController(IServiceProvider serviceProvider)
         {
             this.serviceProvider = serviceProvider;
             this.accessor = this.serviceProvider.GetService(typeof(IHttpContextAccessor)) as IHttpContextAccessor;
-            this.configuration = this.serviceProvider.GetService(typeof(IConfiguration)) as IConfiguration;
-
-            this.connectionString = this.configuration?["ConnectionStrings:MainConnection"];
-
+            //this.configuration = this.serviceProvider.GetService(typeof(IConfiguration)) as IConfiguration;
         }
 
         public override void OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext context)

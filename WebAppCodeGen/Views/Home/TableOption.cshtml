@@ -1090,6 +1090,7 @@
     window.viewTableOption = function () {
         var self = {};
         self.selector = "#viewTableOption";
+        self.solutionName = "@ViewBag.SolutionName";
         self.TableName = "@ViewBag.TableName";
         self.oTableOption = null;
         self.selected_columnName = "";
@@ -1163,6 +1164,7 @@
                     type: "GET", dataType: "json", async: false,
                     url: "/Home/GetColumns",
                     data: function (e) {
+                        e._solutionName = self.solutionName;
                         e._TableName = self.TableName;
                     }
                 }
@@ -1178,6 +1180,7 @@
                     type: "GET", dataType: "json", async: false,
                     url: "/Home/GetColumns",
                     data: function (e) {
+                        e._solutionName = self.solutionName;
                         e._TableName = self.cbColumnReferansTableName.value();
                     }
                 }
@@ -1198,6 +1201,7 @@
         //---------------------------------------------------
         function fGetOptions() {
             var _data = {
+                _solutionName : self.solutionName,
                 _TableName: self.TableName,
                 _TableOptionName: $(self.selector).find("#TableOptionName").val()
             };
@@ -1798,6 +1802,7 @@
             }
 
             var _data = {
+                _solutionName : self.solutionName,
                 _TableOptionName: $(self.selector).find("#TableOptionName").val(),
                 _TableOptionText: JSON.stringify(self.oTableOption)
             };
@@ -1830,6 +1835,7 @@
         function fCodeWrite(_codeName) {
 
             var _data = {
+                _solutionName: self.solutionName,
                 _TableOptionNames: $(self.selector).find("#TableOptionName").val(),
                 _CodeName: _codeName
             };
