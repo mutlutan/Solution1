@@ -2,6 +2,23 @@
     ViewData["Title"] = "Login";
 }
 
+<div id="divViewLogin">
+<div class="row">
+    <div class="col-6">
+        <comp-login-form></comp-login-form>
+    </div>
+</div>
+</div>
+
+<script>
+    window.addEventListener('load', (event) => {
+        //comp instance
+         const compLoginForm = document.querySelector("#divViewLogin").querySelector("comp-login-form");
+        window.x = compLoginForm;
+    });
+
+
+</script>
 
 
 

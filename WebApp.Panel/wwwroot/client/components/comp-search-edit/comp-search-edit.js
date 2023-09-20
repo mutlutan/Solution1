@@ -1,8 +1,7 @@
 window.customElements.define("comp-search-edit",
     class CompSearchEdit extends HTMLElement {
         //class propertileri
-        selector = ".divSearchEdit";
-
+        //...
         constructor() {
             super();
 
@@ -42,10 +41,10 @@ window.customElements.define("comp-search-edit",
 
             switch (property) {
                 case "placeholder":
-                    this.querySelector(this.selector + " input[type=text]").placeholder = newValue;
+                    this.querySelector("input[type=text]").placeholder = newValue;
                     break;
                 case "value":
-                    this.querySelector(this.selector + " input[type=hidden]").value = newValue;
+                    this.querySelector("input[type=hidden]").value = newValue;
                     break;
             }
         }
