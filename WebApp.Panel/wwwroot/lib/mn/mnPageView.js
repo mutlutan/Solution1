@@ -136,6 +136,9 @@ window.mnPageView = function () {
         // Language
         mnLang.TranslateWithSelector($pageView);
         $pageView.show();
+
+        //query stringden gelen sorgu alanlarını filter panele aktarıp serahe dahil eder
+        mnApp.globalQueryFilterSet();
     }
 
     return self;

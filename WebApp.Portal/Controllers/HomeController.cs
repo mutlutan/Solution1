@@ -4,14 +4,9 @@ using WebApp.Portal.Models;
 
 namespace WebApp.Portal.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+        public HomeController(IServiceProvider _serviceProvider) : base(_serviceProvider) { }
 
         public IActionResult Index()
         {

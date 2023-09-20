@@ -143,6 +143,15 @@ window.mnApi = function () {
         return _str;
     };
 
+    self.parseQueryString = function () {
+        let result = [];
+        const params = new URLSearchParams(window.location.href.split('?')[0]);
+        for (const [key, value] of params) {
+            result[key]=value;
+        }
+        return result;
+    };
+
     self.GetURLParamByName = function (_sParamName) {
         _sParamName = _sParamName.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
         var regex = new RegExp("[\\?&]" + _sParamName + "=([^&#]*)"),
@@ -566,6 +575,29 @@ window.mnApp = function () {
         }
 
         kendo.ui.progress(e.sender.wrapper, false); //progress off
+    };
+
+    self.globalQueryFilterSet = function () {
+        const params = new URLSearchParams(window.location.href.split('?')[1]);
+
+
+
+        for (const [key, value] of params) {
+            console.log(key, value);
+            var element = $('.mnFindPanel:visible').find('[data-find_field=' + key + ']');
+            if (element.attr('data-role') == 'dropdownlist' && element.attr('data-find_type') == 'System.Int32') {
+
+
+
+                kendo.widgetInstance(element).value(value);
+            }
+            else {
+                element.val(value);
+            }
+        }
+        if (params.size > 0) {
+            $('.mnFindPanel:visible').find('#btnFlitreUygula').click();
+        }
     };
 
     return self;
