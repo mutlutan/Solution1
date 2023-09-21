@@ -1,4 +1,0 @@
-namespace WebApp.Portal.Models
-{
-  
-}
