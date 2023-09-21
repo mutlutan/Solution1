@@ -91,14 +91,16 @@ namespace AppCommon
 	}
 
 
-	public class MoUserToken
+    //MoAccessToken
+    public class MoAccessToken
 	{
-		public string SessionGuid { get; set; } = "";
+        public EnmClaimType ClaimType { get; set; }
+        public string SessionGuid { get; set; } = "";
 		public string Culture { get; set; } = "tr-TR";
 		public EnmYetkiGrup YetkiGrup { get; set; }
-		public int UserId { get; set; }
-		public string UserName { get; set; } = "";
-		public bool IsUserLogin { get; set; } = false;
+		public int AccountId { get; set; }
+		public string AccountName { get; set; } = "";
+		public bool IsLogin { get; set; } = false;
 		public bool IsGoogleSecretKey { get; set; } = false;
 		public bool IsGoogleValidate { get; set; } = false;
 
@@ -108,10 +110,11 @@ namespace AppCommon
 		public bool IsPasswordDateValid { get; set; } = false;
 	}
 
-	#endregion
 
-	#region Google Authenticator
-	public class MoGoogleAuthenticatorSetupResponse
+    #endregion
+
+    #region Google Authenticator
+    public class MoGoogleAuthenticatorSetupResponse
     {
         public string GaCode { get; set; } = "";
         public string GaSecretKey { get; set; } = "";

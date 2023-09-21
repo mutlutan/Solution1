@@ -47,7 +47,7 @@ namespace WebApp.Panel.Controllers
 
         public IActionResult Index()
         {
-            if (!this.business.UserToken.IsUserLogin)
+            if (!this.business.UserToken.IsLogin)
             {
                 return RedirectToAction("Index", "Account");
             }

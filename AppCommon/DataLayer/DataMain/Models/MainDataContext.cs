@@ -31,9 +31,9 @@ namespace AppCommon.DataLayer.DataMain.Models
         public virtual DbSet<UyeDurum> UyeDurum { get; set; } = null!;
         public virtual DbSet<UyeGrup> UyeGrup { get; set; } = null!;
         public virtual DbSet<Version> Version { get; set; } = null!;
+        public virtual DbSet<VwAccessLog> VwAccessLog { get; set; } = null!;
         public virtual DbSet<VwAuditLog> VwAuditLog { get; set; } = null!;
         public virtual DbSet<VwSystemLog> VwSystemLog { get; set; } = null!;
-        public virtual DbSet<VwUserLog> VwUserLog { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -278,6 +278,8 @@ namespace AppCommon.DataLayer.DataMain.Models
 
                 entity.Property(e => e.CreateDate).HasColumnType("datetime");
 
+                entity.Property(e => e.GaSecretKey).HasMaxLength(100);
+
                 entity.Property(e => e.NameSurname).HasMaxLength(100);
 
                 entity.Property(e => e.SessionGuid).HasMaxLength(100);
@@ -322,6 +324,35 @@ namespace AppCommon.DataLayer.DataMain.Models
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.CreateDate).HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<VwAccessLog>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("VwAccessLog");
+
+                entity.Property(e => e.AccountName).HasMaxLength(50);
+
+                entity.Property(e => e.AccountType)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Browser)
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IpAddress)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.LoginDate).HasColumnType("datetime");
+
+                entity.Property(e => e.LogoutDate).HasColumnType("datetime");
+
+                entity.Property(e => e.SessionGuid)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<VwAuditLog>(entity =>
@@ -377,41 +408,6 @@ namespace AppCommon.DataLayer.DataMain.Models
                 entity.Property(e => e.ProcessDate).HasColumnType("datetime");
 
                 entity.Property(e => e.ProcessName).HasMaxLength(100);
-
-                entity.Property(e => e.UserBrowser)
-                    .HasMaxLength(250)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.UserIp)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.UserName).HasMaxLength(50);
-
-                entity.Property(e => e.UserSessionGuid)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.UserType)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<VwUserLog>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToView("VwUserLog");
-
-                entity.Property(e => e.EkAlan1).HasMaxLength(100);
-
-                entity.Property(e => e.EkAlan2).HasMaxLength(100);
-
-                entity.Property(e => e.EkAlan3).HasMaxLength(100);
-
-                entity.Property(e => e.LoginDate).HasColumnType("datetime");
-
-                entity.Property(e => e.LogoutDate).HasColumnType("datetime");
 
                 entity.Property(e => e.UserBrowser)
                     .HasMaxLength(250)

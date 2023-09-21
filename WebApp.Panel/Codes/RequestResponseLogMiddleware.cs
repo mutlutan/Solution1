@@ -73,18 +73,18 @@ namespace WebApp.Panel.Codes
 				await responseBody.CopyToAsync(originalBodyStream);
 			}
 
-			this._business.AllValidateUserToken(context.MyToToken());
+			this._business.AllValidateToken(context.MyToToken());
 
-			if (this._business.MemberToken.MemberId > 0)
+			if (this._business.MemberToken.AccountId > 0)
 			{
 				try
 				{
 					this._business.logDataContext.SystemLogAdd(new()
 					{
 						Id = Guid.NewGuid(),
-						UserId = this._business.MemberToken.MemberId,
+						UserId = this._business.MemberToken.AccountId,
 						UserType = EnmYetkiGrup.Uye.GetHashCode().ToString(),
-						UserName = this._business.MemberToken.Email,
+						UserName = this._business.MemberToken.AccountName,
 						UserIp = context.MyToRemoteIpAddress(),
 						UserBrowser = this._browserDetector.MyToUserBrowser(),
 						//UserSessionGuid = this._business.MemberToken.se,
@@ -108,9 +108,9 @@ namespace WebApp.Panel.Codes
 					this._business.logDataContext.SystemLogAdd(new()
 					{
 						Id = Guid.NewGuid(),
-						UserId = this._business.UserToken.UserId,
+						UserId = this._business.UserToken.AccountId,
 						UserType = this._business.UserToken.YetkiGrup.ToString(),
-						UserName = this._business.UserToken.UserName,
+						UserName = this._business.UserToken.AccountName,
 						UserIp = context.MyToRemoteIpAddress(),
 						UserBrowser = this._browserDetector.MyToUserBrowser(),
 						UserSessionGuid = this._business.UserToken.SessionGuid,

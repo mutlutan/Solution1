@@ -16,6 +16,7 @@ namespace AppCommon.DataLayer.DataMain.Models
         public Geometry? GeoLocation { get; set; }
         public string? UserName { get; set; }
         public string? UserPassword { get; set; }
+        public string? GaSecretKey { get; set; }
         public string? SessionGuid { get; set; }
         public DateTime? ValidityDate { get; set; }
         public Guid UniqueId { get; set; }

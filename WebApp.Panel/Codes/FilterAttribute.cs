@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using AppCommon;
 using AppCommon.Business;
 
+#nullable disable
+
 namespace WebApp.Panel.Codes
 {
     public class AuthenticateRequiredAttribute : ActionFilterAttribute
@@ -12,14 +14,14 @@ namespace WebApp.Panel.Codes
 		public override void OnActionExecuting(ActionExecutingContext actionContext)
 		{
 			var svc = actionContext.HttpContext.RequestServices;
-			var business = svc.GetService(typeof(Business)) as Business;
-			var dataContext = business.dataContext;
+            var business = svc.GetService<Business>();
+            var dataContext = business.dataContext;
 
-			if (business.MemberToken.IsMemberLogin)
+			if (business.MemberToken.IsLogin)
 			{
 				//müsait işine bakar
 			}
-			else if (business.UserToken.IsUserLogin && business.UserToken.IsGoogleValidate)
+			else if (business.UserToken.IsLogin && business.UserToken.IsGoogleValidate)
 			{
 				//AuthorityKeys veya AuthorityGrups dan biri doluysa
 				if (AuthorityKeys.MyToTrim().Length > 0 || AuthorityGrups.MyToTrim().Length > 0)
@@ -71,26 +73,5 @@ namespace WebApp.Panel.Codes
 		}
 
 	}
-
-	//public class MemberAuthenticateRequiredAttribute : ActionFilterAttribute
-	//{
-	//	public override void OnActionExecuting(ActionExecutingContext actionContext)
-	//	{
-	//		var svc = actionContext.HttpContext.RequestServices;
-	//		var business = svc.GetService(typeof(Business)) as Business;
-	//		var dataContext = business.dataContext;
-
-	//		if (business.MemberToken.IsMemberLogin && business.MemberToken.IsSmsValidate)
-	//		{
-	//		    //müsait
-	//           }
-	//		else
-	//		{
-	//			var result = new ObjectResult("Token geçersiz!") { StatusCode = StatusCodes.Status401Unauthorized };
-	//			actionContext.Result = result;
-	//		}
-	//	}
-
-	//}
 
 }

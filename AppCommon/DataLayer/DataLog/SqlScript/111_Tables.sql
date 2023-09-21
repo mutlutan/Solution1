@@ -81,7 +81,7 @@
 	CREATE INDEX IX_AuditLog_PrimaryKeyValue ON AuditLog (PrimaryKeyValue);
 
 	
-	/* UserLog - User Oturum Log*/
+	/* UserLog - AccessLog olarak değiş, veya Userlog u sil accesslogu açınca*/
     CREATE TABLE dbo.UserLog(
 		Id				UNIQUEIDENTIFIER NOT NULL,
 
@@ -107,3 +107,27 @@
 	CREATE INDEX IX_UserLog_UserIp ON UserLog (UserIp);
 	CREATE INDEX IX_UserLog_UserBrowser ON UserLog (UserBrowser);
 	CREATE INDEX IX_UserLog_UserSessionGuid ON UserLog (UserSessionGuid);
+
+	/* AccessLog */
+    CREATE TABLE dbo.AccessLog(
+		Id				UNIQUEIDENTIFIER NOT NULL,
+
+		AccountId		INT NOT NULL,
+		AccountType		VARCHAR(50), /*User,Member tablolarından birinin adı olabilir, birden çok usr tablosundan gelebilir*/
+		AccountName		NVARCHAR(50),
+		IpAddress		VARCHAR(50),
+		Browser			VARCHAR(250), /*Tarayici ve versiyonu*/
+		SessionGuid		VARCHAR(50), /*Session guid*/
+
+		LoginDate		DATETIME,
+		LogoutDate		DATETIME,
+
+		ExtraSpace		NVARCHAR(max), /*ek alan*/
+
+		CONSTRAINT PK_AccessLog PRIMARY KEY (Id)
+	);
+	CREATE INDEX IX_AccessLog_AccountId ON AccessLog (AccountId);
+	CREATE INDEX IX_AccessLog_AccountType ON AccessLog (AccountType);
+	CREATE INDEX IX_AccessLog_AccountName ON AccessLog (AccountName);
+	CREATE INDEX IX_AccessLog_IpAddress ON AccessLog (IpAddress);
+	CREATE INDEX IX_AccessLog_SessionGuid ON AccessLog (SessionGuid);

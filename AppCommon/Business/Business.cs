@@ -29,8 +29,8 @@ namespace AppCommon.Business
         public CacheHelper cacheHelper;
         public MemoryCache memoryCache;
         public readonly LogDataContext logDataContext;
-        public MoUserToken UserToken { get; set; } = new();
-        public MoMemberToken MemberToken { get; set; } = new();
+        public MoAccessToken UserToken { get; set; } = new();
+        public MoAccessToken MemberToken { get; set; } = new();
         public string AppName { get; set; } = "SmartBike Panel";
         public string ContentRootPath { get; set; }
         public string UserIp { get; set; }
@@ -61,24 +61,22 @@ namespace AppCommon.Business
         /// </summary>
         /// <param name="response"></param>
         /// <param name="input"></param>
-        public void UserLogAdd(MoUserToken userToken)
+        public void UserLogAdd(MoAccessToken accessToken)
         {
             try
             {
-                this.logDataContext.UserLogAdd(new()
+                this.logDataContext.AccessLogAdd(new()
                 {
                     Id = Guid.NewGuid(),
-                    UserType = userToken.YetkiGrup.ToString(),
-                    UserId = userToken.UserId,
-                    UserName = userToken.UserName,
-                    UserIp = this.UserIp,
-                    UserSessionGuid = userToken.SessionGuid,
-                    UserBrowser = this.UserBrowser.MyToMaxLength(250),
+                    AccountType = accessToken.ClaimType.ToString(),
+                    AccountId = accessToken.AccountId,
+                    AccountName = accessToken.AccountName,
+                    IpAddress = this.UserIp,
+                    SessionGuid = accessToken.SessionGuid,
+                    Browser = this.UserBrowser.MyToMaxLength(250),
                     LoginDate = DateTime.Now,
                     LogoutDate = DateTime.Now,
-                    EkAlan1 = userToken.Culture,
-                    EkAlan2 = userToken.NameSurname,
-                    EkAlan3 = null
+                    ExtraSpace = accessToken.YetkiGrup.ToString()+" "+ accessToken.Culture+" "+ accessToken.NameSurname
                 });
             }
             catch (Exception ex)
@@ -93,11 +91,11 @@ namespace AppCommon.Business
         /// <param name="userToken"></param>
         public void UserLogSetLogoutDate()
         {
-            if (this.UserToken.IsUserLogin && this.UserToken.IsGoogleValidate)
+            if (this.UserToken.IsLogin && this.UserToken.IsGoogleValidate)
             {
                 try
                 {
-                    this.logDataContext.UserLogSetLogoutDate(this.UserToken.SessionGuid);
+                    this.logDataContext.AccessLogSetLogoutDate(this.UserToken.SessionGuid);
                 }
                 catch (Exception ex)
                 {
@@ -113,9 +111,9 @@ namespace AppCommon.Business
                 this.logDataContext.SystemLogAdd(new()
                 {
                     Id = Guid.NewGuid(),
-                    UserId = this.UserToken.UserId,
+                    UserId = this.UserToken.AccountId,
                     UserType = this.UserToken.YetkiGrup.ToString(),
-                    UserName = this.UserToken.UserName,
+                    UserName = this.UserToken.AccountName,
                     UserIp = this.UserIp,
                     UserBrowser = this.UserBrowser,
                     UserSessionGuid = this.UserToken.SessionGuid,
@@ -260,7 +258,7 @@ namespace AppCommon.Business
         #endregion
 
         #region JWT Token(User Token; api için login olunduğunda oluşur )
-        public string GenerateUserToken(EnmClaimType claimType, string jsonText)
+        public string GenerateToken(EnmClaimType claimType, string jsonText)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.JWTKey));
 
@@ -279,8 +277,8 @@ namespace AppCommon.Business
         {
             var moToken = default(T);
 
-            var moUserToken = new MoUserToken();
-            var moMemberToken = new MoMemberToken();
+            var moUserToken = new MoAccessToken();
+            var moMemberToken = new MoAccessToken();
 
             try
             {
@@ -305,34 +303,34 @@ namespace AppCommon.Business
                     if (claimType == EnmClaimType.User && dataClaim != null)
                     {
                         string jsonText = dataClaim.Value.MyFromBase64Str();
-                        moUserToken = System.Text.Json.JsonSerializer.Deserialize<MoUserToken>(jsonText);
+                        moUserToken = System.Text.Json.JsonSerializer.Deserialize<MoAccessToken>(jsonText);
 
                         var user = this.dataContext.User
-                            .Where(c => c.Id == moUserToken.UserId && c.IsActive == true)
+                            .Where(c => c.Id == moUserToken.AccountId && c.IsActive == true)
                             .OrderByDescending(o => o.Id).FirstOrDefault();
 
                         if (user == null)
                         {
-                            moUserToken.IsUserLogin = false;
+                            moUserToken.IsLogin = false;
                         }
                         else if (moUserToken.SessionGuid != user.SessionGuid)
                         {
-                            moUserToken.IsUserLogin = false;
+                            moUserToken.IsLogin = false;
                         }
                     }
 
                     if (claimType == EnmClaimType.Member && dataClaim != null)
                     {
                         string jsonText = dataClaim.Value.MyFromBase64Str();
-                        moMemberToken = System.Text.Json.JsonSerializer.Deserialize<MoMemberToken>(jsonText);
+                        moMemberToken = System.Text.Json.JsonSerializer.Deserialize<MoAccessToken>(jsonText);
 
                         var member = this.dataContext.Uye
-                            .Where(c => c.Id == moMemberToken.MemberId && c.UyeDurumId == (int)EnmUyeDurum.Aktif && c.IsConfirmed == true)
+                            .Where(c => c.Id == moMemberToken.AccountId && c.UyeDurumId == (int)EnmUyeDurum.Aktif && c.IsConfirmed == true)
                             .OrderByDescending(o => o.Id).FirstOrDefault();
 
                         if (member == null)
                         {
-                            moMemberToken.IsMemberLogin = false;
+                            moMemberToken.IsLogin = false;
                         }
 
                     }
@@ -341,8 +339,8 @@ namespace AppCommon.Business
             catch (Exception ex)
             {
                 //çok log yazarsa kapatırsın
-                moUserToken = new MoUserToken();
-                moMemberToken = new MoMemberToken();
+                moUserToken = new MoAccessToken();
+                moMemberToken = new MoAccessToken();
                 this.WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
             }
 
@@ -359,52 +357,13 @@ namespace AppCommon.Business
             return moToken;
         }
 
-        public void AllValidateUserToken(string token)
+        public void AllValidateToken(string token)
         {
-            this.UserToken = this.ValidateToken<MoUserToken>(EnmClaimType.User, token);
-            this.MemberToken = this.ValidateToken<MoMemberToken>(EnmClaimType.Member, token);
+            this.UserToken = this.ValidateToken<MoAccessToken>(EnmClaimType.User, token);
+            this.MemberToken = this.ValidateToken<MoAccessToken>(EnmClaimType.Member, token);
         }
-
         #endregion
 
-        #endregion
-
-        #region translate
-        //public string TranslateToForPrms(string key, string lang, string[] prms)
-        //{
-        //    string rValue = key;
-        //    var dictionary = this.cacheHelper.GetDictionary(this.ContentRootPath)
-        //        .Where(c => c.Key == key).FirstOrDefault();
-        //    if (dictionary != null)
-        //    {
-        //        rValue = dictionary.Value.Tr; //default tr value
-        //        if (lang == "en")
-        //        {
-        //            rValue = dictionary.Value.En;
-        //        }
-        //    }
-
-        //    try
-        //    {
-        //        if (prms != null && prms.Length > 0)
-        //        {
-        //            rValue = string.Format(rValue, prms);
-        //        }
-        //    }
-        //    catch { }
-
-        //    return rValue;
-        //}
-
-        //public string TranslateTo(string key, string lang)
-        //{
-        //    return this.TranslateToForPrms(key, lang, null);
-        //}
-
-        //public string TranslateTo(string key)
-        //{
-        //    return this.TranslateTo(key, this.UserToken?.Culture[..2] ?? "tr");
-        //}
         #endregion
 
         #region parameterler
@@ -432,25 +391,6 @@ namespace AppCommon.Business
         #endregion
 
         #region Kullanıcı
-
-        public User GetUser(int userId)
-        {
-            User rV = new();
-            try
-            {
-                rV = this.repository.dataContext.User
-                    .Where(c => c.Id == userId)
-                    .FirstOrDefault() ?? new User();
-
-
-            }
-            catch (Exception ex)
-            {
-                WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
-            }
-
-            return rV;
-        }
 
         public List<string> GetUserAuthorities(int userId)
         {
@@ -486,15 +426,15 @@ namespace AppCommon.Business
             return rV.ToList();
         }
 
-        public bool UserIsAuthorized(MoUserToken userToken, string _Key)
+        public bool UserIsAuthorized(MoAccessToken accessToken, string _Key)
         {
             bool rV = false;
             try
             {
-                var userYetki = this.GetUserAuthorities(userToken.UserId);
+                var userYetki = this.GetUserAuthorities(accessToken.AccountId);
 
                 //admin vey a yönetici değil ise normal user ...
-                if (userToken.YetkiGrup == EnmYetkiGrup.Admin)
+                if (accessToken.YetkiGrup == EnmYetkiGrup.Admin)
                 {
                     rV = true;
                 }
@@ -533,30 +473,30 @@ namespace AppCommon.Business
                 {
                     if (userModel.IsActive == true)
                     {
-                        MoUserToken moUserToken = new()
+                        MoAccessToken accessToken = new()
                         {
                             SessionGuid = Guid.NewGuid().ToString(),
                             Culture = input.Culture,
-                            UserId = userModel.Id,
-                            UserName = userModel.UserName,
+                            AccountId = userModel.Id,
+                            AccountName = userModel.UserName,
                             NameSurname = userModel.UserName,
                             RoleIds = userModel.RoleIds,
                             YetkiGrup = EnmYetkiGrup.Personel,
-                            IsUserLogin = true,
+                            IsLogin = true,
                             IsPasswordDateValid = true
                         };
 
                         if (userModel.RoleIds.MyToStr().Split(',').Where(c => c.StartsWith("10")).FirstOrDefault() != null)
                         {
-                            moUserToken.YetkiGrup = EnmYetkiGrup.Admin;
+                            accessToken.YetkiGrup = EnmYetkiGrup.Admin;
                         }
 
                         if (userModel.ValidityDate != null)
                         {
-                            moUserToken.IsPasswordDateValid = DateTime.Now.Date <= userModel.ValidityDate;
+                            accessToken.IsPasswordDateValid = DateTime.Now.Date <= userModel.ValidityDate;
                         }
 
-                        userModel.SessionGuid = moUserToken.SessionGuid;
+                        userModel.SessionGuid = accessToken.SessionGuid;
 
                         this.dataContext.SaveChanges();
 
@@ -565,11 +505,11 @@ namespace AppCommon.Business
                         {
                             if (!string.IsNullOrEmpty(userModel.GaSecretKey.MyToTrim()))
                             {
-                                moUserToken.IsGoogleSecretKey = true;
+                                accessToken.IsGoogleSecretKey = true;
                                 var googleValidate = this.GoogleValidateTwoFactorPIN(userModel.GaSecretKey.MyToTrim(), input.GaCode);
                                 if (googleValidate.Success)
                                 {
-                                    moUserToken.IsGoogleValidate = true;
+                                    accessToken.IsGoogleValidate = true;
                                 }
                                 else
                                 {
@@ -579,21 +519,21 @@ namespace AppCommon.Business
                         }
                         else
                         {
-                            moUserToken.IsGoogleSecretKey = true; //GA'yı pas geçer
-                            moUserToken.IsGoogleValidate = true; //GA'yı pas geçer
+                            accessToken.IsGoogleSecretKey = true; //GA'yı pas geçer
+                            accessToken.IsGoogleValidate = true; //GA'yı pas geçer
                         }
 
-                        response.Data.UserToken = this.GenerateUserToken(EnmClaimType.User, System.Text.Json.JsonSerializer.Serialize(moUserToken));
-                        response.Data.IsUserLogin = moUserToken.IsUserLogin;
-                        response.Data.IsGoogleSecretKey = moUserToken.IsGoogleSecretKey;
-                        response.Data.IsGoogleValidate = moUserToken.IsGoogleValidate;
-                        response.Data.IsPasswordDateValid = moUserToken.IsPasswordDateValid;
+                        response.Data.UserToken = this.GenerateToken(EnmClaimType.User, System.Text.Json.JsonSerializer.Serialize(accessToken));
+                        response.Data.IsUserLogin = accessToken.IsLogin;
+                        response.Data.IsGoogleSecretKey = accessToken.IsGoogleSecretKey;
+                        response.Data.IsGoogleValidate = accessToken.IsGoogleValidate;
+                        response.Data.IsPasswordDateValid = accessToken.IsPasswordDateValid;
 
 
                         #endregion
 
                         #region user log
-                        this.UserLogAdd(moUserToken);
+                        this.UserLogAdd(accessToken);
                         #endregion
 
                         response.Success = true;
@@ -620,19 +560,19 @@ namespace AppCommon.Business
 
         public void UserLogout()
         {
-            if (this.UserToken.IsUserLogin && this.UserToken.IsGoogleValidate)
+            if (this.UserToken.IsLogin)
             {
                 try
                 {
                     //user çıkış bilgisi güncelleniyor (son işlem zamanı)(bu asenkron olsun bekleme yapmasın)
-                    // son yazılabilen çıkış zamanı gerçeğe en yakın çıkış zamanıdır, session end event gelince bunu düzeltirsin
-                    var userLog = this.dataContext.User
+                    // son yazılabilen çıkış zamanı gerçeğe en yakın çıkış zamanıdır
+                    var user = this.dataContext.User
                         .Where(c => c.SessionGuid == this.UserToken.SessionGuid)
                         .FirstOrDefault();
 
-                    if (userLog != null)
+                    if (user != null)
                     {
-                        userLog.SessionGuid = "";
+                        user.SessionGuid = "";
                         this.dataContext.SaveChanges();
                     }
                 }
@@ -643,14 +583,14 @@ namespace AppCommon.Business
             }
         }
 
-        public MoResponse<object> ChangePassword(MoUserToken userToken, MoChangePasswordRequest request)
+        public MoResponse<object> ChangePassword(MoAccessToken accessToken, MoChangePasswordRequest request)
         {
             MoResponse<object> response = new();
 
             try
             {
                 var user = dataContext.User
-                     .Where(c => c.Id > 0 && c.Id == userToken.UserId)
+                     .Where(c => c.Id > 0 && c.Id == accessToken.AccountId)
                      .Where(c => c.UserPassword == request.OldPassword.MyToEncryptPassword())
                      .FirstOrDefault();
 
@@ -731,7 +671,7 @@ namespace AppCommon.Business
         }
 
         #region Yetkili olmayan fieldların çıkartılması
-        public List<Newtonsoft.Json.Linq.JObject> GetAuthorityColumnsAndData(MoUserToken userToken, string tableName, IEnumerable<dynamic> data)
+        public List<Newtonsoft.Json.Linq.JObject> GetAuthorityColumnsAndData(MoAccessToken accessToken, string tableName, IEnumerable<dynamic> data)
         {
             List<Newtonsoft.Json.Linq.JObject> jsonList = new();
 
@@ -746,7 +686,7 @@ namespace AppCommon.Business
                         //forenkeyden gelen alan tanımının silinmesi
                         jobj.Property(p.Name)?.Remove();
                     }
-                    else if (!this.UserIsAuthorized(userToken, $".{tableName}.D_R.{p.Name}."))
+                    else if (!this.UserIsAuthorized(accessToken, $".{tableName}.D_R.{p.Name}."))
                     {
                         //yetkisiz alan kaydının silinmesi
                         jobj.Property(p.Name)?.Remove();
@@ -762,6 +702,126 @@ namespace AppCommon.Business
 
         #endregion
 
+        #region Member
+        public MoResponse<MoTokenResponse> MemberLoginForApi(MoTokenRequest input)
+        {
+            MoResponse<MoTokenResponse> response = new() { Data = new MoTokenResponse() };
+
+            try
+            {
+                var memberModel = this.dataContext.Uye
+                    .Where(c => c.Id > 0)
+                    .Where(c => c.UserName == input.UserName && c.UserPassword == input.Password.MyToEncryptPassword())
+                    .FirstOrDefault();
+
+                if (memberModel != null)
+                {
+                    if (memberModel.UyeDurumId == EnmUyeDurum.Aktif.GetHashCode())
+                    {
+                        MoAccessToken accessToken = new()
+                        {
+                            AccountId = memberModel.Id,
+                            SessionGuid = Guid.NewGuid().ToString(),
+                            Culture = input.Culture,
+                            AccountName = memberModel.UserName,
+                            NameSurname = memberModel.NameSurname,
+                            IsLogin = true,
+                            IsPasswordDateValid = true
+                        };
+
+                        if (memberModel.ValidityDate != null)
+                        {
+                            accessToken.IsPasswordDateValid = DateTime.Now.Date <= memberModel.ValidityDate;
+                        }
+
+                        memberModel.SessionGuid = accessToken.SessionGuid;
+
+                        this.dataContext.SaveChanges();
+
+                        #region Google Auth
+                        if (this.appConfig.UseAuthenticator)
+                        {
+                            if (!string.IsNullOrEmpty(memberModel.GaSecretKey.MyToTrim()))
+                            {
+                                accessToken.IsGoogleSecretKey = true;
+                                var googleValidate = this.GoogleValidateTwoFactorPIN(memberModel.GaSecretKey.MyToTrim(), input.GaCode);
+                                if (googleValidate.Success)
+                                {
+                                    accessToken.IsGoogleValidate = true;
+                                }
+                                else
+                                {
+                                    response.Message.Add(dataContext.TranslateTo("xLng.GaKoduGecersiz"));
+                                }
+                            }
+                        }
+                        else
+                        {
+                            accessToken.IsGoogleSecretKey = true; //GA'yı pas geçer
+                            accessToken.IsGoogleValidate = true; //GA'yı pas geçer
+                        }
+
+                        response.Data.UserToken = this.GenerateToken(EnmClaimType.User, System.Text.Json.JsonSerializer.Serialize(accessToken));
+                        response.Data.IsUserLogin = accessToken.IsLogin;
+                        response.Data.IsGoogleSecretKey = accessToken.IsGoogleSecretKey;
+                        response.Data.IsGoogleValidate = accessToken.IsGoogleValidate;
+                        response.Data.IsPasswordDateValid = accessToken.IsPasswordDateValid;
+
+
+                        #endregion
+
+                        #region user log
+                        this.UserLogAdd(accessToken);
+                        #endregion
+
+                        response.Success = true;
+                    }
+                    else
+                    {
+                        response.Message.Add(dataContext.TranslateTo("xLng.HesabinizAskiyaAlinmistir"));
+                    }
+                }
+                else
+                {
+                    response.Message.Add(dataContext.TranslateTo("xLng.KullaniciveyaSifreGecersiz"));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                response.Message.Add(dataContext.TranslateTo("xLng.IstekBasarisizOldu"));
+                WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
+            }
+
+            return response;
+        }
+
+        public void MemberLogout()
+        {
+            if (this.MemberToken.IsLogin)
+            {
+                try
+                {
+                    //member çıkış bilgisi güncelleniyor (son işlem zamanı)(bu asenkron olsun bekleme yapmasın)
+                    // son yazılabilen çıkış zamanı gerçeğe en yakın çıkış zamanıdır
+                    var member = this.dataContext.Uye
+                        .Where(c => c.SessionGuid == this.UserToken.SessionGuid)
+                        .FirstOrDefault();
+
+                    if (member != null)
+                    {
+                        member.SessionGuid = "";
+                        this.dataContext.SaveChanges();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
+                }
+            }
+        }
+        #endregion
+
         #region GA
         public MoResponse<Google.Authenticator.SetupCode> GaSetupCode()
         {
@@ -772,7 +832,7 @@ namespace AppCommon.Business
                 moResponse.Data = tfa.GenerateSetupCode(this.AppName, this.AppName, this.UserToken.SessionGuid, false);
                 moResponse.Success = true;
 
-                var personeUser = this.dataContext.User.Where(c => c.Id == this.UserToken.UserId).FirstOrDefault();
+                var personeUser = this.dataContext.User.Where(c => c.Id == this.UserToken.AccountId).FirstOrDefault();
                 personeUser.GaSecretKey = this.UserToken.SessionGuid;
                 this.dataContext.SaveChanges();
             }
@@ -1044,18 +1104,18 @@ namespace AppCommon.Business
         #endregion
 
         #region Logs reads
-        public MoResponse<object> ReadUserLog(MoUserToken userToken, ApiRequest request)
+        public MoResponse<object> ReadAccessLog(MoAccessToken accessToken, ApiRequest request)
         {
             MoResponse<object> response = new();
 
             try
             {
-                var query = this.logDataContext.UserLog;
+                var query = this.logDataContext.AccessLog;
 
                 var dsr = query.ToDataSourceResult(this.ApiRequestToDataSourceRequest(request));
 
                 response.Total = dsr.Total;
-                response.Data = this.GetAuthorityColumnsAndData(userToken, "UserLog", dsr.Data.Cast<dynamic>());
+                response.Data = this.GetAuthorityColumnsAndData(accessToken, "AccessLog", dsr.Data.Cast<dynamic>());
                 response.Success = true;
             }
             catch (Exception ex)
@@ -1069,7 +1129,7 @@ namespace AppCommon.Business
         #endregion
 
         #region User functions
-        public MoResponse<object> UserRead(MoUserToken userToken, ApiRequest request)
+        public MoResponse<object> UserRead(MoAccessToken accessToken, ApiRequest request)
         {
             MoResponse<object> response = new();
 
@@ -1094,7 +1154,7 @@ namespace AppCommon.Business
                 var dsr = query.ToDataSourceResult(this.ApiRequestToDataSourceRequest(request));
 
                 response.Total = dsr.Total;
-                response.Data = this.GetAuthorityColumnsAndData(userToken, "User", dsr.Data.Cast<dynamic>());
+                response.Data = this.GetAuthorityColumnsAndData(accessToken, "User", dsr.Data.Cast<dynamic>());
                 response.Success = true;
             }
             catch (Exception ex)
@@ -1284,7 +1344,7 @@ namespace AppCommon.Business
         #endregion
 
         #region Role functions
-        public MoResponse<object> RoleRead(MoUserToken userToken, ApiRequest request)
+        public MoResponse<object> RoleRead(MoAccessToken accessToken, ApiRequest request)
         {
             MoResponse<object> response = new();
 
@@ -1305,7 +1365,7 @@ namespace AppCommon.Business
                 var dsr = query.ToDataSourceResult(this.ApiRequestToDataSourceRequest(request));
 
                 response.Total = dsr.Total;
-                response.Data = this.GetAuthorityColumnsAndData(userToken, "Role", dsr.Data.Cast<dynamic>());
+                response.Data = this.GetAuthorityColumnsAndData(accessToken, "Role", dsr.Data.Cast<dynamic>());
                 response.Success = true;
             }
             catch (Exception ex)
@@ -1404,275 +1464,6 @@ namespace AppCommon.Business
             }
             return response;
         }
-        #endregion
-
-        #region API İşlemleri
-
-        #region Base API Request-Response Class. Get, Post, Put
-        /// <summary>
-        /// Genel Servis Methodu. Post-Get Request-Response
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-
-        //Base Service Method
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>")]
-        public async Task<HttpClientResponseModel> GetOrPostRestService(HttpClientModel request)
-        {
-            HttpClientResponseModel result = new();
-            if (request != null)
-            {
-                HttpClient httpClient = new()
-                {
-                    BaseAddress = new Uri(request.ServiceBaseUrl)
-                };
-                httpClient.DefaultRequestHeaders.Accept.Clear();
-
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(request.ContentType));
-
-                //Token varsa Headera eklenir
-                if (!string.IsNullOrEmpty(request.Token))
-                {
-                    httpClient.DefaultRequestHeaders.Add("Authorization", request.Token);
-                }
-
-                // Header parametreleri ekleniyor
-                if (request.HeaderParams != null)
-                {
-                    foreach (var prm in request.HeaderParams)
-                    {
-                        httpClient.DefaultRequestHeaders.Add(prm.Key, prm.Value);
-                    }
-                }
-
-                // Body için Data ekleniyor                
-                HttpContent content = null;
-                if (request.Data != null)
-                {
-                    if (request.ContentType == "application/json")
-                    {
-                        content = new System.Net.Http.StringContent(System.Text.Json.JsonSerializer.Serialize(request.Data), Encoding.UTF8, request.ContentType);
-                    }
-                    else if (request.ContentType == "application/x-www-form-urlencoded")
-                    {
-                        content = new FormUrlEncodedContent(
-                            new List<KeyValuePair<string, string>> {
-                                new KeyValuePair<string, string>("data", request.Data.ToString())
-                        });
-                    }
-                }
-
-                // Get, Post işlemi ile servise bağlanılıyor
-                if (request.MethodType == HttpMethod.Post)
-                {
-
-                    var response = await httpClient.PostAsync(request.ServiceMethodUrl, request.Data != null ? content : null);
-                    result.IsSuccess = response.IsSuccessStatusCode;
-                    result.StatusCode = response.StatusCode;
-                    result.Result = response.Content.ReadAsStringAsync().Result;
-                }
-                else if (request.MethodType == HttpMethod.Get)
-                {
-                    var response = await httpClient.GetAsync(request.ServiceMethodUrl);
-                    result.IsSuccess = response.IsSuccessStatusCode;
-                    result.StatusCode = response.StatusCode;
-                    result.Result = response.Content.ReadAsStringAsync().Result;
-                }
-                else if (request.MethodType == HttpMethod.Put)
-                {
-                    var response = await httpClient.PutAsync(request.ServiceMethodUrl, request.Data != null ? content : null);
-                    result.IsSuccess = response.IsSuccessStatusCode;
-                    result.StatusCode = response.StatusCode;
-                    result.Result = response.Content.ReadAsStringAsync().Result;
-                }
-            }
-            return result;
-        }
-
-        /// <summary>
-        /// Soap Servisler için genel yapı.  HttpClient kullanır.
-        /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>")]
-        public async Task<string> GetOrPostSoapService(HttpClientModel request)
-        {
-            string result = string.Empty;
-            if (request != null)
-            {
-                HttpClient httpClient = new();
-
-                HttpContent httpContent = new StringContent(request.Data.ToString(), Encoding.UTF8, "text/xml");
-                HttpResponseMessage response;
-
-                if (!string.IsNullOrEmpty(request.Token))
-                {
-                    httpClient.DefaultRequestHeaders.Add("Authorization", request.Token);
-                }
-
-                // Header parametreleri ekleniyor
-                if (request.HeaderParams != null)
-                {
-                    foreach (var prm in request.HeaderParams)
-                    {
-                        httpClient.DefaultRequestHeaders.Add(prm.Key, prm.Value);
-                    }
-                }
-
-                HttpRequestMessage req = new(request.MethodType, request.ServiceBaseUrl);
-                req.Headers.Add("SOAPAction", request.ServiceSoapaActionUrl);
-
-                req.Method = request.MethodType;
-                req.Content = httpContent;
-                req.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(request.ContentType);
-                response = await httpClient.SendAsync(req);
-                result = await response.Content.ReadAsStringAsync();
-
-            }
-            return result;
-        }
-        #endregion
-
-        #region Araç API-Servisleri
-
-        /// <summary>
-        /// yourassetsonline Apisi
-        /// </summary>
-        /// <param name="MaptexApiKey"></param>
-        /// <param name="MapTexBaseServiceUrl"></param>
-        /// <param name="AracImeiNo"></param>
-        /// <returns></returns>
-
-        //Aracın Statu Bilgisi getirir
-        public MoResponse<AracModel> GetAracStatu(AracApiRequestModel request)
-        {
-            MoResponse<AracModel> result = new();
-            try
-            {
-                Dictionary<string, string> header = new()
-                {
-                    { "MAPTEX-API-KEY", request.MaptexApiKey }
-                };
-
-                var response = GetOrPostRestService(new HttpClientModel
-                {
-                    ContentType = "application/json",
-                    HeaderParams = header,
-                    MethodType = HttpMethod.Get,
-                    ServiceBaseUrl = request.MapTexBaseServiceUrl,
-                    ServiceMethodUrl = $"/devices/{request.ImeiNo}/actions/current-status?cached=0",
-                    Data = null,
-                    Token = null
-                }).Result;
-
-                if (response.IsSuccess && response.StatusCode == HttpStatusCode.OK)
-                {
-                    result.Data = System.Text.Json.JsonSerializer.Deserialize<AracModel>(response.Result);
-                    result.Success = true;
-                }
-                else if (response.StatusCode == HttpStatusCode.GatewayTimeout || response.StatusCode == HttpStatusCode.Unauthorized)
-                {
-                    result.Data = null;
-                    result.Success = false;
-                    result.Message.Add($"StatusCode {response.StatusCode}");
-                }
-            }
-            catch (Exception ex)
-            {
-                result.Message.Add(ex.MyLastInner().Message);
-            }
-
-            return result;
-        }
-
-        //Aracı Çalıştırır
-        public MoResponse<AracModel> AracStart(AracApiRequestModel request)
-        {
-            MoResponse<AracModel> result = new();
-            try
-            {
-                Dictionary<string, string> header = new()
-                {
-                    { "MAPTEX-API-KEY", request.MaptexApiKey }
-                };
-
-                var response = GetOrPostRestService(new HttpClientModel
-                {
-                    ContentType = "application/json",
-                    HeaderParams = header,
-                    MethodType = HttpMethod.Post,
-                    ServiceBaseUrl = request.MapTexBaseServiceUrl,
-                    ServiceMethodUrl = $"/devices/{request.ImeiNo}/actions/start-vehicle",
-                    Data = null,
-                    Token = null
-                }).Result;
-
-                if (response.IsSuccess && response.StatusCode == HttpStatusCode.OK)
-                {
-                    result.Data = System.Text.Json.JsonSerializer.Deserialize<AracModel>(response.Result);
-                    result.Success = true;
-                }
-                else if (response.StatusCode == HttpStatusCode.GatewayTimeout || response.StatusCode == HttpStatusCode.Unauthorized)
-                {
-                    result.Data = null;
-                    result.Success = false;
-                }
-
-            }
-            catch (Exception ex)
-            {
-                result.Message.Add(ex.MyLastInner().Message);
-            }
-
-            return result;
-        }
-
-        //Araçları Durdurur
-        public MoResponse<AracModel> AracStop(AracApiRequestModel request)
-        {
-            MoResponse<AracModel> result = new();
-            try
-            {
-                Dictionary<string, string> header = new()
-                {
-                    { "MAPTEX-API-KEY", request.MaptexApiKey }
-                };
-
-                var response = GetOrPostRestService(new HttpClientModel
-                {
-                    ContentType = "application/json",
-                    HeaderParams = header,
-                    MethodType = HttpMethod.Post,
-                    ServiceBaseUrl = request.MapTexBaseServiceUrl,
-                    ServiceMethodUrl = $"/devices/{request.ImeiNo}/actions/stop-vehicle?cached=0&wait=30",
-                    Data = null,
-                    Token = null
-                }).Result;
-
-                if (response.IsSuccess && response.StatusCode == HttpStatusCode.OK)
-                {
-                    result.Data = System.Text.Json.JsonSerializer.Deserialize<AracModel>(response.Result);
-                    result.Success = true;
-                }
-                else if (response.StatusCode == HttpStatusCode.GatewayTimeout || response.StatusCode == HttpStatusCode.Unauthorized)
-                {
-                    result.Data = null;
-                    result.Success = false;
-                }
-
-            }
-            catch (Exception ex)
-            {
-                result.Message.Add(ex.MyLastInner().Message);
-            }
-
-            return result;
-        }
-
-
-
-
-        #endregion
-
-
         #endregion
 
         #region JOB İşlemleri
@@ -1891,7 +1682,6 @@ namespace AppCommon.Business
         }
 
         #endregion
-
 
         public void Dispose()
         {

@@ -7,14 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using WebApp.Panel.Codes;
 using AppCommon;
-using AppCommon.Business;
+using WebApp.Portal.Codes;
 
-namespace WebApp.Panel.Controllers
+namespace WebApp.Portal.Controllers
 {
-    //[Produces("application/json", "application/xml")]
-    //[Produces("application/json")]
     [Route("Panel/[controller]")]
     [ApiController]
     public class ApiController : BaseController
@@ -35,7 +32,6 @@ namespace WebApp.Panel.Controllers
             return Json(resultObject);
         }
 
-        //login
         [HttpPost("Login")]
         [ResponseCache(Duration = 0)]
         public IActionResult Login([FromBody] MoTokenRequest request)
@@ -111,46 +107,6 @@ namespace WebApp.Panel.Controllers
             return Json(response);
         }
 
-        [HttpPost("GaSetupCreate")]
-        [ResponseCache(Duration = 0)]
-        public IActionResult GaSetupCreate()
-        {
-            MoResponse<Google.Authenticator.SetupCode> response = new();
-
-            try
-            {
-                //this.userToken.UserId
-                response = business.GaSetupCode();
-            }
-            catch (Exception ex)
-            {
-                response.Message.Add("Hata: " + ex.MyLastInner().Message);
-                business.WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
-            }
-
-            return Json(response);
-        }
-
-        [HttpPost("GetAuthorityTemplate")]
-        [ResponseCache(Duration = 0)]
-        [AuthenticateRequired]
-        public IActionResult GetAuthorityTemplate()
-        {
-            MoResponse<MoAuthority> response = new();
-
-            try
-            {
-                response = MyApp.GetAuthorityTemplate(this.business.dataContext);
-            }
-            catch (Exception ex)
-            {
-                response.Message.Add("Hata: " + ex.MyLastInner().Message);
-                business.WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
-            }
-
-            return Json(response);
-        }
-
         [HttpGet("GetAppInfo")]
         [ResponseCache(Duration = 0)]
         public ActionResult GetAppInfo()
@@ -167,7 +123,7 @@ namespace WebApp.Panel.Controllers
 
 
         [HttpGet("GetUserInfo")]
-        //[AuthenticateRequired]
+        [AuthenticateRequired]
         [ResponseCache(Duration = 0)]
         public ActionResult GetUserInfo()
         {

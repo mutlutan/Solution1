@@ -283,37 +283,37 @@ namespace AppCommon.DataLayer.DataLog.Models
 			return LogList.ToString();
 		}
 
-		#endregion
+        #endregion
 
-		#region log save metotları
+        #region log save metotları
 
-		/// <summary>
-		/// Kullanıcının son işlem zamanı çıkış bilgisi olarak güncelliyoruz(son çıkış zamanı gerçeğe en yakın çıkış zamanıdır)
-		/// </summary>
-		/// <param name="userToken"></param>
-		public void UserLogSetLogoutDate(string sessionGuid)
+        /// <summary>
+        /// Kullanıcının son işlem zamanı çıkış bilgisi olarak güncelliyoruz(son çıkış zamanı gerçeğe en yakın çıkış zamanıdır)
+        /// </summary>
+        /// <param name="SessionGuid"></param>
+        public void AccessLogSetLogoutDate(string sessionGuid)
 		{
 			//(bu asenkron olsun bekleme yapmasın)
-			var userLog = this.UserLog
-				.Where(c => c.UserSessionGuid == sessionGuid)
+			var model = this.AccessLog
+				.Where(c => c.SessionGuid == sessionGuid)
 				.OrderBy(o => o.LoginDate)
 				.LastOrDefault();
 
-			if (userLog != null)
+			if (model != null)
 			{
-				userLog.LogoutDate = DateTime.Now;
+                model.LogoutDate = DateTime.Now;
 				this.SaveChanges();
 			}
 		}
 
 		/// <summary>
-		/// Kullanıcı giriş bilgisinin log kaydını tutuyoruz
+		/// Kullanıcı(User,Member) giriş bilgisinin log kaydını tutuyoruz
 		/// </summary>
 		/// <param name="response"></param>
 		/// <param name="input"></param>
-		public void UserLogAdd(UserLog userLog)
+		public void AccessLogAdd(AccessLog accessLog)
 		{
-			this.UserLog.Add(userLog);
+			this.AccessLog.Add(accessLog);
 			this.SaveChanges();
 		}
 

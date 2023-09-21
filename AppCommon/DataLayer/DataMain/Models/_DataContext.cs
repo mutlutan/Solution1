@@ -90,7 +90,6 @@ namespace AppCommon.DataLayer.DataMain.Models
         #endregion
 
         #region ApiRequestToSqlText - ApiRequestToResponseData
-
         public MoSql ApiRequestToSqlText(Type table, ApiRequest apiRequest)
         {
             //var query = this.defaultBusiness.dataContext.ApiRequestToSqlText(typeof(PersonUser), request);
@@ -535,47 +534,6 @@ namespace AppCommon.DataLayer.DataMain.Models
 
             return base.SaveChanges(true);
         }
-        #endregion
-
-        #region Translate
-
-
-        //public string TranslateToForPrms(string key, string lang, string[] prms)
-        //{
-        //    string rValue = key;
-
-        //    if (this.AppDictionary.ContainsKey(key))
-        //    {
-        //        Dictionary<string, string> row = this.AppDictionary[key];
-        //        rValue = row["tr"]; //default tr value
-        //        if (row.ContainsKey(lang))
-        //        {
-        //            rValue = row[lang];
-        //        }
-        //    }
-
-        //    try
-        //    {
-        //        if (prms != null && prms.Length > 0)
-        //        {
-        //            rValue = string.Format(rValue, prms);
-        //        }
-        //    }
-        //    catch { }
-
-        //    return rValue;
-        //}
-
-        //public string TranslateTo(string key, string lang)
-        //{
-        //    return this.TranslateToForPrms(key, lang, null);
-        //}
-
-        //public string TranslateTo(string key)
-        //{
-        //    return this.TranslateTo(key, this.Language);
-        //}
-
         #endregion
 
         #region translate

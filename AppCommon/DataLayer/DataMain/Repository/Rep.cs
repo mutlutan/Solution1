@@ -22,7 +22,6 @@ namespace AppCommon.DataLayer.DataMain.Repository
         public DmoEmailTemplate RepEmailTemplate { get; private set; }
         public DmoVwAuditLog RepVwAuditLog { get; private set; }
         public DmoVwSystemLog RepVwSystemLog { get; private set; }
-        public DmoVwUserLog RepVwUserLog { get; private set; }
         public DmoEmailPool RepEmailPool { get; private set; }
         public DmoUye RepUye { get; private set; }
         public DmoUyeGrup RepUyeGrup { get; private set; }
@@ -43,7 +42,6 @@ namespace AppCommon.DataLayer.DataMain.Repository
             this.RepEmailTemplate = new DmoEmailTemplate(this.dataContext);
             this.RepVwAuditLog = new DmoVwAuditLog(this.dataContext);
             this.RepVwSystemLog = new DmoVwSystemLog(this.dataContext);
-            this.RepVwUserLog = new DmoVwUserLog(this.dataContext);
             this.RepEmailPool = new DmoEmailPool(this.dataContext);
             this.RepUye = new DmoUye(this.dataContext);
             this.RepUyeGrup = new DmoUyeGrup(this.dataContext);

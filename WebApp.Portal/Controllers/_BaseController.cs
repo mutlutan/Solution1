@@ -14,14 +14,14 @@ namespace WebApp.Portal.Controllers
         public IServiceProvider serviceProvider;
         public IHttpContextAccessor accessor;
         public AppConfig appConfig;
-		//public Business business;
+		public Business business;
 
         public BaseController(IServiceProvider serviceProvider)
         {
             this.serviceProvider = serviceProvider;
             this.accessor = this.serviceProvider.GetService<IHttpContextAccessor>();
             this.appConfig = this.serviceProvider.GetService<IOptions<AppConfig>>().Value ?? new();
-           // this.business = this.serviceProvider.GetService<Business>();
+            this.business = this.serviceProvider.GetService<Business>();
 
             //this.business.AllValidateUserToken(this.accessor.MyToToken());
             //this.business.UserIp = this.accessor.MyToRemoteIpAddress();

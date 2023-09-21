@@ -6,7 +6,7 @@ using AppCommon.DataLayer.DataMain.Models;
 
 #nullable disable
 
-namespace WebApp.Panel.Codes
+namespace WebApp.Portal.Codes
 {
     public class MyApp
 	{

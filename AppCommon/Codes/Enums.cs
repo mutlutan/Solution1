@@ -24,7 +24,7 @@ namespace AppCommon
 		Uye = 31
 	}
 
-	public enum EnmClaimType
+	public enum EnmClaimType //EnmAccessType
 	{
 		User,
 		Member

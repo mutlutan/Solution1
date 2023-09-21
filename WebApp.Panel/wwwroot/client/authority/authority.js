@@ -130,9 +130,9 @@ window.AppAuthority =
                     ]
                 },
                 {
-                    id: "Menu.Loglar.VwUserLog.", text: mnLang.f("xLng.VwUserLog.Title"), hint: "", rout: "VwUserLog", params: "", showType: "Page", header: true, viewFolder: "VwUserLog", viewName: "VwUserLogForGrid", cssClass: "fa fa-tint fa-fw", expanded: false, prefix: true, menu: true, yetkiGrups: "11,21", items: [
-                        { id: "Menu.Loglar.VwUserLog.D_R.", text: mnLang.f("xLng.Authority.Gorebilir"), hint: "", rout: "", params: "", showType: "Page", header: false, viewFolder: "", viewName: "", cssClass: "fa fa-search fa-fw", expanded: false, prefix: false, menu: false, yetkiGrups: "11,21", items: [] },
-                        { id: "Menu.Loglar.VwUserLog.D_E.", text: mnLang.f("xLng.Authority.SaveAsExcel"), hint: "", rout: "", params: "", showType: "Page", header: false, viewFolder: "", viewName: "", cssClass: "fa fa-file-excel-o fa-fw", expanded: false, prefix: false, menu: false, yetkiGrups: "11,21", items: [] }
+                    id: "Menu.Loglar.VwAccessLog.", text: mnLang.f("xLng.VwAccessLog.Title"), hint: "", rout: "VwAccessLog", params: "", showType: "Page", header: true, viewFolder: "VwAccessLog", viewName: "VwAccessLogForGrid", cssClass: "fa fa-tint fa-fw", expanded: false, prefix: true, menu: true, yetkiGrups: "11,21", items: [
+                        { id: "Menu.Loglar.VwAccessLog.D_R.", text: mnLang.f("xLng.Authority.Gorebilir"), hint: "", rout: "", params: "", showType: "Page", header: false, viewFolder: "", viewName: "", cssClass: "fa fa-search fa-fw", expanded: false, prefix: false, menu: false, yetkiGrups: "11,21", items: [] },
+                        { id: "Menu.Loglar.VwAccessLog.D_E.", text: mnLang.f("xLng.Authority.SaveAsExcel"), hint: "", rout: "", params: "", showType: "Page", header: false, viewFolder: "", viewName: "", cssClass: "fa fa-file-excel-o fa-fw", expanded: false, prefix: false, menu: false, yetkiGrups: "11,21", items: [] }
                     ]
                 },
                 {

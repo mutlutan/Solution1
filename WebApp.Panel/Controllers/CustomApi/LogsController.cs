@@ -12,11 +12,11 @@ namespace WebApp.Panel.Controllers
     {
         public LogsController(IServiceProvider _serviceProvider) : base(_serviceProvider) { }
 
-        [HttpPost("ReadUserLog")]
-        [AuthenticateRequired(AuthorityKeys = "UserLog.D_R.")]
-        public ActionResult ReadUserLog([FromBody] ApiRequest request)
+        [HttpPost("ReadAccessLog")]
+        [AuthenticateRequired(AuthorityKeys = "AccessLog.D_R.")]
+        public ActionResult ReadAccessLog([FromBody] ApiRequest request)
         {
-            var response = this.business.ReadUserLog(this.business.UserToken, request);
+            var response = this.business.ReadAccessLog(this.business.UserToken, request);
 
             return Ok(response);
         }

@@ -349,6 +349,8 @@
 		UserName		NVARCHAR(100),	/*email adres olabilir*/
 		UserPassword	NVARCHAR(100),	/*Bu alan her update olduğunda, KullaniciSifre tablosuna insert edilecek, history için*/
 
+		GaSecretKey		NVARCHAR(100),	/*Google Authenticator Secret Key*/
+
 		SessionGuid		NVARCHAR(100),	/*Login olan kullanıcıya verilen unique orturum id*/
 		ValidityDate	DATE,			/* Şifre geçerlilik tarihi*/
 
