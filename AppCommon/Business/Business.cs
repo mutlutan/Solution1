@@ -20,7 +20,6 @@ using AppCommon.DataLayer.DataLog.Models;
 
 namespace AppCommon.Business
 {
-
     public class Business : IDisposable
     {
         public readonly AppConfig appConfig;
@@ -29,18 +28,13 @@ namespace AppCommon.Business
         public MailHelper mailHelper;
         public CacheHelper cacheHelper;
         public MemoryCache memoryCache;
-
         public readonly LogDataContext logDataContext;
-
         public MoUserToken UserToken { get; set; } = new();
-
         public MoMemberToken MemberToken { get; set; } = new();
-
         public string AppName { get; set; } = "SmartBike Panel";
         public string ContentRootPath { get; set; }
         public string UserIp { get; set; }
         public string UserBrowser { get; set; }
-
         public string LogDirectory { get; set; } = "logs";
 
         public Business(MemoryCache memoryCache, AppConfig appConfig)

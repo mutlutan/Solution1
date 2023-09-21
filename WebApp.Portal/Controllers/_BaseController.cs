@@ -14,14 +14,14 @@ namespace WebApp.Portal.Controllers
         public IServiceProvider serviceProvider;
         public IHttpContextAccessor accessor;
         public AppConfig appConfig;
-		public Business business;
+		//public Business business;
 
         public BaseController(IServiceProvider serviceProvider)
         {
             this.serviceProvider = serviceProvider;
             this.accessor = this.serviceProvider.GetService<IHttpContextAccessor>();
             this.appConfig = this.serviceProvider.GetService<IOptions<AppConfig>>().Value ?? new();
-            this.business = this.serviceProvider.GetService<Business>();
+           // this.business = this.serviceProvider.GetService<Business>();
 
             //this.business.AllValidateUserToken(this.accessor.MyToToken());
             //this.business.UserIp = this.accessor.MyToRemoteIpAddress();
@@ -48,8 +48,7 @@ namespace WebApp.Portal.Controllers
             //ViewBag.Title = Codes.MyApp.AppName;
             //ViewBag.Version = Codes.MyApp.Version;
 
-            var parameter = this.business.GetParameter(); //bu cache den gelmeli
-            ViewBag.GoogleMapApiKey = parameter.GoogleMapApiKey;
+            //var parameter = this.business.GetParameter(); //bu cache den gelmeli
 
             base.OnActionExecuting(context);
         }
@@ -58,7 +57,7 @@ namespace WebApp.Portal.Controllers
         {
             if (disposing)
             {
-                this.business.Dispose();
+                //this.business.Dispose();
             }
 
             base.Dispose(disposing);
