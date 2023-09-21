@@ -20,8 +20,8 @@ namespace AppCommon
 	public enum EnmYetkiGrup
 	{
 		Admin = 11,
-		Personel = 21,
-		Uye = 31
+        Personnel = 21,
+		Member = 31
 	}
 
 	public enum EnmClaimType //EnmAccessType
@@ -33,11 +33,11 @@ namespace AppCommon
 	#endregion
 
 	#region Üye Enums
-	public enum EnmUyeDurum
+	public enum EnmUserStatus
 	{
-		Pasif = 0,
-		Aktif = 1,
-		Bloke = 2,
+        Passive = 0,
+        Active = 1,
+        Blocked = 2,
 		Deleted = 3
 	}
 

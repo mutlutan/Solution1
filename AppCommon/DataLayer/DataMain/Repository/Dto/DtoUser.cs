@@ -13,7 +13,7 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dto
 
         public string CcIsActive
         {
-            get { return (this.IsActive ? this.dataContext.TranslateTo("xLng.Aktif") : this.dataContext.TranslateTo("xLng.Pasif")); }
+            get { return (this.UserStatusId==0 ? this.dataContext.TranslateTo("xLng.Aktif") : this.dataContext.TranslateTo("xLng.Pasif")); }
         }
         public string CcIsEmailConfirmed
         {

@@ -117,74 +117,6 @@
 	CREATE UNIQUE INDEX UX_Country_Name ON Country (Name);
 	CREATE INDEX IX_Country_IsActive ON Country (IsActive);
 	INSERT INTO Country (Id, IsActive, LineNumber, Code, Name) VALUES (0, 1, 0, N'', N'');
-
-	/* Kullanıcı (şifre ile giriş yapması muhtemel olan personel kayıtları)*/
-	CREATE SEQUENCE dbo.sqUser AS INT START WITH 1 INCREMENT BY 1;
-    CREATE TABLE dbo.[User](
-		Id					INT NOT NULL,
-		
-		IsActive			BIT NOT NULL,
-		IsEmailConfirmed	BIT NOT NULL,
-
-		IdentificationNumber	NVARCHAR(11), /*TCNo*/
-		NameSurname				NVARCHAR(100), 
-		ResidenceAddress		NVARCHAR(50), /*ikamet adresi*/ 
-		Avatar					VARCHAR(MAX), /*vesikalık resim*/
-
-
-		UserName			NVARCHAR(100),	/*email adres olabilir*/
-		UserPassword		NVARCHAR(100),	/*Bu alan her update olduğunda, KullaniciSifre tablosuna insert edilecek, history için*/
-		RoleIds				NVARCHAR(MAX),
-		
-		GaSecretKey			NVARCHAR(100),	/*Google Authenticator Secret Key*/
-
-		SessionGuid			NVARCHAR(100),	/*Login olan kullanıcıya verilen unique orturum id*/
-		ValidityDate		DATE,			/* Şifre geçerlilik tarihi*/
-
-		UniqueId			UNIQUEIDENTIFIER NOT NULL,
-		CreateDate			DATETIME,
-		CreatedUserId		INT,
-		UpdateDate			DATETIME,
-		UpdatedUserId		INT,
-
-		CONSTRAINT PK_User PRIMARY KEY  (Id)
-    );
-	CREATE UNIQUE INDEX UX_User_UserName ON [User] (UserName);
-	CREATE INDEX IX_User_IsActive ON [User] (IsActive);
-	CREATE INDEX IX_User_CreateDate ON [User] (CreateDate);
-	INSERT INTO [User] (Id, IsActive, IsEmailConfirmed, UserName, UserPassword, RoleIds, GaSecretKey, UniqueId) VALUES (0, 0, 0, N'', N'', 0, N'', newid());
-	INSERT INTO [User] (Id, IsActive, IsEmailConfirmed, UserName, UserPassword, RoleIds, GaSecretKey, UniqueId) VALUES (Next Value For dbo.sqUser, 1, 1, N'Admin', N'07', '1001', N'', newid());
-	INSERT INTO [User] (Id, IsActive, IsEmailConfirmed, UserName, UserPassword, RoleIds, GaSecretKey, UniqueId) VALUES (Next Value For dbo.sqUser, 1, 1, N'Developer1', N'07', '1001', N'', newid());
-	INSERT INTO [User] (Id, IsActive, IsEmailConfirmed, UserName, UserPassword, RoleIds, GaSecretKey, UniqueId) VALUES (Next Value For dbo.sqUser, 1, 1, N'Developer2', N'07', '1001', N'', newid());
-	INSERT INTO [User] (Id, IsActive, IsEmailConfirmed, UserName, UserPassword, RoleIds, GaSecretKey, UniqueId) VALUES (Next Value For dbo.sqUser, 1, 1, N'Person1', N'07', '2001', N'', newid());
-
-
-	/*Dashboard Tanımları*/
-	--CREATE SEQUENCE dbo.sqDashboard AS INT START WITH 101 INCREMENT BY 1; 
-	--CREATE TABLE dbo.Dashboard(
-	--	Id					INT NOT NULL,
-
-	--	IsActive			BIT NOT NULL,
-	--	LineNumber			INT NOT NULL,
-
-	--	TemplateName		NVARCHAR(20) NOT NULL, /*template1, template2 ...*/
-	--	IconClass			NVARCHAR(50), /*fa fa-user vb... ve renk*/
-	--	IconStyle			NVARCHAR(50), /*fa fa-user vb...*/
-	--	DetailUrl			NVARCHAR(250),
-	--	Query				NVARCHAR(max),
-	--	--ValuesJson			NVARCHAR(MAX) NOT NULL,	/* [{"Text":"txt:Aktif", "Value":"sql:Select Count(*) as Val From User", "Info":"txt:Adet" }, {"Text":"txt:Pasif", "Value":"sql2", "Info":"Adet" }] */
-
-	--	UniqueId			UNIQUEIDENTIFIER NOT NULL,
-	--	CreateDate			DATETIME,
-	--	CreatedUserId		INT,
-	--	UpdateDate			DATETIME,
-	--	UpdatedUserId		INT,
-		
-	--	CONSTRAINT PK_Dashboard PRIMARY KEY (Id)
-	--);
-	--CREATE UNIQUE INDEX UX_Dashboard_Name ON Dashboard (Name);
-	--INSERT INTO Role (Id, UniqueId, IsActive, LineNumber, TemplateName, DetailUrl, Query) VALUES (Next Value For dbo.sqRole, newid(), 1, N'teplate1', N'#/User', N'Select Count(*) as Value1 From User');
-	
 	
 	/*EmailLetterhead - EmailAnted*/
 	CREATE SEQUENCE dbo.sqEmailLetterhead AS INT START WITH 1 INCREMENT BY 1;
@@ -280,12 +212,12 @@
 	CREATE TABLE dbo.Currency(
 		Id				INT NOT NULL,
 
-		IsActive	BIT NOT NULL,
-		LineNumber	INT NOT NULL,
-		Icon		VARCHAR(10) NOT NULL,
-		Code		VARCHAR(10) NOT NULL,
-		Name		NVARCHAR(20) NOT NULL,/*Tam para birimi, Üst para birimi (faturada yazıya çevrilirken kullanılacak kısım)*/
-		SubName		NVARCHAR(20) NOT NULL,/*Kesirli para birimi, Alt Para Birimi - Kuruş (faturada yazıya çevrilirken kullanılacak kısım)*/
+		IsActive		BIT NOT NULL,
+		LineNumber		INT NOT NULL,
+		Icon			VARCHAR(10) NOT NULL,
+		Code			VARCHAR(10) NOT NULL,
+		Name			NVARCHAR(20) NOT NULL,/*Tam para birimi, Üst para birimi (faturada yazıya çevrilirken kullanılacak kısım)*/
+		SubName			NVARCHAR(20) NOT NULL,/*Kesirli para birimi, Alt Para Birimi - Kuruş (faturada yazıya çevrilirken kullanılacak kısım)*/
 
 		CONSTRAINT PK_Currency PRIMARY KEY (Id)
 	);
@@ -300,59 +232,163 @@
 	INSERT INTO Currency (Id, IsActive, LineNumber, Icon, Code, Name, SubName) VALUES (Next Value For dbo.sqCurrency, 0, 3, N'⧫', N'ETH', N'Ethereum', N'');
 
 
-	/*  M O D U L   */
+	/*Dashboard Tanımları*/
+	CREATE SEQUENCE dbo.sqDashboard AS INT START WITH 101 INCREMENT BY 1; 
+	CREATE TABLE dbo.Dashboard(
+		Id					INT NOT NULL,
 
-	/*Uye(Müşteri) Durumu*/
-	CREATE TABLE dbo.UyeDurum (
+		IsActive			BIT NOT NULL,
+		LineNumber			INT NOT NULL,
+
+		TemplateName		NVARCHAR(20) NOT NULL, /*template1, template2 ...*/
+		Title				NVARCHAR(20) NOT NULL, 
+		IconClass			NVARCHAR(50), /*fa fa-user vb... ve renk*/
+		IconStyle			NVARCHAR(50), /*fa fa-user vb...*/
+		DetailUrl			NVARCHAR(250),
+		Query				NVARCHAR(max),
+		--ValuesJson			NVARCHAR(MAX) NOT NULL,	/* [{"Text":"txt:Aktif", "Value":"sql:Select Count(*) as Val From User", "Info":"txt:Adet" }, {"Text":"txt:Pasif", "Value":"sql2", "Info":"Adet" }] */
+
+		UniqueId			UNIQUEIDENTIFIER NOT NULL,
+		CreateDate			DATETIME,
+		CreatedUserId		INT,
+		UpdateDate			DATETIME,
+		UpdatedUserId		INT,
+		
+		CONSTRAINT PK_Dashboard PRIMARY KEY (Id)
+	);
+	INSERT INTO Dashboard (Id, UniqueId, IsActive, LineNumber, TemplateName, Title, DetailUrl, IconClass, IconStyle, Query) VALUES (Next Value For dbo.sqRole, newid(), 1, 1, N'teplate1', N'User', N'#/User', N'fa fa-fw fa-4x fa-users', N'color:red;', N'Select Count(*) From [User]');
+	INSERT INTO Dashboard (Id, UniqueId, IsActive, LineNumber, TemplateName, Title, DetailUrl, IconClass, IconStyle, Query) VALUES (Next Value For dbo.sqRole, newid(), 1, 2, N'teplate1', N'Member', N'#/Member', N'fa fa-fw fa-4x fa-id-card-o', N'color:blue;', N'Select Count(*) From [Member]');
+	
+
+	/*UserStatus*/
+	CREATE TABLE dbo.UserStatus (
 		Id			INT NOT NULL,
 		
-		Ad			NVARCHAR(50),
+		Name		NVARCHAR(50),
 
-		CONSTRAINT PK_UyeDurum PRIMARY KEY (Id)
+		CONSTRAINT PK_UserStatus PRIMARY KEY (Id)
 	);
-	INSERT INTO UyeDurum (Id, Ad) VALUES (0, N'Pasif');
-	INSERT INTO UyeDurum (Id, Ad) VALUES (1, N'Aktif');
-	INSERT INTO UyeDurum (Id, Ad) VALUES (2, N'Bloke');
-	INSERT INTO UyeDurum (Id, Ad) VALUES (3, N'Deleted'); /*(müşteri açısından delete anlamında)*/
+	INSERT INTO UserStatus (Id, Name) VALUES (0, N'Passive');
+	INSERT INTO UserStatus (Id, Name) VALUES (1, N'Active');
+	INSERT INTO UserStatus (Id, Name) VALUES (2, N'Blocked');
+	INSERT INTO UserStatus (Id, Name) VALUES (3, N'Deleted'); /*(kullanıcı açısından delete anlamında)*/
 
-	/*Üye Grubu (Standart,Influencer vb.)*/
-	CREATE SEQUENCE dbo.sqUyeGrup AS INT START WITH 1 INCREMENT BY 1;
-	CREATE TABLE dbo.UyeGrup(
-		Id								INT NOT NULL,
+	/*UserType*/
+	CREATE TABLE dbo.UserType (
+		Id			INT NOT NULL,
+		
+		Name		NVARCHAR(50),
 
-		UniqueId						UNIQUEIDENTIFIER NOT NULL,
-		Durum							BIT NOT NULL,
-		Ad								NVARCHAR(50),
+		CONSTRAINT PK_UserType PRIMARY KEY (Id)
+	);
+	INSERT INTO UserType (Id, Name) VALUES (0, N'');
+	INSERT INTO UserType (Id, Name) VALUES (11, N'Admin');
+	INSERT INTO UserType (Id, Name) VALUES (21, N'Person');
+	INSERT INTO UserType (Id, Name) VALUES (31, N'Member');
 
-		CONSTRAINT PK_UyeGrup PRIMARY KEY  (Id)
+	/* Kullanıcı (şifre ile giriş yapması muhtemel olan personel kayıtları)*/
+	CREATE SEQUENCE dbo.sqUser AS INT START WITH 1 INCREMENT BY 1;
+    CREATE TABLE dbo.[User](
+		Id					INT NOT NULL,
+		
+		UserStatusId		INT NOT NULL,
+		UserTypeId			INT NOT NULL,
+
+		IsEmailConfirmed	BIT NOT NULL,
+		NameSurname			NVARCHAR(100), 
+		ResidenceAddress	NVARCHAR(50), /*ikamet adresi*/ 
+		Avatar				VARCHAR(MAX), /*vesikalık resim*/
+		GeoLocation			GEOGRAPHY, /*Üye Konum bilgisi -  automatik de alınabilir, şart değil*/
+
+		Email				NVARCHAR(100),
+		Password			NVARCHAR(100),	/*Bu alan her update olduğunda, KullaniciSifre tablosuna insert edilecek, history için*/
+		RoleIds				NVARCHAR(MAX),
+		
+		GaSecretKey			NVARCHAR(100),	/*Google Authenticator Secret Key*/
+		SessionGuid			NVARCHAR(100),	/*Login olan kullanıcıya verilen unique orturum id*/
+		ValidityDate		DATE,			/* Şifre geçerlilik tarihi*/
+
+		UniqueId			UNIQUEIDENTIFIER NOT NULL,
+		CreateDate			DATETIME,
+		CreatedUserId		INT,
+		UpdateDate			DATETIME,
+		UpdatedUserId		INT,
+
+		CONSTRAINT PK_User PRIMARY KEY  (Id),
+		CONSTRAINT FK_User_UserStatusId FOREIGN KEY (UserStatusId) REFERENCES UserStatus(Id),
+		CONSTRAINT FK_User_UserTypeId FOREIGN KEY (UserTypeId) REFERENCES UserType(Id)
     );
-	INSERT INTO UyeGrup (Id, UniqueId, Durum, Ad) VALUES (0, newid(), 0, N'');
-	INSERT INTO UyeGrup (Id, UniqueId, Durum, Ad) VALUES (Next Value For dbo.sqUyeGrup, newid(), 1, N'Standart');
-	INSERT INTO UyeGrup (Id, UniqueId, Durum, Ad) VALUES (Next Value For dbo.sqUyeGrup, newid(), 1, N'Influencer');
+	CREATE UNIQUE INDEX UX_User_Email ON [User] (Email);
+	CREATE INDEX IX_User_UserStatusId ON [User] (UserStatusId);
+	CREATE INDEX IX_User_UserTypeId ON [User] (UserTypeId);
+	CREATE INDEX IX_User_CreateDate ON [User] (CreateDate);
+	INSERT INTO [User] (Id, UserStatusId, UserTypeId, IsEmailConfirmed, Email, Password, RoleIds, GaSecretKey, UniqueId) VALUES (0, 0, 0, 0, N'', N'', 0, N'', newid());
+	INSERT INTO [User] (Id, UserStatusId, UserTypeId, IsEmailConfirmed, Email, Password, RoleIds, GaSecretKey, UniqueId) VALUES (Next Value For dbo.sqUser, 1, 11, 1, N'Admin', N'07', '1001', N'', newid());
+	INSERT INTO [User] (Id, UserStatusId, UserTypeId, IsEmailConfirmed, Email, Password, RoleIds, GaSecretKey, UniqueId) VALUES (Next Value For dbo.sqUser, 1, 11, 1, N'Developer1', N'07', '1001', N'', newid());
+	INSERT INTO [User] (Id, UserStatusId, UserTypeId, IsEmailConfirmed, Email, Password, RoleIds, GaSecretKey, UniqueId) VALUES (Next Value For dbo.sqUser, 1, 11, 1, N'Developer2', N'07', '1001', N'', newid());
+	INSERT INTO [User] (Id, UserStatusId, UserTypeId, IsEmailConfirmed, Email, Password, RoleIds, GaSecretKey, UniqueId) VALUES (Next Value For dbo.sqUser, 1, 21, 1, N'Person1', N'07', '2001', N'', newid());
 
-	/*Uye*/
-	CREATE SEQUENCE dbo.sqUye AS INT START WITH 1 INCREMENT BY 1;
-	CREATE TABLE dbo.Uye(
-		Id								INT NOT NULL,
 
-		UyeDurumId		INT NOT NULL,/* 0-Aktif, 1-Pasif, 2-Bloke, 3-Deleted(müşteri açısından delete anlamında) */
-		UyeGrupId		INT NOT NULL,
 
-		IsConfirmed		BIT NOT NULL, /* Is Email Confirmed */
+	/*MemberType*/
+	CREATE TABLE dbo.MemberType (
+		Id			INT NOT NULL,
+		
+		Name		NVARCHAR(50),
 
-		NameSurname		NVARCHAR(100), 
-		CountryCode		NVARCHAR(2), /*ülke kodu*/
-		Avatar			VARCHAR(MAX),
+		CONSTRAINT PK_MemberType PRIMARY KEY (Id)
+	);
+	INSERT INTO MemberType (Id, Name) VALUES (0, N'');
+	INSERT INTO MemberType (Id, Name) VALUES (11, N'Standart');
+	INSERT INTO MemberType (Id, Name) VALUES (11, N'Influencer');
 
-		GeoLocation		GEOGRAPHY, /*Üye Konum bilgisi -  automatik de alınabilir, şart değil*/
+	/*Member - Üye*/
+	CREATE SEQUENCE dbo.sqMember AS INT START WITH 1 INCREMENT BY 1;
+	CREATE TABLE dbo.Member(
+		Id					INT NOT NULL,
 
-		UserName		NVARCHAR(100),	/*email adres olabilir*/
-		UserPassword	NVARCHAR(100),	/*Bu alan her update olduğunda, KullaniciSifre tablosuna insert edilecek, history için*/
+		UserStatusId		INT NOT NULL,
+		MemberTypeId		INT NOT NULL,
 
-		GaSecretKey		NVARCHAR(100),	/*Google Authenticator Secret Key*/
+		IsEmailConfirmed	BIT NOT NULL,
+		NameSurname			NVARCHAR(100), 
+		ResidenceAddress	NVARCHAR(50), /*ikamet adresi*/ 
+		Avatar				VARCHAR(MAX), /*vesikalık resim*/
+		GeoLocation			GEOGRAPHY, /*Üye Konum bilgisi -  automatik de alınabilir, şart değil*/
 
-		SessionGuid		NVARCHAR(100),	/*Login olan kullanıcıya verilen unique orturum id*/
-		ValidityDate	DATE,			/* Şifre geçerlilik tarihi*/
+		Email				NVARCHAR(100),
+		Password			NVARCHAR(100),	/*Bu alan her update olduğunda, KullaniciSifre tablosuna insert edilecek, history için*/
+		RoleIds				NVARCHAR(MAX),
+		
+		GaSecretKey			NVARCHAR(100),	/*Google Authenticator Secret Key*/
+		SessionGuid			NVARCHAR(100),	/*Login olan kullanıcıya verilen unique orturum id*/
+		ValidityDate		DATE,			/* Şifre geçerlilik tarihi*/
+
+		UniqueId			UNIQUEIDENTIFIER NOT NULL,
+		CreateDate			DATETIME,
+		CreatedUserId		INT,
+		UpdateDate			DATETIME,
+		UpdatedUserId		INT,
+
+		CONSTRAINT PK_Member PRIMARY KEY  (Id),
+		CONSTRAINT FK_Member_UserStatusId FOREIGN KEY (UserStatusId) REFERENCES UserStatus(Id),
+		CONSTRAINT FK_Member_MemberTypeId FOREIGN KEY (MemberTypeId) REFERENCES MemberType(Id)
+    );
+	CREATE UNIQUE INDEX UX_Member_Email ON Member (Email);
+	CREATE INDEX IX_Member_UserStatusId ON Member (UserStatusId);
+
+	/*  M O D U L  için gerekenler */
+
+	/*MemberWallet*/
+	CREATE SEQUENCE dbo.sqMemberWallet AS INT START WITH 1 INCREMENT BY 1;
+	CREATE TABLE dbo.MemberWallet(
+		Id				INT NOT NULL,
+
+		MemberId		INT NOT NULL,
+		IsActive		BIT NOT NULL,
+
+		CurrencyId		INT NOT NULL,
+		WalletNumber	NVARCHAR(100), 
 
 		UniqueId		UNIQUEIDENTIFIER NOT NULL,
 		CreateDate		DATETIME,
@@ -360,11 +396,58 @@
 		UpdateDate		DATETIME,
 		UpdatedUserId	INT,
 
-		CONSTRAINT PK_Uye PRIMARY KEY  (Id),
-		CONSTRAINT FK_Uye_UyeDurumId FOREIGN KEY (UyeDurumId) REFERENCES UyeDurum(Id),
-		CONSTRAINT FK_Uye_UyeGrupId FOREIGN KEY (UyeGrupId) REFERENCES UyeGrup(Id)
+		CONSTRAINT PK_MemberWallet PRIMARY KEY  (Id),
+		CONSTRAINT FK_MemberWallet_MemberId FOREIGN KEY (MemberId) REFERENCES Member(Id)
     );
+	CREATE UNIQUE INDEX UX_MemberWallet_CurrencyId_WalletNumber ON MemberWallet (CurrencyId, WalletNumber);
+	CREATE INDEX IX_MemberWallet_MemberId ON MemberWallet (MemberId);
+
+	/*MemberWalletTransaction*/
+	CREATE SEQUENCE dbo.sqMemberWalletTransaction AS INT START WITH 1 INCREMENT BY 1;
+	CREATE TABLE dbo.MemberWalletTransaction(
+		Id				INT NOT NULL,
+
+		MemberWalletId	INT NOT NULL,
+		Debit			DECIMAL(18,6), /*borç*/
+		Credit			DECIMAL(18,6), /*alacak*/
+ 
+		UniqueId		UNIQUEIDENTIFIER NOT NULL,
+		CreateDate		DATETIME,
+		CreatedUserId	INT,
+		UpdateDate		DATETIME,
+		UpdatedUserId	INT,
+
+		CONSTRAINT PK_MemberWalletTransaction PRIMARY KEY  (Id),
+		CONSTRAINT FK_MemberWalletTransaction_MemberWalletId FOREIGN KEY (MemberWalletId) REFERENCES MemberWallet(Id)
+    );
+	CREATE UNIQUE INDEX UX_MemberWalletTransaction_CurrencyId_WalletNumber ON MemberWalletTransaction (CurrencyId, WalletNumber);
+	CREATE INDEX IX_MemberWalletTransaction_MemberId ON MemberWalletTransaction (MemberId);
 
 
 
 
+	/*Cüzdan Hareket türleri*/
+	CREATE TABLE dbo.CuzdanHareketTur (
+		Id			INT NOT NULL,
+		
+		Ad			NVARCHAR(50),
+
+		CONSTRAINT PK_CuzdanHareketTur PRIMARY KEY (Id)
+	);
+	INSERT INTO CuzdanHareketTur (Id, Ad) VALUES (1, N'Karttan Yükleme'); --Karttan para çekilir cüzdanda borç alanına yazılır
+	INSERT INTO CuzdanHareketTur (Id, Ad) VALUES (2, N'Ödeme'); --Cüzdandan ödeme yapılır alacak hanesine yazılır
+	INSERT INTO CuzdanHareketTur (Id, Ad) VALUES (3, N'İade'); --Karta iadesi yapılırsa alacak alanına yazılır
+	INSERT INTO CuzdanHareketTur (Id, Ad) VALUES (4, N'Cariden İade'); -- Cariden gelen para borç alanına yazılır
+
+	/*Cari Hareket türleri*/
+	CREATE TABLE dbo.CariHareketTur (
+		Id			INT NOT NULL,
+		
+		Ad			NVARCHAR(50),
+
+		CONSTRAINT PK_CariHareketTur PRIMARY KEY (Id)
+	);
+	INSERT INTO CariHareketTur (Id, Ad) VALUES (1, N'Kredi/Banka Kartından Ödeme'); -- karttan para çekilir borç alanına yazılır
+	INSERT INTO CariHareketTur (Id, Ad) VALUES (2, N'Cüzdandan Ödeme'); -- cüzdandan ödeme borç alanına yazılır
+	INSERT INTO CariHareketTur (Id, Ad) VALUES (3, N'Cüzdana İade'); -- cüzdanın alacak alanına yazılır
+	INSERT INTO CariHareketTur (Id, Ad) VALUES (4, N'Tahakkuk'); -- Arac hareketten gleen tutarın alacak hanesine yazılmasıdır

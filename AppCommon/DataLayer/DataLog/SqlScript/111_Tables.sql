@@ -80,54 +80,30 @@
 	CREATE INDEX IX_AuditLog_PrimaryKeyField ON AuditLog (PrimaryKeyField);
 	CREATE INDEX IX_AuditLog_PrimaryKeyValue ON AuditLog (PrimaryKeyValue);
 
-	
-	/* UserLog - AccessLog olarak değiş, veya Userlog u sil accesslogu açınca*/
+	/* UserLog - User Oturum Log*/
     CREATE TABLE dbo.UserLog(
 		Id				UNIQUEIDENTIFIER NOT NULL,
 
+		TableName		VARCHAR(50), /*User tablosunun adı olabilir, birden çok usr tablosundan gelebilir*/
 		UserId			INT NOT NULL,
-		UserType		VARCHAR(50), /*User tablosunun adı olabilir, birden çok usr tablosundan gelebilir*/
+		
 		UserName		NVARCHAR(50),
 		UserIp			VARCHAR(50),
 		UserBrowser		VARCHAR(250), /*Tarayici ve versiyonu*/
-		UserSessionGuid	VARCHAR(50), /*Session guid*/
-
-		LoginDate		DATETIME,
-		LogoutDate		DATETIME,
-
-		EkAlan1			NVARCHAR(100), /*ek1*/
-		EkAlan2			NVARCHAR(100), /*ek2*/
-		EkAlan3			NVARCHAR(100), /*ek3*/
-
-		CONSTRAINT PK_UserLog PRIMARY KEY (Id)
-	);
-	CREATE INDEX IX_UserLog_UserId ON UserLog (UserId);
-	CREATE INDEX IX_UserLog_UserType ON UserLog (UserType);
-	CREATE INDEX IX_UserLog_UserName ON UserLog (UserName);
-	CREATE INDEX IX_UserLog_UserIp ON UserLog (UserIp);
-	CREATE INDEX IX_UserLog_UserBrowser ON UserLog (UserBrowser);
-	CREATE INDEX IX_UserLog_UserSessionGuid ON UserLog (UserSessionGuid);
-
-	/* AccessLog */
-    CREATE TABLE dbo.AccessLog(
-		Id				UNIQUEIDENTIFIER NOT NULL,
-
-		AccountId		INT NOT NULL,
-		AccountType		VARCHAR(50), /*User,Member tablolarından birinin adı olabilir, birden çok usr tablosundan gelebilir*/
-		AccountName		NVARCHAR(50),
-		IpAddress		VARCHAR(50),
-		Browser			VARCHAR(250), /*Tarayici ve versiyonu*/
 		SessionGuid		VARCHAR(50), /*Session guid*/
 
 		LoginDate		DATETIME,
 		LogoutDate		DATETIME,
 
-		ExtraSpace		NVARCHAR(max), /*ek alan*/
+		ExtraSpace1		NVARCHAR(100), /*ek1*/
+		ExtraSpace2		NVARCHAR(100), /*ek2*/
+		ExtraSpace3		NVARCHAR(100), /*ek3*/
 
-		CONSTRAINT PK_AccessLog PRIMARY KEY (Id)
+		CONSTRAINT PK_UserLog PRIMARY KEY (Id)
 	);
-	CREATE INDEX IX_AccessLog_AccountId ON AccessLog (AccountId);
-	CREATE INDEX IX_AccessLog_AccountType ON AccessLog (AccountType);
-	CREATE INDEX IX_AccessLog_AccountName ON AccessLog (AccountName);
-	CREATE INDEX IX_AccessLog_IpAddress ON AccessLog (IpAddress);
-	CREATE INDEX IX_AccessLog_SessionGuid ON AccessLog (SessionGuid);
+	CREATE INDEX IX_UserLog_TableName ON UserLog (TableName);
+	CREATE INDEX IX_UserLog_UserId ON UserLog (UserId);
+	CREATE INDEX IX_UserLog_UserName ON UserLog (UserName);
+	CREATE INDEX IX_UserLog_UserIp ON UserLog (UserIp);
+	CREATE INDEX IX_UserLog_UserBrowser ON UserLog (UserBrowser);
+	CREATE INDEX IX_UserLog_SessionGuid ON UserLog (SessionGuid);

@@ -83,7 +83,7 @@ namespace WebApp.Panel.Codes
 					{
 						Id = Guid.NewGuid(),
 						UserId = this._business.MemberToken.AccountId,
-						UserType = EnmYetkiGrup.Uye.GetHashCode().ToString(),
+						UserType = EnmYetkiGrup.Member.GetHashCode().ToString(),
 						UserName = this._business.MemberToken.AccountName,
 						UserIp = context.MyToRemoteIpAddress(),
 						UserBrowser = this._browserDetector.MyToUserBrowser(),

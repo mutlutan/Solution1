@@ -19,21 +19,26 @@ namespace AppCommon.DataLayer.DataMain.Models
         public virtual DbSet<AuditLog> AuditLog { get; set; } = null!;
         public virtual DbSet<Country> Country { get; set; } = null!;
         public virtual DbSet<Currency> Currency { get; set; } = null!;
+        public virtual DbSet<Dashboard> Dashboard { get; set; } = null!;
         public virtual DbSet<EmailLetterhead> EmailLetterhead { get; set; } = null!;
         public virtual DbSet<EmailPool> EmailPool { get; set; } = null!;
         public virtual DbSet<EmailPoolStatus> EmailPoolStatus { get; set; } = null!;
         public virtual DbSet<EmailTemplate> EmailTemplate { get; set; } = null!;
         public virtual DbSet<Gender> Gender { get; set; } = null!;
+        public virtual DbSet<Member> Member { get; set; } = null!;
+        public virtual DbSet<MemberType> MemberType { get; set; } = null!;
         public virtual DbSet<Parameter> Parameter { get; set; } = null!;
         public virtual DbSet<Role> Role { get; set; } = null!;
         public virtual DbSet<User> User { get; set; } = null!;
+        public virtual DbSet<UserStatus> UserStatus { get; set; } = null!;
+        public virtual DbSet<UserType> UserType { get; set; } = null!;
         public virtual DbSet<Uye> Uye { get; set; } = null!;
         public virtual DbSet<UyeDurum> UyeDurum { get; set; } = null!;
         public virtual DbSet<UyeGrup> UyeGrup { get; set; } = null!;
         public virtual DbSet<Version> Version { get; set; } = null!;
-        public virtual DbSet<VwAccessLog> VwAccessLog { get; set; } = null!;
         public virtual DbSet<VwAuditLog> VwAuditLog { get; set; } = null!;
         public virtual DbSet<VwSystemLog> VwSystemLog { get; set; } = null!;
+        public virtual DbSet<VwUserLog> VwUserLog { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -116,6 +121,25 @@ namespace AppCommon.DataLayer.DataMain.Models
                 entity.Property(e => e.Name).HasMaxLength(20);
 
                 entity.Property(e => e.SubName).HasMaxLength(20);
+            });
+
+            modelBuilder.Entity<Dashboard>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.CreateDate).HasColumnType("datetime");
+
+                entity.Property(e => e.DetailUrl).HasMaxLength(250);
+
+                entity.Property(e => e.IconClass).HasMaxLength(50);
+
+                entity.Property(e => e.IconStyle).HasMaxLength(50);
+
+                entity.Property(e => e.TemplateName).HasMaxLength(20);
+
+                entity.Property(e => e.Title).HasMaxLength(20);
+
+                entity.Property(e => e.UpdateDate).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<EmailLetterhead>(entity =>
@@ -203,6 +227,55 @@ namespace AppCommon.DataLayer.DataMain.Models
                 entity.Property(e => e.Name).HasMaxLength(100);
             });
 
+            modelBuilder.Entity<Member>(entity =>
+            {
+                entity.HasIndex(e => e.UserStatusId, "IX_Member_UserStatusId");
+
+                entity.HasIndex(e => e.Email, "UX_Member_Email")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Avatar).IsUnicode(false);
+
+                entity.Property(e => e.CreateDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Email).HasMaxLength(100);
+
+                entity.Property(e => e.GaSecretKey).HasMaxLength(100);
+
+                entity.Property(e => e.NameSurname).HasMaxLength(100);
+
+                entity.Property(e => e.Password).HasMaxLength(100);
+
+                entity.Property(e => e.ResidenceAddress).HasMaxLength(50);
+
+                entity.Property(e => e.SessionGuid).HasMaxLength(100);
+
+                entity.Property(e => e.UpdateDate).HasColumnType("datetime");
+
+                entity.Property(e => e.ValidityDate).HasColumnType("date");
+
+                entity.HasOne(d => d.MemberType)
+                    .WithMany(p => p.Member)
+                    .HasForeignKey(d => d.MemberTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Member_MemberTypeId");
+
+                entity.HasOne(d => d.UserStatus)
+                    .WithMany(p => p.Member)
+                    .HasForeignKey(d => d.UserStatusId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Member_UserStatusId");
+            });
+
+            modelBuilder.Entity<MemberType>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Name).HasMaxLength(50);
+            });
+
             modelBuilder.Entity<Parameter>(entity =>
             {
                 entity.Property(e => e.Id).ValueGeneratedNever();
@@ -238,9 +311,11 @@ namespace AppCommon.DataLayer.DataMain.Models
             {
                 entity.HasIndex(e => e.CreateDate, "IX_User_CreateDate");
 
-                entity.HasIndex(e => e.IsActive, "IX_User_IsActive");
+                entity.HasIndex(e => e.UserStatusId, "IX_User_UserStatusId");
 
-                entity.HasIndex(e => e.UserName, "UX_User_UserName")
+                entity.HasIndex(e => e.UserTypeId, "IX_User_UserTypeId");
+
+                entity.HasIndex(e => e.Email, "UX_User_Email")
                     .IsUnique();
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
@@ -249,11 +324,13 @@ namespace AppCommon.DataLayer.DataMain.Models
 
                 entity.Property(e => e.CreateDate).HasColumnType("datetime");
 
+                entity.Property(e => e.Email).HasMaxLength(100);
+
                 entity.Property(e => e.GaSecretKey).HasMaxLength(100);
 
-                entity.Property(e => e.IdentificationNumber).HasMaxLength(11);
-
                 entity.Property(e => e.NameSurname).HasMaxLength(100);
+
+                entity.Property(e => e.Password).HasMaxLength(100);
 
                 entity.Property(e => e.ResidenceAddress).HasMaxLength(50);
 
@@ -261,11 +338,33 @@ namespace AppCommon.DataLayer.DataMain.Models
 
                 entity.Property(e => e.UpdateDate).HasColumnType("datetime");
 
-                entity.Property(e => e.UserName).HasMaxLength(100);
-
-                entity.Property(e => e.UserPassword).HasMaxLength(100);
-
                 entity.Property(e => e.ValidityDate).HasColumnType("date");
+
+                entity.HasOne(d => d.UserStatus)
+                    .WithMany(p => p.User)
+                    .HasForeignKey(d => d.UserStatusId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_User_UserStatusId");
+
+                entity.HasOne(d => d.UserType)
+                    .WithMany(p => p.User)
+                    .HasForeignKey(d => d.UserTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_User_UserTypeId");
+            });
+
+            modelBuilder.Entity<UserStatus>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Name).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<UserType>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Name).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Uye>(entity =>
@@ -324,35 +423,6 @@ namespace AppCommon.DataLayer.DataMain.Models
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.CreateDate).HasColumnType("datetime");
-            });
-
-            modelBuilder.Entity<VwAccessLog>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToView("VwAccessLog");
-
-                entity.Property(e => e.AccountName).HasMaxLength(50);
-
-                entity.Property(e => e.AccountType)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Browser)
-                    .HasMaxLength(250)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.IpAddress)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.LoginDate).HasColumnType("datetime");
-
-                entity.Property(e => e.LogoutDate).HasColumnType("datetime");
-
-                entity.Property(e => e.SessionGuid)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<VwAuditLog>(entity =>
@@ -428,9 +498,46 @@ namespace AppCommon.DataLayer.DataMain.Models
                     .IsUnicode(false);
             });
 
+            modelBuilder.Entity<VwUserLog>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("VwUserLog");
+
+                entity.Property(e => e.ExtraSpace1).HasMaxLength(100);
+
+                entity.Property(e => e.ExtraSpace2).HasMaxLength(100);
+
+                entity.Property(e => e.ExtraSpace3).HasMaxLength(100);
+
+                entity.Property(e => e.LoginDate).HasColumnType("datetime");
+
+                entity.Property(e => e.LogoutDate).HasColumnType("datetime");
+
+                entity.Property(e => e.SessionGuid)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TableName)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UserBrowser)
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UserIp)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UserName).HasMaxLength(50);
+            });
+
             modelBuilder.HasSequence<int>("sqCountry");
 
             modelBuilder.HasSequence<int>("sqCurrency").StartsAt(101);
+
+            modelBuilder.HasSequence<int>("sqDashboard").StartsAt(101);
 
             modelBuilder.HasSequence<int>("sqEmailLetterhead");
 

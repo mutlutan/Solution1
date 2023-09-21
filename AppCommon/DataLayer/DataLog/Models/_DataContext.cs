@@ -294,7 +294,7 @@ namespace AppCommon.DataLayer.DataLog.Models
         public void AccessLogSetLogoutDate(string sessionGuid)
 		{
 			//(bu asenkron olsun bekleme yapmasın)
-			var model = this.AccessLog
+			var model = this.UserLog
 				.Where(c => c.SessionGuid == sessionGuid)
 				.OrderBy(o => o.LoginDate)
 				.LastOrDefault();
@@ -311,9 +311,9 @@ namespace AppCommon.DataLayer.DataLog.Models
 		/// </summary>
 		/// <param name="response"></param>
 		/// <param name="input"></param>
-		public void AccessLogAdd(AccessLog accessLog)
+		public void AccessLogAdd(UserLog model)
 		{
-			this.AccessLog.Add(accessLog);
+			this.UserLog.Add(model);
 			this.SaveChanges();
 		}
 

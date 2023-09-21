@@ -19,14 +19,14 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
                 .Select(s => new DtoUser(this.dataContext)
                 {
                     Id = s.Id,
-                    IsActive = s.IsActive,
+                    GeoLocation = s.GeoLocation,
+                    UserStatusId = s.UserStatusId,
                     IsEmailConfirmed = s.IsEmailConfirmed,
-                    IdentificationNumber = s.IdentificationNumber,
                     NameSurname = s.NameSurname,
                     ResidenceAddress = s.ResidenceAddress,
                     Avatar = s.Avatar.MyToStr(),
-                    UserName = s.UserName,
-                    UserPassword = string.Empty,
+                    Email = s.Email,
+                    Password = string.Empty,
                     RoleIds = s.RoleIds,
                     GaSecretKey = s.GaSecretKey,
                     SessionGuid = s.SessionGuid,
@@ -44,7 +44,7 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
             //Default değerler ile bir row döner, Burada field default değerleri veriliyor...
             DtoUser row = new(this.dataContext) {
                 Id = 0,
-                IsActive = false,
+                UserStatusId= EnmUserStatus.Active.GetHashCode(),
                 IsEmailConfirmed = false,
                 UniqueId = Guid.NewGuid(),
                 CreateDate = DateTime.Now,
@@ -80,17 +80,16 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
                 }
             }
 
-         row.IsActive = _model.IsActive;
+         //row.IsActive = _model.IsActive;
          row.IsEmailConfirmed = _model.IsEmailConfirmed;
-         row.IdentificationNumber = _model.IdentificationNumber;
          row.NameSurname = _model.NameSurname;
          row.ResidenceAddress = _model.ResidenceAddress;
          row.Avatar = _model.Avatar;
-         row.UserName = _model.UserName;
+         //row.UserName = _model.UserName;
 
-         if (!string.IsNullOrEmpty(_model.UserPassword))
+         if (!string.IsNullOrEmpty(_model.Password))
          {
-             row.UserPassword = _model.UserPassword.MyToEncryptPassword();
+             row.Password = _model.Password.MyToEncryptPassword();
          }
 
          row.RoleIds = _model.RoleIds;

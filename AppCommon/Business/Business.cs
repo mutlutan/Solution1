@@ -68,15 +68,17 @@ namespace AppCommon.Business
                 this.logDataContext.AccessLogAdd(new()
                 {
                     Id = Guid.NewGuid(),
-                    AccountType = accessToken.ClaimType.ToString(),
-                    AccountId = accessToken.AccountId,
-                    AccountName = accessToken.AccountName,
-                    IpAddress = this.UserIp,
+                    TableName = accessToken.ClaimType.ToString(),
+                    UserId = accessToken.AccountId,
+                    UserName = accessToken.AccountName,
+                    UserIp = this.UserIp,
                     SessionGuid = accessToken.SessionGuid,
-                    Browser = this.UserBrowser.MyToMaxLength(250),
+                    UserBrowser = this.UserBrowser.MyToMaxLength(250),
                     LoginDate = DateTime.Now,
                     LogoutDate = DateTime.Now,
-                    ExtraSpace = accessToken.YetkiGrup.ToString()+" "+ accessToken.Culture+" "+ accessToken.NameSurname
+                    ExtraSpace1 = accessToken.NameSurname,
+                    ExtraSpace2 = accessToken.Culture,
+                    ExtraSpace3 = accessToken.YetkiGrup.ToString()
                 });
             }
             catch (Exception ex)
@@ -306,7 +308,7 @@ namespace AppCommon.Business
                         moUserToken = System.Text.Json.JsonSerializer.Deserialize<MoAccessToken>(jsonText);
 
                         var user = this.dataContext.User
-                            .Where(c => c.Id == moUserToken.AccountId && c.IsActive == true)
+                            .Where(c => c.Id == moUserToken.AccountId && c.UserStatusId == EnmUserStatus.Active.GetHashCode())
                             .OrderByDescending(o => o.Id).FirstOrDefault();
 
                         if (user == null)
@@ -325,7 +327,7 @@ namespace AppCommon.Business
                         moMemberToken = System.Text.Json.JsonSerializer.Deserialize<MoAccessToken>(jsonText);
 
                         var member = this.dataContext.Uye
-                            .Where(c => c.Id == moMemberToken.AccountId && c.UyeDurumId == (int)EnmUyeDurum.Aktif && c.IsConfirmed == true)
+                            .Where(c => c.Id == moMemberToken.AccountId && c.UyeDurumId == (int)EnmUserStatus.Active && c.IsConfirmed == true)
                             .OrderByDescending(o => o.Id).FirstOrDefault();
 
                         if (member == null)
@@ -466,22 +468,22 @@ namespace AppCommon.Business
             {
                 var userModel = this.dataContext.User
                     .Where(c => c.Id > 0)
-                    .Where(c => c.UserName == input.UserName && c.UserPassword == input.Password.MyToEncryptPassword())
+                    .Where(c => c.Email == input.UserName && c.Password == input.Password.MyToEncryptPassword())
                     .FirstOrDefault();
 
                 if (userModel != null)
                 {
-                    if (userModel.IsActive == true)
+                    if (userModel.UserStatusId == EnmUserStatus.Active.GetHashCode())
                     {
                         MoAccessToken accessToken = new()
                         {
                             SessionGuid = Guid.NewGuid().ToString(),
                             Culture = input.Culture,
                             AccountId = userModel.Id,
-                            AccountName = userModel.UserName,
-                            NameSurname = userModel.UserName,
+                            AccountName = userModel.Email,
+                            NameSurname = userModel.NameSurname,
                             RoleIds = userModel.RoleIds,
-                            YetkiGrup = EnmYetkiGrup.Personel,
+                            YetkiGrup = EnmYetkiGrup.Personnel,
                             IsLogin = true,
                             IsPasswordDateValid = true
                         };
@@ -591,14 +593,14 @@ namespace AppCommon.Business
             {
                 var user = dataContext.User
                      .Where(c => c.Id > 0 && c.Id == accessToken.AccountId)
-                     .Where(c => c.UserPassword == request.OldPassword.MyToEncryptPassword())
+                     .Where(c => c.Password == request.OldPassword.MyToEncryptPassword())
                      .FirstOrDefault();
 
                 if (user != null)
                 {
                     if (request.NewPassword.Length >= 6)
                     {
-                        user.UserPassword = request.NewPassword.MyToEncryptPassword();
+                        user.Password = request.NewPassword.MyToEncryptPassword();
                         user.ValidityDate = DateTime.Now.Date.AddYears(1);
                         dataContext.SaveChanges();
                         response.Success = true;
@@ -631,7 +633,7 @@ namespace AppCommon.Business
             try
             {
                 var user = dataContext.User
-                     .Where(c => c.Id > 0 && c.UserName == email)
+                     .Where(c => c.Id > 0 && c.Email == email)
                      .FirstOrDefault();
 
                 if (user != null)
@@ -716,7 +718,7 @@ namespace AppCommon.Business
 
                 if (memberModel != null)
                 {
-                    if (memberModel.UyeDurumId == EnmUyeDurum.Aktif.GetHashCode())
+                    if (memberModel.UyeDurumId == EnmUserStatus.Active.GetHashCode())
                     {
                         MoAccessToken accessToken = new()
                         {
@@ -1104,13 +1106,13 @@ namespace AppCommon.Business
         #endregion
 
         #region Logs reads
-        public MoResponse<object> ReadAccessLog(MoAccessToken accessToken, ApiRequest request)
+        public MoResponse<object> ReadUserLog(MoAccessToken accessToken, ApiRequest request)
         {
             MoResponse<object> response = new();
 
             try
             {
-                var query = this.logDataContext.AccessLog;
+                var query = this.logDataContext.UserLog;
 
                 var dsr = query.ToDataSourceResult(this.ApiRequestToDataSourceRequest(request));
 
@@ -1141,11 +1143,11 @@ namespace AppCommon.Business
                     {
                         s.Id,
                         s.UniqueId,
-                        s.IsActive,
+                        s.UserStatusId,
+                        s.UserTypeId,
                         s.RoleIds,
-                        s.UserName,
+                        s.Email,
                         UserPassword = "",
-                        s.IdentificationNumber,
                         s.ResidenceAddress,
                         s.NameSurname,
                         s.IsEmailConfirmed
@@ -1187,7 +1189,7 @@ namespace AppCommon.Business
                 {
                     //update ise
                     model = this.dataContext.User.FirstOrDefault(f => f.Id == reqModel.Id);
-                    model.UserPassword = model.UserPassword.MyToDecryptPassword();
+                    model.Password = model.Password.MyToDecryptPassword();
                 }
 
                 foreach (var p in model.GetType().GetProperties())

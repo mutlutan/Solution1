@@ -16,7 +16,7 @@ namespace WebApp.Panel.Controllers
         [AuthenticateRequired(AuthorityKeys = "AccessLog.D_R.")]
         public ActionResult ReadAccessLog([FromBody] ApiRequest request)
         {
-            var response = this.business.ReadAccessLog(this.business.UserToken, request);
+            var response = this.business.ReadUserLog(this.business.UserToken, request);
 
             return Ok(response);
         }

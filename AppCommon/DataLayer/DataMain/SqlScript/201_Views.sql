@@ -35,15 +35,3 @@ CREATE VIEW dbo.VwSystemLog
 	SELECT *
 	FROM	solution1_log.dbo.SystemLog;
 GO
-
-/*AccessLog view için */
-IF EXISTS(select * FROM sys.views where name = 'VwAccessLog')
-BEGIN
-	DROP VIEW VwAccessLog;
-END
-GO
-CREATE VIEW dbo.VwAccessLog
-	AS 
-	SELECT *
-	FROM	solution1_log.dbo.AccessLog;
-GO
