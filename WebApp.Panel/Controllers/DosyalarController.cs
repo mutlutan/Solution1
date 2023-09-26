@@ -248,11 +248,12 @@ namespace WebApp.Panel.Controllers
                     DirectoryInfo di = new(_directoryName);
 
                     string zipDirectory = targetDirectory + "\\";
-                    string zipFileName = di.Name + " " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + ".zip";
+                    string zipFileName = di.Name + " " + DateTime.Now.ToString("yyyy-MM-dd HH_mm_ss") + ".zip";
 
                     System.IO.Compression.ZipFile.CreateFromDirectory(_directoryName, targetDirectory + "\\" + zipFileName);
 
                     rUrl = "/" + "temp" + "/" + zipFileName;
+                    rMessage = "The directory has been compressed and is being downloaded.";
                 }
                 else
                 {
