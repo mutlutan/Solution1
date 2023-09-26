@@ -224,40 +224,35 @@ namespace WebApp.Panel.Controllers
             return Json(new { bError = rError, sMessage = rMessage });
         }
 
-        [HttpGet]
-        [AuthenticateRequired(AuthorityGrups = "Admin,Personel", AuthorityKeys = "Tem.Tanim.Dosyalar.D_C.")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:Validate platform compatibility", Justification = "<Pending>")]
-        public IActionResult DownloadDirectory(string directoryName)
+        [HttpPost]
+        [AuthenticateRequired(AuthorityGrups = "Admin,Personel", AuthorityKeys = "Tem.Tanim.Gorseller.D_C.")]
+        public IActionResult DownloadDirectory(string _directoryName)
         {
+            Boolean rError = false;
             string rMessage = "";
+            string rUrl = "";
             try
             {
-                if (System.IO.Directory.Exists(directoryName))
+                if (System.IO.Directory.Exists(_directoryName))
                 {
-                    System.IO.DirectoryInfo directoryInfo = new(directoryName);
-                    var files = directoryInfo.EnumerateFiles("*.*", System.IO.SearchOption.AllDirectories);
-                    if (files.Any())
+                    string targetDirectory = MyApp.Env?.WebRootPath + "\\temp";
+                    if (!System.IO.Directory.Exists(targetDirectory))
                     {
-                        var zipFileMemoryStream = new System.IO.MemoryStream();
-                        using (var archive = new System.IO.Compression.ZipArchive(zipFileMemoryStream, System.IO.Compression.ZipArchiveMode.Update, leaveOpen: true))
-                        {
-                            foreach (var file in files)
-                            {
-                                string entryName = directoryInfo.Name + file.DirectoryName.Replace(directoryName, "") + "\\" + file.Name;
-                                var entry = archive.CreateEntry(entryName);
-                                using var entryStream = entry.Open();
-                                using var img = Bitmap.FromFile(file.FullName);
-                                img.Save(entryStream, System.Drawing.Imaging.ImageFormat.Png);
-
-                            }
-                        }
-                        zipFileMemoryStream.Seek(0, System.IO.SeekOrigin.Begin);
-                        return File(zipFileMemoryStream, "application/octet-stream", directoryInfo.Name + ".zip");
+                        System.IO.Directory.CreateDirectory(targetDirectory);
                     }
                     else
                     {
-                        rMessage = "The directory you want to download is not empty";
+                        //burada belirli bir süre önce eklenen dosyalar varsa onlar temizlenebilir
                     }
+
+                    DirectoryInfo di = new(_directoryName);
+
+                    string zipDirectory = targetDirectory + "\\";
+                    string zipFileName = di.Name + "_" + Guid.NewGuid().ToString() + ".zip";
+
+                    System.IO.Compression.ZipFile.CreateFromDirectory(_directoryName, targetDirectory + "\\" + zipFileName);
+
+                    rUrl = "/" + "temp" + "/" + zipFileName;
                 }
                 else
                 {
@@ -266,9 +261,10 @@ namespace WebApp.Panel.Controllers
             }
             catch (Exception ex)
             {
+                rError = true;
                 rMessage += ex.MyLastInner().Message;
             }
-            return Json(new { sMessage = rMessage });
+            return Json(new { bError = rError, sMessage = rMessage, sUrl = rUrl });
         }
 
         [HttpPost]

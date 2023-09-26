@@ -316,9 +316,34 @@
             });
 
             $(self.selector).find('#btnDizinIndir').click(function (e) {
-                let directoryName = self.treeView.dataItem(self.treeView.select()).id;
-                location.href = "/Dosyalar/DownloadDirectory?directoryName=" + directoryName;
+                var _data = {
+                    _directoryName: self.treeView.dataItem(self.treeView.select()).id
+                };
+
+                $.ajax({
+                    url: "/Files/DownloadDirectory",
+                    data: _data,
+                    type: "POST", dataType: "json",
+                    beforeSend: function (jqXHR, settings) {
+                        kendo.ui.progress($(self.selector), true); //progress On
+                    },
+                    complete: function (jqXHR, textStatus) {
+                        kendo.ui.progress($(self.selector), false); //progress Off
+                    },
+                    success: function (result, textStatus, jqXHR) {
+                        if (result.bError) {
+                            mnNotification.error(result.sMessage);
+                        } else {
+                            mnNotification.success(result.sMessage);
+                            location.href = result.sUrl;
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(jqXHR.responseText);
+                    }
+                });
             });
+
 
             $(self.selector).find('#btnDizinSil').click(function (e) {
                 var _data = {
