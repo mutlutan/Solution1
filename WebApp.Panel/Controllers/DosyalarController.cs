@@ -248,7 +248,7 @@ namespace WebApp.Panel.Controllers
                     DirectoryInfo di = new(_directoryName);
 
                     string zipDirectory = targetDirectory + "\\";
-                    string zipFileName = di.Name + "_" + Guid.NewGuid().ToString() + ".zip";
+                    string zipFileName = di.Name + " " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + ".zip";
 
                     System.IO.Compression.ZipFile.CreateFromDirectory(_directoryName, targetDirectory + "\\" + zipFileName);
 
