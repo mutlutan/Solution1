@@ -257,7 +257,7 @@
 		CONSTRAINT PK_Dashboard PRIMARY KEY (Id)
 	);
 	INSERT INTO Dashboard (Id, UniqueId, IsActive, LineNumber, TemplateName, Title, DetailUrl, IconClass, IconStyle, Query) VALUES (Next Value For dbo.sqRole, newid(), 1, 1, N'teplate1', N'User', N'#/User', N'fa fa-fw fa-4x fa-users', N'color:red;', N'Select Count(*) From [User]');
-	INSERT INTO Dashboard (Id, UniqueId, IsActive, LineNumber, TemplateName, Title, DetailUrl, IconClass, IconStyle, Query) VALUES (Next Value For dbo.sqRole, newid(), 1, 2, N'teplate1', N'Member', N'#/Member', N'fa fa-fw fa-4x fa-id-card-o', N'color:blue;', N'Select Count(*) From [Member]');
+	INSERT INTO Dashboard (Id, UniqueId, IsActive, LineNumber, TemplateName, Title, DetailUrl, IconClass, IconStyle, Query) VALUES (Next Value For dbo.sqRole, newid(), 1, 2, N'teplate1', N'Customer', N'#/Customer', N'fa fa-fw fa-4x fa-id-card-o', N'color:blue;', N'Select Count(*) From [Customer]');
 	
 
 	/*UserStatus*/
@@ -283,8 +283,8 @@
 	);
 	INSERT INTO UserType (Id, Name) VALUES (0, N'');
 	INSERT INTO UserType (Id, Name) VALUES (11, N'Admin');
-	INSERT INTO UserType (Id, Name) VALUES (21, N'Person');
-	INSERT INTO UserType (Id, Name) VALUES (31, N'Member');
+	INSERT INTO UserType (Id, Name) VALUES (21, N'Member');
+	INSERT INTO UserType (Id, Name) VALUES (31, N'Customer');
 
 	/* Kullanıcı (şifre ile giriş yapması muhtemel olan personel kayıtları)*/
 	CREATE SEQUENCE dbo.sqUser AS INT START WITH 1 INCREMENT BY 1;
@@ -328,27 +328,25 @@
 	INSERT INTO [User] (Id, UserStatusId, UserTypeId, IsEmailConfirmed, Email, Password, RoleIds, GaSecretKey, UniqueId) VALUES (Next Value For dbo.sqUser, 1, 11, 1, N'Developer2', N'07', '1001', N'', newid());
 	INSERT INTO [User] (Id, UserStatusId, UserTypeId, IsEmailConfirmed, Email, Password, RoleIds, GaSecretKey, UniqueId) VALUES (Next Value For dbo.sqUser, 1, 21, 1, N'Person1', N'07', '2001', N'', newid());
 
-
-
-	/*MemberType*/
-	CREATE TABLE dbo.MemberType (
+	/*CustomerType*/
+	CREATE TABLE dbo.CustomerType (
 		Id			INT NOT NULL,
 		
 		Name		NVARCHAR(50),
 
-		CONSTRAINT PK_MemberType PRIMARY KEY (Id)
+		CONSTRAINT PK_CustomerType PRIMARY KEY (Id)
 	);
-	INSERT INTO MemberType (Id, Name) VALUES (0, N'');
-	INSERT INTO MemberType (Id, Name) VALUES (11, N'Standart');
-	INSERT INTO MemberType (Id, Name) VALUES (11, N'Influencer');
+	INSERT INTO CustomerType (Id, Name) VALUES (0, N'');
+	INSERT INTO CustomerType (Id, Name) VALUES (11, N'Standart');
+	INSERT INTO CustomerType (Id, Name) VALUES (12, N'Influencer');
 
-	/*Member - Üye*/
-	CREATE SEQUENCE dbo.sqMember AS INT START WITH 1 INCREMENT BY 1;
-	CREATE TABLE dbo.Member(
+	/*Cutomer - Müşteri*/
+	CREATE SEQUENCE dbo.sqCutomer AS INT START WITH 1 INCREMENT BY 1;
+	CREATE TABLE dbo.Customer(
 		Id					INT NOT NULL,
 
 		UserStatusId		INT NOT NULL,
-		MemberTypeId		INT NOT NULL,
+		CustomerTypeId		INT NOT NULL,
 
 		IsEmailConfirmed	BIT NOT NULL,
 		NameSurname			NVARCHAR(100), 
@@ -370,25 +368,29 @@
 		UpdateDate			DATETIME,
 		UpdatedUserId		INT,
 
-		CONSTRAINT PK_Member PRIMARY KEY  (Id),
-		CONSTRAINT FK_Member_UserStatusId FOREIGN KEY (UserStatusId) REFERENCES UserStatus(Id),
-		CONSTRAINT FK_Member_MemberTypeId FOREIGN KEY (MemberTypeId) REFERENCES MemberType(Id)
+		CONSTRAINT PK_Customer PRIMARY KEY  (Id),
+		CONSTRAINT FK_Customer_UserStatusId FOREIGN KEY (UserStatusId) REFERENCES UserStatus(Id),
+		CONSTRAINT FK_Customer_CustomerTypeId FOREIGN KEY (CustomerTypeId) REFERENCES CustomerType(Id)
     );
-	CREATE UNIQUE INDEX UX_Member_Email ON Member (Email);
-	CREATE INDEX IX_Member_UserStatusId ON Member (UserStatusId);
+	CREATE UNIQUE INDEX UX_Customer_Email ON Customer (Email);
+	CREATE INDEX IX_Customer_UserStatusId ON Customer (UserStatusId);
+
+
+
+
 
 	/*  M O D U L  için gerekenler */
 
-	/*MemberWallet*/
-	CREATE SEQUENCE dbo.sqMemberWallet AS INT START WITH 1 INCREMENT BY 1;
-	CREATE TABLE dbo.MemberWallet(
+	/*CutomerWallet*/
+	CREATE SEQUENCE dbo.sqCutomerWallet AS INT START WITH 1 INCREMENT BY 1;
+	CREATE TABLE dbo.CutomerWallet(
 		Id				INT NOT NULL,
 
-		MemberId		INT NOT NULL,
+		CustomerId		INT NOT NULL,
 		IsActive		BIT NOT NULL,
 
 		CurrencyId		INT NOT NULL,
-		WalletNumber	NVARCHAR(100), 
+		WalletNumber	VARCHAR(200), 
 
 		UniqueId		UNIQUEIDENTIFIER NOT NULL,
 		CreateDate		DATETIME,
@@ -396,20 +398,35 @@
 		UpdateDate		DATETIME,
 		UpdatedUserId	INT,
 
-		CONSTRAINT PK_MemberWallet PRIMARY KEY  (Id),
-		CONSTRAINT FK_MemberWallet_MemberId FOREIGN KEY (MemberId) REFERENCES Member(Id)
+		CONSTRAINT PK_CustomerWallet PRIMARY KEY  (Id),
+		CONSTRAINT FK_CustomerWallet_CustomerId FOREIGN KEY (CustomerId) REFERENCES Customer(Id)
     );
-	CREATE UNIQUE INDEX UX_MemberWallet_CurrencyId_WalletNumber ON MemberWallet (CurrencyId, WalletNumber);
-	CREATE INDEX IX_MemberWallet_MemberId ON MemberWallet (MemberId);
+	INSERT INTO CustomerWallet (Id, CustomerId) VALUES (0, 0); 
+	CREATE UNIQUE INDEX UX_CustomerWallet_CurrencyId_WalletNumber ON CustomerWallet (CurrencyId, WalletNumber);
+	CREATE INDEX IX_CustomerWallet_CustomerId ON CustomerWallet (CustomerId);
 
-	/*MemberWalletTransaction*/
-	CREATE SEQUENCE dbo.sqMemberWalletTransaction AS INT START WITH 1 INCREMENT BY 1;
-	CREATE TABLE dbo.MemberWalletTransaction(
-		Id				INT NOT NULL,
+	/*Cüzdan Hareket türleri*/
+	CREATE TABLE dbo.TransactionType (
+		Id			INT NOT NULL,
+		
+		Name			NVARCHAR(50),
 
-		MemberWalletId	INT NOT NULL,
-		Debit			DECIMAL(18,6), /*borç*/
-		Credit			DECIMAL(18,6), /*alacak*/
+		CONSTRAINT PK_TransactionType PRIMARY KEY (Id)
+	);
+	INSERT INTO TransactionType (Id, Name) VALUES (1, N'Dışardan Gelen Tutar');
+	INSERT INTO TransactionType (Id, Name) VALUES (2, N'Dışarı Giden Tutar');
+	INSERT INTO TransactionType (Id, Name) VALUES (3, N'Game Credit'); --Cüzdandan ödeme yapılır alacak hanesine yazılır
+	INSERT INTO TransactionType (Id, Name) VALUES (4, N'Game Debit'); --Karta iadesi yapılırsa alacak alanına yazılır
+
+
+	/*CutomerTransaction*/
+	CREATE SEQUENCE dbo.sqCustomerTransaction AS INT START WITH 1 INCREMENT BY 1;
+	CREATE TABLE dbo.CustomerTransaction(
+		Id					INT NOT NULL,
+
+		CustomerWalletId	INT NOT NULL,
+		Debit				DECIMAL(18,6), 
+		Credit				DECIMAL(18,6), 
  
 		UniqueId		UNIQUEIDENTIFIER NOT NULL,
 		CreateDate		DATETIME,
@@ -417,37 +434,16 @@
 		UpdateDate		DATETIME,
 		UpdatedUserId	INT,
 
-		CONSTRAINT PK_MemberWalletTransaction PRIMARY KEY  (Id),
-		CONSTRAINT FK_MemberWalletTransaction_MemberWalletId FOREIGN KEY (MemberWalletId) REFERENCES MemberWallet(Id)
+		CONSTRAINT PK_CustomerWalletTransaction PRIMARY KEY  (Id),
+		CONSTRAINT FK_CustomerWalletTransaction_CustomerWalletId FOREIGN KEY (CustomerWalletId) REFERENCES CustomerWallet(Id)
     );
-	CREATE UNIQUE INDEX UX_MemberWalletTransaction_CurrencyId_WalletNumber ON MemberWalletTransaction (CurrencyId, WalletNumber);
-	CREATE INDEX IX_MemberWalletTransaction_MemberId ON MemberWalletTransaction (MemberId);
+	CREATE UNIQUE INDEX UX_CustomerWalletTransaction_CurrencyId_WalletNumber ON CustomerWalletTransaction (CurrencyId, WalletNumber);
+	CREATE INDEX IX_CustomerWalletTransaction_CustomerId ON CustomerWalletTransaction (CustomerId);
+
+
+	-- Game tablosu eklenecek, CustomerTransaction a gameId ekle
+	-- GameTransection tablosu ekle oyundaki para haraketlerini
 
 
 
 
-	/*Cüzdan Hareket türleri*/
-	CREATE TABLE dbo.CuzdanHareketTur (
-		Id			INT NOT NULL,
-		
-		Ad			NVARCHAR(50),
-
-		CONSTRAINT PK_CuzdanHareketTur PRIMARY KEY (Id)
-	);
-	INSERT INTO CuzdanHareketTur (Id, Ad) VALUES (1, N'Karttan Yükleme'); --Karttan para çekilir cüzdanda borç alanına yazılır
-	INSERT INTO CuzdanHareketTur (Id, Ad) VALUES (2, N'Ödeme'); --Cüzdandan ödeme yapılır alacak hanesine yazılır
-	INSERT INTO CuzdanHareketTur (Id, Ad) VALUES (3, N'İade'); --Karta iadesi yapılırsa alacak alanına yazılır
-	INSERT INTO CuzdanHareketTur (Id, Ad) VALUES (4, N'Cariden İade'); -- Cariden gelen para borç alanına yazılır
-
-	/*Cari Hareket türleri*/
-	CREATE TABLE dbo.CariHareketTur (
-		Id			INT NOT NULL,
-		
-		Ad			NVARCHAR(50),
-
-		CONSTRAINT PK_CariHareketTur PRIMARY KEY (Id)
-	);
-	INSERT INTO CariHareketTur (Id, Ad) VALUES (1, N'Kredi/Banka Kartından Ödeme'); -- karttan para çekilir borç alanına yazılır
-	INSERT INTO CariHareketTur (Id, Ad) VALUES (2, N'Cüzdandan Ödeme'); -- cüzdandan ödeme borç alanına yazılır
-	INSERT INTO CariHareketTur (Id, Ad) VALUES (3, N'Cüzdana İade'); -- cüzdanın alacak alanına yazılır
-	INSERT INTO CariHareketTur (Id, Ad) VALUES (4, N'Tahakkuk'); -- Arac hareketten gleen tutarın alacak hanesine yazılmasıdır
