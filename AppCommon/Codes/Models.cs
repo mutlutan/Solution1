@@ -12,9 +12,7 @@ namespace AppCommon
     #region Temel modleller
     public class AppConfig
     {
-        public string SelfHost { get; set; } = "";
         public Boolean UseAuthenticator { get; set; }
-		
 		public string MainConnection { get; set; } = "";
         public string LogConnection { get; set; } = "";
     }

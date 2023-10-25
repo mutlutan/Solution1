@@ -44,9 +44,8 @@ builder.Services.Configure<AppConfig>(builder.Configuration.GetSection(nameof(Ap
 builder.Services.AddScoped<Business>(opt =>
 {
     var config = opt.GetService(typeof(IOptions<AppConfig>)) as IOptions<AppConfig>;
-    var memoryCache = opt.GetService(typeof(IMemoryCache)) as MemoryCache;
 
-    return ActivatorUtilities.CreateInstance<Business>(opt, memoryCache ?? new(null), config?.Value ?? new());
+    return ActivatorUtilities.CreateInstance<Business>(opt, config?.Value ?? new());
 });
 
 builder.Services.AddBrowserDetection(); //Install-Package Shyjus.BrowserDetector

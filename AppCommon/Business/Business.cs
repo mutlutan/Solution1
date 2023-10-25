@@ -26,8 +26,7 @@ namespace AppCommon.Business
         public readonly MainDataContext dataContext;
         public Repository repository;
         public MailHelper mailHelper;
-        public CacheHelper cacheHelper;
-        public MemoryCache memoryCache;
+        
         public readonly LogDataContext logDataContext;
         public MoAccessToken UserToken { get; set; } = new();
         public MoAccessToken MemberToken { get; set; } = new();
@@ -37,17 +36,14 @@ namespace AppCommon.Business
         public string UserBrowser { get; set; }
         public string LogDirectory { get; set; } = "logs";
 
-        public Business(MemoryCache memoryCache, AppConfig appConfig)
+        public Business(AppConfig appConfig)
         {
-            this.memoryCache = memoryCache;
             this.appConfig = appConfig;
             //default dataContext
             this.dataContext = new();
             this.dataContext.SetConnectionString(this.appConfig.MainConnection);
             this.repository = new Repository(dataContext);
             this.mailHelper = new MailHelper(dataContext);
-            this.cacheHelper = new CacheHelper(this.dataContext, memoryCache);
-
 
             //log dataContext
             this.logDataContext = new();
@@ -1476,7 +1472,7 @@ namespace AppCommon.Business
             try
             {
                 //Bu işlem ile application stop olmasını engellemek için doğal bir yöntem olarak kullanılabilir.
-                using var client = new HttpClient() { BaseAddress = new Uri(this.appConfig.SelfHost) };
+                using var client = new HttpClient() { BaseAddress = new Uri(this.GetParameter().SiteAddress) };
                 var response = client.GetAsync("").Result;
             }
             catch (Exception ex)

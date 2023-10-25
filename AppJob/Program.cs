@@ -13,16 +13,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddMemoryCache();  //Aktif
 
 builder.Services.Configure<AppConfig>(builder.Configuration.GetSection(nameof(AppConfig)));
 builder.Services.Configure<JobConfig>(builder.Configuration.GetSection(nameof(JobConfig)));
 builder.Services.AddScoped<Business>(opt =>
 {
 	var config = opt.GetService(typeof(IOptions<AppConfig>)) as IOptions<AppConfig>;
-	var memoryCache = opt.GetService(typeof(IMemoryCache)) as MemoryCache;
 
-	return ActivatorUtilities.CreateInstance<Business>(opt, memoryCache ?? new(null), config?.Value ?? new());
+	return ActivatorUtilities.CreateInstance<Business>(opt, config?.Value ?? new());
 });
 
 var app = builder.Build();
@@ -38,9 +36,8 @@ app.Lifetime.ApplicationStarted.Register(() =>
 	var business = app.Services.CreateScope().ServiceProvider.GetRequiredService<Business>();
 	var jobConfig = app.Services.GetService(typeof(IOptions<JobConfig>)) as IOptions<JobConfig>;
     var appConfig = app.Services.GetService(typeof(IOptions<AppConfig>)) as IOptions<AppConfig>;
-    var memoryCache = app.Services.GetService(typeof(IMemoryCache)) as MemoryCache;
 
-    var job = new JobHelper(appConfig.Value, jobConfig.Value, memoryCache);
+    var job = new JobHelper(appConfig.Value, jobConfig.Value);
 });
 #endregion
 

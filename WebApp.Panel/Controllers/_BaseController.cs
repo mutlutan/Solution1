@@ -5,6 +5,7 @@ using WebApi.Codes;
 using Microsoft.Extensions.Options;
 using AppCommon;
 using AppCommon.Business;
+using Microsoft.Extensions.Caching.Memory;
 #nullable disable
 
 namespace WebApp.Panel.Controllers
@@ -15,6 +16,7 @@ namespace WebApp.Panel.Controllers
         public IHttpContextAccessor accessor;
         public AppConfig appConfig;
 		public Business business;
+        public CacheHelper cacheHelper;
 
         public BaseController(IServiceProvider serviceProvider)
         {
@@ -22,13 +24,14 @@ namespace WebApp.Panel.Controllers
             this.accessor = this.serviceProvider.GetService<IHttpContextAccessor>();
             this.appConfig = this.serviceProvider.GetService<IOptions<AppConfig>>().Value ?? new();
             this.business = this.serviceProvider.GetService<Business>();
+            this.cacheHelper = new CacheHelper(this.business.dataContext, this.serviceProvider.GetService<IMemoryCache>());
 
             this.business.AllValidateToken(this.accessor.MyToToken());
             this.business.UserIp = this.accessor.MyToRemoteIpAddress();
             this.business.UserBrowser = this.serviceProvider.GetService<IBrowserDetector>()?.MyToUserBrowser();
 
             this.business.ContentRootPath = Codes.MyApp.Env.ContentRootPath;
-            this.business.repository.dataContext.AppDictionary = business.cacheHelper.GetDictionary(Codes.MyApp.Env?.WebRootPath);
+            this.business.repository.dataContext.AppDictionary = this.cacheHelper.GetDictionary(Codes.MyApp.Env?.WebRootPath);
             this.business.repository.dataContext.UserId = this.business.UserToken.AccountId;
             this.business.repository.dataContext.UserName = this.business.UserToken.AccountName;
             this.business.repository.dataContext.Culture = new System.Globalization.CultureInfo(this.business.UserToken.Culture);

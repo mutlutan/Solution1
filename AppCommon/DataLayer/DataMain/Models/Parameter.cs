@@ -6,6 +6,7 @@ namespace AppCommon.DataLayer.DataMain.Models
     public partial class Parameter
     {
         public int Id { get; set; }
+        public bool UseAuthenticator { get; set; }
         public string SiteAddress { get; set; } = null!;
         public string? InstitutionEmail { get; set; }
         public bool AuditLog { get; set; }

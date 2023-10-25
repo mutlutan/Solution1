@@ -16,7 +16,7 @@ namespace WebApp.Panel.Controllers
                 ViewBag.Password = "1";
             }
 
-            ViewBag.UseAuthenticator = this.business.appConfig.UseAuthenticator;
+            ViewBag.UseAuthenticator = this.business.GetParameter().UseAuthenticator;
 
             return View();
         }

@@ -40,6 +40,7 @@
 		Id					INT NOT NULL,
 
 		/*Genel*/
+		UseAuthenticator	BIT NOT NULL,
 		SiteAddress			NVARCHAR(100) NOT NULL, /*local : http://localhost:5002  sunucu: https://www.qq.com*/
 		InstitutionEmail	NVARCHAR(100), /* default alıcı mail adresi*/
 
@@ -59,8 +60,8 @@
 
 		CONSTRAINT PK_Parameter PRIMARY KEY (Id)
 	);
-	INSERT INTO Parameter (Id, AuditLog, SiteAddress, InstitutionEmail, EmailHost, EmailPort, EmailEnableSsl, EmailUserName, EmailPassword, GoogleMapApiKey) 
-	VALUES (1, 0, N'https://qq.com', N'info@qq.com', N'mail.qq.com', 587, 0, N'info@qq.com', N'123', N'AIzaSyDHnQDsewS54EKaP3Rkxuh3npv6uW60mko');
+	INSERT INTO Parameter (Id, UseAuthenticator, SiteAddress, InstitutionEmail, AuditLog, EmailHost, EmailPort, EmailEnableSsl, EmailUserName, EmailPassword, GoogleMapApiKey) 
+	VALUES (1, 0, N'https://qq.com', N'info@qq.com', 0, N'mail.qq.com', 587, 0, N'info@qq.com', N'123', N'AIzaSyDHnQDsewS54EKaP3Rkxuh3npv6uW60mko');
 	
 	/*Role Tanımları*/
 	CREATE SEQUENCE dbo.sqRole AS INT START WITH 2001 INCREMENT BY 1; 

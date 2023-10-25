@@ -25,10 +25,9 @@ namespace WebApp.Panel.Codes
 			using var scope = serviceProvider.CreateScope();
 			this.appConfig = scope.ServiceProvider.GetService<IOptions<AppConfig>>().Value ?? new();
 			this._browserDetector = scope.ServiceProvider.GetService<IBrowserDetector>();
-			var memoryCache = scope.ServiceProvider.GetService(typeof(IMemoryCache)) as MemoryCache;
 
 			this._business = scope.ServiceProvider.GetRequiredService<Business>();
-			this._business = new Business(memoryCache, appConfig);
+			this._business = new Business(appConfig);
 		}
 
 		public async Task InvokeAsync(HttpContext context)
