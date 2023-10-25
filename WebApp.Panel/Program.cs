@@ -46,7 +46,7 @@ builder.Services.AddScoped<Business>(opt =>
     var config = opt.GetService(typeof(IOptions<AppConfig>)) as IOptions<AppConfig>;
     var mainConnectionString = config.Value.MainConnection;
     var logConnectionString = config.Value.LogConnection;
-
+    
     return ActivatorUtilities.CreateInstance<Business>(opt, mainConnectionString, logConnectionString);
 });
 
