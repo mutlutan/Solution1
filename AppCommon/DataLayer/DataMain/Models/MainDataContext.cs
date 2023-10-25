@@ -25,10 +25,12 @@ namespace AppCommon.DataLayer.DataMain.Models
         public virtual DbSet<EmailPoolStatus> EmailPoolStatus { get; set; } = null!;
         public virtual DbSet<EmailTemplate> EmailTemplate { get; set; } = null!;
         public virtual DbSet<Gender> Gender { get; set; } = null!;
+        public virtual DbSet<Job> Job { get; set; } = null!;
         public virtual DbSet<Member> Member { get; set; } = null!;
         public virtual DbSet<MemberType> MemberType { get; set; } = null!;
         public virtual DbSet<Parameter> Parameter { get; set; } = null!;
         public virtual DbSet<Role> Role { get; set; } = null!;
+        public virtual DbSet<StartType> StartType { get; set; } = null!;
         public virtual DbSet<User> User { get; set; } = null!;
         public virtual DbSet<UserStatus> UserStatus { get; set; } = null!;
         public virtual DbSet<UserType> UserType { get; set; } = null!;
@@ -227,6 +229,27 @@ namespace AppCommon.DataLayer.DataMain.Models
                 entity.Property(e => e.Name).HasMaxLength(100);
             });
 
+            modelBuilder.Entity<Job>(entity =>
+            {
+                entity.HasIndex(e => e.IsActive, "IX_Job_IsActive");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.MethodName).HasMaxLength(100);
+
+                entity.Property(e => e.MethodParams).HasMaxLength(500);
+
+                entity.Property(e => e.StartDayNames)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.StartType)
+                    .WithMany(p => p.Job)
+                    .HasForeignKey(d => d.StartTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Job_StartTypeId");
+            });
+
             modelBuilder.Entity<Member>(entity =>
             {
                 entity.HasIndex(e => e.UserStatusId, "IX_Member_UserStatusId");
@@ -305,6 +328,18 @@ namespace AppCommon.DataLayer.DataMain.Models
                 entity.Property(e => e.Name).HasMaxLength(30);
 
                 entity.Property(e => e.UpdateDate).HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<StartType>(entity =>
+            {
+                entity.HasIndex(e => e.IsActive, "IX_StartType_IsActive");
+
+                entity.HasIndex(e => e.Name, "UX_StartType_Name")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Name).HasMaxLength(100);
             });
 
             modelBuilder.Entity<User>(entity =>

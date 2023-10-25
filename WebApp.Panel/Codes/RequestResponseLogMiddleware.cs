@@ -27,7 +27,7 @@ namespace WebApp.Panel.Codes
 			this._browserDetector = scope.ServiceProvider.GetService<IBrowserDetector>();
 
 			this._business = scope.ServiceProvider.GetRequiredService<Business>();
-			this._business = new Business(appConfig);
+			this._business = new Business(appConfig.MainConnection,appConfig.LogConnection);
 		}
 
 		public async Task InvokeAsync(HttpContext context)
