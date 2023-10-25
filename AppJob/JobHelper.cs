@@ -2,6 +2,7 @@
 using AppCommon.Business;
 using CronNET;
 using Microsoft.Extensions.Caching.Memory;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace AppJob
 {
@@ -11,12 +12,15 @@ namespace AppJob
 
         private static readonly CronDaemon cron_daemon = new();
 
-        public JobHelper(AppConfig appConfig, JobConfig jobConfig)
+        public JobHelper(JobConfig jobConfig)
         {
-            cron_daemon.AddJob(jobConfig.JobItems[0].CronExpression, () => { new Business(appConfig).LocalWebRequest(); });
-            cron_daemon.AddJob(jobConfig.JobItems[1].CronExpression, () => { new Business(appConfig).SetAuditLogToDbLogFromDbMain(); });
-            cron_daemon.AddJob(jobConfig.JobItems[5].CronExpression, () => { new Business(appConfig).MailJobMailHareklerdenBekliyorOlanlariGoder(); });
-            cron_daemon.AddJob(jobConfig.JobItems[6].CronExpression, () => { new Business(appConfig).MailJobMailHarekleriTekrarDene(); });
+            var mainConStr = jobConfig.MainConnection;
+            var logConStr = jobConfig.LogConnection;
+
+            cron_daemon.AddJob(jobConfig.JobItems[0].CronExpression, () => { new Business(mainConStr, logConStr).LocalWebRequest(); });
+            cron_daemon.AddJob(jobConfig.JobItems[1].CronExpression, () => { new Business(mainConStr, logConStr).SetAuditLogToDbLogFromDbMain(); });
+            cron_daemon.AddJob(jobConfig.JobItems[5].CronExpression, () => { new Business(mainConStr, logConStr).MailJobMailHareklerdenBekliyorOlanlariGoder(); });
+            cron_daemon.AddJob(jobConfig.JobItems[6].CronExpression, () => { new Business(mainConStr, logConStr).MailJobMailHarekleriTekrarDene(); });
             cron_daemon.Start();
         }
     }

@@ -44,8 +44,10 @@ builder.Services.Configure<AppConfig>(builder.Configuration.GetSection(nameof(Ap
 builder.Services.AddScoped<Business>(opt =>
 {
     var config = opt.GetService(typeof(IOptions<AppConfig>)) as IOptions<AppConfig>;
+    var mainConnectionString = config.Value.MainConnection;
+    var logConnectionString = config.Value.LogConnection;
 
-    return ActivatorUtilities.CreateInstance<Business>(opt, config?.Value ?? new());
+    return ActivatorUtilities.CreateInstance<Business>(opt, mainConnectionString, logConnectionString);
 });
 
 builder.Services.AddBrowserDetection(); //Install-Package Shyjus.BrowserDetector

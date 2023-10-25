@@ -47,6 +47,14 @@
  }
 ,
  {
+     "key" : "xLng.Parameter.UseAuthenticator",
+     "value": {
+         "tr": "Kimlik Doğrulayıcıyı Kullan",
+         "en": "Use Authenticator"
+     }
+ }
+,
+ {
      "key" : "xLng.Parameter.SiteAddress",
      "value": {
          "tr": "Site Adresi",

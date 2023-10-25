@@ -19,6 +19,17 @@
                     </div>
 
                     <div class='col-lg-6 col-md-12'>
+                         <div name='divUseAuthenticator' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                             </label>
+                             <div class='col-sm-8'>
+                                <label style='font-weight:normal;'>
+                                    <input name='UseAuthenticator' type='checkbox' data-bind='checked:UseAuthenticator' style='width: 24px; height: 24px; vertical-align: middle;'  />
+                                    <span data-langkey-Text='xLng.Parameter.UseAuthenticator'></span>
+                                </label>
+                             </div>
+                         </div>
+
                          <div name='divSiteAddress' class='mnFormElementDiv form-group row'>
                              <label class='col-sm-4 col-form-label'>
                                 <span class='mn-required-span' data-langkey-text='xLng.Parameter.SiteAddress'></span>
@@ -37,6 +48,10 @@
                              </div>
                          </div>
 
+
+                    </div>
+
+                    <div class='col-lg-6 col-md-12'>
                          <div name='divAuditLog' class='mnFormElementDiv form-group row'>
                              <label class='col-sm-4 col-form-label'>
                              </label>
@@ -58,10 +73,6 @@
                              </div>
                          </div>
 
-
-                    </div>
-
-                    <div class='col-lg-6 col-md-12'>
 
                     </div>
 
@@ -200,6 +211,7 @@
                      id: self.primaryKey,
                      fields: {
                          Id: { type: 'number', defaultValue: null },
+                         UseAuthenticator: { type: 'boolean' },
                          SiteAddress: { type: 'string' },
                          InstitutionEmail: { type: 'string' },
                          AuditLog: { type: 'boolean' },
@@ -210,6 +222,7 @@
                          EmailUserName: { type: 'string' },
                          EmailPassword: { type: 'string' },
                          GoogleMapApiKey: { type: 'string' },
+                         CcUseAuthenticator: { type: 'string' },
                          CcAuditLog: { type: 'string' },
                          CcAuditLogTables: { type: 'string' },
                          CcEmailEnableSsl: { type: 'string' }
@@ -260,6 +273,7 @@
                              url: self.apiUrlPrefix + '/GetByNew', type: 'GET', dataType: 'json', async: false,
                              success: function (result) {
                                  e.items[0].Id = result.Id;
+                                 e.items[0].UseAuthenticator = result.UseAuthenticator;
                                  e.items[0].SiteAddress = result.SiteAddress;
                                  e.items[0].InstitutionEmail = result.InstitutionEmail;
                                  e.items[0].AuditLog = result.AuditLog;
@@ -271,6 +285,7 @@
                                  e.items[0].EmailPassword = result.EmailPassword;
                                  e.items[0].GoogleMapApiKey = result.GoogleMapApiKey;
                                  //computed alanların tanımlanması
+                                 e.items[0].CcUseAuthenticator = result.CcUseAuthenticator;
                                  e.items[0].CcAuditLog = result.CcAuditLog;
                                  e.items[0].CcAuditLogTables = result.CcAuditLogTables;
                                  e.items[0].CcEmailEnableSsl = result.CcEmailEnableSsl;
@@ -407,6 +422,7 @@
 
         //form element görünümleri
         var fieldList = [];
+        fieldList.push({ 'Name': 'UseAuthenticator', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'SiteAddress', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'InstitutionEmail', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'AuditLog', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });

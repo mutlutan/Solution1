@@ -12,19 +12,8 @@ namespace AppCommon
     #region Temel modleller
     public class AppConfig
     {
-        public Boolean UseAuthenticator { get; set; }
 		public string MainConnection { get; set; } = "";
         public string LogConnection { get; set; } = "";
-    }
-
-    public class JobItem
-    {
-        public string MethodName { get; set; } = "";
-        public string CronExpression { get; set; } = "";
-    }
-    public class JobConfig
-    {
-        public List<JobItem> JobItems { get; set; } = new List<JobItem>();
     }
 
     public class MoResponse<T> where T : /*class,*/ new()

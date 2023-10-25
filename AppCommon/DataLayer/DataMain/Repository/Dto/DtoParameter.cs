@@ -11,6 +11,10 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dto
     {
         protected readonly MainDataContext dataContext;
 
+        public string CcUseAuthenticator
+        {
+            get { return (this.UseAuthenticator ? this.dataContext.TranslateTo("xLng.Aktif") : this.dataContext.TranslateTo("xLng.Pasif")); }
+        }
         public string CcAuditLog
         {
             get { return (this.AuditLog ? this.dataContext.TranslateTo("xLng.Aktif") : this.dataContext.TranslateTo("xLng.Pasif")); }

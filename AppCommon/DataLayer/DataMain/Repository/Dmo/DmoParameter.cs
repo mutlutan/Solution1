@@ -19,6 +19,7 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
                 .Select(s => new DtoParameter(this.dataContext)
                 {
                     Id = s.Id,
+                    UseAuthenticator = s.UseAuthenticator,
                     SiteAddress = s.SiteAddress,
                     InstitutionEmail = s.InstitutionEmail,
                     AuditLog = s.AuditLog,
@@ -37,6 +38,7 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
             //Default değerler ile bir row döner, Burada field default değerleri veriliyor...
             DtoParameter row = new(this.dataContext) {
                 Id = 0,
+                UseAuthenticator = true,
                 AuditLog = true,
                 EmailPort = 0,
                 EmailEnableSsl = true
@@ -69,6 +71,7 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
                 }
             }
 
+         row.UseAuthenticator = _model.UseAuthenticator;
          row.SiteAddress = _model.SiteAddress;
          row.InstitutionEmail = _model.InstitutionEmail;
          row.AuditLog = _model.AuditLog;

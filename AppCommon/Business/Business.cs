@@ -22,32 +22,31 @@ namespace AppCommon.Business
 {
     public class Business : IDisposable
     {
-        public readonly AppConfig appConfig;
         public readonly MainDataContext dataContext;
+        public readonly LogDataContext logDataContext;
         public Repository repository;
         public MailHelper mailHelper;
         
-        public readonly LogDataContext logDataContext;
         public MoAccessToken UserToken { get; set; } = new();
         public MoAccessToken MemberToken { get; set; } = new();
+
         public string AppName { get; set; } = "SmartBike Panel";
         public string ContentRootPath { get; set; }
         public string UserIp { get; set; }
         public string UserBrowser { get; set; }
         public string LogDirectory { get; set; } = "logs";
 
-        public Business(AppConfig appConfig)
+        public Business(string mainConnection, string logConnection)
         {
-            this.appConfig = appConfig;
             //default dataContext
             this.dataContext = new();
-            this.dataContext.SetConnectionString(this.appConfig.MainConnection);
+            this.dataContext.SetConnectionString(mainConnection);
             this.repository = new Repository(dataContext);
             this.mailHelper = new MailHelper(dataContext);
 
             //log dataContext
             this.logDataContext = new();
-            this.logDataContext.SetConnectionString(this.appConfig.LogConnection);
+            this.logDataContext.SetConnectionString(logConnection);
         }
 
         #region logs
@@ -499,7 +498,7 @@ namespace AppCommon.Business
                         this.dataContext.SaveChanges();
 
                         #region Google Auth
-                        if (this.appConfig.UseAuthenticator)
+                        if (this.GetParameter().UseAuthenticator)
                         {
                             if (!string.IsNullOrEmpty(userModel.GaSecretKey.MyToTrim()))
                             {
@@ -737,7 +736,7 @@ namespace AppCommon.Business
                         this.dataContext.SaveChanges();
 
                         #region Google Auth
-                        if (this.appConfig.UseAuthenticator)
+                        if (this.GetParameter().UseAuthenticator)
                         {
                             if (!string.IsNullOrEmpty(memberModel.GaSecretKey.MyToTrim()))
                             {
