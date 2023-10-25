@@ -62,6 +62,15 @@ window.AppAuthority =
                     ]
                 },
                 {
+                    id: "Menu.Ayarlar.Job.", text: mnLang.f("xLng.Job.Title"), hint: "", rout: "Job", params: "", showType: "Page", header: true, viewFolder: "Job", viewName: "JobForGrid", cssClass: "fa fa-tint fa-fw", expanded: false, prefix: true, menu: true, yetkiGrups: "11,21", items: [
+                        { id: "Menu.Ayarlar.Job.D_R.", text: mnLang.f("xLng.Authority.Gorebilir"), hint: "", rout: "", params: "", showType: "Page", header: false, viewFolder: "", viewName: "", cssClass: "fa fa-search fa-fw", expanded: false, prefix: false, menu: false, yetkiGrups: "11,21", items: [] },
+                        { id: "Menu.Ayarlar.Job.D_C.", text: mnLang.f("xLng.Authority.Ekleyebilir"), hint: "", rout: "", params: "", showType: "Page", header: false, viewFolder: "", viewName: "", cssClass: "fa fa-plus fa-fw", expanded: false, prefix: false, menu: false, yetkiGrups: "11,21", items: [] },
+                        { id: "Menu.Ayarlar.Job.D_U.", text: mnLang.f("xLng.Authority.Duzeltebilir"), hint: "", rout: "", params: "", showType: "Page", header: false, viewFolder: "", viewName: "", cssClass: "fa fa-pencil fa-fw", expanded: false, prefix: false, menu: false, yetkiGrups: "11,21", items: [] },
+                        { id: "Menu.Ayarlar.Job.D_D.", text: mnLang.f("xLng.Authority.Silebilir"), hint: "", rout: "", params: "", showType: "Page", header: false, viewFolder: "", viewName: "", cssClass: "fa fa-trash-o fa-fw", expanded: false, prefix: false, menu: false, yetkiGrups: "11,21", items: [] },
+                        { id: "Menu.Ayarlar.Job.D_E.", text: mnLang.f("xLng.Authority.SaveAsExcel"), hint: "", rout: "", params: "", showType: "Page", header: false, viewFolder: "", viewName: "", cssClass: "fa fa-file-excel-o fa-fw", expanded: false, prefix: false, menu: false, yetkiGrups: "11,21", items: [] }
+                    ]
+                },
+                {
                     id: "Menu.Ayarlar.EmailLetterhead.", text: mnLang.f("xLng.EmailLetterhead.Title"), hint: "", rout: "EmailLetterhead", params: "", showType: "Page", header: true, viewFolder: "EmailLetterhead", viewName: "EmailLetterheadForGrid", cssClass: "fa fa-tint fa-fw", expanded: false, prefix: true, menu: true, yetkiGrups: "11,21", items: [
                         { id: "Menu.Ayarlar.EmailLetterhead.D_R.", text: mnLang.f("xLng.Authority.Gorebilir"), hint: "", rout: "", params: "", showType: "Page", header: false, viewFolder: "", viewName: "", cssClass: "fa fa-search fa-fw", expanded: false, prefix: false, menu: false, yetkiGrups: "11,21", items: [] },
                         { id: "Menu.Ayarlar.EmailLetterhead.D_C.", text: mnLang.f("xLng.Authority.Ekleyebilir"), hint: "", rout: "", params: "", showType: "Page", header: false, viewFolder: "", viewName: "", cssClass: "fa fa-plus fa-fw", expanded: false, prefix: false, menu: false, yetkiGrups: "11,21", items: [] },
