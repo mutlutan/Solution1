@@ -108,7 +108,7 @@ namespace AppJob.Controllers
 
 			if (token == "TOKEN-001-STATE")
 			{
-				JobHelper.OnActive = state;
+				MyJob.OnActive = state;
 				moResponse.Success = true;
 				moResponse.Message.Add("Job State : " + state);
 			}

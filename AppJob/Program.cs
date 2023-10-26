@@ -15,7 +15,7 @@ app.MapGet("/", () => "Job App Activated!");
 app.Lifetime.ApplicationStarted.Register(() =>
 {
 	var jobConfig = app.Services.GetService(typeof(IOptions<JobConfig>)) as IOptions<JobConfig>;
-    var job = new JobHelper(jobConfig.Value);
+    var job = new MyJob(jobConfig.Value);
 });
 #endregion
 

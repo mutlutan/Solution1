@@ -49,7 +49,7 @@ namespace AppCommon.Business
             this.logDataContext.SetConnectionString(logConnection);
         }
 
-        #region logs
+        #region logs -- bunu logHelper olarak ayır aslında ILoger a geç XXXXXXXXXXX  
 
         /// <summary>
         /// Kullanıcı giriş bilgisinin log kaydını tutuyoruz
@@ -204,6 +204,108 @@ namespace AppCommon.Business
             }
         }
 
+        #endregion
+
+        #region JOB İşlemleri -- jobHelper a taşı XXXXXXXXXXX
+
+        /// <summary>
+        /// Main Dbden AuditLog'ları alıp Log Db deki AuditLog tablosuna yazar. Main Dbdeki aktarılan logları siler.
+        /// </summary>      
+        public void SetAuditLogToDbLogFromDbMain()
+        {
+            try
+            {
+                var mainAuditLogList = this.dataContext.AuditLog.OrderBy(x => x.OperationDate).Take(200).ToList();
+
+                if (mainAuditLogList.Count > 0)
+                {
+                    foreach (var item in mainAuditLogList)
+                    {
+                        string sqlText = $@"
+                           BEGIN TRY
+                                begin tran                                          
+                        			  Insert Into smart_bike_log.dbo.AuditLog Select * From smart_bike_main.dbo.AuditLog Where Id='{item.Id}';
+                        			  Delete From smart_bike_main.dbo.AuditLog Where Id='{item.Id}';
+                                commit tran
+                            END TRY
+                            BEGIN CATCH
+                                IF @@TRANCOUNT > 0
+                                    ROLLBACK TRAN  
+                        			
+                        		DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
+                                DECLARE @ErrorSeverity INT = ERROR_SEVERITY();
+                                DECLARE @ErrorState INT = ERROR_STATE();
+                        
+                        		RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+                        
+                            END CATCH 
+
+                    ";
+                        this.dataContext.Database.ExecuteSqlRaw(sqlText);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
+            }
+        }
+
+        //30 snde bir çalışabilir
+        public bool MailJobMailHareklerdenBekliyorOlanlariGoder()
+        {
+            bool rV = false;
+            try
+            {
+                //bekliyor olan kayıtların ilk 10 adetini çeker
+                //bu kayıtları SendMailForMailHareket e gönderir
+
+                var mailHareketList = dataContext.EmailPool
+                    .Where(c => c.TryQuantity <= 3 && c.EmailPoolStatusId == (int)EnmEmailPoolStatus.Waiting)
+                    .Take(50);
+
+                foreach (var mailHareket in mailHareketList)
+                {
+                    mailHelper.SendMailForMailHareket(mailHareket.Id);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
+            }
+
+            return rV;
+        }
+
+        //2dk da bir çalışabilir
+        public bool MailJobMailHarekleriTekrarDene()
+        {
+            bool rV = false;
+            try
+            {
+                //hata olan kayıtların ilk 50 adetini çeker
+                //bu kayıtları SendMailForMailHareket e gönderir
+
+                var mailHareketList = dataContext.EmailPool
+                    .Where(c => c.TryQuantity <= 3 && c.EmailPoolStatusId == (int)EnmEmailPoolStatus.Error)
+                    .Take(50);
+
+                foreach (var mailHareket in mailHareketList)
+                {
+                    mailHelper.SendMailForMailHareket(mailHareket.Id);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
+            }
+
+            return rV;
+
+        }
+        
         #endregion
 
         #region token işlemleri
@@ -363,7 +465,7 @@ namespace AppCommon.Business
 
         #endregion
 
-        #region parameterler
+        #region parameterler, joblist
         public Parameter GetParameter()
         {
             Parameter rV = new();
@@ -385,9 +487,6 @@ namespace AppCommon.Business
             return rV;
         }
 
-        #endregion
-
-        #region job
         public List<Job> GetJobList()
         {
             List<Job> rV = new();
@@ -1486,130 +1585,6 @@ namespace AppCommon.Business
             }
             return response;
         }
-        #endregion
-
-        #region JOB İşlemleri
-
-        #region local web request
-        public void LocalWebRequest()
-        {
-            try
-            {
-                //Bu işlem ile application stop olmasını engellemek için doğal bir yöntem olarak kullanılabilir.
-                using var client = new HttpClient() { BaseAddress = new Uri(this.GetParameter().SiteAddress) };
-                var response = client.GetAsync("").Result;
-            }
-            catch (Exception ex)
-            {
-                WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
-            }
-        }
-
-        #endregion
-
-        #region Log Db Jobları
-        /// <summary>
-        /// Main Dbden AuditLog'ları alıp Log Db deki AuditLog tablosuna yazar. Main Dbdeki aktarılan logları siler.
-        /// </summary>      
-        public void SetAuditLogToDbLogFromDbMain()
-        {
-            try
-            {
-                var mainAuditLogList = this.dataContext.AuditLog.OrderBy(x => x.OperationDate).Take(200).ToList();
-
-                if (mainAuditLogList.Count > 0)
-                {
-                    foreach (var item in mainAuditLogList)
-                    {
-                        string sqlText = $@"
-                           BEGIN TRY
-                                begin tran                                          
-                        			  Insert Into smart_bike_log.dbo.AuditLog Select * From smart_bike_main.dbo.AuditLog Where Id='{item.Id}';
-                        			  Delete From smart_bike_main.dbo.AuditLog Where Id='{item.Id}';
-                                commit tran
-                            END TRY
-                            BEGIN CATCH
-                                IF @@TRANCOUNT > 0
-                                    ROLLBACK TRAN  
-                        			
-                        		DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
-                                DECLARE @ErrorSeverity INT = ERROR_SEVERITY();
-                                DECLARE @ErrorState INT = ERROR_STATE();
-                        
-                        		RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
-                        
-                            END CATCH 
-
-                    ";
-                        this.dataContext.Database.ExecuteSqlRaw(sqlText);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
-            }
-        }
-        #endregion
-
-        #region Bildirim Jobları
-        //30 snde bir çalışabilir
-        public bool MailJobMailHareklerdenBekliyorOlanlariGoder()
-        {
-            bool rV = false;
-            try
-            {
-                //bekliyor olan kayıtların ilk 10 adetini çeker
-                //bu kayıtları SendMailForMailHareket e gönderir
-
-                var mailHareketList = dataContext.EmailPool
-                    .Where(c => c.TryQuantity <= 3 && c.EmailPoolStatusId == (int)EnmEmailPoolStatus.Waiting)
-                    .Take(50);
-
-                foreach (var mailHareket in mailHareketList)
-                {
-                    mailHelper.SendMailForMailHareket(mailHareket.Id);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
-            }
-
-            return rV;
-        }
-
-        //2dk da bir çalışabilir
-        public bool MailJobMailHarekleriTekrarDene()
-        {
-            bool rV = false;
-            try
-            {
-                //hata olan kayıtların ilk 50 adetini çeker
-                //bu kayıtları SendMailForMailHareket e gönderir
-
-                var mailHareketList = dataContext.EmailPool
-                    .Where(c => c.TryQuantity <= 3 && c.EmailPoolStatusId == (int)EnmEmailPoolStatus.Error)
-                    .Take(50);
-
-                foreach (var mailHareket in mailHareketList)
-                {
-                    mailHelper.SendMailForMailHareket(mailHareket.Id);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
-            }
-
-            return rV;
-
-        }
-
-        #endregion
-
         #endregion
 
         #region Dashboard işlemleri

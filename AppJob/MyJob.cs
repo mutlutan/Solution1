@@ -9,13 +9,13 @@ using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace AppJob
 {
-    public class JobHelper
+    public class MyJob
     {
         public static bool OnActive { get; set; } = true; // Jobların aktif olup olmadığı belirler
 
         private static readonly CronDaemon cron_daemon = new();
 
-        public JobHelper(JobConfig jobConfig)
+        public MyJob(JobConfig jobConfig)
         {
             var mainConStr = jobConfig.MainConnection;
             var logConStr = jobConfig.LogConnection;
@@ -32,10 +32,10 @@ namespace AppJob
                         //dinamik olarak metodu çağırıyoruz, ama bu yetrli değil
                         //çünkü zaman kısa olduğunda metod tekrar çağrılır ve ezilir,
                         //bu yüzden crondan kurtul ve zamanı kendin bulduktansonra while içi task ile yönet
-                        //ayrıca common içindeki jobhelperdan çağır grekli metodları
+
                         MethodInfo methodInfo = typeof(Business).GetMethod(jobItem.MethodName);
                         ParameterInfo[] parameterInfo = methodInfo.GetParameters();//burdan parametre ekleyebilirsin gerekirse
-                        methodInfo.Invoke(new Business(mainConStr, logConStr), parameterInfo);
+                        methodInfo.Invoke(new JobHelper(mainConStr), parameterInfo);
                     });
                 }
                 catch { }
