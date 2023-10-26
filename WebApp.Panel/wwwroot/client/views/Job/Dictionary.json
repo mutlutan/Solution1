@@ -63,6 +63,14 @@
  }
 ,
  {
+     "key" : "xLng.Job.CronExpression",
+     "value": {
+         "tr": "Cron Expression",
+         "en": "Cron Expression"
+     }
+ }
+,
+ {
      "key" : "xLng.Job.IsPeriodic",
      "value": {
          "tr": "Periyodik",

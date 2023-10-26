@@ -55,6 +55,15 @@
                              </div>
                          </div>
 
+                         <div name='divCronExpression' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='' data-langkey-text='xLng.Job.CronExpression'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='CronExpression' type='text' class='form-control d-inline' data-bind='value:CronExpression' data-langkey-placeholder='xLng.Job.CronExpression'   maxlength='50' autocomplete='off' />
+                             </div>
+                         </div>
+
 
                     </div>
 
@@ -161,6 +170,7 @@
                          MethodName: { type: 'string' },
                          MethodParams: { type: 'string' },
                          MethodComment: { type: 'string' },
+                         CronExpression: { type: 'string' },
                          IsPeriodic: { type: 'boolean' },
                          StartTime: { type: 'time' },
                          DaysOfTheWeek: { type: 'string' },
@@ -232,6 +242,7 @@
                                  e.items[0].MethodName = result.MethodName;
                                  e.items[0].MethodParams = result.MethodParams;
                                  e.items[0].MethodComment = result.MethodComment;
+                                 e.items[0].CronExpression = result.CronExpression;
                                  e.items[0].IsPeriodic = result.IsPeriodic;
                                  e.items[0].StartTime = result.StartTime;
                                  e.items[0].DaysOfTheWeek = result.DaysOfTheWeek;
@@ -416,6 +427,7 @@
         fieldList.push({ 'Name': 'MethodName', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'MethodParams', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'MethodComment', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'CronExpression', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'IsPeriodic', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'StartTime', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'DaysOfTheWeek', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });

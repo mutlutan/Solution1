@@ -29,6 +29,7 @@ namespace AppJob
                 {
                     cron_daemon.AddJob(jobItem.CronExpression, () =>
                     {
+                        //dinamik olarak metodu çağırıyoruz
                         MethodInfo methodInfo = typeof(Business).GetMethod(jobItem.MethodName);
                         ParameterInfo[] parameterInfo = methodInfo.GetParameters();//burdan parametre ekleyebilirsin gerekirse
                         methodInfo.Invoke(new Business(mainConStr, logConStr), parameterInfo);

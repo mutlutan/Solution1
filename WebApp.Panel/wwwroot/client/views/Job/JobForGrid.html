@@ -48,6 +48,7 @@
                          MethodName: { type: 'string' },
                          MethodParams: { type: 'string' },
                          MethodComment: { type: 'string' },
+                         CronExpression: { type: 'string' },
                          IsPeriodic: { type: 'boolean' },
                          StartTime: { type: 'time' },
                          DaysOfTheWeek: { type: 'string' },
@@ -94,6 +95,7 @@
                                  e.items[0].MethodName = result.MethodName;
                                  e.items[0].MethodParams = result.MethodParams;
                                  e.items[0].MethodComment = result.MethodComment;
+                                 e.items[0].CronExpression = result.CronExpression;
                                  e.items[0].IsPeriodic = result.IsPeriodic;
                                  e.items[0].StartTime = result.StartTime;
                                  e.items[0].DaysOfTheWeek = result.DaysOfTheWeek;
@@ -163,6 +165,14 @@
                  field: 'MethodName',
                  attributes: { 'class': 'text-nowrap' },
                  width: '300px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.Job.CronExpression'),
+                 field: 'CronExpression',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '130px'
              },
 
              {

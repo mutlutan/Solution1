@@ -23,6 +23,7 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
                     MethodName = s.MethodName,
                     MethodParams = s.MethodParams,
                     MethodComment = s.MethodComment,
+                    CronExpression = s.CronExpression,
                     IsPeriodic = s.IsPeriodic,
                     StartTime = s.StartTime,
                     DaysOfTheWeek = s.DaysOfTheWeek,
@@ -71,6 +72,7 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
          row.MethodName = _model.MethodName;
          row.MethodParams = _model.MethodParams;
          row.MethodComment = _model.MethodComment;
+         row.CronExpression = _model.CronExpression;
          row.IsPeriodic = _model.IsPeriodic;
          row.StartTime = _model.StartTime;
          row.DaysOfTheWeek = _model.DaysOfTheWeek;
