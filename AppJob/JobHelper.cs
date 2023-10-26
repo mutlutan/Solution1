@@ -32,7 +32,6 @@ namespace AppJob
                         MethodInfo methodInfo = typeof(Business).GetMethod(jobItem.MethodName);
                         ParameterInfo[] parameterInfo = methodInfo.GetParameters();//burdan parametre ekleyebilirsin gerekirse
                         methodInfo.Invoke(new Business(mainConStr, logConStr), parameterInfo);
-                        new Business(mainConStr, logConStr).LocalWebRequest();
                     });
                 }
                 catch { }
