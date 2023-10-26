@@ -32,6 +32,7 @@ namespace AppJob
                         //dinamik olarak metodu çağırıyoruz, ama bu yetrli değil
                         //çünkü zaman kısa olduğunda metod tekrar çağrılır ve ezilir,
                         //bu yüzden crondan kurtul ve zamanı kendin bulduktansonra while içi task ile yönet
+                        //ayrıca common içindeki jobhelperdan çağır grekli metodları
                         MethodInfo methodInfo = typeof(Business).GetMethod(jobItem.MethodName);
                         ParameterInfo[] parameterInfo = methodInfo.GetParameters();//burdan parametre ekleyebilirsin gerekirse
                         methodInfo.Invoke(new Business(mainConStr, logConStr), parameterInfo);
