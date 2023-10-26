@@ -387,6 +387,31 @@ namespace AppCommon.Business
 
         #endregion
 
+        #region job
+        public List<Job> GetJobList()
+        {
+            List<Job> rV = new();
+            try
+            {
+                var data = dataContext.Job.AsNoTracking()
+                    .Where(c => c.IsActive == true)
+                    .ToList();
+
+                if (data != null)
+                {
+                    rV = data;
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
+            }
+
+            return rV;
+        }
+
+        #endregion
+
         #region Kullanıcı
 
         public List<string> GetUserAuthorities(int userId)

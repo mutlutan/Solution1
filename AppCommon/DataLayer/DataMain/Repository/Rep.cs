@@ -29,6 +29,8 @@ namespace AppCommon.DataLayer.DataMain.Repository
         public DmoCountry RepCountry { get; private set; }
 
         public DmoCurrency RepCurrency { get; private set; }
+
+        public DmoJob RepJob { get; private set; }
         /*code_definition_end*/
 
         public Repository(MainDataContext context)
@@ -48,6 +50,8 @@ namespace AppCommon.DataLayer.DataMain.Repository
             this.RepCountry = new DmoCountry(this.dataContext);
 
             this.RepCurrency = new DmoCurrency(this.dataContext);
+   
+            this.RepJob = new DmoJob(this.dataContext);
             /*code_constructor_end*/
         }
 

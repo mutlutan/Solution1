@@ -1,7 +1,10 @@
 ﻿using AppCommon;
 using AppCommon.Business;
+using AppCommon.DataLayer.DataMain.Models;
 using CronNET;
 using Microsoft.Extensions.Caching.Memory;
+using System.Reflection;
+using Telerik.DataSource.Extensions;
 using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace AppJob
@@ -17,10 +20,24 @@ namespace AppJob
             var mainConStr = jobConfig.MainConnection;
             var logConStr = jobConfig.LogConnection;
 
-            cron_daemon.AddJob(jobConfig.JobItems[0].CronExpression, () => { new Business(mainConStr, logConStr).LocalWebRequest(); });
-            cron_daemon.AddJob(jobConfig.JobItems[1].CronExpression, () => { new Business(mainConStr, logConStr).SetAuditLogToDbLogFromDbMain(); });
-            cron_daemon.AddJob(jobConfig.JobItems[5].CronExpression, () => { new Business(mainConStr, logConStr).MailJobMailHareklerdenBekliyorOlanlariGoder(); });
-            cron_daemon.AddJob(jobConfig.JobItems[6].CronExpression, () => { new Business(mainConStr, logConStr).MailJobMailHarekleriTekrarDene(); });
+            Business business = new(mainConStr, logConStr);
+            var jobList = business.GetJobList();
+
+            foreach (var jobItem in jobList)
+            {
+                try
+                {
+                    cron_daemon.AddJob(jobItem.CronExpression, () =>
+                    {
+                        MethodInfo methodInfo = typeof(Business).GetMethod(jobItem.MethodName);
+                        ParameterInfo[] parameterInfo = methodInfo.GetParameters();//burdan parametre ekleyebilirsin gerekirse
+                        methodInfo.Invoke(new Business(mainConStr, logConStr), parameterInfo);
+                        new Business(mainConStr, logConStr).LocalWebRequest();
+                    });
+                }
+                catch { }
+            }
+
             cron_daemon.Start();
         }
     }

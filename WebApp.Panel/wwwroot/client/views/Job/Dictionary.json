@@ -1,0 +1,104 @@
+[
+ {
+     "key" : "xLng.Job.Title",
+     "value": {
+         "tr": "İş",
+         "en": "Job"
+     }
+ },
+ {
+     "key" : "xLng.Job.ShortTitle",
+     "value": {
+         "tr": "İş",
+         "en": "Job"
+     }
+ }
+,
+ {
+     "key" : "xLng.Job.FormViewTab.I",
+     "value": {
+         "tr": "Genel Bilgiler",
+         "en": "General Info"
+     }
+ }
+,
+ {
+     "key" : "xLng.Job.Id",
+     "value": {
+         "tr": "Id",
+         "en": "Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.Job.IsActive",
+     "value": {
+         "tr": "Aktif",
+         "en": "IsActive"
+     }
+ }
+,
+ {
+     "key" : "xLng.Job.MethodName",
+     "value": {
+         "tr": "Yöntem Adı",
+         "en": "Method Name"
+     }
+ }
+,
+ {
+     "key" : "xLng.Job.MethodParams",
+     "value": {
+         "tr": "Yöntem Parametreleri",
+         "en": "Method Params"
+     }
+ }
+,
+ {
+     "key" : "xLng.Job.MethodComment",
+     "value": {
+         "tr": "Yöntem Yorumu",
+         "en": "Method Comment"
+     }
+ }
+,
+ {
+     "key" : "xLng.Job.IsPeriodic",
+     "value": {
+         "tr": "Periyodik",
+         "en": "IsPeriodic"
+     }
+ }
+,
+ {
+     "key" : "xLng.Job.StartTime",
+     "value": {
+         "tr": "Başlangıç ​​Saati",
+         "en": "Start Time"
+     }
+ }
+,
+ {
+     "key" : "xLng.Job.DaysOfTheWeek",
+     "value": {
+         "tr": "Haftanın Günleri",
+         "en": "Days Of The Week"
+     }
+ }
+,
+ {
+     "key" : "xLng.Job.Months",
+     "value": {
+         "tr": "Aylar",
+         "en": "Months"
+     }
+ }
+,
+ {
+     "key" : "xLng.Job.DaysOfTheMonth",
+     "value": {
+         "tr": "Ayın Günleri",
+         "en": "Days Of The Month"
+     }
+ }
+]

@@ -30,7 +30,6 @@ namespace AppCommon.DataLayer.DataMain.Models
         public virtual DbSet<MemberType> MemberType { get; set; } = null!;
         public virtual DbSet<Parameter> Parameter { get; set; } = null!;
         public virtual DbSet<Role> Role { get; set; } = null!;
-        public virtual DbSet<StartType> StartType { get; set; } = null!;
         public virtual DbSet<User> User { get; set; } = null!;
         public virtual DbSet<UserStatus> UserStatus { get; set; } = null!;
         public virtual DbSet<UserType> UserType { get; set; } = null!;
@@ -235,19 +234,27 @@ namespace AppCommon.DataLayer.DataMain.Models
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
+                entity.Property(e => e.CronExpression)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DaysOfTheMonth)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DaysOfTheWeek)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.MethodComment).HasMaxLength(500);
+
                 entity.Property(e => e.MethodName).HasMaxLength(100);
 
                 entity.Property(e => e.MethodParams).HasMaxLength(500);
 
-                entity.Property(e => e.StartDayNames)
+                entity.Property(e => e.Months)
                     .HasMaxLength(100)
                     .IsUnicode(false);
-
-                entity.HasOne(d => d.StartType)
-                    .WithMany(p => p.Job)
-                    .HasForeignKey(d => d.StartTypeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Job_StartTypeId");
             });
 
             modelBuilder.Entity<Member>(entity =>
@@ -328,18 +335,6 @@ namespace AppCommon.DataLayer.DataMain.Models
                 entity.Property(e => e.Name).HasMaxLength(30);
 
                 entity.Property(e => e.UpdateDate).HasColumnType("datetime");
-            });
-
-            modelBuilder.Entity<StartType>(entity =>
-            {
-                entity.HasIndex(e => e.IsActive, "IX_StartType_IsActive");
-
-                entity.HasIndex(e => e.Name, "UX_StartType_Name")
-                    .IsUnique();
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.Property(e => e.Name).HasMaxLength(100);
             });
 
             modelBuilder.Entity<User>(entity =>

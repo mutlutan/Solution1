@@ -357,6 +357,103 @@
     }
   },
 
+  {
+    "key": "xLng.Ay.January",
+    "value": {
+      "tr": "Ocak",
+      "en": "January",
+      "ar": ""
+    }
+  },
+  {
+    "key": "xLng.Ay.February",
+    "value": {
+      "tr": "Şubat",
+      "en": "February",
+      "ar": ""
+    }
+  },
+  {
+    "key": "xLng.Ay.March",
+    "value": {
+      "tr": "Mart",
+      "en": "March",
+      "ar": ""
+    }
+  },
+  {
+    "key": "xLng.Ay.April",
+    "value": {
+      "tr": "Nisan",
+      "en": "April",
+      "ar": ""
+    }
+  },
+  {
+    "key": "xLng.Ay.May",
+    "value": {
+      "tr": "Mayıs",
+      "en": "May",
+      "ar": ""
+    }
+  },
+  {
+    "key": "xLng.Ay.June",
+    "value": {
+      "tr": "Haziran",
+      "en": "June",
+      "ar": ""
+    }
+  },
+  {
+    "key": "xLng.Ay.July",
+    "value": {
+      "tr": "Temmuz",
+      "en": "July",
+      "ar": ""
+    }
+  },
+  {
+    "key": "xLng.Ay.August",
+    "value": {
+      "tr": "Ağustos",
+      "en": "August",
+      "ar": ""
+    }
+  },
+  {
+    "key": "xLng.Ay.September",
+    "value": {
+      "tr": "Eylül",
+      "en": "September",
+      "ar": ""
+    }
+  },
+  {
+    "key": "xLng.Ay.October",
+    "value": {
+      "tr": "Ekim",
+      "en": "October",
+      "ar": ""
+    }
+  },
+  {
+    "key": "xLng.Ay.November",
+    "value": {
+      "tr": "Kasım",
+      "en": "November",
+      "ar": ""
+    }
+  },
+  {
+    "key": "xLng.Ay.December",
+    "value": {
+      "tr": "Aralık",
+      "en": "December",
+      "ar": ""
+    }
+  },
+
 
   {
     "key": "xLng.Tamam",

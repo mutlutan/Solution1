@@ -9,11 +9,12 @@ namespace AppCommon.DataLayer.DataMain.Models
         public bool IsActive { get; set; }
         public string MethodName { get; set; } = null!;
         public string? MethodParams { get; set; }
-        public int StartTypeId { get; set; }
+        public string? MethodComment { get; set; }
+        public string? CronExpression { get; set; }
+        public bool IsPeriodic { get; set; }
         public TimeSpan StartTime { get; set; }
-        public string? StartDayNames { get; set; }
-        public int StartMonthDayNumber { get; set; }
-
-        public virtual StartType StartType { get; set; } = null!;
+        public string? DaysOfTheWeek { get; set; }
+        public string? Months { get; set; }
+        public string? DaysOfTheMonth { get; set; }
     }
 }

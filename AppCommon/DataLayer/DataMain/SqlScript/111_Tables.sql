@@ -63,25 +63,6 @@
 	INSERT INTO Parameter (Id, UseAuthenticator, SiteAddress, InstitutionEmail, AuditLog, EmailHost, EmailPort, EmailEnableSsl, EmailUserName, EmailPassword, GoogleMapApiKey) 
 	VALUES (1, 0, N'https://qq.com', N'info@qq.com', 0, N'mail.qq.com', 587, 0, N'info@qq.com', N'123', N'AIzaSyDHnQDsewS54EKaP3Rkxuh3npv6uW60mko');
 
-
-	/*StartType*/
-	CREATE TABLE dbo.StartType(
-		Id			INT NOT NULL,
-
-		IsActive	BIT NOT NULL,
-		LineNumber	INT NOT NULL,
-		Name		NVARCHAR(100) NOT NULL,
-		
-		CONSTRAINT PK_StartType PRIMARY KEY (Id)
-	);
-	CREATE UNIQUE INDEX UX_StartType_Name ON StartType (Name);
-	CREATE INDEX IX_StartType_IsActive ON StartType (IsActive);
-	INSERT INTO StartType (Id, IsActive, LineNumber, Name) VALUES (0, 1, 0, N'');
-	INSERT INTO StartType (Id, IsActive, LineNumber, Name) VALUES (1, 1, 1, N'Periodic');
-	INSERT INTO StartType (Id, IsActive, LineNumber, Name) VALUES (2, 1, 2, N'Daily');
-	INSERT INTO StartType (Id, IsActive, LineNumber, Name) VALUES (3, 1, 3, N'Weekly');
-	INSERT INTO StartType (Id, IsActive, LineNumber, Name) VALUES (4, 1, 4, N'Monthly');
-
 	/*Job Tanımları*/
 	CREATE TABLE dbo.Job(
 		Id				UNIQUEIDENTIFIER NOT NULL,
@@ -90,20 +71,22 @@
 
 		MethodName		NVARCHAR(100) NOT NULL,
 		MethodParams	NVARCHAR(500), /*jsontext olabilir*/
+		MethodComment	NVARCHAR(500), /*Açıklama*/
+		CronExpression	VARCHAR(50),
+		IsPeriodic		BIT NOT NULL,
 
-		StartTypeId		INT NOT NULL, /*0:Periodic, 1:Daily, 2:Weekly, 3:Monthly*/
 		StartTime		TIME NOT NULL, /*Periodic: Hangi zaman aralığında çalışacagı. Daily: Hangi saatte çalışacagı.*/
-		StartDayNames	VARCHAR(100), /*haftalık: hangi günler Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday*/
-		StartMonthDayNumber	INT NOT NULL, /*Aylık: ayın kaçıncı günü gönderilecek*/
+		DaysOfTheWeek	VARCHAR(100), /*haftalık: Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday*/
+		Months			VARCHAR(100), /*Aylık: January, February, March, April, May, June, July, August, September, October, November, December*/
+		DaysOfTheMonth	VARCHAR(100), /*Aylık: ayın kaçıncı günü gönderilecek*/
 		
-		CONSTRAINT PK_Job PRIMARY KEY (Id),
-		CONSTRAINT FK_Job_StartTypeId FOREIGN KEY (StartTypeId) REFERENCES StartType (Id)
+		CONSTRAINT PK_Job PRIMARY KEY (Id)
 	);
 	CREATE INDEX IX_Job_IsActive ON Job (IsActive);
-	INSERT INTO Job (Id, IsActive, MethodName, StartTypeId, StartTime, StartMonthDayNumber) VALUES (NewId(), 1, N'LocalWebRequest', 0, '00:15', 0);
-	INSERT INTO Job (Id, IsActive, MethodName, StartTypeId, StartTime, StartMonthDayNumber) VALUES (NewId(), 1, N'SetAuditLogToDbLogFromDbMain', 0, '00:05', 0);
-	INSERT INTO Job (Id, IsActive, MethodName, StartTypeId, StartTime, StartMonthDayNumber) VALUES (NewId(), 1, N'MailJobMailHareklerdenBekliyorOlanlariGoder', 0, '00:05', 0);
-	INSERT INTO Job (Id, IsActive, MethodName, StartTypeId, StartTime, StartMonthDayNumber) VALUES (NewId(), 1, N'MailJobMailHarekleriTekrarDene', 0, '00:05', 0);
+	INSERT INTO Job (Id, IsActive, MethodName, CronExpression, IsPeriodic, StartTime) VALUES (NewId(), 1, N'LocalWebRequest', '*/15 * * * *', 1, '00:15');
+	INSERT INTO Job (Id, IsActive, MethodName, CronExpression, IsPeriodic, StartTime) VALUES (NewId(), 1, N'SetAuditLogToDbLogFromDbMain', '*/5 * * * *', 1, '00:05');
+	INSERT INTO Job (Id, IsActive, MethodName, CronExpression, IsPeriodic, StartTime) VALUES (NewId(), 1, N'MailJobMailHareklerdenBekliyorOlanlariGoder', '*/5 * * * *', 1, '00:05');
+	INSERT INTO Job (Id, IsActive, MethodName, CronExpression, IsPeriodic, StartTime) VALUES (NewId(), 1, N'MailJobMailHarekleriTekrarDene', '*/5 * * * *', 1, '00:05');
 
 	/*Role Tanımları*/
 	CREATE SEQUENCE dbo.sqRole AS INT START WITH 2001 INCREMENT BY 1; 

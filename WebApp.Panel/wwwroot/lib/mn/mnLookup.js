@@ -131,6 +131,22 @@ window.mnLookup = function () {
                     { value: "Sunday", text: mnLang.TranslateWithWord("xLng.Gun.Sunday") }
                 ],
 
+                dsAylar: [
+                    { value: "January", text: mnLang.TranslateWithWord("xLng.Ay.January") },
+                    { value: "February", text: mnLang.TranslateWithWord("xLng.Ay.February") },
+                    { value: "March", text: mnLang.TranslateWithWord("xLng.Ay.March") },
+                    { value: "April", text: mnLang.TranslateWithWord("xLng.Ay.April") },
+                    { value: "May", text: mnLang.TranslateWithWord("xLng.Ay.May") },
+                    { value: "June", text: mnLang.TranslateWithWord("xLng.Ay.June") },
+                    { value: "July", text: mnLang.TranslateWithWord("xLng.Ay.July") },
+                    { value: "August", text: mnLang.TranslateWithWord("xLng.Ay.August") },
+                    { value: "September", text: mnLang.TranslateWithWord("xLng.Ay.September") },
+                    { value: "October", text: mnLang.TranslateWithWord("xLng.Ay.October") },
+                    { value: "November", text: mnLang.TranslateWithWord("xLng.Ay.November") },
+                    { value: "December", text: mnLang.TranslateWithWord("xLng.Ay.December") },
+                ],
+             
+
                 //sunucudan alınması gerekebilir (log tabloları seçimi için)
                 dsTables: [
                     { value: "User", text: "Kullanıcılar" },
