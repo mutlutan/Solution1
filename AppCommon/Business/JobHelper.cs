@@ -26,7 +26,7 @@ namespace AppCommon.Business
                 using var client = new HttpClient() { BaseAddress = new Uri(siteAddress) };
                 var response = client.GetAsync("").Result;
             }
-            catch (Exception ex)
+            catch //(Exception ex)
             {
                 //WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
             }

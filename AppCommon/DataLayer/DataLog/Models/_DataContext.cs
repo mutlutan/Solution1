@@ -66,7 +66,9 @@ namespace AppCommon.DataLayer.DataLog.Models
 			string _sCollate = "TURKISH_CI_AS"; //burası seçilebilir birşey olmalı
 			string _SQLText = "CREATE DATABASE " + _sInitialCatalog + " COLLATE " + _sCollate + ";";
 
-			using (var Con1 = new SqlConnection("Server=.; Database=master; Trusted_Connection=True;"))
+            SqlConnectionStringBuilder csb = new(this.Database.GetConnectionString()) { InitialCatalog = "master" };
+
+            using (var Con1 = new SqlConnection(csb.ToString()))
 			{
 				Con1.Open();
 				using (var cmd = new SqlCommand(_SQLText, Con1))
@@ -83,8 +85,7 @@ namespace AppCommon.DataLayer.DataLog.Models
 		private StringBuilder RunScriptWithGo(string script)
 		{
 			var LogList = new StringBuilder();
-			var dbname = this.Database.GetDbConnection().Database;
-			using (var Con1 = new SqlConnection("Server=.; Database=" + dbname + "; Trusted_Connection=True;"))
+			using (var Con1 = new SqlConnection(this.Database.GetConnectionString()))
 			{
 				// split script on GO command
 				IEnumerable<string> commandStrings = Regex.Split(script, @"^\s*GO\s*$", RegexOptions.Multiline | RegexOptions.IgnoreCase);
@@ -117,8 +118,7 @@ namespace AppCommon.DataLayer.DataLog.Models
 		private StringBuilder RunScript(string _Separators, string _Script)
 		{
 			var LogList = new StringBuilder();
-			var dbname = this.Database.GetDbConnection().Database;
-			using (var Con1 = new SqlConnection("Server=.; Database=" + dbname + "; Trusted_Connection=True;"))
+			using (var Con1 = new SqlConnection(this.Database.GetConnectionString()))
 			{
 				Con1.Open();
 				foreach (string s in _Script.Split(new string[] { _Separators }, StringSplitOptions.RemoveEmptyEntries))

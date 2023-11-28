@@ -33,7 +33,7 @@ namespace AppJob
                         //çünkü zaman kısa olduğunda metod tekrar çağrılır ve ezilir,
                         //bu yüzden crondan kurtul ve zamanı kendin bulduktansonra while içi task ile yönet
 
-                        MethodInfo methodInfo = typeof(Business).GetMethod(jobItem.MethodName);
+                        MethodInfo methodInfo = typeof(JobHelper).GetMethod(jobItem.MethodName);
                         ParameterInfo[] parameterInfo = methodInfo.GetParameters();//burdan parametre ekleyebilirsin gerekirse
                         methodInfo.Invoke(new JobHelper(mainConStr), parameterInfo);
                     });
