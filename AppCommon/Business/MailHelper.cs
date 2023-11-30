@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using AppCommon;
@@ -13,11 +14,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AppCommon.Business
 {
-    //gmail göndeririken hata alınıyor olabilir, Google hesabınızın dışarıdan harici bir uygulama tarafından kullanılmasına izin verilmiyor olmasıdır.
-    //aşağıdaki linke girip devam et demek yeterli
-    // https://accounts.google.com/DisplayUnlockCaptcha
+	//gmail göndeririken hata alınıyor olabilir, Google hesabınızın dışarıdan harici bir uygulama tarafından kullanılmasına izin verilmiyor olmasıdır.
+	//aşağıdaki linke girip devam et demek yeterli
+	// https://accounts.google.com/DisplayUnlockCaptcha
 
-    public enum EnmEmailPoolStatus
+	public enum EnmEmailPoolStatus
 	{
 		Waiting = 0, /*Gönderilecek, bekliyor*/
 		Sending = 1, /*Gönderim başladı*/
@@ -46,25 +47,35 @@ namespace AppCommon.Business
 	public class MailHelper : IDisposable
 	{
 		private readonly MainDataContext dataContext;
-		private Parameter parametre;
+
 
 		public MailHelper(MainDataContext _dataContext)
 		{
 			dataContext = _dataContext;
-			parametre = new Parameter();
+		}
+
+		public Parameter GetParameter()
+		{
+			Parameter rV = new();
 			try
 			{
-				var itemParametre = dataContext.Parameter.FirstOrDefault();
-				if (itemParametre != null)
+				var data = dataContext.Parameter.AsNoTracking()
+					.Where(c => c.Id == 1).FirstOrDefault();
+
+				if (data != null)
 				{
-					parametre = itemParametre;
+					rV = data;
 				}
 			}
 			catch { }
+
+			return rV;
 		}
+
 
 		public MyMailAccount GetDefaultAccount()
 		{
+			var parametre = this.GetParameter();
 			return new MyMailAccount()
 			{
 				Host = parametre.EmailHost.MyToTrim(),
@@ -216,6 +227,7 @@ namespace AppCommon.Business
 			//gönder
 			try
 			{
+				var parametre = this.GetParameter();
 				//mesaj oluştur
 				var mesaj = MesajOlustur(
 					parametre.EmailUserName.MyToStr(),
@@ -316,6 +328,7 @@ namespace AppCommon.Business
 			var emailPool = dataContext.EmailPool.Where(c => c.Id == mailHareketId).FirstOrDefault();
 			if (emailPool != null)
 			{
+				var parametre = this.GetParameter();
 				//mesaj oluştur
 				var mesaj = MesajOlustur(
 					_fromAdress: parametre.EmailUserName.MyToStr(),
@@ -405,105 +418,104 @@ namespace AppCommon.Business
 			return SendMailForMailHareket(mailHareketId).Success;
 		}
 
-        public bool SendMail_UyeOdemeBildirim(string toMail, string adSoyad, DateTime islemZamani, decimal yatirimTutari, decimal bakiye)
-        {
-            Dictionary<string, string> data = new() { };
-            data.Add("[#IslemZamani#]", islemZamani.ToString("G"));
-            data.Add("[#AdSoyad#]", adSoyad);
-            data.Add("[#YatirimTutari#]", yatirimTutari.ToString("F"));
-            data.Add("[#Bakiye#]", bakiye.ToString("F"));
-
-            var to = new List<string>() { toMail };
-
-            var mailHareketId = MailHareketKaydet((int)EnmMailSablon.SifreSifirlamaBildirim, to, data).Data;
-
-            return SendMailForMailHareket(mailHareketId).Success;
-        }
-        public bool SendMail_UyeSurusBildirim(string toMail, string adSoyad, string aracAd, DateTime baslangicTarih, DateTime bitisTarih, int sure, decimal tutar, decimal bakiye)
-        {
-            Dictionary<string, string> data = new() { };
-            data.Add("[#AdSoyad#]", adSoyad);
-            data.Add("[#AracAd#]", aracAd);
-            data.Add("[#BaslangicTarih#]", String.Format("{0:U}", baslangicTarih));
-            data.Add("[#BitisTarih#]", String.Format("{0:U}", bitisTarih));
-            data.Add("[#ToplamSure#]", sure.ToString());
-            data.Add("[#Tutar#]", tutar.ToString("F"));
-            data.Add("[#Bakiye#]", bakiye.ToString("F"));
-
-            var to = new List<string>() { toMail };
-
-            var mailHareketId = MailHareketKaydet((int)EnmMailSablon.SifreSifirlamaBildirim, to, data).Data;
-
-            return SendMailForMailHareket(mailHareketId).Success;
-        }
-
-        public bool SendMail_UyeAracYasakliBolgeBildirim(string toMail, string adSoyad, string aracAd, string yasakliBolgeAd, DateTime tarih)
-        {
-            Dictionary<string, string> data = new() { };
-            data.Add("[#IslemZamani#]", tarih.ToString("G"));
-            data.Add("[#AdSoyad#]", adSoyad);
-            data.Add("[#AracAd#]", aracAd);
-            data.Add("[#YasakliBolgeAd#]", yasakliBolgeAd);
-
-            var to = new List<string>() { toMail };
-
-            var mailHareketId = MailHareketKaydet((int)EnmMailSablon.SifreSifirlamaBildirim, to, data).Data;
-
-            return SendMailForMailHareket(mailHareketId).Success;
-        }
-
-        public bool SendMail_AracSarjBildirim(string toMail, string imeiNo, string aracAd, string kullanimDurumu, decimal sarjOrani)
-        {
-            Dictionary<string, string> data = new() { };
-            data.Add("[#IslemZamani#]", DateTime.Now.ToString("G"));
-            data.Add("[#ImeiNo#]", imeiNo);
-            data.Add("[#AracAd#]", aracAd);            
-            data.Add("[#KullanimDurumu#]", kullanimDurumu);
-            data.Add("[#SarjOrani#]", sarjOrani.ToString());
-
-            var to = new List<string>() { toMail };
-
-            var mailHareketId = MailHareketKaydet((int)EnmMailSablon.SifreSifirlamaBildirim, to, data).Data;
-
-            return SendMailForMailHareket(mailHareketId).Success;
-        }
-
-        public bool SendMail_AracYasakliBolgeBildirim(string toMail, string imeiNo, string aracAd, string yasakliBolgeAd, DateTime tarih)
-        {
-            Dictionary<string, string> data = new() { };
-            data.Add("[#IslemZamani#]", tarih.ToString("G"));
-            data.Add("[#ImeiNo#]", imeiNo);
-            data.Add("[#AracAd#]", aracAd);
-            data.Add("[#YasakliBolgeAd#]", yasakliBolgeAd);
-
-            var to = new List<string>() { toMail };
-
-            var mailHareketId = MailHareketKaydet((int)EnmMailSablon.SifreSifirlamaBildirim, to, data).Data;
-
-            return SendMailForMailHareket(mailHareketId).Success;
-        }
-
-        public bool SendMail_AracHataliKullanimBildirim(string toMail, string imeiNo, string aracAd, string aciklama, DateTime tarih)
-        {
-            Dictionary<string, string> data = new() { };
-            data.Add("[#IslemZamani#]", tarih.ToString("G"));
-            data.Add("[#ImeiNo#]", imeiNo);
-            data.Add("[#AracAd#]", aracAd);
-            data.Add("[#Aciklama#]", aciklama);
-
-            var to = new List<string>() { toMail };
-
-            var mailHareketId = MailHareketKaydet((int)EnmMailSablon.SifreSifirlamaBildirim, to, data).Data;
-
-            return SendMailForMailHareket(mailHareketId).Success;
-        }
-
-
-        #endregion
-
-        public void Dispose()
+		public bool SendMail_UyeOdemeBildirim(string toMail, string adSoyad, DateTime islemZamani, decimal yatirimTutari, decimal bakiye)
 		{
-			this.parametre = null;
+			Dictionary<string, string> data = new() { };
+			data.Add("[#IslemZamani#]", islemZamani.ToString("G"));
+			data.Add("[#AdSoyad#]", adSoyad);
+			data.Add("[#YatirimTutari#]", yatirimTutari.ToString("F"));
+			data.Add("[#Bakiye#]", bakiye.ToString("F"));
+
+			var to = new List<string>() { toMail };
+
+			var mailHareketId = MailHareketKaydet((int)EnmMailSablon.SifreSifirlamaBildirim, to, data).Data;
+
+			return SendMailForMailHareket(mailHareketId).Success;
+		}
+		public bool SendMail_UyeSurusBildirim(string toMail, string adSoyad, string aracAd, DateTime baslangicTarih, DateTime bitisTarih, int sure, decimal tutar, decimal bakiye)
+		{
+			Dictionary<string, string> data = new() { };
+			data.Add("[#AdSoyad#]", adSoyad);
+			data.Add("[#AracAd#]", aracAd);
+			data.Add("[#BaslangicTarih#]", String.Format("{0:U}", baslangicTarih));
+			data.Add("[#BitisTarih#]", String.Format("{0:U}", bitisTarih));
+			data.Add("[#ToplamSure#]", sure.ToString());
+			data.Add("[#Tutar#]", tutar.ToString("F"));
+			data.Add("[#Bakiye#]", bakiye.ToString("F"));
+
+			var to = new List<string>() { toMail };
+
+			var mailHareketId = MailHareketKaydet((int)EnmMailSablon.SifreSifirlamaBildirim, to, data).Data;
+
+			return SendMailForMailHareket(mailHareketId).Success;
+		}
+
+		public bool SendMail_UyeAracYasakliBolgeBildirim(string toMail, string adSoyad, string aracAd, string yasakliBolgeAd, DateTime tarih)
+		{
+			Dictionary<string, string> data = new() { };
+			data.Add("[#IslemZamani#]", tarih.ToString("G"));
+			data.Add("[#AdSoyad#]", adSoyad);
+			data.Add("[#AracAd#]", aracAd);
+			data.Add("[#YasakliBolgeAd#]", yasakliBolgeAd);
+
+			var to = new List<string>() { toMail };
+
+			var mailHareketId = MailHareketKaydet((int)EnmMailSablon.SifreSifirlamaBildirim, to, data).Data;
+
+			return SendMailForMailHareket(mailHareketId).Success;
+		}
+
+		public bool SendMail_AracSarjBildirim(string toMail, string imeiNo, string aracAd, string kullanimDurumu, decimal sarjOrani)
+		{
+			Dictionary<string, string> data = new() { };
+			data.Add("[#IslemZamani#]", DateTime.Now.ToString("G"));
+			data.Add("[#ImeiNo#]", imeiNo);
+			data.Add("[#AracAd#]", aracAd);
+			data.Add("[#KullanimDurumu#]", kullanimDurumu);
+			data.Add("[#SarjOrani#]", sarjOrani.ToString());
+
+			var to = new List<string>() { toMail };
+
+			var mailHareketId = MailHareketKaydet((int)EnmMailSablon.SifreSifirlamaBildirim, to, data).Data;
+
+			return SendMailForMailHareket(mailHareketId).Success;
+		}
+
+		public bool SendMail_AracYasakliBolgeBildirim(string toMail, string imeiNo, string aracAd, string yasakliBolgeAd, DateTime tarih)
+		{
+			Dictionary<string, string> data = new() { };
+			data.Add("[#IslemZamani#]", tarih.ToString("G"));
+			data.Add("[#ImeiNo#]", imeiNo);
+			data.Add("[#AracAd#]", aracAd);
+			data.Add("[#YasakliBolgeAd#]", yasakliBolgeAd);
+
+			var to = new List<string>() { toMail };
+
+			var mailHareketId = MailHareketKaydet((int)EnmMailSablon.SifreSifirlamaBildirim, to, data).Data;
+
+			return SendMailForMailHareket(mailHareketId).Success;
+		}
+
+		public bool SendMail_AracHataliKullanimBildirim(string toMail, string imeiNo, string aracAd, string aciklama, DateTime tarih)
+		{
+			Dictionary<string, string> data = new() { };
+			data.Add("[#IslemZamani#]", tarih.ToString("G"));
+			data.Add("[#ImeiNo#]", imeiNo);
+			data.Add("[#AracAd#]", aracAd);
+			data.Add("[#Aciklama#]", aciklama);
+
+			var to = new List<string>() { toMail };
+
+			var mailHareketId = MailHareketKaydet((int)EnmMailSablon.SifreSifirlamaBildirim, to, data).Data;
+
+			return SendMailForMailHareket(mailHareketId).Success;
+		}
+
+
+		#endregion
+
+		public void Dispose()
+		{
 			GC.SuppressFinalize(this);
 		}
 

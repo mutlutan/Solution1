@@ -29,10 +29,6 @@ namespace AppJob
                 {
                     cron_daemon.AddJob(jobItem.CronExpression, () =>
                     {
-                        //dinamik olarak metodu çağırıyoruz, ama bu yetrli değil
-                        //çünkü zaman kısa olduğunda metod tekrar çağrılır ve ezilir,
-                        //bu yüzden crondan kurtul ve zamanı kendin bulduktansonra while içi task ile yönet
-
                         MethodInfo methodInfo = typeof(JobHelper).GetMethod(jobItem.MethodName);
                         ParameterInfo[] parameterInfo = methodInfo.GetParameters();//burdan parametre ekleyebilirsin gerekirse
                         methodInfo.Invoke(new JobHelper(mainConStr), parameterInfo);

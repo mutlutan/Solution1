@@ -73,32 +73,27 @@
 		MethodParams	NVARCHAR(500), /*jsontext olabilir*/
 		MethodComment	NVARCHAR(500), /*Açıklama*/
 		CronExpression	VARCHAR(50),
-		IsPeriodic		BIT NOT NULL,
-
-		StartTime		TIME NOT NULL, /*Periodic: Hangi zaman aralığında çalışacagı. Daily: Hangi saatte çalışacagı.*/
-		DaysOfTheWeek	VARCHAR(100), /*haftalık: Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday*/
-		Months			VARCHAR(100), /*Aylık: January, February, March, April, May, June, July, August, September, October, November, December*/
-		DaysOfTheMonth	VARCHAR(100), /*Aylık: ayın kaçıncı günü gönderilecek*/
 		
 		CONSTRAINT PK_Job PRIMARY KEY (Id)
 	);
 	CREATE INDEX IX_Job_IsActive ON Job (IsActive);
-	INSERT INTO Job (Id, IsActive, MethodName, CronExpression, IsPeriodic, StartTime) VALUES (NewId(), 1, N'LocalWebRequest', '*/15 * * * *', 1, '00:15');
-	INSERT INTO Job (Id, IsActive, MethodName, CronExpression, IsPeriodic, StartTime) VALUES (NewId(), 1, N'SetAuditLogToDbLogFromDbMain', '*/5 * * * *', 1, '00:05');
-	INSERT INTO Job (Id, IsActive, MethodName, CronExpression, IsPeriodic, StartTime) VALUES (NewId(), 1, N'MailJobMailHareklerdenBekliyorOlanlariGoder', '*/5 * * * *', 1, '00:05');
-	INSERT INTO Job (Id, IsActive, MethodName, CronExpression, IsPeriodic, StartTime) VALUES (NewId(), 1, N'MailJobMailHarekleriTekrarDene', '*/5 * * * *', 1, '00:05');
+	INSERT INTO Job (Id, IsActive, MethodName, CronExpression) VALUES (NewId(), 1, N'LocalWebRequest', '*/15 * * * *');
+	INSERT INTO Job (Id, IsActive, MethodName, CronExpression) VALUES (NewId(), 1, N'SetAuditLogToDbLogFromDbMain', '*/5 * * * *');
+	INSERT INTO Job (Id, IsActive, MethodName, CronExpression) VALUES (NewId(), 1, N'MailJobMailHareklerdenBekliyorOlanlariGoder', '*/5 * * * *');
+	INSERT INTO Job (Id, IsActive, MethodName, CronExpression) VALUES (NewId(), 1, N'MailJobMailHarekleriTekrarDene', '*/5 * * * *');
 
 	/*Role Tanımları*/
 	CREATE SEQUENCE dbo.sqRole AS INT START WITH 2001 INCREMENT BY 1; 
 	CREATE TABLE dbo.Role(
 		Id			INT NOT NULL,
 
-		UniqueId	UNIQUEIDENTIFIER NOT NULL,
+		
 		IsActive	BIT NOT NULL,
 		LineNumber	INT NOT NULL,
 		Name		NVARCHAR(30) NOT NULL,	
 		Authority	NVARCHAR(MAX),		/*Yetkiler*/
 
+		UniqueId		UNIQUEIDENTIFIER NOT NULL,
 		CreateDate		DATETIME,
 		CreatedUserId	INT,
 		UpdateDate		DATETIME,
@@ -107,9 +102,10 @@
 		CONSTRAINT PK_Role PRIMARY KEY (Id)
 	);
 	CREATE UNIQUE INDEX UX_Role_Name ON Role (Name);
-	INSERT INTO Role (Id, UniqueId, IsActive, LineNumber, Name) VALUES (0, newid(), 0, -9, N'');
-	INSERT INTO Role (Id, UniqueId, IsActive, LineNumber, Name) VALUES (1001, newid(), 1, -8, N'Admin');
-	INSERT INTO Role (Id, UniqueId, IsActive, LineNumber, Name) VALUES (Next Value For dbo.sqRole, newid(), 1, 1, N'User');
+	CREATE UNIQUE INDEX UX_Role_UniqueId ON Role (UniqueId);
+	INSERT INTO Role (Id, IsActive, LineNumber, Name, UniqueId) VALUES (0, 0, -9, N'', newid());
+	INSERT INTO Role (Id, IsActive, LineNumber, Name, UniqueId) VALUES (1001, 1, -8, N'Admin', newid());
+	INSERT INTO Role (Id, IsActive, LineNumber, Name, UniqueId) VALUES (Next Value For dbo.sqRole, 1, 1, N'User', newid());
 
 	/*Gender - Cinsiyet*/
 	CREATE TABLE dbo.Gender(
@@ -161,6 +157,7 @@
 		CONSTRAINT PK_EmailLetterhead PRIMARY KEY (Id)
 	);
 	CREATE UNIQUE INDEX UX_EmailLetterhead_Description ON EmailLetterhead (Description);
+	CREATE UNIQUE INDEX UX_EmailLetterhead_UniqueId ON EmailLetterhead (UniqueId);
 	INSERT INTO EmailLetterhead (Id, Description, Content, UniqueId) VALUES (0, N'Boş', N'', newid()); /*Boş antetli mail gerekirse*/
 
 	/*EmailTemplate - EmailSablon*/
@@ -186,6 +183,7 @@
 		CONSTRAINT FK_EmailTemplate_EmailLetterheadId FOREIGN KEY (EmailLetterheadId) REFERENCES EmailLetterhead (Id)
 	);
 	CREATE UNIQUE INDEX UX_EmailTemplate_Name ON EmailTemplate (Name);
+	CREATE UNIQUE INDEX UX_EmailTemplate_UniqueId ON EmailTemplate (UniqueId);
 
 	/*EmailPoolStatus*/
 	CREATE TABLE dbo.EmailPoolStatus (
@@ -229,6 +227,7 @@
 		CONSTRAINT FK_EmailPool_EmailTemplateId FOREIGN KEY (EmailTemplateId) REFERENCES EmailTemplate (Id),
 		CONSTRAINT FK_EmailPool_EmailPoolStatusId FOREIGN KEY (EmailPoolStatusId) REFERENCES EmailPoolStatus (Id)
 	);
+	CREATE UNIQUE INDEX IX_EmailPool_UniqueId ON EmailPool (UniqueId);
 	CREATE INDEX IX_EmailPool_EmailTemplateId ON EmailPool (EmailTemplateId);
 	CREATE INDEX IX_EmailPool_CreateDate ON EmailPool (CreateDate);
 
@@ -282,8 +281,9 @@
 		
 		CONSTRAINT PK_Dashboard PRIMARY KEY (Id)
 	);
-	INSERT INTO Dashboard (Id, UniqueId, IsActive, LineNumber, TemplateName, Title, DetailUrl, IconClass, IconStyle, Query) VALUES (Next Value For dbo.sqRole, newid(), 1, 1, N'teplate1', N'User', N'#/User', N'fa fa-fw fa-4x fa-users', N'color:red;', N'Select Count(*) From [User]');
-	INSERT INTO Dashboard (Id, UniqueId, IsActive, LineNumber, TemplateName, Title, DetailUrl, IconClass, IconStyle, Query) VALUES (Next Value For dbo.sqRole, newid(), 1, 2, N'teplate1', N'Customer', N'#/Customer', N'fa fa-fw fa-4x fa-id-card-o', N'color:blue;', N'Select Count(*) From [Customer]');
+	CREATE UNIQUE INDEX UX_Dashboard_UniqueId ON Dashboard (UniqueId);
+	INSERT INTO Dashboard (Id, UniqueId, IsActive, LineNumber, TemplateName, Title, DetailUrl, IconClass, IconStyle, Query) VALUES (Next Value For dbo.sqRole, newid(), 1, 1, N'teplate1', N'User', N'#/User', N'fa fa-fw fa-4x fa-users', N'color:red', N'Select Count(*) From [User]');
+	INSERT INTO Dashboard (Id, UniqueId, IsActive, LineNumber, TemplateName, Title, DetailUrl, IconClass, IconStyle, Query) VALUES (Next Value For dbo.sqRole, newid(), 1, 2, N'teplate1', N'Customer', N'#/Customer', N'fa fa-fw fa-4x fa-id-card-o', N'color:blue', N'Select Count(*) From [Customer]');
 	
 
 	/*UserStatus*/
@@ -345,6 +345,7 @@
 		CONSTRAINT FK_User_UserTypeId FOREIGN KEY (UserTypeId) REFERENCES UserType(Id)
     );
 	CREATE UNIQUE INDEX UX_User_Email ON [User] (Email);
+	CREATE UNIQUE INDEX UX_User_UniqueId ON [User] (UniqueId);
 	CREATE INDEX IX_User_UserStatusId ON [User] (UserStatusId);
 	CREATE INDEX IX_User_UserTypeId ON [User] (UserTypeId);
 	CREATE INDEX IX_User_CreateDate ON [User] (CreateDate);
@@ -399,23 +400,72 @@
 		CONSTRAINT FK_Customer_CustomerTypeId FOREIGN KEY (CustomerTypeId) REFERENCES CustomerType(Id)
     );
 	CREATE UNIQUE INDEX UX_Customer_Email ON Customer (Email);
+	CREATE UNIQUE INDEX UX_Customer_UniqueId ON Customer (UniqueId);
 	CREATE INDEX IX_Customer_UserStatusId ON Customer (UserStatusId);
+	CREATE INDEX IX_Customer_NameSurname ON Customer (NameSurname);
+	INSERT INTO Customer (Id, UserStatusId, CustomerTypeId, IsEmailConfirmed, NameSurname, Email, UniqueId) VALUES (0, 0, 0, 0, N'', N'', newid());
+
+	
+	/*Product Category*/
+	CREATE SEQUENCE dbo.sqProductCategory AS INT START WITH 1001 INCREMENT BY 1;
+	CREATE TABLE dbo.ProductCategory (
+		Id				INT NOT NULL,
+		
+		ParentId		INT,
+		IsActive		BIT NOT NULL,
+		Name			NVARCHAR(50),
+
+		UniqueId		UNIQUEIDENTIFIER NOT NULL,
+		CreateDate		DATETIME,
+		CreatedUserId	INT,
+		UpdateDate		DATETIME,
+		UpdatedUserId	INT,
+
+		CONSTRAINT PK_ProductCategory PRIMARY KEY (Id)
+	);
+	CREATE UNIQUE INDEX UX_ProductCategory_UniqueId ON ProductCategory (UniqueId);
+	CREATE UNIQUE INDEX UX_ProductCategory_Name ON ProductCategory (Name);
+	INSERT INTO ProductCategory (Id, IsActive, Name, UniqueId) VALUES (0, 0, N'', newid());
+	INSERT INTO ProductCategory (Id, IsActive, Name, UniqueId) VALUES (Next Value For dbo.sqProductCategory, 1, N'Game', newid());
+	INSERT INTO ProductCategory (Id, IsActive, Name, UniqueId) VALUES (Next Value For dbo.sqProductCategory, 1, N'Sotfware', newid());
+
+	/*Product*/
+	CREATE SEQUENCE dbo.sqProduct AS INT START WITH 10001 INCREMENT BY 1;
+	CREATE TABLE dbo.Product (
+		Id					INT NOT NULL,
+		
+		ProductCategoryId	INT NOT NULL,
+		IsActive			BIT NOT NULL,
+		Name				NVARCHAR(150),
+
+		UniqueId		UNIQUEIDENTIFIER NOT NULL,
+		CreateDate		DATETIME,
+		CreatedUserId	INT,
+		UpdateDate		DATETIME,
+		UpdatedUserId	INT,
+
+		CONSTRAINT PK_Product PRIMARY KEY (Id),
+		CONSTRAINT FK_Product_ProductCategoryId FOREIGN KEY (ProductCategoryId) REFERENCES ProductCategory(Id)
+	);
+	CREATE UNIQUE INDEX UX_Product_UniqueId ON Product (UniqueId);
+	CREATE UNIQUE INDEX UX_Product_Name ON Product (Name);
+	CREATE INDEX IX_Product_ProductCategoryId ON Product (ProductCategoryId);
+	INSERT INTO Product (Id, ProductCategoryId, IsActive, Name, UniqueId) VALUES (0, 0, 0, N'', newid());
+	INSERT INTO Product (Id, ProductCategoryId, IsActive, Name, UniqueId) VALUES (Next Value For dbo.sqProduct, 1001, 1, N'Tetris', newid());
+	INSERT INTO Product (Id, ProductCategoryId, IsActive, Name, UniqueId) VALUES (Next Value For dbo.sqProduct, 1001, 1, N'Game2', newid());
 
 
+	/* X1  M O D U L  için gerekenler */
 
-
-
-	/*  M O D U L  için gerekenler */
-
-	/*CutomerWallet*/
-	CREATE SEQUENCE dbo.sqCutomerWallet AS INT START WITH 1 INCREMENT BY 1;
-	CREATE TABLE dbo.CutomerWallet(
+	/*CustomerWallet*/
+	CREATE SEQUENCE dbo.sqCustomerWallet AS INT START WITH 1 INCREMENT BY 1;
+	CREATE TABLE dbo.CustomerWallet(
 		Id				INT NOT NULL,
 
-		CustomerId		INT NOT NULL,
 		IsActive		BIT NOT NULL,
-
+		CustomerId		INT NOT NULL,
 		CurrencyId		INT NOT NULL,
+
 		WalletNumber	VARCHAR(200), 
 
 		UniqueId		UNIQUEIDENTIFIER NOT NULL,
@@ -427,9 +477,10 @@
 		CONSTRAINT PK_CustomerWallet PRIMARY KEY  (Id),
 		CONSTRAINT FK_CustomerWallet_CustomerId FOREIGN KEY (CustomerId) REFERENCES Customer(Id)
     );
-	INSERT INTO CustomerWallet (Id, CustomerId) VALUES (0, 0); 
 	CREATE UNIQUE INDEX UX_CustomerWallet_CurrencyId_WalletNumber ON CustomerWallet (CurrencyId, WalletNumber);
+	CREATE UNIQUE INDEX UX_CustomerWallet_UniqueId ON CustomerWallet (UniqueId);
 	CREATE INDEX IX_CustomerWallet_CustomerId ON CustomerWallet (CustomerId);
+	INSERT INTO CustomerWallet (Id, IsActive, CustomerId, CurrencyId, UniqueId) VALUES (0, 0, 0, 0, newid());
 
 	/*Cüzdan Hareket türleri*/
 	CREATE TABLE dbo.TransactionType (
@@ -439,8 +490,8 @@
 
 		CONSTRAINT PK_TransactionType PRIMARY KEY (Id)
 	);
-	INSERT INTO TransactionType (Id, Name) VALUES (1, N'Dışardan Gelen Tutar');
-	INSERT INTO TransactionType (Id, Name) VALUES (2, N'Dışarı Giden Tutar');
+	INSERT INTO TransactionType (Id, Name) VALUES (1, N'Incoming Amount, '); --Dışardan Gelen Tutar
+	INSERT INTO TransactionType (Id, Name) VALUES (2, N'Outgoing Amount'); -- Dışarı Giden Tutar
 	INSERT INTO TransactionType (Id, Name) VALUES (3, N'Game Credit'); --Cüzdandan ödeme yapılır alacak hanesine yazılır
 	INSERT INTO TransactionType (Id, Name) VALUES (4, N'Game Debit'); --Karta iadesi yapılırsa alacak alanına yazılır
 
@@ -450,25 +501,25 @@
 	CREATE TABLE dbo.CustomerTransaction(
 		Id					INT NOT NULL,
 
+		CustomerId			INT NOT NULL,
 		CustomerWalletId	INT NOT NULL,
 		Debit				DECIMAL(18,6), 
 		Credit				DECIMAL(18,6), 
  
-		UniqueId		UNIQUEIDENTIFIER NOT NULL,
-		CreateDate		DATETIME,
-		CreatedUserId	INT,
-		UpdateDate		DATETIME,
-		UpdatedUserId	INT,
+		UniqueId			UNIQUEIDENTIFIER NOT NULL,
+		CreateDate			DATETIME,
+		CreatedUserId		INT,
+		UpdateDate			DATETIME,
+		UpdatedUserId		INT,
 
-		CONSTRAINT PK_CustomerWalletTransaction PRIMARY KEY  (Id),
-		CONSTRAINT FK_CustomerWalletTransaction_CustomerWalletId FOREIGN KEY (CustomerWalletId) REFERENCES CustomerWallet(Id)
+		CONSTRAINT PK_CustomerTransaction PRIMARY KEY  (Id),
+		CONSTRAINT FK_CustomerTransaction_CustomerId FOREIGN KEY (CustomerId) REFERENCES Customer(Id),
+		CONSTRAINT FK_CustomerTransaction_CustomerWalletId FOREIGN KEY (CustomerWalletId) REFERENCES CustomerWallet(Id)
     );
-	CREATE UNIQUE INDEX UX_CustomerWalletTransaction_CurrencyId_WalletNumber ON CustomerWalletTransaction (CurrencyId, WalletNumber);
-	CREATE INDEX IX_CustomerWalletTransaction_CustomerId ON CustomerWalletTransaction (CustomerId);
+	CREATE UNIQUE INDEX UX_CustomerTransaction_UniqueId ON CustomerTransaction (UniqueId);
+	CREATE INDEX IX_CustomerTransaction_CustomerId ON CustomerTransaction (CustomerId);
 
 
-	-- Game tablosu eklenecek, CustomerTransaction a gameId ekle
-	-- GameTransection tablosu ekle oyundaki para haraketlerini
 
 
 

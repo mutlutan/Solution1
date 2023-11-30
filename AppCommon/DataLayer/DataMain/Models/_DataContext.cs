@@ -67,8 +67,8 @@ namespace AppCommon.DataLayer.DataMain.Models
         {
             SqlConnectionStringBuilder csb = new(conStr)
             {
-                ApplicationName = Assembly.GetExecutingAssembly().FullName,
-                CurrentLanguage = CultureInfo.GetCultureInfo("tr-TR").Parent.EnglishName,
+                ApplicationName = Assembly.GetExecutingAssembly().FullName.Split(",")[0],
+                CurrentLanguage = this.Culture.Parent.EnglishName,
                 MultipleActiveResultSets = true
 
             };
@@ -273,7 +273,8 @@ namespace AppCommon.DataLayer.DataMain.Models
         private StringBuilder RunScriptWithGo(string script)
         {
             var LogList = new StringBuilder();
-            using (var Con1 = new SqlConnection(this.GetConnectionString()))
+			SqlConnectionStringBuilder csb = new(this.Database.GetConnectionString()) { ApplicationName = "RunScriptWithGo" };
+			using (var Con1 = new SqlConnection(csb.ToString()))
             {
                 // split script on GO command
                 IEnumerable<string> commandStrings = Regex.Split(script, @"^\s*GO\s*$", RegexOptions.Multiline | RegexOptions.IgnoreCase);
@@ -306,7 +307,8 @@ namespace AppCommon.DataLayer.DataMain.Models
         private StringBuilder RunScript(string _Separators, string _Script)
         {
             var LogList = new StringBuilder();
-            using (var Con1 = new SqlConnection(this.Database.GetConnectionString()))
+			SqlConnectionStringBuilder csb = new(this.Database.GetConnectionString()) { ApplicationName="RunScript" };
+			using (var Con1 = new SqlConnection(csb.ToString()))
             {
                 Con1.Open();
                 foreach (string s in _Script.Split(new string[] { _Separators }, StringSplitOptions.RemoveEmptyEntries))

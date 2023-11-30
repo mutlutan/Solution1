@@ -42,13 +42,13 @@ builder.Services.AddControllersWithViews().AddNewtonsoftJson(options =>
 
 
 builder.Services.Configure<AppConfig>(builder.Configuration.GetSection(nameof(AppConfig)));
-builder.Services.AddScoped<Business>(opt =>
+builder.Services.AddScoped<Business>(serviceProvider =>
 {
-    var config = (opt.GetService(typeof(IOptions<AppConfig>)) as IOptions<AppConfig>).Value;
+    var config = (serviceProvider.GetService(typeof(IOptions<AppConfig>)) as IOptions<AppConfig>).Value;
     var mainConnectionString = config.MainConnection;
     var logConnectionString = config.LogConnection;
 
-    return ActivatorUtilities.CreateInstance<Business>(opt, mainConnectionString, logConnectionString);
+    return ActivatorUtilities.CreateInstance<Business>(serviceProvider, mainConnectionString, logConnectionString);
 });
 
 builder.Services.AddBrowserDetection(); //Install-Package Shyjus.BrowserDetector
@@ -66,21 +66,20 @@ if (app.Environment.IsDevelopment())
 }
 #endregion
 
-app.UseDeveloperExceptionPage(); //canlýda kapatalým
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+else
 {
     app.UseExceptionHandler("/Home/Error");
     //app.UseHttpsRedirection();
     //app.UseHsts();
 }
 
-
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseCors("AllowAnyOrigin");
-
 app.UseMiddleware<RequestResponseLogMiddleware>();
 
 app.MapControllerRoute(
@@ -103,7 +102,7 @@ app.Lifetime.ApplicationStarted.Register(() =>
                 using var client = new HttpClient() { BaseAddress = new Uri(config.SelfHost) };
                 var response = client.GetAsync("").Result;
 
-                Thread.Sleep(1000 * 60 * 15); //1 dk sonra 
+                Thread.Sleep(1000 * 60 * 15); //15dk sonra 
             }
             catch { }
         }
