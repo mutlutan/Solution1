@@ -14,7 +14,7 @@ namespace WebApp.Panel.Controllers
     {
         public IServiceProvider serviceProvider;
         public IHttpContextAccessor accessor;
-        public AppConfig appConfig {  get; set; }
+        public AppConfig appConfig;
 		public Business business;
         public CacheHelper cacheHelper;
 
