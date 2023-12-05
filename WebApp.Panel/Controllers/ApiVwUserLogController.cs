@@ -13,23 +13,20 @@ namespace WebApp.Panel.Controllers
 {
     [Route("Panel/[controller]")]
     [ApiController]
-    public class ApiUyeGrupController : BaseController
+    public class ApiVwUserLogController : BaseController
     {
-        public ApiUyeGrupController(IServiceProvider _serviceProvider) : base(_serviceProvider) { }
+        public ApiVwUserLogController(IServiceProvider _serviceProvider) : base(_serviceProvider) { }
 
         [HttpPost("Read")]
         [ResponseCache(Duration = 0)]
-        [AuthenticateRequired(AuthorityKeys = "UyeGrup.D_R.")]
+        [AuthenticateRequired(AuthorityKeys = "VwUserLog.D_R.")]
         public ActionResult Read([FromBody]ApiRequest request)
         {
             DataSourceResult dsr = new();
             try
             {
-                var query = this.business.repository.RepUyeGrup.Get();
-                query = query.Where(c => c.Id > 0);
-                dsr = query.ToDataSourceResult(this.business.ApiRequestToDataSourceRequest(request));
-                //Yetkide görebileceği sütunlar döner sadece
-                //dsr.Data = this.business.GetAuthorityColumnsAndData(this.userToken, "UyeGrup", dsr.Data.ToDynamicList());
+                var query = this.business.repository.RepVwUserLog.Get();
+                dsr = query.ToDataSourceResult(request.MyToDataSourceRequest());
             }
             catch (Exception ex)
             {
@@ -40,26 +37,26 @@ namespace WebApp.Panel.Controllers
 
         [HttpGet("GetByNew")]
         [ResponseCache(Duration = 0)]
-        [AuthenticateRequired(AuthorityKeys = "UyeGrup.D_C.")]
+        [AuthenticateRequired(AuthorityKeys = "VwUserLog.D_C.")]
         public ActionResult GetByNew()
         {
-             return Json(this.business.repository.RepUyeGrup.GetByNew());
+             return Json(this.business.repository.RepVwUserLog.GetByNew());
         }
 
         [HttpPost("Create")]
         [ResponseCache(Duration = 0)]
-        [AuthenticateRequired(AuthorityKeys = "UyeGrup.D_C.")]
+        [AuthenticateRequired(AuthorityKeys = "VwUserLog.D_C.")]
         public ActionResult Create([FromBody] object obj)
         {
             DataSourceResult dsr = new();
             try
             {
-                var model = Newtonsoft.Json.JsonConvert.DeserializeObject<UyeGrup>(obj.MyToStr());
+                var model = Newtonsoft.Json.JsonConvert.DeserializeObject<VwUserLog>(obj.MyToStr());
                 if (model != null)
                 {
-                    Int32 id = this.business.repository.RepUyeGrup.CreateOrUpdate(model, true);
+                    Guid id = this.business.repository.RepVwUserLog.CreateOrUpdate(model, true);
                     this.business.repository.SaveChanges();
-                    dsr.Data = this.business.repository.RepUyeGrup.GetById(id);
+                    dsr.Data = this.business.repository.RepVwUserLog.GetById(id);
                 }
                 else
                 {
@@ -77,18 +74,18 @@ namespace WebApp.Panel.Controllers
 
         [HttpPost("Update")]
         [ResponseCache(Duration = 0)]
-        [AuthenticateRequired(AuthorityKeys = "UyeGrup.D_U.")]
+        [AuthenticateRequired(AuthorityKeys = "VwUserLog.D_U.")]
         public ActionResult Update([FromBody] object obj)
         {
             DataSourceResult dsr = new();
             try
             {
-                var model = Newtonsoft.Json.JsonConvert.DeserializeObject<UyeGrup>(obj.MyToStr());
+                var model = Newtonsoft.Json.JsonConvert.DeserializeObject<VwUserLog>(obj.MyToStr());
                 if (model != null)
                 {
-                    Int32 id = this.business.repository.RepUyeGrup.CreateOrUpdate(model, false);
+                    Guid id = this.business.repository.RepVwUserLog.CreateOrUpdate(model, false);
                     this.business.repository.SaveChanges();
-                    dsr.Data = this.business.repository.RepUyeGrup.GetById(id);
+                    dsr.Data = this.business.repository.RepVwUserLog.GetById(id);
                 }
                 else
                 {
@@ -106,16 +103,16 @@ namespace WebApp.Panel.Controllers
 
         [HttpPost("Delete")]
         [ResponseCache(Duration = 0)]
-        [AuthenticateRequired(AuthorityKeys = "UyeGrup.D_D.")]
+        [AuthenticateRequired(AuthorityKeys = "VwUserLog.D_D.")]
         public ActionResult Delete([FromBody] object obj)
         {
             DataSourceResult dsr = new();
             try
             {
-                var model = Newtonsoft.Json.JsonConvert.DeserializeObject<UyeGrup>(obj.MyToStr());
+                var model = Newtonsoft.Json.JsonConvert.DeserializeObject<VwUserLog>(obj.MyToStr());
                 if (model != null)
                 {
-                    this.business.repository.RepUyeGrup.Delete(model.Id);
+                    this.business.repository.RepVwUserLog.Delete(model.Id);
                     this.business.repository.SaveChanges();
                 }
                 else

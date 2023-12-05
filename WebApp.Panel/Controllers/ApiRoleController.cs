@@ -28,9 +28,7 @@ namespace WebApp.Panel.Controllers
                 var query = this.business.repository.RepRole.Get();
                 query = query.Where(c => c.Id > 0);
                 //query = query.Where(c => c.Level >= userToken.RoleLevel );
-                dsr = query.ToDataSourceResult(this.business.ApiRequestToDataSourceRequest(request));
-                //Yetkide görebileceği sütunlar döner sadece
-                //dsr.Data = this.business.GetAuthorityColumnsAndData(this.userToken, "Role", dsr.Data.ToDynamicList());
+                dsr = query.ToDataSourceResult(request.MyToDataSourceRequest());
             }
             catch (Exception ex)
             {

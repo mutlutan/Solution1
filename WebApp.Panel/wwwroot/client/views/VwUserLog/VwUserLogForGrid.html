@@ -1,12 +1,39 @@
 
-<div id='UyeForGrid'>
+<div id='VwUserLogForGrid'>
     <div>
         <div class='mnFindPanel'>
             <div class='mnFindPanelRow'>
                 <div class='mnFindElementContainer'>
-                    <div name='divUyeGrupId' class='mnFindElementDiv'>
-                        <label class='col-form-label me-2' data-langkey-text='xLng.Uye.UyeGrupId'></label>
-                        <input type='text' style='width:125px' data-find_option='auto' data-find_type='System.Int32' data-find_field='UyeGrupId' data-find_operator='eq' autocomplete='off' />
+                    <div name='divUserId' class='mnFindElementDiv'>
+                        <label class='col-form-label me-2' data-langkey-text='xLng.VwUserLog.UserId'></label>
+                        <input type='text' style='width:112px' data-find_option='auto' data-find_type='System.Int32' data-find_field='UserId' data-find_operator='eq' autocomplete='off' />
+                    </div>
+
+                    <div name='divUserName' class='mnFindElementDiv'>
+                        <label class='col-form-label me-2' data-langkey-text='xLng.VwUserLog.UserName'></label>
+                        <input type='text' class='form-control d-inline' style='width:130px' data-find_option='auto' data-find_type='System.String' data-find_field='UserName' data-find_operator='contains' autocomplete='off' />
+                    </div>
+
+                    <div name='divUserIp' class='mnFindElementDiv'>
+                        <label class='col-form-label me-2' data-langkey-text='xLng.VwUserLog.UserIp'></label>
+                        <input type='text' class='form-control d-inline' style='width:130px' data-find_option='auto' data-find_type='System.String' data-find_field='UserIp' data-find_operator='contains' autocomplete='off' />
+                    </div>
+
+                    <div name='divUserBrowser' class='mnFindElementDiv'>
+                        <label class='col-form-label me-2' data-langkey-text='xLng.VwUserLog.UserBrowser'></label>
+                        <input type='text' class='form-control d-inline' style='width:130px' data-find_option='auto' data-find_type='System.String' data-find_field='UserBrowser' data-find_operator='contains' autocomplete='off' />
+                    </div>
+
+                    <div name='divLoginDate' class='mnFindElementDiv'>
+                        <label class='col-form-label me-2' data-langkey-text='xLng.VwUserLog.LoginDate'></label>
+                        <input type='text' class='me-2' style='width:218px' data-find_option='auto' data-find_type='System.DateTime' data-find_field='LoginDate' data-find_operator='gte' />
+                        <input type='text' style='width:218px' data-find_option='auto' data-find_type='System.DateTime' data-find_field='LoginDate' data-find_operator='lte' />
+                    </div>
+
+                    <div name='divLogoutDate' class='mnFindElementDiv'>
+                        <label class='col-form-label me-2' data-langkey-text='xLng.VwUserLog.LogoutDate'></label>
+                        <input type='text' class='me-2' style='width:218px' data-find_option='auto' data-find_type='System.DateTime' data-find_field='LogoutDate' data-find_operator='gte' />
+                        <input type='text' style='width:218px' data-find_option='auto' data-find_type='System.DateTime' data-find_field='LogoutDate' data-find_operator='lte' />
                     </div>
 
                 </div>
@@ -22,13 +49,13 @@
 </div>
 
 <script>
- window.UyeForGrid = function () {
+ window.VwUserLogForGrid = function () {
      var self = {};
      self.opt = null;
-     self.title = 'xLng.Uye.Title';
-     self.selector = '#UyeForGrid';
+     self.title = 'xLng.VwUserLog.Title';
+     self.selector = '#VwUserLogForGrid';
      self.primaryKey = 'Id';
-     self.tableName = 'Uye';
+     self.tableName = 'VwUserLog';
      self.apiUrlPrefix = '/Panel/Api' + self.tableName;
 
      function fCreateDataSource() {
@@ -43,9 +70,8 @@
                          return JSON.stringify(data);
                      }
                      else if (operation === 'create' || operation === 'update') {
-                         data.ValidityDate = kendo.toString(data.ValidityDate, 's');
-                         data.CreateDate = kendo.toString(data.CreateDate, 's');
-                         data.UpdateDate = kendo.toString(data.UpdateDate, 's');
+                         data.LoginDate = kendo.toString(data.LoginDate, 's');
+                         data.LogoutDate = kendo.toString(data.LogoutDate, 's');
                          return JSON.stringify(data);
                      }
                      else if (operation === 'destroy') {
@@ -61,26 +87,18 @@
                  model: {
                      id: self.primaryKey,
                      fields: {
-                         Id: { type: 'number', defaultValue: null  },
-                         UyeDurumId: { type: 'number' },
-                         UyeGrupId: { type: 'number' },
-                         IsConfirmed: { type: 'boolean' },
-                         NameSurname: { type: 'string' },
-                         CountryCode: { type: 'string' },
-                         Avatar: { type: 'string' },
-                         GeoLocation: { type: 'string' },
+                         Id: { type: 'string', defaultValue: null  },
+                         TableName: { type: 'string' },
+                         UserId: { type: 'number' },
                          UserName: { type: 'string' },
-                         UserPassword: { type: 'string' },
+                         UserIp: { type: 'string' },
+                         UserBrowser: { type: 'string' },
                          SessionGuid: { type: 'string' },
-                         ValidityDate: { type: 'date' },
-                         UniqueId: { type: 'string', editable:false },
-                         CreateDate: { type: 'date', editable:false },
-                         CreatedUserId: { type: 'number', editable:false },
-                         UpdateDate: { type: 'date', editable:false },
-                         UpdatedUserId: { type: 'number', editable:false },
-                         CcUyeDurumIdAd: { type: 'string' },
-                         CcUyeGrupIdAd: { type: 'string' },
-                         CcIsConfirmed: { type: 'string' }
+                         LoginDate: { type: 'date' },
+                         LogoutDate: { type: 'date' },
+                         ExtraSpace1: { type: 'string' },
+                         ExtraSpace2: { type: 'string' },
+                         ExtraSpace3: { type: 'string' }
                      }
                  }
              },
@@ -113,26 +131,18 @@
                              url: self.apiUrlPrefix + '/GetByNew', type: 'GET', dataType: 'json', async: false,
                              success: function (result) {
                                  e.items[0].Id = result.Id;
-                                 e.items[0].UyeDurumId = result.UyeDurumId;
-                                 e.items[0].UyeGrupId = result.UyeGrupId;
-                                 e.items[0].IsConfirmed = result.IsConfirmed;
-                                 e.items[0].NameSurname = result.NameSurname;
-                                 e.items[0].CountryCode = result.CountryCode;
-                                 e.items[0].Avatar = result.Avatar;
-                                 e.items[0].GeoLocation = result.GeoLocation;
+                                 e.items[0].TableName = result.TableName;
+                                 e.items[0].UserId = result.UserId;
                                  e.items[0].UserName = result.UserName;
-                                 e.items[0].UserPassword = result.UserPassword;
+                                 e.items[0].UserIp = result.UserIp;
+                                 e.items[0].UserBrowser = result.UserBrowser;
                                  e.items[0].SessionGuid = result.SessionGuid;
-                                 e.items[0].ValidityDate = kendo.parseDate(result.ValidityDate);
-                                 e.items[0].UniqueId = result.UniqueId;
-                                 e.items[0].CreateDate = kendo.parseDate(result.CreateDate);
-                                 e.items[0].CreatedUserId = result.CreatedUserId;
-                                 e.items[0].UpdateDate = kendo.parseDate(result.UpdateDate);
-                                 e.items[0].UpdatedUserId = result.UpdatedUserId;
+                                 e.items[0].LoginDate = kendo.parseDate(result.LoginDate);
+                                 e.items[0].LogoutDate = kendo.parseDate(result.LogoutDate);
+                                 e.items[0].ExtraSpace1 = result.ExtraSpace1;
+                                 e.items[0].ExtraSpace2 = result.ExtraSpace2;
+                                 e.items[0].ExtraSpace3 = result.ExtraSpace3;
                                  //computed alanların tanımlanması
-                                 e.items[0].CcUyeDurumIdAd = result.CcUyeDurumIdAd;
-                                 e.items[0].CcUyeGrupIdAd = result.CcUyeGrupIdAd;
-                                 e.items[0].CcIsConfirmed = result.CcIsConfirmed;
                                  //filterdan gelen default value set için
                                  $(self.opt.filters).each(function (index, row) {
                                      if (row.filterColumnName !== 'Id') {
@@ -178,58 +188,24 @@
              },
              {
                  hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Uye.UyeDurumId'),
-                 field: 'UyeDurumId',
-                 template: '#:CcUyeDurumIdAd#',
-                 attributes: { 'class': 'text-nowrap' },
-                 width: '100px'
-             },
-
-             {
-                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Uye.UyeGrupId'),
-                 field: 'UyeGrupId',
-                 template: '#:CcUyeGrupIdAd#',
-                 attributes: { 'class': 'text-nowrap' },
-                 width: '100px'
-             },
-
-             {
-                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Uye.IsConfirmed'),
-                 field: 'IsConfirmed',
-                 template: '#:CcIsConfirmed#',
-                 attributes: { 'class': 'text-nowrap' },
-                 width: '80px'
-             },
-
-             {
-                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Uye.NameSurname'),
-                 field: 'NameSurname',
+                 title: mnLang.TranslateWithWord('xLng.VwUserLog.TableName'),
+                 field: 'TableName',
                  attributes: { 'class': 'text-nowrap' },
                  width: '130px'
              },
 
              {
                  hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Uye.CountryCode'),
-                 field: 'CountryCode',
+                 title: mnLang.TranslateWithWord('xLng.VwUserLog.UserId'),
+                 field: 'UserId',
+                 format: '{0:n0}',
                  attributes: { 'class': 'text-nowrap' },
-                 width: '130px'
+                 width: '90px'
              },
 
              {
                  hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Uye.GeoLocation'),
-                 field: 'GeoLocation',
-                 attributes: { 'class': 'text-nowrap' },
-                 width: '150px'
-             },
-
-             {
-                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Uye.UserName'),
+                 title: mnLang.TranslateWithWord('xLng.VwUserLog.UserName'),
                  field: 'UserName',
                  attributes: { 'class': 'text-nowrap' },
                  width: '130px'
@@ -237,15 +213,23 @@
 
              {
                  hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Uye.UserPassword'),
-                 field: 'UserPassword',
+                 title: mnLang.TranslateWithWord('xLng.VwUserLog.UserIp'),
+                 field: 'UserIp',
                  attributes: { 'class': 'text-nowrap' },
                  width: '130px'
              },
 
              {
                  hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Uye.SessionGuid'),
+                 title: mnLang.TranslateWithWord('xLng.VwUserLog.UserBrowser'),
+                 field: 'UserBrowser',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '130px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.VwUserLog.SessionGuid'),
                  field: 'SessionGuid',
                  attributes: { 'class': 'text-nowrap' },
                  width: '130px'
@@ -253,11 +237,44 @@
 
              {
                  hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Uye.ValidityDate'),
-                 field: 'ValidityDate',
-                 format: '{0:d}',
+                 title: mnLang.TranslateWithWord('xLng.VwUserLog.LoginDate'),
+                 field: 'LoginDate',
+                 format: '{0:g}',
                  attributes: { 'class': 'text-nowrap' },
-                 width: '110px'
+                 width: '145px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.VwUserLog.LogoutDate'),
+                 field: 'LogoutDate',
+                 format: '{0:g}',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '145px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.VwUserLog.ExtraSpace1'),
+                 field: 'ExtraSpace1',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '130px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.VwUserLog.ExtraSpace2'),
+                 field: 'ExtraSpace2',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '130px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.VwUserLog.ExtraSpace3'),
+                 field: 'ExtraSpace3',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '130px'
              },
 
              {}
@@ -266,12 +283,12 @@
                  var model=e.model;
                  this.cancelRow();
                  mnPageView.create({
-                     viewFolder: 'Uye',
-                     viewName: 'UyeForForm',
+                     viewFolder: 'VwUserLog',
+                     viewName: 'VwUserLogForForm',
                      subTitle: mnLang.TranslateWithWord('xLng.DuzenlemeIslemleri'),
                      onShow: function (e) {
                         var qprms = { 'Id': model.Id };
-                         e.beforeShow({'ownerViewName':'UyeForGrid', 'qprms': qprms });
+                         e.beforeShow({'ownerViewName':'VwUserLogForGrid', 'qprms': qprms });
                      },
                      onClose: function (e) {
                          self.dataSource.read();
@@ -300,12 +317,12 @@
              icon: 'plus',
              click: function () {
                  mnPageView.create({
-                     viewFolder: 'Uye',
-                     viewName: 'UyeForForm',
+                     viewFolder: 'VwUserLog',
+                     viewName: 'VwUserLogForForm',
                      subTitle: mnLang.TranslateWithWord('xLng.DuzenlemeIslemleri'),
                      onShow: function (e) {
                         var qprms = { 'Id': null };
-                         e.beforeShow({'ownerViewName':'UyeForGrid', 'qprms': qprms });
+                         e.beforeShow({'ownerViewName':'VwUserLogForGrid', 'qprms': qprms });
                      },
                      onClose: function (e) {
                          self.dataSource.read();
@@ -343,25 +360,43 @@
          });
 
          // Filter elementleri
-         $(self.selector).find('[data-find_field=UyeGrupId]').kendoDropDownList({
-             valuePrimitive: true,
-             optionLabel: mnLang.TranslateWithWord('xLng.Seciniz'),
-             dataValueField: 'value',
-             dataTextField: 'text',
-             dataSource: mnLookup.listLoad({
-                 ViewName: 'UyeForForm',
-                 ViewFieldName: 'UyeGrupId',
-                 TableName: 'UyeGrup',
-                 ValueField: 'Id',
-                 TextField: 'Ad',
-                 Filters: [
-                     { Field: 'Id', Operator: '>=', Value: '0' }
-                 ],
-                 Sorts: [
-                                 { Field: 'Ad', Dir: 'asc' }
-                 ]
-             })
-         }).getKendoDropDownList();
+         $(self.selector).find('[data-find_field=UserId]').kendoNumericTextBox({
+             format: 'n0', decimals: 0, min: 0, spinners: false, step: 0
+         }).getKendoNumericTextBox();
+
+         $(self.selector).find('[data-find_field=LoginDate]').kendoDateTimePicker({
+             componentType: mnApp.kendoDateTimePiker_ComponentType,
+             dateInput: mnApp.kendoDateTimePiker_DateInput,
+             close: function (e) {
+                 if ($(e.sender.wrapper).find('input').attr('data-find_operator') === 'lte') {
+                     var tarihSaat = this.value();
+                     if (tarihSaat !== null) {
+                         if (tarihSaat.getHours() === 0 || tarihSaat.getMinutes() === 0) {
+                             tarihSaat.setHours(23);
+                             tarihSaat.setMinutes(59);
+                         }
+                     }
+                     this.value(tarihSaat);
+                 }
+             }
+         }).getKendoDateTimePicker();
+
+         $(self.selector).find('[data-find_field=LogoutDate]').kendoDateTimePicker({
+             componentType: mnApp.kendoDateTimePiker_ComponentType,
+             dateInput: mnApp.kendoDateTimePiker_DateInput,
+             close: function (e) {
+                 if ($(e.sender.wrapper).find('input').attr('data-find_operator') === 'lte') {
+                     var tarihSaat = this.value();
+                     if (tarihSaat !== null) {
+                         if (tarihSaat.getHours() === 0 || tarihSaat.getMinutes() === 0) {
+                             tarihSaat.setHours(23);
+                             tarihSaat.setMinutes(59);
+                         }
+                     }
+                     this.value(tarihSaat);
+                 }
+             }
+         }).getKendoDateTimePicker();
 
      }
 
@@ -377,7 +412,12 @@
 
         //form element görünümleri
         var fieldList = [];
-        fieldList.push({ 'Name': 'UyeGrupId', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'UserId', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'UserName', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'UserIp', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'UserBrowser', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'LoginDate', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'LogoutDate', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
 
         for (var i in fieldList) {
             var $elm = $(self.selector).find('.mnFindElementContainer .mnFindElementDiv[name=div' + fieldList[i].Name + ']');

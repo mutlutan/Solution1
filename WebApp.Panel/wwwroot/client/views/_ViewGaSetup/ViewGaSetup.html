@@ -23,7 +23,7 @@
                         //$(self.selector).find("[name=captchaToken]").val(result.Data.CaptchaToken);
                         $(self.selector).find("#captchaImage").attr("src", result.Data.QrCodeSetupImageUrl);
                     } else {
-                        mnAlert.warning(result.Message);
+                        mnAlert.warning(result.Messages);
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {

@@ -15,6 +15,9 @@ using AppCommon;
 using AppCommon.DataLayer.DataMain.Repository;
 using AppCommon.DataLayer.DataMain.Models;
 using AppCommon.DataLayer.DataLog.Models;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+
 
 #nullable disable
 
@@ -36,17 +39,19 @@ namespace AppCommon.Business
 		public string UserBrowser { get; set; }
 		public string LogDirectory { get; set; } = "logs";
 
-		public Business(string mainConnection, string logConnection)
+		public Business(IServiceProvider serviceProvider)
 		{
+			var appConfig = serviceProvider.GetService<IOptions<AppConfig>>()?.Value ?? new();
+			this.mailHelper = serviceProvider.GetService<MailHelper>();
+
 			//default dataContext
 			this.dataContext = new();
-			this.dataContext.SetConnectionString(mainConnection);
+			this.dataContext.SetConnectionString(appConfig.MainConnection);
 			this.repository = new Repository(dataContext);
-			this.mailHelper = new MailHelper(dataContext);
 
 			//log dataContext
 			this.logDataContext = new();
-			this.logDataContext.SetConnectionString(logConnection);
+			this.logDataContext.SetConnectionString(appConfig.LogConnection);						
 		}
 
 		#region logs -- bunu logHelper olarak ayır aslında ILoger a geç XXXXXXXXXXX  
@@ -202,108 +207,6 @@ namespace AppCommon.Business
 				string text = $"{MethodBase.GetCurrentMethod()?.Name} = " + ex.ToString() + " StackTrace: " + ex.StackTrace;
 				this.LogSaveForFile(EnmLogTur.Hata, text);
 			}
-		}
-
-		#endregion
-
-		#region JOB İşlemleri -- jobHelper a taşı XXXXXXXXXXX
-
-		/// <summary>
-		/// Main Dbden AuditLog'ları alıp Log Db deki AuditLog tablosuna yazar. Main Dbdeki aktarılan logları siler.
-		/// </summary>      
-		public void SetAuditLogToDbLogFromDbMain()
-		{
-			try
-			{
-				var mainAuditLogList = this.dataContext.AuditLog.OrderBy(x => x.OperationDate).Take(200).ToList();
-
-				if (mainAuditLogList.Count > 0)
-				{
-					foreach (var item in mainAuditLogList)
-					{
-						string sqlText = $@"
-                           BEGIN TRY
-                                begin tran                                          
-                        			  Insert Into smart_bike_log.dbo.AuditLog Select * From smart_bike_main.dbo.AuditLog Where Id='{item.Id}';
-                        			  Delete From smart_bike_main.dbo.AuditLog Where Id='{item.Id}';
-                                commit tran
-                            END TRY
-                            BEGIN CATCH
-                                IF @@TRANCOUNT > 0
-                                    ROLLBACK TRAN  
-                        			
-                        		DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
-                                DECLARE @ErrorSeverity INT = ERROR_SEVERITY();
-                                DECLARE @ErrorState INT = ERROR_STATE();
-                        
-                        		RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
-                        
-                            END CATCH 
-
-                    ";
-						this.dataContext.Database.ExecuteSqlRaw(sqlText);
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
-			}
-		}
-
-		//30 snde bir çalışabilir
-		public bool MailJobMailHareklerdenBekliyorOlanlariGoder()
-		{
-			bool rV = false;
-			try
-			{
-				//bekliyor olan kayıtların ilk 10 adetini çeker
-				//bu kayıtları SendMailForMailHareket e gönderir
-
-				var mailHareketList = dataContext.EmailPool
-					.Where(c => c.TryQuantity <= 3 && c.EmailPoolStatusId == (int)EnmEmailPoolStatus.Waiting)
-					.Take(50);
-
-				foreach (var mailHareket in mailHareketList)
-				{
-					mailHelper.SendMailForMailHareket(mailHareket.Id);
-				}
-
-			}
-			catch (Exception ex)
-			{
-				WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
-			}
-
-			return rV;
-		}
-
-		//2dk da bir çalışabilir
-		public bool MailJobMailHarekleriTekrarDene()
-		{
-			bool rV = false;
-			try
-			{
-				//hata olan kayıtların ilk 50 adetini çeker
-				//bu kayıtları SendMailForMailHareket e gönderir
-
-				var mailHareketList = dataContext.EmailPool
-					.Where(c => c.TryQuantity <= 3 && c.EmailPoolStatusId == (int)EnmEmailPoolStatus.Error)
-					.Take(50);
-
-				foreach (var mailHareket in mailHareketList)
-				{
-					mailHelper.SendMailForMailHareket(mailHareket.Id);
-				}
-
-			}
-			catch (Exception ex)
-			{
-				WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
-			}
-
-			return rV;
-
 		}
 
 		#endregion
@@ -465,7 +368,7 @@ namespace AppCommon.Business
 
 		#endregion
 
-		#region parameterler, joblist
+		#region parameterler
 		public Parameter GetParameter()
 		{
 			Parameter rV = new();
@@ -486,29 +389,6 @@ namespace AppCommon.Business
 
 			return rV;
 		}
-
-		public List<Job> GetJobList()
-		{
-			List<Job> rV = new();
-			try
-			{
-				var data = dataContext.Job.AsNoTracking()
-					.Where(c => c.IsActive == true)
-					.ToList();
-
-				if (data != null)
-				{
-					rV = data;
-				}
-			}
-			catch (Exception ex)
-			{
-				WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
-			}
-
-			return rV;
-		}
-
 		#endregion
 
 		#region Kullanıcı
@@ -634,7 +514,7 @@ namespace AppCommon.Business
 								}
 								else
 								{
-									response.Message.Add(dataContext.TranslateTo("xLng.GaKoduGecersiz"));
+									response.Messages.Add(dataContext.TranslateTo("xLng.GaKoduGecersiz"));
 								}
 							}
 						}
@@ -661,18 +541,18 @@ namespace AppCommon.Business
 					}
 					else
 					{
-						response.Message.Add(dataContext.TranslateTo("xLng.HesabinizAskiyaAlinmistir"));
+						response.Messages.Add(dataContext.TranslateTo("xLng.HesabinizAskiyaAlinmistir"));
 					}
 				}
 				else
 				{
-					response.Message.Add(dataContext.TranslateTo("xLng.KullaniciveyaSifreGecersiz"));
+					response.Messages.Add(dataContext.TranslateTo("xLng.KullaniciveyaSifreGecersiz"));
 				}
 
 			}
 			catch (Exception ex)
 			{
-				response.Message.Add(dataContext.TranslateTo("xLng.IstekBasarisizOldu"));
+				response.Messages.Add(dataContext.TranslateTo("xLng.IstekBasarisizOldu"));
 				WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
 			}
 
@@ -723,22 +603,22 @@ namespace AppCommon.Business
 						user.ValidityDate = DateTime.Now.Date.AddYears(1);
 						dataContext.SaveChanges();
 						response.Success = true;
-						response.Message.Add(dataContext.TranslateTo("xLng.YeniSifrenizKayitEdildi"));
+						response.Messages.Add(dataContext.TranslateTo("xLng.YeniSifrenizKayitEdildi"));
 					}
 					else
 					{
-						response.Message.Add(dataContext.TranslateTo("xLng.EnAzAltiKarekterBirHarfBirSayi"));
+						response.Messages.Add(dataContext.TranslateTo("xLng.EnAzAltiKarekterBirHarfBirSayi"));
 					}
 				}
 				else
 				{
-					response.Message.Add(dataContext.TranslateTo("xLng.EskiSifreGecersiz"));
+					response.Messages.Add(dataContext.TranslateTo("xLng.EskiSifreGecersiz"));
 				}
 
 			}
 			catch (Exception ex)
 			{
-				response.Message.Add(ex.MyLastInner().Message);
+				response.Messages.Add(ex.MyLastInner().Message);
 				WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
 			}
 
@@ -769,22 +649,22 @@ namespace AppCommon.Business
 						repository.dataContext.SaveChanges();
 
 						response.Success = true;
-						response.Message.Add(dataContext.TranslateTo("xLng.YeniSifreKayitliMailAdresineGonderildi"));
+						response.Messages.Add(dataContext.TranslateTo("xLng.YeniSifreKayitliMailAdresineGonderildi"));
 					}
 					else
 					{
-						response.Message.Add(dataContext.TranslateTo("xLng.IsleminizYapilamadiDahaSonraTekrarDeneyebilirsiniz"));
+						response.Messages.Add(dataContext.TranslateTo("xLng.IsleminizYapilamadiDahaSonraTekrarDeneyebilirsiniz"));
 					}
 				}
 				else
 				{
-					response.Message.Add(dataContext.TranslateTo("xLng.MailAdresiTaninlanmamis"));
+					response.Messages.Add(dataContext.TranslateTo("xLng.MailAdresiTaninlanmamis"));
 				}
 
 			}
 			catch (Exception ex)
 			{
-				response.Message.Add(dataContext.TranslateTo("xLng.IsleminizYapilamadiDahaSonraTekrarDeneyebilirsiniz"));
+				response.Messages.Add(dataContext.TranslateTo("xLng.IsleminizYapilamadiDahaSonraTekrarDeneyebilirsiniz"));
 				WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
 			}
 
@@ -872,7 +752,7 @@ namespace AppCommon.Business
 								}
 								else
 								{
-									response.Message.Add(dataContext.TranslateTo("xLng.GaKoduGecersiz"));
+									response.Messages.Add(dataContext.TranslateTo("xLng.GaKoduGecersiz"));
 								}
 							}
 						}
@@ -899,18 +779,18 @@ namespace AppCommon.Business
 					}
 					else
 					{
-						response.Message.Add(dataContext.TranslateTo("xLng.HesabinizAskiyaAlinmistir"));
+						response.Messages.Add(dataContext.TranslateTo("xLng.HesabinizAskiyaAlinmistir"));
 					}
 				}
 				else
 				{
-					response.Message.Add(dataContext.TranslateTo("xLng.KullaniciveyaSifreGecersiz"));
+					response.Messages.Add(dataContext.TranslateTo("xLng.KullaniciveyaSifreGecersiz"));
 				}
 
 			}
 			catch (Exception ex)
 			{
-				response.Message.Add(dataContext.TranslateTo("xLng.IstekBasarisizOldu"));
+				response.Messages.Add(dataContext.TranslateTo("xLng.IstekBasarisizOldu"));
 				WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
 			}
 
@@ -1131,99 +1011,6 @@ namespace AppCommon.Business
 		}
 		#endregion
 
-		#region kendo filter
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>")]
-		public Telerik.DataSource.FilterOperator ToKendoFilterOperator(string filterOperator)
-		{
-			var rV = filterOperator.ToLower() switch
-			{
-				"eq" => Telerik.DataSource.FilterOperator.IsEqualTo,
-				"neq" => Telerik.DataSource.FilterOperator.IsNotEqualTo,
-				"isnull" => Telerik.DataSource.FilterOperator.IsNull,
-				"isnotnull" => Telerik.DataSource.FilterOperator.IsNotNull,
-				"lt" => Telerik.DataSource.FilterOperator.IsLessThan,
-				"lte" => Telerik.DataSource.FilterOperator.IsLessThanOrEqualTo,
-				"gt" => Telerik.DataSource.FilterOperator.IsGreaterThan,
-				"gte" => Telerik.DataSource.FilterOperator.IsGreaterThanOrEqualTo,
-				"startswith" => Telerik.DataSource.FilterOperator.StartsWith,
-				"endswith" => Telerik.DataSource.FilterOperator.EndsWith,
-				"contains" => Telerik.DataSource.FilterOperator.Contains,
-				"doesnotcontain" => Telerik.DataSource.FilterOperator.DoesNotContain,
-				"isempty" => Telerik.DataSource.FilterOperator.IsNullOrEmpty,
-				"isnotempty" => Telerik.DataSource.FilterOperator.IsNotNullOrEmpty,
-				_ => (Telerik.DataSource.FilterOperator)Enum.Parse(typeof(Telerik.DataSource.FilterOperator), filterOperator, true),
-			};
-
-			//kullanılabilecek filter operatorleri
-			//"eq"(equal to) eşit
-			//"neq"(not equal to) eşit değil
-			//"isnull"(is equal to null) 
-			//"isnotnull"(is not equal to null)
-			//"lt"(less than) küçük
-			//"lte"(less than or equal to) küçük veya eşit
-			//"gt"(greater than) büyük
-			//"gte"(greater than or equal to) büyük veya eşit
-			//"startswith" başlayan
-			//"endswith" biten
-			//"contains" içinde geçen
-			//"doesnotcontain" içinde geçmeyen
-			//"isempty" boş
-			//"isnotempty" boş değil
-
-			return rV;
-		}
-
-		public Telerik.DataSource.DataSourceRequest ApiRequestToDataSourceRequest(ApiRequest request)
-		{
-			Telerik.DataSource.DataSourceRequest req = new()
-			{
-				Page = request.Page,
-				PageSize = request.PageSize
-			};
-
-			if (request.Filter != null)
-			{
-				var compositeFilterDescriptor = new Telerik.DataSource.CompositeFilterDescriptor()
-				{
-					LogicalOperator = Telerik.DataSource.FilterCompositionLogicalOperator.And
-				};
-
-				foreach (var filter in request.Filter.Filters)
-				{
-					var filterOperator = this.ToKendoFilterOperator(filter.Operator);
-					var filterDescriptor = new Telerik.DataSource.FilterDescriptor(filter.Field, filterOperator, filter.Value);
-					compositeFilterDescriptor.FilterDescriptors.Add(filterDescriptor);
-				}
-
-				req.Filters = new List<Telerik.DataSource.IFilterDescriptor>() { };
-				req.Filters.Add(compositeFilterDescriptor);
-			}
-
-			if (request.Sort != null)
-			{
-				req.Sorts = new List<Telerik.DataSource.SortDescriptor>();
-				if (request.Sort != null)
-				{
-					foreach (var sort in request.Sort)
-					{
-						Telerik.DataSource.ListSortDirection sortDirection = Telerik.DataSource.ListSortDirection.Ascending;
-						if (sort.Dir == "desc")
-						{
-							sortDirection = Telerik.DataSource.ListSortDirection.Descending;
-						}
-
-						req.Sorts.Add(new Telerik.DataSource.SortDescriptor()
-						{
-							Member = sort.Field,
-							SortDirection = sortDirection
-						});
-					}
-				}
-			}
-			return req;
-		}
-		#endregion
-
 		#region Logs reads
 		public MoResponse<object> ReadUserLog(MoAccessToken accessToken, ApiRequest request)
 		{
@@ -1233,7 +1020,7 @@ namespace AppCommon.Business
 			{
 				var query = this.logDataContext.UserLog;
 
-				var dsr = query.ToDataSourceResult(this.ApiRequestToDataSourceRequest(request));
+				var dsr = query.ToDataSourceResult(request.MyToDataSourceRequest());
 
 				response.Total = dsr.Total;
 				response.Data = this.GetAuthorityColumnsAndData(accessToken, "AccessLog", dsr.Data.Cast<dynamic>());
@@ -1241,7 +1028,7 @@ namespace AppCommon.Business
 			}
 			catch (Exception ex)
 			{
-				response.Message.Add(ex.MyLastInner().Message);
+				response.Messages.Add(ex.MyLastInner().Message);
 			}
 
 			return response;
@@ -1272,7 +1059,7 @@ namespace AppCommon.Business
 						s.IsEmailConfirmed
 					});
 
-				var dsr = query.ToDataSourceResult(this.ApiRequestToDataSourceRequest(request));
+				var dsr = query.ToDataSourceResult(request.MyToDataSourceRequest());
 
 				response.Total = dsr.Total;
 				response.Data = this.GetAuthorityColumnsAndData(accessToken, "User", dsr.Data.Cast<dynamic>());
@@ -1280,7 +1067,7 @@ namespace AppCommon.Business
 			}
 			catch (Exception ex)
 			{
-				response.Message.Add(ex.MyLastInner().Message);
+				response.Messages.Add(ex.MyLastInner().Message);
 			}
 
 			return response;
@@ -1416,7 +1203,7 @@ namespace AppCommon.Business
 			}
 			catch (Exception ex)
 			{
-				response.Message.Add(ex.MyLastInner().Message);
+				response.Messages.Add(ex.MyLastInner().Message);
 			}
 
 			return response;
@@ -1440,12 +1227,12 @@ namespace AppCommon.Business
 					}
 					else
 					{
-						response.Message.Add(this.repository.dataContext.TranslateTo("xLng.IslemYapilacakKayitBulunamadi"));
+						response.Messages.Add(this.repository.dataContext.TranslateTo("xLng.IslemYapilacakKayitBulunamadi"));
 					}
 				}
 				else
 				{
-					response.Message.Add(this.repository.dataContext.TranslateTo("xLng.VeriModeliDonusturulemedi"));
+					response.Messages.Add(this.repository.dataContext.TranslateTo("xLng.VeriModeliDonusturulemedi"));
 				}
 
 			}
@@ -1453,11 +1240,11 @@ namespace AppCommon.Business
 			{
 				if (ex.Source == "Microsoft.EntityFrameworkCore.Relational")
 				{
-					response.Message.Add(this.repository.dataContext.TranslateTo("xLng.BaglantiliKayitVarSilinemez"));
+					response.Messages.Add(this.repository.dataContext.TranslateTo("xLng.BaglantiliKayitVarSilinemez"));
 				}
 				else
 				{
-					response.Message.Add(ex.MyLastInner().Message);
+					response.Messages.Add(ex.MyLastInner().Message);
 				}
 			}
 			return response;
@@ -1483,7 +1270,7 @@ namespace AppCommon.Business
 						s.CreateDate
 					});
 
-				var dsr = query.ToDataSourceResult(this.ApiRequestToDataSourceRequest(request));
+				var dsr = query.ToDataSourceResult(request.MyToDataSourceRequest());
 
 				response.Total = dsr.Total;
 				response.Data = this.GetAuthorityColumnsAndData(accessToken, "Role", dsr.Data.Cast<dynamic>());
@@ -1491,7 +1278,7 @@ namespace AppCommon.Business
 			}
 			catch (Exception ex)
 			{
-				response.Message.Add(ex.MyLastInner().Message);
+				response.Messages.Add(ex.MyLastInner().Message);
 			}
 
 			return response;
@@ -1539,7 +1326,7 @@ namespace AppCommon.Business
 			}
 			catch (Exception ex)
 			{
-				response.Message.Add(ex.MyLastInner().Message);
+				response.Messages.Add(ex.MyLastInner().Message);
 			}
 
 			return response;
@@ -1563,12 +1350,12 @@ namespace AppCommon.Business
 					}
 					else
 					{
-						response.Message.Add(this.repository.dataContext.TranslateTo("xLng.IslemYapilacakKayitBulunamadi"));
+						response.Messages.Add(this.repository.dataContext.TranslateTo("xLng.IslemYapilacakKayitBulunamadi"));
 					}
 				}
 				else
 				{
-					response.Message.Add(this.repository.dataContext.TranslateTo("xLng.VeriModeliDonusturulemedi"));
+					response.Messages.Add(this.repository.dataContext.TranslateTo("xLng.VeriModeliDonusturulemedi"));
 				}
 
 			}
@@ -1576,11 +1363,11 @@ namespace AppCommon.Business
 			{
 				if (ex.Source == "Microsoft.EntityFrameworkCore.Relational")
 				{
-					response.Message.Add(this.repository.dataContext.TranslateTo("xLng.BaglantiliKayitVarSilinemez"));
+					response.Messages.Add(this.repository.dataContext.TranslateTo("xLng.BaglantiliKayitVarSilinemez"));
 				}
 				else
 				{
-					response.Message.Add(ex.MyLastInner().Message);
+					response.Messages.Add(ex.MyLastInner().Message);
 				}
 			}
 			return response;
@@ -1594,38 +1381,38 @@ namespace AppCommon.Business
 
 			try
 			{
-				List<Dashboard> dashboardList = new() { };
-
-				dashboardList.Add(new Dashboard()
+				List<Dashboard> dashboardList = new()
 				{
-					Id = 101,
-					LineNumber = 1,
-					TemplateName = "template1",
-					Title = "Kullanıcı", //this.dataContext.TranslateTo("xLng.User.ShortTitle"),
-					IconClass = "fa fa-fw fa-4x fa-users",
-					IconStyle = "color:red;",
-					DetailUrl = "#/User",
-					Query = "Select Count(*) From [User]"
-				});
-
-				dashboardList.Add(new Dashboard()
-				{
-					Id = 102,
-					LineNumber = 2,
-					TemplateName = "template1",
-					Title = "Uye",//this.dataContext.TranslateTo("xLng.User.ShortTitle"),
-					IconClass = "fa fa-fw fa-4x fa-id-card-o",
-					IconStyle = "color:blue;",
-					DetailUrl = "#/Uye",
-					Query = "Select Count(*) From Uye"
-				});
+					new Dashboard()
+					{
+						Id = 101,
+						LineNumber = 1,
+						TemplateName = "template1",
+						Title = "Kullanıcı", //this.dataContext.TranslateTo("xLng.User.ShortTitle"),
+						IconClass = "fa fa-fw fa-4x fa-users",
+						IconStyle = "color:red;",
+						DetailUrl = "#/User",
+						Query = "Select Count(*) From [User]"
+					},
+					new Dashboard()
+					{
+						Id = 102,
+						LineNumber = 2,
+						TemplateName = "template1",
+						Title = "Uye",//this.dataContext.TranslateTo("xLng.User.ShortTitle"),
+						IconClass = "fa fa-fw fa-4x fa-id-card-o",
+						IconStyle = "color:blue;",
+						DetailUrl = "#/Uye",
+						Query = "Select Count(*) From Uye"
+					}
+				};
 
 				response.Data = dashboardList;
 				response.Success = true;
 			}
 			catch (Exception ex)
 			{
-				response.Message.Add(ex.MyLastInner().Message);
+				response.Messages.Add(ex.MyLastInner().Message);
 				WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
 			}
 
@@ -1671,7 +1458,7 @@ namespace AppCommon.Business
 			}
 			catch (Exception ex)
 			{
-				response.Message.Add(ex.MyLastInner().Message);
+				response.Messages.Add(ex.MyLastInner().Message);
 				WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
 			}
 

@@ -39,10 +39,18 @@
  }
 ,
  {
-     "key" : "xLng.User.IsActive",
+     "key" : "xLng.User.UserStatusId",
      "value": {
-         "tr": "Aktif",
-         "en": "Is Active"
+         "tr": "Kullanıcı Durumu",
+         "en": "User Status"
+     }
+ }
+,
+ {
+     "key" : "xLng.User.UserTypeId",
+     "value": {
+         "tr": "Kullanıcı Tipi",
+         "en": "User Type"
      }
  }
 ,
@@ -51,14 +59,6 @@
      "value": {
          "tr": "E-posta Onaylandı Mı",
          "en": "Is Email Confirmed"
-     }
- }
-,
- {
-     "key" : "xLng.User.IdentificationNumber",
-     "value": {
-         "tr": "Kimlik Numarası",
-         "en": "Identification Number"
      }
  }
 ,
@@ -79,14 +79,6 @@
  }
 ,
  {
-     "key" : "xLng.User.UserName",
-     "value": {
-         "tr": "Kullanıcı Adı",
-         "en": "User Name"
-     }
- }
-,
- {
      "key" : "xLng.User.Avatar",
      "value": {
          "tr": "Avatar",
@@ -95,10 +87,26 @@
  }
 ,
  {
-     "key" : "xLng.User.UserPassword",
+     "key" : "xLng.User.GeoLocation",
      "value": {
-         "tr": "Kullanıcı Şifresi",
-         "en": "User Password"
+         "tr": "Coğrafi Konum",
+         "en": "Geo Location"
+     }
+ }
+,
+ {
+     "key" : "xLng.User.Email",
+     "value": {
+         "tr": "Email",
+         "en": "Email"
+     }
+ }
+,
+ {
+     "key" : "xLng.User.Password",
+     "value": {
+         "tr": "Şifre",
+         "en": "Password"
      }
  }
 ,
@@ -135,18 +143,18 @@
  }
 ,
  {
-     "key" : "xLng.User.CreateDate",
-     "value": {
-         "tr": "Oluşturma Tarihi",
-         "en": "Create Date"
-     }
- }
-,
- {
      "key" : "xLng.User.UniqueId",
      "value": {
          "tr": "UniqueId",
          "en": "UniqueId"
+     }
+ }
+,
+ {
+     "key" : "xLng.User.CreateDate",
+     "value": {
+         "tr": "Oluşturma Tarihi",
+         "en": "Create Date"
      }
  }
 ,

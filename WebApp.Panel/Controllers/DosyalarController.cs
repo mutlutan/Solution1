@@ -27,7 +27,7 @@ namespace WebApp.Panel.Controllers
             try
             {
                 //thumbs dir
-                string thumbsDirectoryPath = MyApp.Env?.WebRootPath + "\\" + MyApp.AppThumbsDirectory;
+                string thumbsDirectoryPath = this.webHostEnvironment.WebRootPath + "\\" + MyApp.AppThumbsDirectory;
                 if (!System.IO.Directory.Exists(thumbsDirectoryPath))
                 {
                     var newDir = System.IO.Directory.CreateDirectory(thumbsDirectoryPath);
@@ -35,7 +35,7 @@ namespace WebApp.Panel.Controllers
                 }
 
                 //files dir
-                string rootDirectoryPath = MyApp.Env?.WebRootPath + "\\" + MyApp.AppFilesDirectory;
+                string rootDirectoryPath = this.webHostEnvironment.WebRootPath + "\\" + MyApp.AppFilesDirectory;
                 if (!System.IO.Directory.Exists(rootDirectoryPath))
                 {
                     System.IO.Directory.CreateDirectory(rootDirectoryPath);
@@ -90,7 +90,7 @@ namespace WebApp.Panel.Controllers
 
             try
             {
-                string filePath = MyApp.Env?.WebRootPath + "\\" + MyApp.AppFilesDirectory;
+                string filePath = this.webHostEnvironment.WebRootPath + "\\" + MyApp.AppFilesDirectory;
 
                 if (!string.IsNullOrEmpty(_DirectoryName))
                 {
@@ -110,13 +110,13 @@ namespace WebApp.Panel.Controllers
 
                     foreach (System.IO.FileInfo file in files)
                     {
-                        string fileId = file.DirectoryName?.Replace(MyApp.Env.WebRootPath, "") + "\\" + file.Name;
+                        string fileId = file.DirectoryName?.Replace(this.webHostEnvironment.WebRootPath, "") + "\\" + file.Name;
                         string fileUrl = fileId.Replace("\\", "/");
                         string fileVersion = "";
 
-                        string thumbsRootDir = MyApp.Env?.WebRootPath + "\\" + MyApp.AppFilesDirectory;
-                        string thumbFileName = file.FullName.Replace(MyApp.Env?.WebRootPath + "\\" + MyApp.AppFilesDirectory, MyApp.Env?.WebRootPath + "\\" + MyApp.AppThumbsDirectory);
-                        string thumbUrl = thumbFileName.Replace(MyApp.Env.WebRootPath, "");
+                        string thumbsRootDir = this.webHostEnvironment.WebRootPath + "\\" + MyApp.AppFilesDirectory;
+                        string thumbFileName = file.FullName.Replace(this.webHostEnvironment.WebRootPath + "\\" + MyApp.AppFilesDirectory, this.webHostEnvironment.WebRootPath + "\\" + MyApp.AppThumbsDirectory);
+                        string thumbUrl = thumbFileName.Replace(this.webHostEnvironment.WebRootPath, "");
 
                         string extension = file.Extension.MyToLower().Replace(".", "");// ".xxx" => "xxx"
                         string[] imgExtensions = new string[] { "jpg", "jpeg", "jfif", "pjpeg", "pjp", "png", "apng", "webp", "gif", "svg" };
@@ -235,7 +235,7 @@ namespace WebApp.Panel.Controllers
             {
                 if (System.IO.Directory.Exists(_directoryName))
                 {
-                    string targetDirectory = MyApp.Env?.WebRootPath + "\\temp";
+                    string targetDirectory = this.webHostEnvironment.WebRootPath + "\\temp";
                     if (!System.IO.Directory.Exists(targetDirectory))
                     {
                         System.IO.Directory.CreateDirectory(targetDirectory);
@@ -366,7 +366,7 @@ namespace WebApp.Panel.Controllers
                     
                     System.Diagnostics.ProcessStartInfo psi = new()
                     {
-                        FileName = $@"{MyApp.Env.ContentRootPath}\dwebp.exe",
+                        FileName = $@"{this.webHostEnvironment.ContentRootPath}\dwebp.exe",
                         Arguments = $@" {imgFullFileName} -o {outFileName}"
                     };
 
@@ -394,7 +394,7 @@ namespace WebApp.Panel.Controllers
             string rMessage = "";
             try
             {
-                string fileFullName = MyApp.Env.WebRootPath + _fileId;
+                string fileFullName = this.webHostEnvironment.WebRootPath + _fileId;
 
                 //delete normal file
                 if (System.IO.File.Exists(fileFullName))
@@ -409,7 +409,7 @@ namespace WebApp.Panel.Controllers
                 }
 
                 //delete thumb
-                string thumbFileName = fileFullName.Replace(MyApp.Env.WebRootPath + "\\" + MyApp.AppFilesDirectory, MyApp.Env.WebRootPath + "\\" + MyApp.AppThumbsDirectory);
+                string thumbFileName = fileFullName.Replace(this.webHostEnvironment.WebRootPath + "\\" + MyApp.AppFilesDirectory, this.webHostEnvironment.WebRootPath + "\\" + MyApp.AppThumbsDirectory);
 
                 if (System.IO.File.Exists(thumbFileName))
                 {

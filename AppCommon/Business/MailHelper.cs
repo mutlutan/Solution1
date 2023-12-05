@@ -2,8 +2,8 @@
 using System;
 using AppCommon.DataLayer.DataMain.Models;
 using Microsoft.EntityFrameworkCore;
-
-#nullable disable
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace AppCommon.Business
 {
@@ -41,10 +41,11 @@ namespace AppCommon.Business
 	{
 		private readonly MainDataContext dataContext;
 
-
-		public MailHelper(MainDataContext _dataContext)
+		public MailHelper(IServiceProvider serviceProvider)
 		{
-			dataContext = _dataContext;
+			var appConfig = serviceProvider.GetService<IOptions<AppConfig>>()?.Value ?? new();
+			this.dataContext = new();
+			this.dataContext.SetConnectionString(appConfig.MainConnection);
 		}
 
 		public Parameter GetParameter()
@@ -157,7 +158,7 @@ namespace AppCommon.Business
 			}
 			catch (Exception ex)
 			{
-				response.Message.Add(ex.MyLastInner().Message);
+				response.Messages.Add(ex.MyLastInner().Message);
 			}
 
 			return response;
@@ -344,7 +345,7 @@ namespace AppCommon.Business
 				else
 				{
 					emailPool.LastTryDate = DateTime.Now;
-					emailPool.Description = string.Join(' ', response.Message);
+					emailPool.Description = string.Join(' ', response.Messages);
 					emailPool.EmailPoolStatusId = (int)EnmEmailPoolStatus.Error;
 				}
 				dataContext.SaveChanges();
@@ -359,9 +360,11 @@ namespace AppCommon.Business
 
 		public bool SendMail_SifreBildirim(string toMail, string yeniSifre)
 		{
-			Dictionary<string, string> data = new() { };
-			data.Add("[#Kullanici_Ad#]", toMail.MyToStr());
-			data.Add("[#Kullanici_Sifre#]", yeniSifre);
+			Dictionary<string, string> data = new()
+			{
+				{ "[#Kullanici_Ad#]", toMail.MyToStr() },
+				{ "[#Kullanici_Sifre#]", yeniSifre }
+			};
 
 			var to = new List<string>() { toMail.MyToStr() };
 
@@ -372,10 +375,12 @@ namespace AppCommon.Business
 
 		public bool SendMail_UyeMailOnay(string toMail, string adSoyad, string onayLinkValue, string onayLinkText)
 		{
-			Dictionary<string, string> data = new() { };
-			data.Add("[#AdSoyad#]", adSoyad);
-			data.Add("[#OnayLinkValue#]", onayLinkValue);
-			data.Add("[#OnayLinkText#]", onayLinkText);
+			Dictionary<string, string> data = new()
+			{
+				{ "[#AdSoyad#]", adSoyad },
+				{ "[#OnayLinkValue#]", onayLinkValue },
+				{ "[#OnayLinkText#]", onayLinkText }
+			};
 
 			var to = new List<string>() { toMail };
 
@@ -385,10 +390,12 @@ namespace AppCommon.Business
 
 		public bool SendMail_SifreSifirlamaBildirim(string toMail, string adSoyad, string linkValue, string linkText)
 		{
-			Dictionary<string, string> data = new() { };
-			data.Add("[#AdSoyad#]", adSoyad);
-			data.Add("[#LinkValue#]", linkValue);
-			data.Add("[#LinkText#]", linkText);
+			Dictionary<string, string> data = new()
+			{
+				{ "[#AdSoyad#]", adSoyad },
+				{ "[#LinkValue#]", linkValue },
+				{ "[#LinkText#]", linkText }
+			};
 
 			var to = new List<string>() { toMail };
 
@@ -399,10 +406,12 @@ namespace AppCommon.Business
 
 		public bool SendMail_JobHataBildirim(string toMail, string islemAdi, string aciklama)
 		{
-			Dictionary<string, string> data = new() { };
-			data.Add("[#IslemZamani#]", DateTime.Now.ToString("G"));
-			data.Add("[#IslemAdi#]", islemAdi);
-			data.Add("[#Aciklama#]", aciklama);
+			Dictionary<string, string> data = new()
+			{
+				{ "[#IslemZamani#]", DateTime.Now.ToString("G") },
+				{ "[#IslemAdi#]", islemAdi },
+				{ "[#Aciklama#]", aciklama }
+			};
 
 			var to = new List<string>() { toMail };
 
@@ -413,11 +422,13 @@ namespace AppCommon.Business
 
 		public bool SendMail_UyeOdemeBildirim(string toMail, string adSoyad, DateTime islemZamani, decimal yatirimTutari, decimal bakiye)
 		{
-			Dictionary<string, string> data = new() { };
-			data.Add("[#IslemZamani#]", islemZamani.ToString("G"));
-			data.Add("[#AdSoyad#]", adSoyad);
-			data.Add("[#YatirimTutari#]", yatirimTutari.ToString("F"));
-			data.Add("[#Bakiye#]", bakiye.ToString("F"));
+			Dictionary<string, string> data = new()
+			{
+				{ "[#IslemZamani#]", islemZamani.ToString("G") },
+				{ "[#AdSoyad#]", adSoyad },
+				{ "[#YatirimTutari#]", yatirimTutari.ToString("F") },
+				{ "[#Bakiye#]", bakiye.ToString("F") }
+			};
 
 			var to = new List<string>() { toMail };
 
@@ -427,14 +438,16 @@ namespace AppCommon.Business
 		}
 		public bool SendMail_UyeSurusBildirim(string toMail, string adSoyad, string aracAd, DateTime baslangicTarih, DateTime bitisTarih, int sure, decimal tutar, decimal bakiye)
 		{
-			Dictionary<string, string> data = new() { };
-			data.Add("[#AdSoyad#]", adSoyad);
-			data.Add("[#AracAd#]", aracAd);
-			data.Add("[#BaslangicTarih#]", String.Format("{0:U}", baslangicTarih));
-			data.Add("[#BitisTarih#]", String.Format("{0:U}", bitisTarih));
-			data.Add("[#ToplamSure#]", sure.ToString());
-			data.Add("[#Tutar#]", tutar.ToString("F"));
-			data.Add("[#Bakiye#]", bakiye.ToString("F"));
+			Dictionary<string, string> data = new()
+			{
+				{ "[#AdSoyad#]", adSoyad },
+				{ "[#AracAd#]", aracAd },
+				{ "[#BaslangicTarih#]", String.Format("{0:U}", baslangicTarih) },
+				{ "[#BitisTarih#]", String.Format("{0:U}", bitisTarih) },
+				{ "[#ToplamSure#]", sure.ToString() },
+				{ "[#Tutar#]", tutar.ToString("F") },
+				{ "[#Bakiye#]", bakiye.ToString("F") }
+			};
 
 			var to = new List<string>() { toMail };
 
@@ -445,11 +458,13 @@ namespace AppCommon.Business
 
 		public bool SendMail_UyeAracYasakliBolgeBildirim(string toMail, string adSoyad, string aracAd, string yasakliBolgeAd, DateTime tarih)
 		{
-			Dictionary<string, string> data = new() { };
-			data.Add("[#IslemZamani#]", tarih.ToString("G"));
-			data.Add("[#AdSoyad#]", adSoyad);
-			data.Add("[#AracAd#]", aracAd);
-			data.Add("[#YasakliBolgeAd#]", yasakliBolgeAd);
+			Dictionary<string, string> data = new()
+			{
+				{ "[#IslemZamani#]", tarih.ToString("G") },
+				{ "[#AdSoyad#]", adSoyad },
+				{ "[#AracAd#]", aracAd },
+				{ "[#YasakliBolgeAd#]", yasakliBolgeAd }
+			};
 
 			var to = new List<string>() { toMail };
 
@@ -460,12 +475,14 @@ namespace AppCommon.Business
 
 		public bool SendMail_AracSarjBildirim(string toMail, string imeiNo, string aracAd, string kullanimDurumu, decimal sarjOrani)
 		{
-			Dictionary<string, string> data = new() { };
-			data.Add("[#IslemZamani#]", DateTime.Now.ToString("G"));
-			data.Add("[#ImeiNo#]", imeiNo);
-			data.Add("[#AracAd#]", aracAd);
-			data.Add("[#KullanimDurumu#]", kullanimDurumu);
-			data.Add("[#SarjOrani#]", sarjOrani.ToString());
+			Dictionary<string, string> data = new()
+			{
+				{ "[#IslemZamani#]", DateTime.Now.ToString("G") },
+				{ "[#ImeiNo#]", imeiNo },
+				{ "[#AracAd#]", aracAd },
+				{ "[#KullanimDurumu#]", kullanimDurumu },
+				{ "[#SarjOrani#]", sarjOrani.ToString() }
+			};
 
 			var to = new List<string>() { toMail };
 
@@ -476,11 +493,13 @@ namespace AppCommon.Business
 
 		public bool SendMail_AracYasakliBolgeBildirim(string toMail, string imeiNo, string aracAd, string yasakliBolgeAd, DateTime tarih)
 		{
-			Dictionary<string, string> data = new() { };
-			data.Add("[#IslemZamani#]", tarih.ToString("G"));
-			data.Add("[#ImeiNo#]", imeiNo);
-			data.Add("[#AracAd#]", aracAd);
-			data.Add("[#YasakliBolgeAd#]", yasakliBolgeAd);
+			Dictionary<string, string> data = new()
+			{
+				{ "[#IslemZamani#]", tarih.ToString("G") },
+				{ "[#ImeiNo#]", imeiNo },
+				{ "[#AracAd#]", aracAd },
+				{ "[#YasakliBolgeAd#]", yasakliBolgeAd }
+			};
 
 			var to = new List<string>() { toMail };
 
@@ -491,11 +510,13 @@ namespace AppCommon.Business
 
 		public bool SendMail_AracHataliKullanimBildirim(string toMail, string imeiNo, string aracAd, string aciklama, DateTime tarih)
 		{
-			Dictionary<string, string> data = new() { };
-			data.Add("[#IslemZamani#]", tarih.ToString("G"));
-			data.Add("[#ImeiNo#]", imeiNo);
-			data.Add("[#AracAd#]", aracAd);
-			data.Add("[#Aciklama#]", aciklama);
+			Dictionary<string, string> data = new()
+			{
+				{ "[#IslemZamani#]", tarih.ToString("G") },
+				{ "[#ImeiNo#]", imeiNo },
+				{ "[#AracAd#]", aracAd },
+				{ "[#Aciklama#]", aciklama }
+			};
 
 			var to = new List<string>() { toMail };
 

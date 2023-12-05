@@ -10,7 +10,7 @@ namespace WebApp.Panel.Controllers
 
         public IActionResult Index()
         {
-            if (MyApp.Env?.EnvironmentName == "Development")
+            if (this.webHostEnvironment.EnvironmentName == "Development")
             {
                 ViewBag.UserName = "admin";
                 ViewBag.Password = "1";

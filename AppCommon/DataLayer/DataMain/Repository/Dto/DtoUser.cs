@@ -11,10 +11,8 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dto
     {
         protected readonly MainDataContext dataContext;
 
-        public string CcIsActive
-        {
-            get { return (this.UserStatusId==0 ? this.dataContext.TranslateTo("xLng.Aktif") : this.dataContext.TranslateTo("xLng.Pasif")); }
-        }
+        public string CcUserStatusIdName { get; set; } = "";
+        public string CcUserTypeIdName { get; set; } = "";
         public string CcIsEmailConfirmed
         {
             get { return (this.IsEmailConfirmed ? this.dataContext.TranslateTo("xLng.Aktif") : this.dataContext.TranslateTo("xLng.Pasif")); }

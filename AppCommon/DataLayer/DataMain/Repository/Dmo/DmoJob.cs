@@ -73,11 +73,6 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
          row.MethodParams = _model.MethodParams;
          row.MethodComment = _model.MethodComment;
          row.CronExpression = _model.CronExpression;
-         row.IsPeriodic = _model.IsPeriodic;
-         row.StartTime = _model.StartTime;
-         row.DaysOfTheWeek = _model.DaysOfTheWeek;
-         row.Months = _model.Months;
-         row.DaysOfTheMonth = _model.DaysOfTheMonth;
 
          if (!isNew)
          {

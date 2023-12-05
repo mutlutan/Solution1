@@ -14,20 +14,15 @@ namespace WebApp.Panel.Codes
     public class RequestResponseLogMiddleware : IDisposable
 	{
 		private readonly RequestDelegate _next;
-		private readonly AppConfig appConfig;
 		private readonly IBrowserDetector _browserDetector;
 		private readonly Business _business;
 
 		public RequestResponseLogMiddleware(RequestDelegate next, IServiceProvider serviceProvider)
 		{
 			_next = next;
-
 			using var scope = serviceProvider.CreateScope();
-			this.appConfig = scope.ServiceProvider.GetService<IOptions<AppConfig>>().Value ?? new();
 			this._browserDetector = scope.ServiceProvider.GetService<IBrowserDetector>();
-
 			this._business = scope.ServiceProvider.GetRequiredService<Business>();
-			this._business = new Business(appConfig.MainConnection,appConfig.LogConnection);
 		}
 
 		public async Task InvokeAsync(HttpContext context)

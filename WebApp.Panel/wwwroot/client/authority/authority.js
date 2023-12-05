@@ -32,28 +32,6 @@ window.AppAuthority =
             ]
         },
         {
-            id: "Menu.Uyeler.", text: mnLang.f("xLng.Authority.Menu.Uyeler"), hint: "", rout: "", params: "", showType: "Page", header: false, viewFolder: "", viewName: "", cssClass: "fa fa-newspaper-o fa-fw", expanded: true, prefix: false, menu: true, yetkiGrups: "11,21", items: [
-                {
-                    id: "Menu.Uyeler.UyeGrup.", text: mnLang.f("xLng.UyeGrup.Title"), hint: "", rout: "UyeGrup", params: "", showType: "Page", header: true, viewFolder: "UyeGrup", viewName: "UyeGrupForGrid", cssClass: "fa fa-tint fa-fw", expanded: false, prefix: true, menu: true, yetkiGrups: "11,21", items: [
-                        { id: "Menu.Uyeler.UyeGrup.D_R.", text: mnLang.f("xLng.Authority.Gorebilir"), hint: "", rout: "", params: "", showType: "Page", header: false, viewFolder: "", viewName: "", cssClass: "fa fa-search fa-fw", expanded: false, prefix: false, menu: false, yetkiGrups: "11,21", items: [] },
-                        { id: "Menu.Uyeler.UyeGrup.D_C.", text: mnLang.f("xLng.Authority.Ekleyebilir"), hint: "", rout: "", params: "", showType: "Page", header: false, viewFolder: "", viewName: "", cssClass: "fa fa-plus fa-fw", expanded: false, prefix: false, menu: false, yetkiGrups: "11,21", items: [] },
-                        { id: "Menu.Uyeler.UyeGrup.D_U.", text: mnLang.f("xLng.Authority.Duzeltebilir"), hint: "", rout: "", params: "", showType: "Page", header: false, viewFolder: "", viewName: "", cssClass: "fa fa-pencil fa-fw", expanded: false, prefix: false, menu: false, yetkiGrups: "11,21", items: [] },
-                        { id: "Menu.Uyeler.UyeGrup.D_D.", text: mnLang.f("xLng.Authority.Silebilir"), hint: "", rout: "", params: "", showType: "Page", header: false, viewFolder: "", viewName: "", cssClass: "fa fa-trash-o fa-fw", expanded: false, prefix: false, menu: false, yetkiGrups: "11,21", items: [] },
-                        { id: "Menu.Uyeler.UyeGrup.D_E.", text: mnLang.f("xLng.Authority.SaveAsExcel"), hint: "", rout: "", params: "", showType: "Page", header: false, viewFolder: "", viewName: "", cssClass: "fa fa-file-excel-o fa-fw", expanded: false, prefix: false, menu: false, yetkiGrups: "11,21", items: [] }
-                    ]
-                },
-                {
-                    id: "Menu.Uyeler.Uye.", text: mnLang.f("xLng.Uye.Title"), hint: "", rout: "Uye", params: "", showType: "Page", header: true, viewFolder: "Uye", viewName: "UyeForGrid", cssClass: "fa fa-tint fa-fw", expanded: false, prefix: true, menu: true, yetkiGrups: "11,21", items: [
-                        { id: "Menu.Uyeler.Uye.D_R.", text: mnLang.f("xLng.Authority.Gorebilir"), hint: "", rout: "", params: "", showType: "Page", header: false, viewFolder: "", viewName: "", cssClass: "fa fa-search fa-fw", expanded: false, prefix: false, menu: false, yetkiGrups: "11,21", items: [] },
-                        { id: "Menu.Uyeler.Uye.D_C.", text: mnLang.f("xLng.Authority.Ekleyebilir"), hint: "", rout: "", params: "", showType: "Page", header: false, viewFolder: "", viewName: "", cssClass: "fa fa-plus fa-fw", expanded: false, prefix: false, menu: false, yetkiGrups: "11,21", items: [] },
-                        { id: "Menu.Uyeler.Uye.D_U.", text: mnLang.f("xLng.Authority.Duzeltebilir"), hint: "", rout: "", params: "", showType: "Page", header: false, viewFolder: "", viewName: "", cssClass: "fa fa-pencil fa-fw", expanded: false, prefix: false, menu: false, yetkiGrups: "11,21", items: [] },
-                        { id: "Menu.Uyeler.Uye.D_D.", text: mnLang.f("xLng.Authority.Silebilir"), hint: "", rout: "", params: "", showType: "Page", header: false, viewFolder: "", viewName: "", cssClass: "fa fa-trash-o fa-fw", expanded: false, prefix: false, menu: false, yetkiGrups: "11,21", items: [] },
-                        { id: "Menu.Uyeler.Uye.D_E.", text: mnLang.f("xLng.Authority.SaveAsExcel"), hint: "", rout: "", params: "", showType: "Page", header: false, viewFolder: "", viewName: "", cssClass: "fa fa-file-excel-o fa-fw", expanded: false, prefix: false, menu: false, yetkiGrups: "11,21", items: [] }
-                    ]
-                }
-            ]
-        },
-        {
             id: "Menu.Ayarlar.", text: mnLang.f("xLng.Authority.Menu.Ayarlar"), hint: "", rout: "", params: "", showType: "Page", header: false, viewFolder: "", viewName: "", cssClass: "fa fa-newspaper-o fa-fw", expanded: false, prefix: false, menu: true, yetkiGrups: "11,21", items: [
                 {
                     id: "Menu.Ayarlar.Parameter.", text: mnLang.f("xLng.Parameter.Title"), hint: "", rout: "Parameter", params: "Id=1", showType: "Form", header: true, viewFolder: "Parameter", viewName: "ParameterForForm", cssClass: "fa fa-wrench fa-fw", expanded: false, prefix: true, menu: true, yetkiGrups: "11,21", items: [
@@ -113,6 +91,15 @@ window.AppAuthority =
                         { id: "Menu.Tanimlamalar.Country.D_U.", text: mnLang.f("xLng.Authority.Duzeltebilir"), hint: "", rout: "", params: "", showType: "Page", header: false, viewFolder: "", viewName: "", cssClass: "fa fa-pencil fa-fw", expanded: false, prefix: false, menu: false, yetkiGrups: "11,21", items: [] },
                         { id: "Menu.Tanimlamalar.Country.D_D.", text: mnLang.f("xLng.Authority.Silebilir"), hint: "", rout: "", params: "", showType: "Page", header: false, viewFolder: "", viewName: "", cssClass: "fa fa-trash-o fa-fw", expanded: false, prefix: false, menu: false, yetkiGrups: "11,21", items: [] },
                         { id: "Menu.Tanimlamalar.Country.D_E.", text: mnLang.f("xLng.Authority.SaveAsExcel"), hint: "", rout: "", params: "", showType: "Page", header: false, viewFolder: "", viewName: "", cssClass: "fa fa-file-excel-o fa-fw", expanded: false, prefix: false, menu: false, yetkiGrups: "11,21", items: [] }
+                    ]
+                },
+                {
+                    id: "Menu.Tanimlamalar.Customer.", text: mnLang.f("xLng.Customer.Title"), hint: "", rout: "Customer", params: "", showType: "Page", header: true, viewFolder: "Customer", viewName: "CustomerForGrid", cssClass: "fa fa-tint fa-fw", expanded: false, prefix: true, menu: true, yetkiGrups: "11,21", items: [
+                        { id: "Menu.Customer.Country.D_R.", text: mnLang.f("xLng.Authority.Gorebilir"), hint: "", rout: "", params: "", showType: "Page", header: false, viewFolder: "", viewName: "", cssClass: "fa fa-search fa-fw", expanded: false, prefix: false, menu: false, yetkiGrups: "11,21", items: [] },
+                        { id: "Menu.Customer.Country.D_C.", text: mnLang.f("xLng.Authority.Ekleyebilir"), hint: "", rout: "", params: "", showType: "Page", header: false, viewFolder: "", viewName: "", cssClass: "fa fa-plus fa-fw", expanded: false, prefix: false, menu: false, yetkiGrups: "11,21", items: [] },
+                        { id: "Menu.Customer.Country.D_U.", text: mnLang.f("xLng.Authority.Duzeltebilir"), hint: "", rout: "", params: "", showType: "Page", header: false, viewFolder: "", viewName: "", cssClass: "fa fa-pencil fa-fw", expanded: false, prefix: false, menu: false, yetkiGrups: "11,21", items: [] },
+                        { id: "Menu.Customer.Country.D_D.", text: mnLang.f("xLng.Authority.Silebilir"), hint: "", rout: "", params: "", showType: "Page", header: false, viewFolder: "", viewName: "", cssClass: "fa fa-trash-o fa-fw", expanded: false, prefix: false, menu: false, yetkiGrups: "11,21", items: [] },
+                        { id: "Menu.Customer.Country.D_E.", text: mnLang.f("xLng.Authority.SaveAsExcel"), hint: "", rout: "", params: "", showType: "Page", header: false, viewFolder: "", viewName: "", cssClass: "fa fa-file-excel-o fa-fw", expanded: false, prefix: false, menu: false, yetkiGrups: "11,21", items: [] }
                     ]
                 }
             ]

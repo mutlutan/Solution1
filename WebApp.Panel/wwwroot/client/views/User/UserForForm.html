@@ -17,14 +17,23 @@
                     </div>
 
                     <div class='col-lg-6 col-md-12'>
-                         <div name='divIsActive' class='mnFormElementDiv form-group row'>
+                         <div name='divUserStatusId' class='mnFormElementDiv form-group row'>
                              <label class='col-sm-4 col-form-label'>
+                                <span class='mn-required-span' data-langkey-text='xLng.User.UserStatusId'></span>
                              </label>
                              <div class='col-sm-8'>
-                                <label style='font-weight:normal;'>
-                                    <input name='IsActive' type='checkbox' data-bind='checked:IsActive' style='width: 24px; height: 24px; vertical-align: middle;'  />
-                                    <span data-langkey-Text='xLng.User.IsActive'></span>
-                                </label>
+                                 <input name='UserStatusId' data-bind='value:UserStatusId' />
+                                 <span class='k-invalid-msg' data-for='UserStatusId'></span>
+                             </div>
+                         </div>
+
+                         <div name='divUserTypeId' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='mn-required-span' data-langkey-text='xLng.User.UserTypeId'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='UserTypeId' data-bind='value:UserTypeId' />
+                                 <span class='k-invalid-msg' data-for='UserTypeId'></span>
                              </div>
                          </div>
 
@@ -36,15 +45,6 @@
                                     <input name='IsEmailConfirmed' type='checkbox' data-bind='checked:IsEmailConfirmed' style='width: 24px; height: 24px; vertical-align: middle;'  />
                                     <span data-langkey-Text='xLng.User.IsEmailConfirmed'></span>
                                 </label>
-                             </div>
-                         </div>
-
-                         <div name='divIdentificationNumber' class='mnFormElementDiv form-group row'>
-                             <label class='col-sm-4 col-form-label'>
-                                <span class='' data-langkey-text='xLng.User.IdentificationNumber'></span>
-                             </label>
-                             <div class='col-sm-8'>
-                                 <input name='IdentificationNumber' type='text' class='form-control d-inline' data-bind='value:IdentificationNumber' data-langkey-placeholder='xLng.User.IdentificationNumber'   maxlength='11' autocomplete='off' />
                              </div>
                          </div>
 
@@ -66,24 +66,36 @@
                              </div>
                          </div>
 
-                         <div name='divUserName' class='mnFormElementDiv form-group row'>
+                         <div name='divGeoLocation' class='mnFormElementDiv form-group row'>
                              <label class='col-sm-4 col-form-label'>
-                                <span class='' data-langkey-text='xLng.User.UserName'></span>
+                                <span class='' data-langkey-text='xLng.User.GeoLocation'></span>
                              </label>
-                             <div class='col-sm-8'>
-                                 <input name='UserName' type='text' class='form-control d-inline' data-bind='value:UserName' data-langkey-placeholder='xLng.User.UserName'   maxlength='100' autocomplete='off' />
+                             <div class='col-sm-8' style='position:relative;' >
+                                 <textarea name='GeoLocation' class='form-control' data-bind='value:GeoLocation' data-langkey-placeholder='xLng.User.GeoLocation'  style='height:38px;'  ></textarea>
+                                 <button id='btnClearGeoLocation' class='btn btn-link btn-sm' style='position:absolute; top:-6px; right:7px;'>
+                                     <i class='fa fa-trash-o'></i>
+                                 </button>
+                                 <div class='mt-1' style='height:114px;'>
+                                     <comp-google-map name='GeoLocation' center='{ "lat": 39.9187725, "lng": 32.85806 }' zoom='11' map-type-id='roadmap'></comp-google-map>
+                                 </div>
                              </div>
                          </div>
 
-                         <div name='divUserPassword' class='mnFormElementDiv form-group row'>
+                         <div name='divEmail' class='mnFormElementDiv form-group row'>
                              <label class='col-sm-4 col-form-label'>
-                                <span class='' data-langkey-text='xLng.User.UserPassword'></span>
+                                <span class='' data-langkey-text='xLng.User.Email'></span>
                              </label>
                              <div class='col-sm-8'>
-                                 <span name='ExternalResetPasswordButtonWrapperUserPassword' class='mnResetPasswordButton k-space-right w-100'>
-                                    <input name='UserPassword' type='password' class='form-control font-weight-light' data-bind='value:UserPassword' data-langkey-placeholder='xLng.User.UserPassword'  maxlength='100' autocomplete='off' />
-                                 </span>
-                                 <span class='k-invalid-msg' data-for='UserPassword'></span>
+                                 <input name='Email' type='text' class='form-control d-inline' data-bind='value:Email' data-langkey-placeholder='xLng.User.Email'   maxlength='100' autocomplete='off' />
+                             </div>
+                         </div>
+
+                         <div name='divPassword' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='' data-langkey-text='xLng.User.Password'></span>
+                             </label>
+                             <div class='col-sm-8'>
+                                 <input name='Password' type='text' class='form-control d-inline' data-bind='value:Password' data-langkey-placeholder='xLng.User.Password'   maxlength='100' autocomplete='off' />
                              </div>
                          </div>
 
@@ -182,6 +194,12 @@
                          data.ValidityDate = kendo.toString(data.ValidityDate, 's');
                          data.CreateDate = kendo.toString(data.CreateDate, 's');
                          data.UpdateDate = kendo.toString(data.UpdateDate, 's');
+                         //Geometry data için
+                         if (data.GeoLocation != null && data.GeoLocation.trim().length > 0) {
+							data.GeoLocation = JSON.parse(data.GeoLocation);
+                         } else {
+							data.GeoLocation = null;
+                         }
 
                          return JSON.stringify(data);
                      }
@@ -197,14 +215,14 @@
                      id: self.primaryKey,
                      fields: {
                          Id: { type: 'number', defaultValue: null },
-                         IsActive: { type: 'boolean' },
+                         UserStatusId: { type: 'number' },
+                         UserTypeId: { type: 'number' },
                          IsEmailConfirmed: { type: 'boolean' },
-                         IdentificationNumber: { type: 'string' },
                          NameSurname: { type: 'string' },
                          ResidenceAddress: { type: 'string' },
                          Avatar: { type: 'string' },
-                         UserName: { type: 'string' },
-                         UserPassword: { type: 'string' },
+                         Email: { type: 'string' },
+                         Password: { type: 'string' },
                          RoleIds: { type: 'string' },
                          GaSecretKey: { type: 'string' },
                          SessionGuid: { type: 'string', editable:false },
@@ -214,7 +232,8 @@
                          CreatedUserId: { type: 'number', editable:false },
                          UpdateDate: { type: 'date', editable:false },
                          UpdatedUserId: { type: 'number', editable:false },
-                         CcIsActive: { type: 'string' },
+                         CcUserStatusIdName: { type: 'string' },
+                         CcUserTypeIdName: { type: 'string' },
                          CcIsEmailConfirmed: { type: 'string' },
                          CcRoleIdsName: { type: 'string' }
                      }
@@ -264,14 +283,15 @@
                              url: self.apiUrlPrefix + '/GetByNew', type: 'GET', dataType: 'json', async: false,
                              success: function (result) {
                                  e.items[0].Id = result.Id;
-                                 e.items[0].IsActive = result.IsActive;
+                                 e.items[0].UserStatusId = result.UserStatusId;
+                                 e.items[0].UserTypeId = result.UserTypeId;
                                  e.items[0].IsEmailConfirmed = result.IsEmailConfirmed;
-                                 e.items[0].IdentificationNumber = result.IdentificationNumber;
                                  e.items[0].NameSurname = result.NameSurname;
                                  e.items[0].ResidenceAddress = result.ResidenceAddress;
                                  e.items[0].Avatar = result.Avatar;
-                                 e.items[0].UserName = result.UserName;
-                                 e.items[0].UserPassword = result.UserPassword;
+                                 e.items[0].GeoLocation = result.GeoLocation;
+                                 e.items[0].Email = result.Email;
+                                 e.items[0].Password = result.Password;
                                  e.items[0].RoleIds = result.RoleIds;
                                  e.items[0].GaSecretKey = result.GaSecretKey;
                                  e.items[0].SessionGuid = result.SessionGuid;
@@ -282,7 +302,8 @@
                                  e.items[0].UpdateDate = kendo.parseDate(result.UpdateDate);
                                  e.items[0].UpdatedUserId = result.UpdatedUserId;
                                  //computed alanların tanımlanması
-                                 e.items[0].CcIsActive = result.CcIsActive;
+                                 e.items[0].CcUserStatusIdName = result.CcUserStatusIdName;
+                                 e.items[0].CcUserTypeIdName = result.CcUserTypeIdName;
                                  e.items[0].CcIsEmailConfirmed = result.CcIsEmailConfirmed;
                                  e.items[0].CcRoleIdsName = result.CcRoleIdsName;
                                  //filterdan gelen default value set için
@@ -292,6 +313,7 @@
                                      }
                                  });
 
+                                 //(MapEditor için, new row da ilk durum set ediliyor)
                                  //(multi select için)
                                  self.msRoleIds.value([]);
                                  if (e.items[0].RoleIds !== null || undefined || '') {
@@ -359,6 +381,56 @@
          });
 
          //Diğer Form elementleri
+         $(self.selector).find('[name=UserStatusId]').kendoDropDownList({
+             valuePrimitive: true,
+             optionLabel: mnLang.TranslateWithWord('xLng.Seciniz'),
+             dataValueField: 'value',
+             dataTextField: 'text',
+             dataSource: mnLookup.listLoad({
+                 ViewName: 'UserForForm',
+                 ViewFieldName: 'UserStatusId',
+                 TableName: 'UserStatus',
+                 ValueField: 'Id',
+                 TextField: 'Name',
+                 OtherFields: '',
+                 Filters: [
+                     { Field: 'Id', Operator: '>=', Value: '0' }
+                 ],
+                 Sorts: [
+                                 { Field: 'Name', Dir: 'asc' }
+                 ]
+             }),
+             open: function (e) {
+             },
+             close: function (e) {
+             }
+         }).getKendoDropDownList();
+
+         $(self.selector).find('[name=UserTypeId]').kendoDropDownList({
+             valuePrimitive: true,
+             optionLabel: mnLang.TranslateWithWord('xLng.Seciniz'),
+             dataValueField: 'value',
+             dataTextField: 'text',
+             dataSource: mnLookup.listLoad({
+                 ViewName: 'UserForForm',
+                 ViewFieldName: 'UserTypeId',
+                 TableName: 'UserType',
+                 ValueField: 'Id',
+                 TextField: 'Name',
+                 OtherFields: '',
+                 Filters: [
+                     { Field: 'Id', Operator: '>=', Value: '0' }
+                 ],
+                 Sorts: [
+                                 { Field: 'Name', Dir: 'asc' }
+                 ]
+             }),
+             open: function (e) {
+             },
+             close: function (e) {
+             }
+         }).getKendoDropDownList();
+
          $(self.selector).find('[name=Avatar]').click(function (e) {
              $elmImg = $("<input id='imageFile' type='file' accept='image/*' style='display:none;' />"); 
              $elmImg.change(function () {
@@ -375,6 +447,15 @@
              });
              $elmImg.click();
          });
+
+		 //TextArea üzerinde MapEditor için data clear
+         $(self.selector).find('#btnClearGeoLocation').click(function (e) {
+            var dataItem = self.dataSource.at(0);
+            dataItem.set('GeoLocation', null);
+         });
+
+			//mapEditor instance
+			self.mapEditorGeoLocation = $(self.selector).find('comp-google-map[name=GeoLocation]').get(0);
 
          self.msRoleIds = $(self.selector).find('[name=RoleIds]').kendoMultiSelect({
              valuePrimitive: true,
@@ -420,6 +501,8 @@
      }
 
      function fSetAtributeFormElements() {
+         $(self.selector).find('[name=UserStatusId]').attr('required', 'required');
+         $(self.selector).find('[name=UserTypeId]').attr('required', 'required');
      }
 
      function fYetkiUygula() {
@@ -440,14 +523,15 @@
 
         //form element görünümleri
         var fieldList = [];
-        fieldList.push({ 'Name': 'IsActive', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'UserStatusId', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'UserTypeId', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'IsEmailConfirmed', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
-        fieldList.push({ 'Name': 'IdentificationNumber', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'NameSurname', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'ResidenceAddress', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'Avatar', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
-        fieldList.push({ 'Name': 'UserName', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
-        fieldList.push({ 'Name': 'UserPassword', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'GeoLocation', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'Email', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'Password', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'RoleIds', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'GaSecretKey', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'SessionGuid', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });

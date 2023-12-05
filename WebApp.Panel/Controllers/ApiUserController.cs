@@ -27,9 +27,7 @@ namespace WebApp.Panel.Controllers
             {
                 var query = this.business.repository.RepUser.Get();
                 query = query.Where(c => c.Id > 0);
-                dsr = query.ToDataSourceResult(this.business.ApiRequestToDataSourceRequest(request));
-                //Yetkide görebileceği sütunlar döner sadece
-                //dsr.Data = this.business.GetAuthorityColumnsAndData(this.userToken, "User", dsr.Data.ToDynamicList());
+                dsr = query.ToDataSourceResult(request.MyToDataSourceRequest());
             }
             catch (Exception ex)
             {
@@ -54,7 +52,7 @@ namespace WebApp.Panel.Controllers
             DataSourceResult dsr = new();
             try
             {
-                var model = Newtonsoft.Json.JsonConvert.DeserializeObject<User>(obj.MyToStr());
+                var model = new NetTopologySuite.IO.GeoJsonReader().Read<User>(obj.MyToStr());
                 if (model != null)
                 {
                     Int32 id = this.business.repository.RepUser.CreateOrUpdate(model, true);
@@ -83,7 +81,7 @@ namespace WebApp.Panel.Controllers
             DataSourceResult dsr = new();
             try
             {
-                var model = Newtonsoft.Json.JsonConvert.DeserializeObject<User>(obj.MyToStr());
+                var model = new NetTopologySuite.IO.GeoJsonReader().Read<User>(obj.MyToStr());
                 if (model != null)
                 {
                     Int32 id = this.business.repository.RepUser.CreateOrUpdate(model, false);

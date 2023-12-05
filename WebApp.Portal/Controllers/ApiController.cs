@@ -43,7 +43,7 @@ namespace WebApp.Portal.Controllers
             }
             catch (Exception ex)
             {
-                response.Message.Add("Hata: " + ex.MyLastInner().Message);
+                response.Messages.Add("Hata: " + ex.MyLastInner().Message);
                 business.WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
             }
 
@@ -67,12 +67,12 @@ namespace WebApp.Portal.Controllers
                 }
                 else
                 {
-                    response.Message.Add(business.repository.dataContext.TranslateTo("xLng.GuvenlikKoduGecersiz"));
+                    response.Messages.Add(business.repository.dataContext.TranslateTo("xLng.GuvenlikKoduGecersiz"));
                 }
             }
             catch (Exception ex)
             {
-                response.Message.Add("Hata: " + ex.MyLastInner().Message);
+                response.Messages.Add("Hata: " + ex.MyLastInner().Message);
                 business.WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
             }
 
@@ -95,12 +95,12 @@ namespace WebApp.Portal.Controllers
                 }
                 else
                 {
-                    response.Message.Add(business.repository.dataContext.TranslateTo("xLng.GuvenlikKoduGecersiz"));
+                    response.Messages.Add(business.repository.dataContext.TranslateTo("xLng.GuvenlikKoduGecersiz"));
                 }
             }
             catch (Exception ex)
             {
-                response.Message.Add("Hata: " + ex.MyLastInner().Message);
+                response.Messages.Add("Hata: " + ex.MyLastInner().Message);
                 business.WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
             }
 

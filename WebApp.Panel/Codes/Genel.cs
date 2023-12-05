@@ -13,17 +13,9 @@ namespace WebApp.Panel.Codes
 		public static IWebHostEnvironment Env { get; set; } = null;
 		public static string SupportedCultures { get; set; } = "tr-TR,en-US";
 
-		#region AppDirectory
+		#region Directories
 		public static string AppClientDirectory { get; set; } = "client";
 		public static string AppComponentsDirectory { get; set; } = "components";
-		public static string GetAppComponentsPath()
-		{
-			return MyApp.Env?.WebRootPath + "\\" + MyApp.AppClientDirectory + "\\" + MyApp.AppComponentsDirectory;
-		}
-
-		#endregion
-
-		#region files
 		public static string AppFilesDirectory { get; set; } = "Data\\Files";
 		public static string AppThumbsDirectory { get; set; } = "Data\\Thumbs";
 		#endregion

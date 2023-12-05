@@ -72,11 +72,11 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
                 }
             }
 
-         row.UniqueId = _model.UniqueId;
          row.IsActive = _model.IsActive;
          row.LineNumber = _model.LineNumber;
          row.Name = _model.Name;
          row.Authority = _model.Authority;
+         row.UniqueId = _model.UniqueId;
          row.CreateDate = _model.CreateDate;
          row.CreatedUserId = _model.CreatedUserId;
          row.UpdateDate = DateTime.Now;

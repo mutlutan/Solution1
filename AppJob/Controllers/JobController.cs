@@ -110,11 +110,11 @@ namespace AppJob.Controllers
 			{
 				MyJob.OnActive = state;
 				moResponse.Success = true;
-				moResponse.Message.Add("Job State : " + state);
+				moResponse.Messages.Add("Job State : " + state);
 			}
 			else
 			{
-				moResponse.Message.Add("Token invalid!");
+				moResponse.Messages.Add("Token invalid!");
 			}
 
 			return Ok(moResponse);

@@ -4,16 +4,6 @@
         <div class='mnFindPanel'>
             <div class='mnFindPanelRow'>
                 <div class='mnFindElementContainer'>
-                    <div name='divIsActive' class='mnFindElementDiv'>
-                        <label class='col-form-label me-2' data-langkey-text='xLng.User.IsActive'></label>
-                        <input type='text' style='width:100px' data-find_option='auto' data-find_type='System.Boolean' data-find_field='IsActive' data-find_operator='eq' />
-                    </div>
-
-                    <div name='divUserName' class='mnFindElementDiv'>
-                        <label class='col-form-label me-2' data-langkey-text='xLng.User.UserName'></label>
-                        <input type='text' class='form-control d-inline' style='width:130px' data-find_option='auto' data-find_type='System.String' data-find_field='UserName' data-find_operator='contains' autocomplete='off' />
-                    </div>
-
                     <div name='divValidityDate' class='mnFindElementDiv'>
                         <label class='col-form-label me-2' data-langkey-text='xLng.User.ValidityDate'></label>
                         <input type='text' class='me-2' style='width:165px' data-find_option='auto' data-find_type='System.DateTime' data-find_field='ValidityDate' data-find_operator='gte' />
@@ -73,14 +63,15 @@
                      id: self.primaryKey,
                      fields: {
                          Id: { type: 'number', defaultValue: null  },
-                         IsActive: { type: 'boolean' },
+                         UserStatusId: { type: 'number' },
+                         UserTypeId: { type: 'number' },
                          IsEmailConfirmed: { type: 'boolean' },
-                         IdentificationNumber: { type: 'string' },
                          NameSurname: { type: 'string' },
                          ResidenceAddress: { type: 'string' },
                          Avatar: { type: 'string' },
-                         UserName: { type: 'string' },
-                         UserPassword: { type: 'string' },
+                         GeoLocation: { type: 'string' },
+                         Email: { type: 'string' },
+                         Password: { type: 'string' },
                          RoleIds: { type: 'string' },
                          GaSecretKey: { type: 'string' },
                          SessionGuid: { type: 'string', editable:false },
@@ -90,7 +81,8 @@
                          CreatedUserId: { type: 'number', editable:false },
                          UpdateDate: { type: 'date', editable:false },
                          UpdatedUserId: { type: 'number', editable:false },
-                         CcIsActive: { type: 'string' },
+                         CcUserStatusIdName: { type: 'string' },
+                         CcUserTypeIdName: { type: 'string' },
                          CcIsEmailConfirmed: { type: 'string' },
                          CcRoleIdsName: { type: 'string' }
                      }
@@ -125,14 +117,15 @@
                              url: self.apiUrlPrefix + '/GetByNew', type: 'GET', dataType: 'json', async: false,
                              success: function (result) {
                                  e.items[0].Id = result.Id;
-                                 e.items[0].IsActive = result.IsActive;
+                                 e.items[0].UserStatusId = result.UserStatusId;
+                                 e.items[0].UserTypeId = result.UserTypeId;
                                  e.items[0].IsEmailConfirmed = result.IsEmailConfirmed;
-                                 e.items[0].IdentificationNumber = result.IdentificationNumber;
                                  e.items[0].NameSurname = result.NameSurname;
                                  e.items[0].ResidenceAddress = result.ResidenceAddress;
                                  e.items[0].Avatar = result.Avatar;
-                                 e.items[0].UserName = result.UserName;
-                                 e.items[0].UserPassword = result.UserPassword;
+                                 e.items[0].GeoLocation = result.GeoLocation;
+                                 e.items[0].Email = result.Email;
+                                 e.items[0].Password = result.Password;
                                  e.items[0].RoleIds = result.RoleIds;
                                  e.items[0].GaSecretKey = result.GaSecretKey;
                                  e.items[0].SessionGuid = result.SessionGuid;
@@ -143,7 +136,8 @@
                                  e.items[0].UpdateDate = kendo.parseDate(result.UpdateDate);
                                  e.items[0].UpdatedUserId = result.UpdatedUserId;
                                  //computed alanların tanımlanması
-                                 e.items[0].CcIsActive = result.CcIsActive;
+                                 e.items[0].CcUserStatusIdName = result.CcUserStatusIdName;
+                                 e.items[0].CcUserTypeIdName = result.CcUserTypeIdName;
                                  e.items[0].CcIsEmailConfirmed = result.CcIsEmailConfirmed;
                                  e.items[0].CcRoleIdsName = result.CcRoleIdsName;
                                  //filterdan gelen default value set için
@@ -191,11 +185,20 @@
              },
              {
                  hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.User.IsActive'),
-                 field: 'IsActive',
-                 template: '#:CcIsActive#',
+                 title: mnLang.TranslateWithWord('xLng.User.UserStatusId'),
+                 field: 'UserStatusId',
+                 template: '#:CcUserStatusIdName#',
                  attributes: { 'class': 'text-nowrap' },
-                 width: '80px'
+                 width: '100px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.User.UserTypeId'),
+                 field: 'UserTypeId',
+                 template: '#:CcUserTypeIdName#',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '100px'
              },
 
              {
@@ -205,14 +208,6 @@
                  template: '#:CcIsEmailConfirmed#',
                  attributes: { 'class': 'text-nowrap' },
                  width: '80px'
-             },
-
-             {
-                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.User.IdentificationNumber'),
-                 field: 'IdentificationNumber',
-                 attributes: { 'class': 'text-nowrap' },
-                 width: '130px'
              },
 
              {
@@ -233,17 +228,33 @@
 
              {
                  hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.User.UserName'),
-                 field: 'UserName',
+                 title: mnLang.TranslateWithWord('xLng.User.Avatar'),
+                 field: 'Avatar',
+                 template:"<img name='Avatar' src='#:Avatar || ''#' class='' style='width:28px; height:30px;' />", 
                  attributes: { 'class': 'text-nowrap' },
                  width: '130px'
              },
 
              {
                  hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.User.Avatar'),
-                 field: 'Avatar',
-                 template:"<img name='Avatar' src='#:Avatar || ''#' class='' style='width:28px; height:30px;' />", 
+                 title: mnLang.TranslateWithWord('xLng.User.GeoLocation'),
+                 field: 'GeoLocation',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '150px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.User.Email'),
+                 field: 'Email',
+                 attributes: { 'class': 'text-nowrap' },
+                 width: '130px'
+             },
+
+             {
+                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
+                 title: mnLang.TranslateWithWord('xLng.User.Password'),
+                 field: 'Password',
                  attributes: { 'class': 'text-nowrap' },
                  width: '130px'
              },
@@ -374,14 +385,6 @@
          });
 
          // Filter elementleri
-         $(self.selector).find('[data-find_field=IsActive]').kendoDropDownList({
-             valuePrimitive: true,
-             optionLabel: mnLang.TranslateWithWord('xLng.Seciniz'),
-             dataValueField: 'value',
-             dataTextField: 'text',
-             dataSource: mnLookup.list.dsAktifPasif
-         }).getKendoDropDownList();
-
          $(self.selector).find('[data-find_field=ValidityDate]').kendoDatePicker({
             componentType: mnApp.kendoDatePiker_ComponentType,
             dateInput: mnApp.kendoDatePiker_DateInput
@@ -401,8 +404,6 @@
 
         //form element görünümleri
         var fieldList = [];
-        fieldList.push({ 'Name': 'IsActive', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
-        fieldList.push({ 'Name': 'UserName', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'ValidityDate', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
 
         for (var i in fieldList) {

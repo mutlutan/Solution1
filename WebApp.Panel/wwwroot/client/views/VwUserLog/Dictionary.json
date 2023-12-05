@@ -1,0 +1,128 @@
+[
+ {
+     "key" : "xLng.VwUserLog.Title",
+     "value": {
+         "tr": "Portal Kullanıcı Log",
+         "en": "Portal User Log"
+     }
+ },
+ {
+     "key" : "xLng.VwUserLog.ShortTitle",
+     "value": {
+         "tr": "Portal Kullanıcı Log",
+         "en": "Portal User Log"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwUserLog.FormViewTab.I",
+     "value": {
+         "tr": "Genel Bilgiler",
+         "en": "General Info"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwUserLog.GridFindTab.I",
+     "value": {
+         "tr": "I",
+         "en": "I"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwUserLog.Id",
+     "value": {
+         "tr": "Id",
+         "en": "Id"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwUserLog.TableName",
+     "value": {
+         "tr": "Tablo İsmi",
+         "en": "Table Name"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwUserLog.UserId",
+     "value": {
+         "tr": "Kullanıcı",
+         "en": "User"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwUserLog.UserName",
+     "value": {
+         "tr": "Kullanıcı Adı",
+         "en": "User Name"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwUserLog.UserIp",
+     "value": {
+         "tr": "IP Adres",
+         "en": "Ip Address"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwUserLog.UserBrowser",
+     "value": {
+         "tr": "Browser",
+         "en": "Browser"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwUserLog.SessionGuid",
+     "value": {
+         "tr": "Session Guid",
+         "en": "Session Guid"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwUserLog.LoginDate",
+     "value": {
+         "tr": "Giriş Tarihi",
+         "en": "Login Date"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwUserLog.LogoutDate",
+     "value": {
+         "tr": "Çıkış Tarihi",
+         "en": "Logout Date"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwUserLog.ExtraSpace1",
+     "value": {
+         "tr": "Ekstra Alan 1",
+         "en": "Extra Space 1"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwUserLog.ExtraSpace2",
+     "value": {
+         "tr": "Ekstra Alan 2",
+         "en": "Extra Space 2"
+     }
+ }
+,
+ {
+     "key" : "xLng.VwUserLog.ExtraSpace3",
+     "value": {
+         "tr": "Ekstra Alan 3",
+         "en": "Extra Space 3"
+     }
+ }
+]

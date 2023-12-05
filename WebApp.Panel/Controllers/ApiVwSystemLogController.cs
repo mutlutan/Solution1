@@ -26,9 +26,7 @@ namespace WebApp.Panel.Controllers
             try
             {
                 var query = this.business.repository.RepVwSystemLog.Get();
-                dsr = query.ToDataSourceResult(this.business.ApiRequestToDataSourceRequest(request));
-                //Yetkide görebileceği sütunlar döner sadece
-                //dsr.Data = this.business.GetAuthorityColumnsAndData(this.userToken, "VwSystemLog", dsr.Data.ToDynamicList());
+                dsr = query.ToDataSourceResult(request.MyToDataSourceRequest());
             }
             catch (Exception ex)
             {

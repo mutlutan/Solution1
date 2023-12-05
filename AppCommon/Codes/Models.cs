@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Telerik.DataSource;
 
 namespace AppCommon
 {
@@ -21,7 +23,7 @@ namespace AppCommon
     public class MoResponse<T> where T : /*class,*/ new()
     {
         public bool Success { get; set; } = false;
-        public List<string> Message { get; set; } = new List<string>();
+        public List<string> Messages { get; set; } = new List<string>();
         public T? Data { get; set; }
         public int Total { get; set; } = 0;
     }
@@ -252,10 +254,11 @@ namespace AppCommon
         public List<ApiSort> Sort { get; set; } = new();
         public ApiFilter? Filter { get; set; }
     }
-    #endregion
 
-    #region sqlcommand model
-    public class MoSql
+	#endregion
+
+	#region sqlcommand model
+	public class MoSql
     {
         public string SelectText { get; set; } = "";
         public string FromText { get; set; } = "";

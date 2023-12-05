@@ -265,10 +265,10 @@
 								}
 							});
 						} else {
-							$(self.selector).find('#pMessage').text(result.Message).show("slow");
+							$(self.selector).find('#pMessage').text(result.Messages).show("slow");
 						}
 					} else {
-						$(self.selector).find('#pMessage').text(result.Message).show("slow");
+						$(self.selector).find('#pMessage').text(result.Messages).show("slow");
 					}
 				},
 				error: function (jqXHR, textStatus, errorThrown) {

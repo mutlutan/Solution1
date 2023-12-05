@@ -78,7 +78,7 @@
                         });
 
                     } else {
-                        console.log("ReadDashboardData:", result.Message);
+                        console.log("ReadDashboardData:", result.Messages);
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -95,7 +95,7 @@
                     if (result.Success == true) {
                         self.fnRefreshDashboard(result.Data);
                     } else {
-                        console.log("ReadDashboardData:", result.Message);
+                        console.log("ReadDashboardData:", result.Messages);
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {

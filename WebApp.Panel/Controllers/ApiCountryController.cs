@@ -27,9 +27,7 @@ namespace WebApp.Panel.Controllers
             {
                 var query = this.business.repository.RepCountry.Get();
                 query = query.Where(c => c.Id > 0);
-                dsr = query.ToDataSourceResult(this.business.ApiRequestToDataSourceRequest(request));
-                //Yetkide görebileceği sütunlar döner sadece
-                //dsr.Data = this.business.GetAuthorityColumnsAndData(this.userToken, "Country", dsr.Data.ToDynamicList());
+                dsr = query.ToDataSourceResult(request.MyToDataSourceRequest());
             }
             catch (Exception ex)
             {

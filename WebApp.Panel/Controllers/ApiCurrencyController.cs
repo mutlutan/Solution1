@@ -27,9 +27,7 @@ namespace WebApp.Panel.Controllers
             {
                 var query = this.business.repository.RepCurrency.Get();
                 query = query.Where(c => c.Id > 0);
-                dsr = query.ToDataSourceResult(this.business.ApiRequestToDataSourceRequest(request));
-                //Yetkide görebileceği sütunlar döner sadece
-                //dsr.Data = this.business.GetAuthorityColumnsAndData(this.userToken, "Currency", dsr.Data.ToDynamicList());
+                dsr = query.ToDataSourceResult(request.MyToDataSourceRequest());
             }
             catch (Exception ex)
             {
