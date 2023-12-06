@@ -68,57 +68,6 @@
                     </div>
 
                     <div class='col-lg-6 col-md-12'>
-                         <div name='divIsPeriodic' class='mnFormElementDiv form-group row'>
-                             <label class='col-sm-4 col-form-label'>
-                             </label>
-                             <div class='col-sm-8'>
-                                <label style='font-weight:normal;'>
-                                    <input name='IsPeriodic' type='checkbox' data-bind='checked:IsPeriodic' style='width: 24px; height: 24px; vertical-align: middle;'  />
-                                    <span data-langkey-Text='xLng.Job.IsPeriodic'></span>
-                                </label>
-                             </div>
-                         </div>
-
-                         <div name='divStartTime' class='mnFormElementDiv form-group row'>
-                             <label class='col-sm-4 col-form-label'>
-                                <span class='mn-required-span' data-langkey-text='xLng.Job.StartTime'></span>
-                             </label>
-                             <div class='col-sm-8'>
-                                 <input name='StartTime' data-bind='value:StartTime' />
-                                 <span class='k-invalid-msg' data-for='StartTime'></span>
-                             </div>
-                         </div>
-
-                         <div name='divDaysOfTheWeek' class='mnFormElementDiv form-group row'>
-                             <label class='col-sm-4 col-form-label'>
-                                <span class='' data-langkey-text='xLng.Job.DaysOfTheWeek'></span>
-                             </label>
-                             <div class='col-sm-8'>
-                                 <input name='DaysOfTheWeek' type='text' />
-                                 <span class='k-invalid-msg' data-for='DaysOfTheWeek'></span>
-                             </div>
-                         </div>
-
-                         <div name='divMonths' class='mnFormElementDiv form-group row'>
-                             <label class='col-sm-4 col-form-label'>
-                                <span class='' data-langkey-text='xLng.Job.Months'></span>
-                             </label>
-                             <div class='col-sm-8'>
-                                 <input name='Months' type='text' />
-                                 <span class='k-invalid-msg' data-for='Months'></span>
-                             </div>
-                         </div>
-
-                         <div name='divDaysOfTheMonth' class='mnFormElementDiv form-group row'>
-                             <label class='col-sm-4 col-form-label'>
-                                <span class='' data-langkey-text='xLng.Job.DaysOfTheMonth'></span>
-                             </label>
-                             <div class='col-sm-8'>
-                                 <input name='DaysOfTheMonth' type='text' />
-                                 <span class='k-invalid-msg' data-for='DaysOfTheMonth'></span>
-                             </div>
-                         </div>
-
 
                     </div>
 
@@ -150,7 +99,6 @@
                          return JSON.stringify(data);
                      }
                      else if (operation === 'create' || operation === 'update') {
-                         data.StartTime = kendo.toString(data.StartTime, 'HH:mm:ss');
 
                          return JSON.stringify(data);
                      }
@@ -171,16 +119,7 @@
                          MethodParams: { type: 'string' },
                          MethodComment: { type: 'string' },
                          CronExpression: { type: 'string' },
-                         IsPeriodic: { type: 'boolean' },
-                         StartTime: { type: 'time' },
-                         DaysOfTheWeek: { type: 'string' },
-                         Months: { type: 'string' },
-                         DaysOfTheMonth: { type: 'string' },
-                         CcIsActive: { type: 'string' },
-                         CcIsPeriodic: { type: 'string' },
-                         CcDaysOfTheWeek: { type: 'string' },
-                         CcMonths: { type: 'string' },
-                         CcDaysOfTheMonth: { type: 'string' }
+                         CcIsActive: { type: 'string' }
                      }
                  }
              },
@@ -212,22 +151,7 @@
                          mnNotification.success(mnLang.TranslateWithWord('xLng.KayitSilindi'));
                      }
 
-                     self.msDaysOfTheWeek.value([]);
-                     self.msMonths.value([]);
-                     self.msDaysOfTheMonth.value([]);
                      if (e.response.Data.length > 0) {
-                         if (e.response.Data[0].DaysOfTheWeek !== null || undefined || '') {
-                            self.msDaysOfTheWeek.value(e.response.Data[0].DaysOfTheWeek.split(','));
-                         }
-
-                         if (e.response.Data[0].Months !== null || undefined || '') {
-                            self.msMonths.value(e.response.Data[0].Months.split(','));
-                         }
-
-                         if (e.response.Data[0].DaysOfTheMonth !== null || undefined || '') {
-                            self.msDaysOfTheMonth.value(e.response.Data[0].DaysOfTheMonth.split(','));
-                         }
-
                      }
                  }
              },
@@ -243,17 +167,8 @@
                                  e.items[0].MethodParams = result.MethodParams;
                                  e.items[0].MethodComment = result.MethodComment;
                                  e.items[0].CronExpression = result.CronExpression;
-                                 e.items[0].IsPeriodic = result.IsPeriodic;
-                                 e.items[0].StartTime = result.StartTime;
-                                 e.items[0].DaysOfTheWeek = result.DaysOfTheWeek;
-                                 e.items[0].Months = result.Months;
-                                 e.items[0].DaysOfTheMonth = result.DaysOfTheMonth;
                                  //computed alanların tanımlanması
                                  e.items[0].CcIsActive = result.CcIsActive;
-                                 e.items[0].CcIsPeriodic = result.CcIsPeriodic;
-                                 e.items[0].CcDaysOfTheWeek = result.CcDaysOfTheWeek;
-                                 e.items[0].CcMonths = result.CcMonths;
-                                 e.items[0].CcDaysOfTheMonth = result.CcDaysOfTheMonth;
                                  //filterdan gelen default value set için
                                  $(self.opt.filters).each(function (index, row) {
                                      if (row.filterColumnName !== 'Id') {
@@ -261,21 +176,6 @@
                                      }
                                  });
 
-                                 //(multi select için)
-                                 self.msDaysOfTheWeek.value([]);
-                                 if (e.items[0].DaysOfTheWeek !== null || undefined || '') {
-                                     self.msDaysOfTheWeek.value(e.items[0].DaysOfTheWeek.split(','));
-                                 }
-                                 //(multi select için)
-                                 self.msMonths.value([]);
-                                 if (e.items[0].Months !== null || undefined || '') {
-                                     self.msMonths.value(e.items[0].Months.split(','));
-                                 }
-                                 //(multi select için)
-                                 self.msDaysOfTheMonth.value([]);
-                                 if (e.items[0].DaysOfTheMonth !== null || undefined || '') {
-                                     self.msDaysOfTheMonth.value(e.items[0].DaysOfTheMonth.split(','));
-                                 }
                              },
                              error: function (xhr, status) {
                                  mnErrorHandler.Handle(xhr);
@@ -338,71 +238,10 @@
          });
 
          //Diğer Form elementleri
-         $(self.selector).find('[name=StartTime]').kendoTimePicker({
-             componentType: mnApp.kendoTimePiker_ComponentType,
-             dateInput: mnApp.kendoTimePiker_DateInput,
-             format: 'HH:mm'
-         }).getKendoTimePicker();
-
-         self.msDaysOfTheWeek = $(self.selector).find('[name=DaysOfTheWeek]').kendoMultiSelect({
-             valuePrimitive: true,
-             autoClose: false,
-             optionLabel: { value: '', text: mnLang.TranslateWithWord('xLng.Seciniz') },
-             dataValueField: 'value',
-             dataTextField: 'text',
-             dataSource: mnLookup.list.dsHaftaninGunu,
-             change: function (e) {
-                 if (self.dataSource.at(0) !== undefined) {
-                     self.dataSource.at(0).set('DaysOfTheWeek', this.value().join());
-                 }
-             },
-             open: function (e) {
-             },
-             close: function (e) {
-             }
-         }).getKendoMultiSelect();
-
-         self.msMonths = $(self.selector).find('[name=Months]').kendoMultiSelect({
-             valuePrimitive: true,
-             autoClose: false,
-             optionLabel: { value: '', text: mnLang.TranslateWithWord('xLng.Seciniz') },
-             dataValueField: 'value',
-             dataTextField: 'text',
-             dataSource: mnLookup.list.dsAylar,
-             change: function (e) {
-                 if (self.dataSource.at(0) !== undefined) {
-                     self.dataSource.at(0).set('Months', this.value().join());
-                 }
-             },
-             open: function (e) {
-             },
-             close: function (e) {
-             }
-         }).getKendoMultiSelect();
-
-         self.msDaysOfTheMonth = $(self.selector).find('[name=DaysOfTheMonth]').kendoMultiSelect({
-             valuePrimitive: true,
-             autoClose: false,
-             optionLabel: { value: '', text: mnLang.TranslateWithWord('xLng.Seciniz') },
-             dataValueField: 'value',
-             dataTextField: 'text',
-             dataSource: mnLookup.list.dsAyinGunu,
-             change: function (e) {
-                 if (self.dataSource.at(0) !== undefined) {
-                     self.dataSource.at(0).set('DaysOfTheMonth', this.value().join());
-                 }
-             },
-             open: function (e) {
-             },
-             close: function (e) {
-             }
-         }).getKendoMultiSelect();
-
      }
 
      function fSetAtributeFormElements() {
          $(self.selector).find('[name=MethodName]').attr('required', 'required');
-         $(self.selector).find('[name=StartTime]').attr('required', 'required');
      }
 
      function fYetkiUygula() {
@@ -428,11 +267,6 @@
         fieldList.push({ 'Name': 'MethodParams', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'MethodComment', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'CronExpression', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
-        fieldList.push({ 'Name': 'IsPeriodic', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
-        fieldList.push({ 'Name': 'StartTime', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
-        fieldList.push({ 'Name': 'DaysOfTheWeek', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
-        fieldList.push({ 'Name': 'Months', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
-        fieldList.push({ 'Name': 'DaysOfTheMonth', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
 
         for (var i in fieldList) {
             var $elm = $(self.selector).find('.mnFormElementContainer .mnFormElementDiv[name=div' + fieldList[i].Name + ']');

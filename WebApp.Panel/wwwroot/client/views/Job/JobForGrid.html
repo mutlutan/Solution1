@@ -27,7 +27,6 @@
                          return JSON.stringify(data);
                      }
                      else if (operation === 'create' || operation === 'update') {
-                         data.StartTime = kendo.toString(data.StartTime, 'HH:mm:ss');
                          return JSON.stringify(data);
                      }
                      else if (operation === 'destroy') {
@@ -49,16 +48,7 @@
                          MethodParams: { type: 'string' },
                          MethodComment: { type: 'string' },
                          CronExpression: { type: 'string' },
-                         IsPeriodic: { type: 'boolean' },
-                         StartTime: { type: 'time' },
-                         DaysOfTheWeek: { type: 'string' },
-                         Months: { type: 'string' },
-                         DaysOfTheMonth: { type: 'string' },
-                         CcIsActive: { type: 'string' },
-                         CcIsPeriodic: { type: 'string' },
-                         CcDaysOfTheWeek: { type: 'string' },
-                         CcMonths: { type: 'string' },
-                         CcDaysOfTheMonth: { type: 'string' }
+                         CcIsActive: { type: 'string' }
                      }
                  }
              },
@@ -96,17 +86,8 @@
                                  e.items[0].MethodParams = result.MethodParams;
                                  e.items[0].MethodComment = result.MethodComment;
                                  e.items[0].CronExpression = result.CronExpression;
-                                 e.items[0].IsPeriodic = result.IsPeriodic;
-                                 e.items[0].StartTime = result.StartTime;
-                                 e.items[0].DaysOfTheWeek = result.DaysOfTheWeek;
-                                 e.items[0].Months = result.Months;
-                                 e.items[0].DaysOfTheMonth = result.DaysOfTheMonth;
                                  //computed alanların tanımlanması
                                  e.items[0].CcIsActive = result.CcIsActive;
-                                 e.items[0].CcIsPeriodic = result.CcIsPeriodic;
-                                 e.items[0].CcDaysOfTheWeek = result.CcDaysOfTheWeek;
-                                 e.items[0].CcMonths = result.CcMonths;
-                                 e.items[0].CcDaysOfTheMonth = result.CcDaysOfTheMonth;
                                  //filterdan gelen default value set için
                                  $(self.opt.filters).each(function (index, row) {
                                      if (row.filterColumnName !== 'Id') {
@@ -171,51 +152,6 @@
                  hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
                  title: mnLang.TranslateWithWord('xLng.Job.CronExpression'),
                  field: 'CronExpression',
-                 attributes: { 'class': 'text-nowrap' },
-                 width: '130px'
-             },
-
-             {
-                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Job.IsPeriodic'),
-                 field: 'IsPeriodic',
-                 template: '#:CcIsPeriodic#',
-                 attributes: { 'class': 'text-nowrap' },
-                 width: '90px'
-             },
-
-             {
-                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Job.StartTime'),
-                 field: 'StartTime',
-                 format: '{0:t}',
-                 attributes: { 'class': 'text-nowrap' },
-                 width: '140px'
-             },
-
-             {
-                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Job.DaysOfTheWeek'),
-                 field: 'DaysOfTheWeek',
-                 template: '#:CcDaysOfTheWeek#',
-                 attributes: { 'class': 'text-nowrap' },
-                 width: '150px'
-             },
-
-             {
-                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Job.Months'),
-                 field: 'Months',
-                 template: '#:CcMonths#',
-                 attributes: { 'class': 'text-nowrap' },
-                 width: '130px'
-             },
-
-             {
-                 hidden: ![11,21,31,41].includes(mnUser.Info.nYetkiGrup),
-                 title: mnLang.TranslateWithWord('xLng.Job.DaysOfTheMonth'),
-                 field: 'DaysOfTheMonth',
-                 template: '#:CcDaysOfTheMonth#',
                  attributes: { 'class': 'text-nowrap' },
                  width: '130px'
              },

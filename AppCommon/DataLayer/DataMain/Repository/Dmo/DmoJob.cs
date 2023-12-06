@@ -23,12 +23,7 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
                     MethodName = s.MethodName,
                     MethodParams = s.MethodParams,
                     MethodComment = s.MethodComment,
-                    CronExpression = s.CronExpression,
-                    IsPeriodic = s.IsPeriodic,
-                    StartTime = s.StartTime,
-                    DaysOfTheWeek = s.DaysOfTheWeek,
-                    Months = s.Months,
-                    DaysOfTheMonth = s.DaysOfTheMonth
+                    CronExpression = s.CronExpression
                 });
      }
 
@@ -36,8 +31,7 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
         {
             //Default değerler ile bir row döner, Burada field default değerleri veriliyor...
             DtoJob row = new(this.dataContext) {
-                IsActive = true,
-                IsPeriodic = true
+                IsActive = true
             };
 
             return row;
