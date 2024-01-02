@@ -292,7 +292,7 @@ window.mnApp = function () {
     self.areas = [];
 
     //kendo
-    self.validatorErrorTemplateIconMsg = '<span class="text-warning col-form-label" style="position:absolute; right:4px; top:0px;" title="#=message#"> <i class="fa fa-exclamation"></i> </span>';
+    self.validatorErrorTemplateIconMsg = '<span class="text-warning col-form-label" style="position:absolute; right:4px; top:0px;" title="#=message#"> <i class="bi bi-exclamation"></i> </span>';
     self.validatorErrorTemplateTextMsg = '<span class="text-warning" style="font-size: 0.8em;">#=message#</span>';
     self.validatorErrorTemplateNoMsg = '<span class="text-warning"></span>';
 

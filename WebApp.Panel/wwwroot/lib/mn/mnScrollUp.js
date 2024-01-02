@@ -32,7 +32,7 @@ window.addEventListener('load', (event) => {
 
     $(document.body).append(`
         <span class="mnScrollUp text-center align-middle" style="display:none;">
-            <i class="fa fa-angle-up fa-2x"></i>
+            <i class="bi bi-chevron-bar-up"></i>
         </span>
     `);
 

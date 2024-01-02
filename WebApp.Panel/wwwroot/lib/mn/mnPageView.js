@@ -14,7 +14,7 @@ window.mnPageView = function () {
             + '            <small id="subTitle" data-langkey-text="" style="padding-left:15px; opacity:0.5; font-style:italic; font-size:0.8em;" ></small>'
             + '        </span>'
             + ''
-            + '        <button id="btnGeri" type="button" class="btn btn-link float-end mn-opacity-075 mn-opacity-hover-1 mn-default-text-color" data-langkey-title="xLng.Geri" style="padding: 0px;" > <i class=" fa fa-arrow-circle-o-left" style="font-size: 1.7em;"></i> </button>'
+            + '        <button id="btnGeri" type="button" class="btn btn-link float-end mn-opacity-075 mn-opacity-hover-1 mn-default-text-color" data-langkey-title="xLng.Geri" style="padding: 0px;" > <i class=" bi bi-arrow-left-circle" style="font-size: 1.7em;"></i> </button>'
             + ''
             + '        <hr class="mnHeaderLine">'
             + ''

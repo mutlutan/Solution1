@@ -61,7 +61,7 @@
 								<div class="input-group bg-white">
 									<input name='sPassword' type="password" class='form-control rounded-0 font-weight-light' data-langkey-placeholder="xLng.Sifre" required value="@ViewBag.Password" autocomplete="current-password" />
 									<div class="input-group-addon" style="padding:2px;">
-										<button type="button" id="btnPasswordShowhide" class="btn btn-link btn-sm mn-hover-color-orange" tabindex="-1"><i class="fa fa-eye-slash" aria-hidden="true"></i></button>
+										<button type="button" id="btnPasswordShowhide" class="btn btn-link btn-sm mn-hover-color-orange" tabindex="-1"><i class="bi bi-eye-slash" aria-hidden="true"></i></button>
 									</div>
 								</div>
 							</div>
@@ -92,7 +92,7 @@
 							<label class="col-md-4 col-form-label pr-0 d-none"></label>
 							<div class="col-md-6">
 								<button id="btnGiris" type="button" class="btn font-weight-light rounded">
-									<i class="fa fa-user-o"></i>
+									<i class="bi bi-person"></i>
 									<span data-langkey-Text="xLng.GirisYap"></span>
 									<span id="loader"></span>
 								</button>
@@ -321,12 +321,12 @@
 
 				if ($elmInput.attr("type") == "text") {
 					$elmInput.attr('type', 'password');
-					$elmButton.find('i').addClass("fa-eye-slash");
-					$elmButton.find('i').removeClass("fa-eye");
+					$elmButton.find('i').addClass("bi bi-eye-slash");
+					$elmButton.find('i').removeClass("bi bi-eye");
 				} else if ($elmInput.attr("type") == "password") {
 					$elmInput.attr('type', 'text');
-					$elmButton.find('i').removeClass("fa-eye-slash");
-					$elmButton.find('i').addClass("fa-eye");
+					$elmButton.find('i').removeClass("bi bi-eye-slash");
+					$elmButton.find('i').addClass("bi bi-eye");
 				}
 			});
 

@@ -27,7 +27,7 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
                     Avatar = s.Avatar.MyToStr(),
                     GeoLocation = s.GeoLocation,
                     Email = s.Email,
-                    Password = s.Password,
+                    Password = string.Empty,
                     RoleIds = s.RoleIds,
                     GaSecretKey = s.GaSecretKey,
                     SessionGuid = s.SessionGuid,
@@ -92,7 +92,12 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
          row.Avatar = _model.Avatar;
          row.GeoLocation = _model.GeoLocation;
          row.Email = _model.Email;
-         row.Password = _model.Password;
+
+         if (!string.IsNullOrEmpty(_model.Password))
+         {
+             row.Password = _model.Password.MyToEncryptPassword();
+         }
+
          row.RoleIds = _model.RoleIds;
          row.GaSecretKey = _model.GaSecretKey;
          row.SessionGuid = _model.SessionGuid;

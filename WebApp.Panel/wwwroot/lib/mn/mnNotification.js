@@ -31,19 +31,19 @@ window.mnNotification = function () {
             templates: [
                 {
                     type: "info",
-                    template: '<div style="padding:10px 20px; font-size:1.8em;"> <i class="fa fa-info-circle fa-2x" style="vertical-align:middle;"></i> <span class="h6 text-break">#=msg#</span> </div>'
+                    template: '<div style="padding:10px 20px; font-size:1.8em;"> <i class="bi bi-info-circle" style="vertical-align:middle;"></i> <span class="h6 text-break">#=msg#</span> </div>'
                 },
                 {
                     type: "success",
-                    template: '<div style="padding:10px 20px; font-size:1.8em;"> <i class="fa fa-check-circle fa-2x" style="vertical-align:middle;"></i> <span class="h6 text-break">#=msg#</span> </div>'
+                    template: '<div style="padding:10px 20px; font-size:1.8em;"> <i class="bi bi-check-circle" style="vertical-align:middle;"></i> <span class="h6 text-break">#=msg#</span> </div>'
                 },
                 {
                     type: "warning",
-                    template: '<div style="padding:10px 20px; font-size:1.8em;"> <i class="fa fa-exclamation-triangle fa-2x" style="vertical-align:middle;"></i> <span class="h6 text-break">#=msg#</span> </div>'
+                    template: '<div style="padding:10px 20px; font-size:1.8em;"> <i class="bi bi-exclamation-triangle" style="vertical-align:middle;"></i> <span class="h6 text-break">#=msg#</span> </div>'
                 },
                 {
                     type: "error",
-                    template: '<div style="padding:10px 20px; font-size:1.8em;"> <i class="fa fa-bug fa-2x" style="vertical-align:middle;"></i> <span class="h6 text-break">#=msg#</span> </div>'
+                    template: '<div style="padding:10px 20px; font-size:1.8em;"> <i class="bi bi-bug" style="vertical-align:middle;"></i> <span class="h6 text-break">#=msg#</span> </div>'
                 }
             ],
             show: function (e) {

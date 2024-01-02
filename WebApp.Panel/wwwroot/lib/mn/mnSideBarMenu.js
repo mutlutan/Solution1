@@ -62,7 +62,7 @@
                                 .mnSideBarMenu > ul li ul li ul li a{                                         
                                     padding: 0px 0px 0px 30px;                                                
                                     font-weight: 400;                                                         
-                                    font-size: 1em;                                                           
+                                    font-size: 1rem;                                                           
                                 }                                                                             
                         .mnSideBarMenu i.mnCollapseButton {                                                   
                             margin-top: 3px;                                                                  
@@ -95,7 +95,7 @@
                 newLine += '        <span>' + self.opt.dataSource[i].text + '</span>';
 
                 if (self.opt.dataSource[i].items) {
-                    newLine += '        <i class="mnCollapseButton fa fa-angle-left float-end"></i>';
+                    newLine += '        <i class="mnCollapseButton bi bi-chevron-left float-end"></i>';
                 }
                 newLine += '    </a>';
 
@@ -110,7 +110,7 @@
                         newLine += '        <span>' + self.opt.dataSource[i].items[k].text + '</span>';
                         //--------level(2) için Collapse Button baş-----------------------
                         if (self.opt.dataSource[i].items[k].items) {
-                            newLine += '        <i class="mnCollapseButton fa fa-angle-left float-end"></i>';
+                            newLine += '        <i class="mnCollapseButton bi bi-chevron-left float-end"></i>';
                         }
                         //-----------level(2) için Collapse Button bit--------------------
                         newLine += '    </a>';

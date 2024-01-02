@@ -2,7 +2,7 @@
 
 <div id='UserForForm'>
     <div id='divButtonGroup' class='mnButtonGroup float-end'>
-        <button id='btnKaydet' type='button' class='btn btn-outline-success text-nowrap' data-langkey-title='xLng.Kaydet'> <i class='fa fa-save'></i> </button>
+        <button id='btnKaydet' type='button' class='btn btn-outline-success text-nowrap' data-langkey-title='xLng.Kaydet'> <i class='bi bi-save'></i> </button>
     </div>
 
     <div class='mnFormElementContainer' style='padding-bottom:15px;'>
@@ -73,7 +73,7 @@
                              <div class='col-sm-8' style='position:relative;' >
                                  <textarea name='GeoLocation' class='form-control' data-bind='value:GeoLocation' data-langkey-placeholder='xLng.User.GeoLocation'  style='height:38px;'  ></textarea>
                                  <button id='btnClearGeoLocation' class='btn btn-link btn-sm' style='position:absolute; top:-6px; right:7px;'>
-                                     <i class='fa fa-trash-o'></i>
+                                     <i class='bi bi-trash'></i>
                                  </button>
                                  <div class='mt-1' style='height:114px;'>
                                      <comp-google-map name='GeoLocation' center='{ "lat": 39.9187725, "lng": 32.85806 }' zoom='11' map-type-id='roadmap'></comp-google-map>
@@ -95,7 +95,10 @@
                                 <span class='' data-langkey-text='xLng.User.Password'></span>
                              </label>
                              <div class='col-sm-8'>
-                                 <input name='Password' type='text' class='form-control d-inline' data-bind='value:Password' data-langkey-placeholder='xLng.User.Password'   maxlength='100' autocomplete='off' />
+                                 <span name='ExternalResetPasswordButtonWrapperPassword' class='mnResetPasswordButton k-space-right w-100'>
+                                    <input name='Password' type='password' class='form-control font-weight-light' data-bind='value:Password' data-langkey-placeholder='xLng.User.Password'  maxlength='100' autocomplete='off' />
+                                 </span>
+                                 <span class='k-invalid-msg' data-for='Password'></span>
                              </div>
                          </div>
 
