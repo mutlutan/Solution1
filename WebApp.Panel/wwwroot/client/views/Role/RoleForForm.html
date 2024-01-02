@@ -1,11 +1,14 @@
 
 <div id='RoleForForm'>
-    
+
     <div style='padding-bottom:15px;'>
         <div class='row col'>
             <div class='col-md-7 pl-0 pr-0'>
-                <div id='divButtonGroup' class='mnButtonGroup float-end' >
-                    <button id='btnKaydet' type='button' class='btn btn-outline-success text-nowrap' data-langkey-title='xLng.Kaydet' style='position:absolute; right:0px;'> <i class='bi bi-save'></i> </button>
+                <div id='divButtonGroup' class='mnButtonGroup float-end'>
+                    <button id='btnKaydet' type='button' class='btn btn-outline-success text-nowrap' data-langkey-title='xLng.Kaydet' style='position:absolute; right:0px;'>
+                        <i class='bi bi-save'></i>
+                        <span data-langkey-text='xLng.Kaydet'></span>
+                    </button>
                 </div>
 
                 <div id='tabstrip'>
@@ -14,7 +17,7 @@
                         <!--<li> <span data-langkey-text='II'></span> </li>-->
                     </ul>
                     <div class="pl-0 pr-0">
-                        <div id="treeView" style="height:480px; border: 1px solid gainsboro; padding:5px;"></div>
+                        <div id="treeView" style="height:480px; padding:5px;"></div>
                     </div>
 
                     <!--<div>
@@ -38,7 +41,7 @@
                         <span class='mn-required-span' data-langkey-text='xLng.Role.Name'></span>
                     </label>
                     <div class='col-sm-8'>
-                        <input name='Name' type='text' class='k-textbox' data-bind='value:Name' data-langkey-placeholder='xLng.Role.Name' />
+                        <input name='Name' type='text' class='form-control' data-bind='value:Name' data-langkey-placeholder='xLng.Role.Name' />
                         <span class='k-invalid-msg' data-for='Name'></span>
                     </div>
                 </div>
@@ -61,7 +64,7 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
 </div>
 
@@ -84,11 +87,13 @@
                     destroy: { type: 'POST', url: self.apiUrlPrefix + '/Delete', dataType: 'json', contentType: 'application/json; charset=utf-8' },
                     parameterMap: function (data, operation) {
                         if (operation == 'read') {
-                            return JSON(data);
+                            /* return JSON(data);*/
+                            return JSON.stringify(data);
                         }
                         else if (operation == 'create' || operation == 'update') {
                             data.CreateDate = kendo.toString(data.CreateDate, 's');
-                            return JSON(data);
+                            /*return JSON(data);*/
+                            return JSON.stringify(data);
                         }
                         else if (operation == 'destroy') {
                             return { _id: data[self.primaryKey] };
@@ -227,7 +232,7 @@
             $(self.selector).find('#btnKaydet').click(function (e) {
                 mnApi.controlDisableWait($(e.target));
                 if (self.validator.validate()) {
-                    
+
                     //-------------TreeView data reead-----------------------------
                     var checkedNodes = [];
                     checkedNodeIds(self.treeView.dataSource.view(), checkedNodes);
@@ -314,9 +319,9 @@
                 //        $(e.node).find(".k-state-focused").removeClass("k-state-focused");
                 //    });
                 //},
-                //template: '<i class="#=item.cssClass#"></i> <span class=" pl-2"> #=item.text# (#=item.yetkiGrups#) </span>', 
-                template: '<i class="#=item.cssClass#"></i> <span class=" pl-2"> #=item.text#</span>', 
-                dataSource: mnYetkiSablon.authorityList  
+                //template: '<i class="#=item.cssClass#"></i> <span class=" pl-2"> #=item.text# (#=item.yetkiGrups#) </span>',
+                template: '<i class="#=item.cssClass#"></i> <span class="ps-2"> #=item.text#</span>',
+                dataSource: mnYetkiSablon.authorityList
             }).getKendoTreeView();
 
         }
@@ -359,7 +364,7 @@
 
         self.beforeShow = function (_opt) {
             self.opt = $.extend({}, _opt);
-    
+
             if (self.opt.qprms.Id !== null && self.opt.qprms.Id > 0) {
                 self.dataSource.filter({ field: self.primaryKey, operator: 'eq', value: self.opt.qprms.Id });
             } else {

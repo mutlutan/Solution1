@@ -103,9 +103,9 @@
 	);
 	CREATE UNIQUE INDEX UX_Role_Name ON Role (Name);
 	CREATE UNIQUE INDEX UX_Role_UniqueId ON Role (UniqueId);
-	INSERT INTO Role (Id, IsActive, LineNumber, Name, UniqueId) VALUES (0, 0, -9, N'', newid());
-	INSERT INTO Role (Id, IsActive, LineNumber, Name, UniqueId) VALUES (1001, 1, -8, N'Admin', newid());
-	INSERT INTO Role (Id, IsActive, LineNumber, Name, UniqueId) VALUES (Next Value For dbo.sqRole, 1, 1, N'User', newid());
+	INSERT INTO Role (Id, IsActive, LineNumber, Name, UniqueId, CreateDate) VALUES (0, 0, -9, N'', newid(), getdate());
+	INSERT INTO Role (Id, IsActive, LineNumber, Name, UniqueId, CreateDate) VALUES (1001, 1, -8, N'Admin', newid(), getdate());
+	INSERT INTO Role (Id, IsActive, LineNumber, Name, UniqueId, CreateDate) VALUES (Next Value For dbo.sqRole, 1, 1, N'User', newid(), getdate());
 
 	/*Gender - Cinsiyet*/
 	CREATE TABLE dbo.Gender(
