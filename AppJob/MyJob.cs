@@ -1,12 +1,8 @@
 ﻿using AppCommon;
 using AppCommon.Business;
-using AppCommon.DataLayer.DataMain.Models;
-using CronNET;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using System.Reflection;
-using Telerik.DataSource.Extensions;
-using static Org.BouncyCastle.Math.EC.ECCurve;
+using CronNET;
 
 namespace AppJob
 {
