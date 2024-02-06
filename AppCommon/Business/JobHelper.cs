@@ -163,8 +163,6 @@ namespace AppCommon.Business
 
 		}
 
-
-
 		public void Dispose()
         {
             dataContext.Dispose();
