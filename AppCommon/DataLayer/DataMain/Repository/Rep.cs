@@ -23,13 +23,8 @@ namespace AppCommon.DataLayer.DataMain.Repository
         public DmoVwAuditLog RepVwAuditLog { get; private set; }
         public DmoVwSystemLog RepVwSystemLog { get; private set; }
         public DmoEmailPool RepEmailPool { get; private set; }
-        public DmoUye RepUye { get; private set; }
-        public DmoUyeGrup RepUyeGrup { get; private set; }
-        
         public DmoCountry RepCountry { get; private set; }
-
         public DmoCurrency RepCurrency { get; private set; }
-
         public DmoJob RepJob { get; private set; }
         public DmoVwUserLog RepVwUserLog { get; private set; }
         /*code_definition_end*/
@@ -46,8 +41,6 @@ namespace AppCommon.DataLayer.DataMain.Repository
             this.RepVwAuditLog = new DmoVwAuditLog(this.dataContext);
             this.RepVwSystemLog = new DmoVwSystemLog(this.dataContext);
             this.RepEmailPool = new DmoEmailPool(this.dataContext);
-            this.RepUye = new DmoUye(this.dataContext);
-            this.RepUyeGrup = new DmoUyeGrup(this.dataContext);
             this.RepCountry = new DmoCountry(this.dataContext);
 
             this.RepCurrency = new DmoCurrency(this.dataContext);

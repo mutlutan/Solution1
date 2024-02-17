@@ -4,11 +4,17 @@ using NetTopologySuite.Geometries;
 
 namespace AppCommon.DataLayer.DataMain.Models
 {
-    public partial class Member
+    public partial class Customer
     {
+        public Customer()
+        {
+            CustomerTransaction = new HashSet<CustomerTransaction>();
+            CustomerWallet = new HashSet<CustomerWallet>();
+        }
+
         public int Id { get; set; }
         public int UserStatusId { get; set; }
-        public int MemberTypeId { get; set; }
+        public int CustomerTypeId { get; set; }
         public bool IsEmailConfirmed { get; set; }
         public string? NameSurname { get; set; }
         public string? ResidenceAddress { get; set; }
@@ -26,7 +32,9 @@ namespace AppCommon.DataLayer.DataMain.Models
         public DateTime? UpdateDate { get; set; }
         public int? UpdatedUserId { get; set; }
 
-        public virtual MemberType MemberType { get; set; } = null!;
+        public virtual CustomerType CustomerType { get; set; } = null!;
         public virtual UserStatus UserStatus { get; set; } = null!;
+        public virtual ICollection<CustomerTransaction> CustomerTransaction { get; set; }
+        public virtual ICollection<CustomerWallet> CustomerWallet { get; set; }
     }
 }

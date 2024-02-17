@@ -313,15 +313,4 @@ namespace AppCommon
 
     #endregion
 
-    public class Dashboard
-    {
-        public int Id { get; set; }
-        public int LineNumber { get; set; }
-        public string TemplateName { get; set; } = "";
-        public string Title { get; set; } = "";
-        public string IconClass { get; set; } = "";
-        public string IconStyle { get; set; } = "";
-        public string DetailUrl { get; set; } = "";
-        public string Query { get; set; } = "";
-    }
 }

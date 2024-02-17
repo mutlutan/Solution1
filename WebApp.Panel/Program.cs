@@ -3,7 +3,7 @@ using AppCommon.Business;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using WebApp.Panel.Codes;
+using WebApp.Panel.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 //linux için proxy adresi
@@ -71,7 +71,7 @@ else
 app.UseStaticFiles();
 app.UseRouting();
 app.UseCors("AllowAnyOrigin");
-app.UseMiddleware<RequestResponseLogMiddleware>();
+app.UseMiddleware<HttpLogMiddleware>();
 
 app.MapControllerRoute(
 	name: "default",

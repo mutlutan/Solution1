@@ -17,6 +17,7 @@ namespace AppCommon.DataLayer.DataMain.Models
         public string? Email { get; set; }
         public string? Password { get; set; }
         public string? RoleIds { get; set; }
+        public string? Authority { get; set; }
         public string? GaSecretKey { get; set; }
         public string? SessionGuid { get; set; }
         public DateTime? ValidityDate { get; set; }

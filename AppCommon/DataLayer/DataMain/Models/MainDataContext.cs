@@ -19,6 +19,10 @@ namespace AppCommon.DataLayer.DataMain.Models
         public virtual DbSet<AuditLog> AuditLog { get; set; } = null!;
         public virtual DbSet<Country> Country { get; set; } = null!;
         public virtual DbSet<Currency> Currency { get; set; } = null!;
+        public virtual DbSet<Customer> Customer { get; set; } = null!;
+        public virtual DbSet<CustomerTransaction> CustomerTransaction { get; set; } = null!;
+        public virtual DbSet<CustomerType> CustomerType { get; set; } = null!;
+        public virtual DbSet<CustomerWallet> CustomerWallet { get; set; } = null!;
         public virtual DbSet<Dashboard> Dashboard { get; set; } = null!;
         public virtual DbSet<EmailLetterhead> EmailLetterhead { get; set; } = null!;
         public virtual DbSet<EmailPool> EmailPool { get; set; } = null!;
@@ -26,16 +30,14 @@ namespace AppCommon.DataLayer.DataMain.Models
         public virtual DbSet<EmailTemplate> EmailTemplate { get; set; } = null!;
         public virtual DbSet<Gender> Gender { get; set; } = null!;
         public virtual DbSet<Job> Job { get; set; } = null!;
-        public virtual DbSet<Member> Member { get; set; } = null!;
-        public virtual DbSet<MemberType> MemberType { get; set; } = null!;
         public virtual DbSet<Parameter> Parameter { get; set; } = null!;
+        public virtual DbSet<Product> Product { get; set; } = null!;
+        public virtual DbSet<ProductCategory> ProductCategory { get; set; } = null!;
         public virtual DbSet<Role> Role { get; set; } = null!;
+        public virtual DbSet<TransactionType> TransactionType { get; set; } = null!;
         public virtual DbSet<User> User { get; set; } = null!;
         public virtual DbSet<UserStatus> UserStatus { get; set; } = null!;
         public virtual DbSet<UserType> UserType { get; set; } = null!;
-        public virtual DbSet<Uye> Uye { get; set; } = null!;
-        public virtual DbSet<UyeDurum> UyeDurum { get; set; } = null!;
-        public virtual DbSet<UyeGrup> UyeGrup { get; set; } = null!;
         public virtual DbSet<Version> Version { get; set; } = null!;
         public virtual DbSet<VwAuditLog> VwAuditLog { get; set; } = null!;
         public virtual DbSet<VwSystemLog> VwSystemLog { get; set; } = null!;
@@ -124,8 +126,122 @@ namespace AppCommon.DataLayer.DataMain.Models
                 entity.Property(e => e.SubName).HasMaxLength(20);
             });
 
+            modelBuilder.Entity<Customer>(entity =>
+            {
+                entity.HasIndex(e => e.NameSurname, "IX_Customer_NameSurname");
+
+                entity.HasIndex(e => e.UserStatusId, "IX_Customer_UserStatusId");
+
+                entity.HasIndex(e => e.Email, "UX_Customer_Email")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.UniqueId, "UX_Customer_UniqueId")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Avatar).IsUnicode(false);
+
+                entity.Property(e => e.CreateDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Email).HasMaxLength(100);
+
+                entity.Property(e => e.GaSecretKey).HasMaxLength(100);
+
+                entity.Property(e => e.NameSurname).HasMaxLength(100);
+
+                entity.Property(e => e.Password).HasMaxLength(100);
+
+                entity.Property(e => e.ResidenceAddress).HasMaxLength(50);
+
+                entity.Property(e => e.SessionGuid).HasMaxLength(100);
+
+                entity.Property(e => e.UpdateDate).HasColumnType("datetime");
+
+                entity.Property(e => e.ValidityDate).HasColumnType("date");
+
+                entity.HasOne(d => d.CustomerType)
+                    .WithMany(p => p.Customer)
+                    .HasForeignKey(d => d.CustomerTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Customer_CustomerTypeId");
+
+                entity.HasOne(d => d.UserStatus)
+                    .WithMany(p => p.Customer)
+                    .HasForeignKey(d => d.UserStatusId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Customer_UserStatusId");
+            });
+
+            modelBuilder.Entity<CustomerTransaction>(entity =>
+            {
+                entity.HasIndex(e => e.CustomerId, "IX_CustomerTransaction_CustomerId");
+
+                entity.HasIndex(e => e.UniqueId, "UX_CustomerTransaction_UniqueId")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.CreateDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Credit).HasColumnType("decimal(18, 6)");
+
+                entity.Property(e => e.Debit).HasColumnType("decimal(18, 6)");
+
+                entity.Property(e => e.UpdateDate).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Customer)
+                    .WithMany(p => p.CustomerTransaction)
+                    .HasForeignKey(d => d.CustomerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CustomerTransaction_CustomerId");
+
+                entity.HasOne(d => d.CustomerWallet)
+                    .WithMany(p => p.CustomerTransaction)
+                    .HasForeignKey(d => d.CustomerWalletId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CustomerTransaction_CustomerWalletId");
+            });
+
+            modelBuilder.Entity<CustomerType>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Name).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<CustomerWallet>(entity =>
+            {
+                entity.HasIndex(e => e.CustomerId, "IX_CustomerWallet_CustomerId");
+
+                entity.HasIndex(e => new { e.CurrencyId, e.WalletNumber }, "UX_CustomerWallet_CurrencyId_WalletNumber")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.UniqueId, "UX_CustomerWallet_UniqueId")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.CreateDate).HasColumnType("datetime");
+
+                entity.Property(e => e.UpdateDate).HasColumnType("datetime");
+
+                entity.Property(e => e.WalletNumber)
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.Customer)
+                    .WithMany(p => p.CustomerWallet)
+                    .HasForeignKey(d => d.CustomerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CustomerWallet_CustomerId");
+            });
+
             modelBuilder.Entity<Dashboard>(entity =>
             {
+                entity.HasIndex(e => e.UniqueId, "UX_Dashboard_UniqueId")
+                    .IsUnique();
+
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.CreateDate).HasColumnType("datetime");
@@ -148,6 +264,9 @@ namespace AppCommon.DataLayer.DataMain.Models
                 entity.HasIndex(e => e.Description, "UX_EmailLetterhead_Description")
                     .IsUnique();
 
+                entity.HasIndex(e => e.UniqueId, "UX_EmailLetterhead_UniqueId")
+                    .IsUnique();
+
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.CreateDate).HasColumnType("datetime");
@@ -162,6 +281,9 @@ namespace AppCommon.DataLayer.DataMain.Models
                 entity.HasIndex(e => e.CreateDate, "IX_EmailPool_CreateDate");
 
                 entity.HasIndex(e => e.EmailTemplateId, "IX_EmailPool_EmailTemplateId");
+
+                entity.HasIndex(e => e.UniqueId, "IX_EmailPool_UniqueId")
+                    .IsUnique();
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
@@ -201,6 +323,9 @@ namespace AppCommon.DataLayer.DataMain.Models
                 entity.HasIndex(e => e.Name, "UX_EmailTemplate_Name")
                     .IsUnique();
 
+                entity.HasIndex(e => e.UniqueId, "UX_EmailTemplate_UniqueId")
+                    .IsUnique();
+
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.CreateDate).HasColumnType("datetime");
@@ -238,72 +363,11 @@ namespace AppCommon.DataLayer.DataMain.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.DaysOfTheMonth)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.DaysOfTheWeek)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.MethodComment).HasMaxLength(500);
 
                 entity.Property(e => e.MethodName).HasMaxLength(100);
 
                 entity.Property(e => e.MethodParams).HasMaxLength(500);
-
-                entity.Property(e => e.Months)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<Member>(entity =>
-            {
-                entity.HasIndex(e => e.UserStatusId, "IX_Member_UserStatusId");
-
-                entity.HasIndex(e => e.Email, "UX_Member_Email")
-                    .IsUnique();
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.Property(e => e.Avatar).IsUnicode(false);
-
-                entity.Property(e => e.CreateDate).HasColumnType("datetime");
-
-                entity.Property(e => e.Email).HasMaxLength(100);
-
-                entity.Property(e => e.GaSecretKey).HasMaxLength(100);
-
-                entity.Property(e => e.NameSurname).HasMaxLength(100);
-
-                entity.Property(e => e.Password).HasMaxLength(100);
-
-                entity.Property(e => e.ResidenceAddress).HasMaxLength(50);
-
-                entity.Property(e => e.SessionGuid).HasMaxLength(100);
-
-                entity.Property(e => e.UpdateDate).HasColumnType("datetime");
-
-                entity.Property(e => e.ValidityDate).HasColumnType("date");
-
-                entity.HasOne(d => d.MemberType)
-                    .WithMany(p => p.Member)
-                    .HasForeignKey(d => d.MemberTypeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Member_MemberTypeId");
-
-                entity.HasOne(d => d.UserStatus)
-                    .WithMany(p => p.Member)
-                    .HasForeignKey(d => d.UserStatusId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Member_UserStatusId");
-            });
-
-            modelBuilder.Entity<MemberType>(entity =>
-            {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.Property(e => e.Name).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Parameter>(entity =>
@@ -323,9 +387,54 @@ namespace AppCommon.DataLayer.DataMain.Models
                 entity.Property(e => e.SiteAddress).HasMaxLength(100);
             });
 
+            modelBuilder.Entity<Product>(entity =>
+            {
+                entity.HasIndex(e => e.ProductCategoryId, "IX_Product_ProductCategoryId");
+
+                entity.HasIndex(e => e.Name, "UX_Product_Name")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.UniqueId, "UX_Product_UniqueId")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.CreateDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Name).HasMaxLength(150);
+
+                entity.Property(e => e.UpdateDate).HasColumnType("datetime");
+
+                entity.HasOne(d => d.ProductCategory)
+                    .WithMany(p => p.Product)
+                    .HasForeignKey(d => d.ProductCategoryId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Product_ProductCategoryId");
+            });
+
+            modelBuilder.Entity<ProductCategory>(entity =>
+            {
+                entity.HasIndex(e => e.Name, "UX_ProductCategory_Name")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.UniqueId, "UX_ProductCategory_UniqueId")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.CreateDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Name).HasMaxLength(50);
+
+                entity.Property(e => e.UpdateDate).HasColumnType("datetime");
+            });
+
             modelBuilder.Entity<Role>(entity =>
             {
                 entity.HasIndex(e => e.Name, "UX_Role_Name")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.UniqueId, "UX_Role_UniqueId")
                     .IsUnique();
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
@@ -337,6 +446,13 @@ namespace AppCommon.DataLayer.DataMain.Models
                 entity.Property(e => e.UpdateDate).HasColumnType("datetime");
             });
 
+            modelBuilder.Entity<TransactionType>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Name).HasMaxLength(50);
+            });
+
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasIndex(e => e.CreateDate, "IX_User_CreateDate");
@@ -346,6 +462,9 @@ namespace AppCommon.DataLayer.DataMain.Models
                 entity.HasIndex(e => e.UserTypeId, "IX_User_UserTypeId");
 
                 entity.HasIndex(e => e.Email, "UX_User_Email")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.UniqueId, "UX_User_UniqueId")
                     .IsUnique();
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
@@ -395,57 +514,6 @@ namespace AppCommon.DataLayer.DataMain.Models
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Name).HasMaxLength(50);
-            });
-
-            modelBuilder.Entity<Uye>(entity =>
-            {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.Property(e => e.Avatar).IsUnicode(false);
-
-                entity.Property(e => e.CountryCode).HasMaxLength(2);
-
-                entity.Property(e => e.CreateDate).HasColumnType("datetime");
-
-                entity.Property(e => e.GaSecretKey).HasMaxLength(100);
-
-                entity.Property(e => e.NameSurname).HasMaxLength(100);
-
-                entity.Property(e => e.SessionGuid).HasMaxLength(100);
-
-                entity.Property(e => e.UpdateDate).HasColumnType("datetime");
-
-                entity.Property(e => e.UserName).HasMaxLength(100);
-
-                entity.Property(e => e.UserPassword).HasMaxLength(100);
-
-                entity.Property(e => e.ValidityDate).HasColumnType("date");
-
-                entity.HasOne(d => d.UyeDurum)
-                    .WithMany(p => p.Uye)
-                    .HasForeignKey(d => d.UyeDurumId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Uye_UyeDurumId");
-
-                entity.HasOne(d => d.UyeGrup)
-                    .WithMany(p => p.Uye)
-                    .HasForeignKey(d => d.UyeGrupId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Uye_UyeGrupId");
-            });
-
-            modelBuilder.Entity<UyeDurum>(entity =>
-            {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.Property(e => e.Ad).HasMaxLength(50);
-            });
-
-            modelBuilder.Entity<UyeGrup>(entity =>
-            {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.Property(e => e.Ad).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Version>(entity =>
@@ -567,19 +635,25 @@ namespace AppCommon.DataLayer.DataMain.Models
 
             modelBuilder.HasSequence<int>("sqCurrency").StartsAt(101);
 
+            modelBuilder.HasSequence<int>("sqCustomerTransaction");
+
+            modelBuilder.HasSequence<int>("sqCustomerWallet");
+
+            modelBuilder.HasSequence<int>("sqCutomer");
+
             modelBuilder.HasSequence<int>("sqDashboard").StartsAt(101);
 
             modelBuilder.HasSequence<int>("sqEmailLetterhead");
 
             modelBuilder.HasSequence<int>("sqEmailPool");
 
+            modelBuilder.HasSequence<int>("sqProduct").StartsAt(10001);
+
+            modelBuilder.HasSequence<int>("sqProductCategory").StartsAt(1001);
+
             modelBuilder.HasSequence<int>("sqRole").StartsAt(2001);
 
             modelBuilder.HasSequence<int>("sqUser");
-
-            modelBuilder.HasSequence<int>("sqUye");
-
-            modelBuilder.HasSequence<int>("sqUyeGrup");
 
             OnModelCreatingPartial(modelBuilder);
         }

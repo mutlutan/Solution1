@@ -326,8 +326,8 @@ namespace AppCommon.Business
 						string jsonText = dataClaim.Value.MyFromBase64Str();
 						moMemberToken = System.Text.Json.JsonSerializer.Deserialize<MoAccessToken>(jsonText);
 
-						var member = this.dataContext.Uye
-							.Where(c => c.Id == moMemberToken.AccountId && c.UyeDurumId == (int)EnmUserStatus.Active && c.IsConfirmed == true)
+						var member = this.dataContext.Customer
+							.Where(c => c.Id == moMemberToken.AccountId && c.UserStatusId == (int)EnmUserStatus.Active && c.IsEmailConfirmed == true)
 							.OrderByDescending(o => o.Id).FirstOrDefault();
 
 						if (member == null)
@@ -710,21 +710,21 @@ namespace AppCommon.Business
 
 			try
 			{
-				var memberModel = this.dataContext.Uye
+				var memberModel = this.dataContext.Customer
 					.Where(c => c.Id > 0)
-					.Where(c => c.UserName == input.UserName && c.UserPassword == input.Password.MyToEncryptPassword())
+					.Where(c => c.Email == input.UserName && c.Password == input.Password.MyToEncryptPassword())
 					.FirstOrDefault();
 
 				if (memberModel != null)
 				{
-					if (memberModel.UyeDurumId == EnmUserStatus.Active.GetHashCode())
+					if (memberModel.UserStatusId == EnmUserStatus.Active.GetHashCode())
 					{
 						MoAccessToken accessToken = new()
 						{
 							AccountId = memberModel.Id,
 							SessionGuid = Guid.NewGuid().ToString(),
 							Culture = input.Culture,
-							AccountName = memberModel.UserName,
+							AccountName = memberModel.Email,
 							NameSurname = memberModel.NameSurname,
 							IsLogin = true,
 							IsPasswordDateValid = true
@@ -805,7 +805,7 @@ namespace AppCommon.Business
 				{
 					//member çıkış bilgisi güncelleniyor (son işlem zamanı)(bu asenkron olsun bekleme yapmasın)
 					// son yazılabilen çıkış zamanı gerçeğe en yakın çıkış zamanıdır
-					var member = this.dataContext.Uye
+					var member = this.dataContext.Customer
 						.Where(c => c.SessionGuid == this.UserToken.SessionGuid)
 						.FirstOrDefault();
 

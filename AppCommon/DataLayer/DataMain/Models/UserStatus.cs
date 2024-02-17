@@ -7,14 +7,14 @@ namespace AppCommon.DataLayer.DataMain.Models
     {
         public UserStatus()
         {
-            Member = new HashSet<Member>();
+            Customer = new HashSet<Customer>();
             User = new HashSet<User>();
         }
 
         public int Id { get; set; }
         public string? Name { get; set; }
 
-        public virtual ICollection<Member> Member { get; set; }
+        public virtual ICollection<Customer> Customer { get; set; }
         public virtual ICollection<User> User { get; set; }
     }
 }

@@ -329,7 +329,8 @@
 		Email				NVARCHAR(100),
 		Password			NVARCHAR(100),	/*Bu alan her update olduğunda, KullaniciSifre tablosuna insert edilecek, history için*/
 		RoleIds				NVARCHAR(MAX),
-		
+		Authority			NVARCHAR(MAX),		/*Yetkiler*/
+
 		GaSecretKey			NVARCHAR(100),	/*Google Authenticator Secret Key*/
 		SessionGuid			NVARCHAR(100),	/*Login olan kullanıcıya verilen unique orturum id*/
 		ValidityDate		DATE,			/* Şifre geçerlilik tarihi*/

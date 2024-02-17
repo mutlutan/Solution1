@@ -11,10 +11,5 @@ namespace AppCommon.DataLayer.DataMain.Models
         public string? MethodParams { get; set; }
         public string? MethodComment { get; set; }
         public string? CronExpression { get; set; }
-        public bool IsPeriodic { get; set; }
-        public TimeSpan StartTime { get; set; }
-        public string? DaysOfTheWeek { get; set; }
-        public string? Months { get; set; }
-        public string? DaysOfTheMonth { get; set; }
     }
 }
