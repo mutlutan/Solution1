@@ -22,6 +22,7 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
                     UseAuthenticator = s.UseAuthenticator,
                     SiteAddress = s.SiteAddress,
                     InstitutionEmail = s.InstitutionEmail,
+                    InstitutionGeoLocation = s.InstitutionGeoLocation,
                     AuditLog = s.AuditLog,
                     AuditLogTables = s.AuditLogTables,
                     EmailHost = s.EmailHost,
@@ -74,6 +75,7 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
          row.UseAuthenticator = _model.UseAuthenticator;
          row.SiteAddress = _model.SiteAddress;
          row.InstitutionEmail = _model.InstitutionEmail;
+         row.InstitutionGeoLocation = _model.InstitutionGeoLocation;
          row.AuditLog = _model.AuditLog;
          row.AuditLogTables = _model.AuditLogTables;
          row.EmailHost = _model.EmailHost;

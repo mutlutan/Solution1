@@ -71,6 +71,14 @@
  }
 ,
  {
+     "key" : "xLng.Parameter.InstitutionGeoLocation",
+     "value": {
+         "tr": "Kurumun Coğrafi Konumu",
+         "en": "Institution Geo Location"
+     }
+ }
+,
+ {
      "key" : "xLng.Parameter.AuditLog",
      "value": {
          "tr": "Audit Log",

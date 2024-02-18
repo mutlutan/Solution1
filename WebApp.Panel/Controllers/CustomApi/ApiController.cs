@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using WebApp.Panel.Codes;
 using AppCommon;
-using AppCommon.Business;
 
 namespace WebApp.Panel.Controllers
 {

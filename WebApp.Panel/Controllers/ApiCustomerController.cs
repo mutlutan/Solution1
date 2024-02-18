@@ -13,19 +13,19 @@ namespace WebApp.Panel.Controllers
 {
     [Route("Panel/[controller]")]
     [ApiController]
-    public class ApiParameterController : BaseController
+    public class ApiCustomerController : BaseController
     {
-        public ApiParameterController(IServiceProvider _serviceProvider) : base(_serviceProvider) { }
+        public ApiCustomerController(IServiceProvider _serviceProvider) : base(_serviceProvider) { }
 
         [HttpPost("Read")]
         [ResponseCache(Duration = 0)]
-        [AuthenticateRequired(AuthorityKeys = "Parameter.D_R.")]
+        [AuthenticateRequired(AuthorityKeys = "Customer.D_R.")]
         public ActionResult Read([FromBody]ApiRequest request)
         {
             DataSourceResult dsr = new();
             try
             {
-                var query = this.business.repository.RepParameter.Get();
+                var query = this.business.repository.RepCustomer.Get();
                 query = query.Where(c => c.Id > 0);
                 dsr = query.ToDataSourceResult(request.MyToDataSourceRequest());
             }
@@ -38,26 +38,26 @@ namespace WebApp.Panel.Controllers
 
         [HttpGet("GetByNew")]
         [ResponseCache(Duration = 0)]
-        [AuthenticateRequired(AuthorityKeys = "Parameter.D_C.")]
+        [AuthenticateRequired(AuthorityKeys = "Customer.D_C.")]
         public ActionResult GetByNew()
         {
-             return Json(this.business.repository.RepParameter.GetByNew());
+             return Json(this.business.repository.RepCustomer.GetByNew());
         }
 
         [HttpPost("Create")]
         [ResponseCache(Duration = 0)]
-        [AuthenticateRequired(AuthorityKeys = "Parameter.D_C.")]
+        [AuthenticateRequired(AuthorityKeys = "Customer.D_C.")]
         public ActionResult Create([FromBody] object obj)
         {
             DataSourceResult dsr = new();
             try
             {
-                var model = new NetTopologySuite.IO.GeoJsonReader().Read<Parameter>(obj.MyToStr());
+                var model = new NetTopologySuite.IO.GeoJsonReader().Read<Customer>(obj.MyToStr());
                 if (model != null)
                 {
-                    Int32 id = this.business.repository.RepParameter.CreateOrUpdate(model, true);
+                    Int32 id = this.business.repository.RepCustomer.CreateOrUpdate(model, true);
                     this.business.repository.SaveChanges();
-                    dsr.Data = this.business.repository.RepParameter.GetById(id);
+                    dsr.Data = this.business.repository.RepCustomer.GetById(id);
                 }
                 else
                 {
@@ -75,18 +75,18 @@ namespace WebApp.Panel.Controllers
 
         [HttpPost("Update")]
         [ResponseCache(Duration = 0)]
-        [AuthenticateRequired(AuthorityKeys = "Parameter.D_U.")]
+        [AuthenticateRequired(AuthorityKeys = "Customer.D_U.")]
         public ActionResult Update([FromBody] object obj)
         {
             DataSourceResult dsr = new();
             try
             {
-                var model = new NetTopologySuite.IO.GeoJsonReader().Read<Parameter>(obj.MyToStr());
+                var model = new NetTopologySuite.IO.GeoJsonReader().Read<Customer>(obj.MyToStr());
                 if (model != null)
                 {
-                    Int32 id = this.business.repository.RepParameter.CreateOrUpdate(model, false);
+                    Int32 id = this.business.repository.RepCustomer.CreateOrUpdate(model, false);
                     this.business.repository.SaveChanges();
-                    dsr.Data = this.business.repository.RepParameter.GetById(id);
+                    dsr.Data = this.business.repository.RepCustomer.GetById(id);
                 }
                 else
                 {
@@ -104,16 +104,16 @@ namespace WebApp.Panel.Controllers
 
         [HttpPost("Delete")]
         [ResponseCache(Duration = 0)]
-        [AuthenticateRequired(AuthorityKeys = "Parameter.D_D.")]
+        [AuthenticateRequired(AuthorityKeys = "Customer.D_D.")]
         public ActionResult Delete([FromBody] object obj)
         {
             DataSourceResult dsr = new();
             try
             {
-                var model = Newtonsoft.Json.JsonConvert.DeserializeObject<Parameter>(obj.MyToStr());
+                var model = Newtonsoft.Json.JsonConvert.DeserializeObject<Customer>(obj.MyToStr());
                 if (model != null)
                 {
-                    this.business.repository.RepParameter.Delete(model.Id);
+                    this.business.repository.RepCustomer.Delete(model.Id);
                     this.business.repository.SaveChanges();
                 }
                 else

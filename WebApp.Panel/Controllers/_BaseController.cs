@@ -45,8 +45,8 @@ namespace WebApp.Panel.Controllers
         public override void OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext context)
         {
             //ortak viewbag ler
-            //ViewBag.ControllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
-            //ViewBag.ActionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            ViewBag.ControllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            ViewBag.ActionName = this.ControllerContext.RouteData.Values["action"].ToString();
             ViewBag.Culture = "tr-TR";
             ViewBag.Language = System.Globalization.CultureInfo.GetCultureInfo(ViewBag.Culture).Parent.IetfLanguageTag;
             ViewBag.LoginImageUrl = "/img/account/login.png?v." + Codes.MyApp.Version;

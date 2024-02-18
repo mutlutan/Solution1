@@ -51,6 +51,21 @@
                              </div>
                          </div>
 
+                         <div name='divInstitutionGeoLocation' class='mnFormElementDiv form-group row'>
+                             <label class='col-sm-4 col-form-label'>
+                                <span class='' data-langkey-text='xLng.Parameter.InstitutionGeoLocation'></span>
+                             </label>
+                             <div class='col-sm-8' style='position:relative;' >
+                                 <textarea name='InstitutionGeoLocation' class='form-control' data-bind='value:InstitutionGeoLocation' data-langkey-placeholder='xLng.Parameter.InstitutionGeoLocation'  style='height:65px;'  ></textarea>
+                                 <button id='btnClearInstitutionGeoLocation' class='btn btn-link btn-sm' style='position:absolute; top:-6px; right:7px;'>
+                                     <i class='bi bi-trash'></i>
+                                 </button>
+                                 <div class='mt-1' style='height:130px;'>
+                                     <comp-google-map name='InstitutionGeoLocation' center='{ "lat": 39.9187725, "lng": 32.85806 }' zoom='11' map-type-id='roadmap'></comp-google-map>
+                                 </div>
+                             </div>
+                         </div>
+
 
                     </div>
 
@@ -199,6 +214,12 @@
                          return JSON.stringify(data);
                      }
                      else if (operation === 'create' || operation === 'update') {
+                         //Geometry data için
+                         if (data.InstitutionGeoLocation != null && data.InstitutionGeoLocation.trim().length > 0) {
+							data.InstitutionGeoLocation = JSON.parse(data.InstitutionGeoLocation);
+                         } else {
+							data.InstitutionGeoLocation = null;
+                         }
 
                          return JSON.stringify(data);
                      }
@@ -262,6 +283,18 @@
 
                      self.msAuditLogTables.value([]);
                      if (e.response.Data.length > 0) {
+						 //mapEditor marker
+						 self.mapEditorInstitutionGeoLocation.fnDeleteAllMarkers();
+                         if (e.response.Data[0].InstitutionGeoLocation != null) {
+							self.mapEditorInstitutionGeoLocation.drawingManager.setDrawingMode('');
+							e.response.Data[0].InstitutionGeoLocation = JSON.stringify(e.response.Data[0].InstitutionGeoLocation);
+							let itemInstitutionGeoLocation = JSON.parse(e.response.Data[0].InstitutionGeoLocation);
+							let lat = parseFloat(itemInstitutionGeoLocation.coordinates[0]);
+							let lng = parseFloat(itemInstitutionGeoLocation.coordinates[1]);
+							self.mapEditorInstitutionGeoLocation.fnAddMarker({ 'title': self.tableName, position: { 'lat': lat, 'lng': lng }, 'draggable': true, 'icon': '/img/maps/markers/marker.png' });
+                         } else {
+							self.mapEditorInstitutionGeoLocation.drawingManager.setDrawingMode('marker');
+                         }
                          if (e.response.Data[0].AuditLogTables !== null || undefined || '') {
                             self.msAuditLogTables.value(e.response.Data[0].AuditLogTables.split(','));
                          }
@@ -279,6 +312,7 @@
                                  e.items[0].UseAuthenticator = result.UseAuthenticator;
                                  e.items[0].SiteAddress = result.SiteAddress;
                                  e.items[0].InstitutionEmail = result.InstitutionEmail;
+                                 e.items[0].InstitutionGeoLocation = result.InstitutionGeoLocation;
                                  e.items[0].AuditLog = result.AuditLog;
                                  e.items[0].AuditLogTables = result.AuditLogTables;
                                  e.items[0].EmailHost = result.EmailHost;
@@ -299,6 +333,9 @@
                                      }
                                  });
 
+                                 //(MapEditor için, new row da ilk durum set ediliyor)
+                                 self.mapEditorInstitutionGeoLocation.fnDeleteAllMarkers();
+                                 self.mapEditorInstitutionGeoLocation.drawingManager.setDrawingMode('marker');
                                  //(multi select için)
                                  self.msAuditLogTables.value([]);
                                  if (e.items[0].AuditLogTables !== null || undefined || '') {
@@ -378,6 +415,38 @@
          });
 
          //Diğer Form elementleri
+		 //TextArea üzerinde MapEditor için data clear
+         $(self.selector).find('#btnClearInstitutionGeoLocation').click(function (e) {
+            var dataItem = self.dataSource.at(0);
+            dataItem.set('InstitutionGeoLocation', null);
+         });
+
+         //mapEditor instance
+         self.mapEditorInstitutionGeoLocation = $(self.selector).find('comp-google-map[name=InstitutionGeoLocation]').get(0);
+			//mapEditor overlaycomplete
+			self.mapEditorInstitutionGeoLocation.addEventListener('overlaycomplete', (event) => {
+				//console.log('event overlaycomplete', event, event.detail.value);
+				event.target.drawingManager.setDrawingMode(null); // Şekil çizdikten sonra çizim dışı moda geri dönün.
+				let elmMapEditor = event.target;
+				if (elmMapEditor.markers.length > 0) {
+					var lat = elmMapEditor.markers[0].position.lat();
+					var lng = elmMapEditor.markers[0].position.lng();
+					var itemValue = { 'type': 'Point', 'coordinates': [lat, lng] };
+					self.dataSource.at(0).set('InstitutionGeoLocation', JSON.stringify(itemValue));
+				}
+			});
+			//mapEditor markerDragend
+			self.mapEditorInstitutionGeoLocation.addEventListener('markerDragend', (event) => {
+				//console.log('event markerDragend', event, event.detail.value);
+				let elmMapEditor = event.target;
+				if (elmMapEditor.markers.length > 0) {
+					var lat = elmMapEditor.markers[0].position.lat();
+					var lng = elmMapEditor.markers[0].position.lng();
+					var itemValue = { "type": "Point", "coordinates": [lat, lng] };
+					self.dataSource.at(0).set('InstitutionGeoLocation', JSON.stringify(itemValue));
+				}
+			});
+
          self.msAuditLogTables = $(self.selector).find('[name=AuditLogTables]').kendoMultiSelect({
              valuePrimitive: true,
              autoClose: false,
@@ -428,6 +497,7 @@
         fieldList.push({ 'Name': 'UseAuthenticator', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'SiteAddress', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'InstitutionEmail', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
+        fieldList.push({ 'Name': 'InstitutionGeoLocation', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'AuditLog', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'AuditLogTables', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });
         fieldList.push({ 'Name': 'EmailHost', 'Visible': '11,21,31,41'.indexOf(mnUser.Info.nYetkiGrup) >= 0 });

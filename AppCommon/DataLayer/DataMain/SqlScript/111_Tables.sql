@@ -40,9 +40,10 @@
 		Id					INT NOT NULL,
 
 		/*Genel*/
-		UseAuthenticator	BIT NOT NULL,
-		SiteAddress			NVARCHAR(100) NOT NULL, /*local : http://localhost:5002  sunucu: https://www.qq.com*/
-		InstitutionEmail	NVARCHAR(100), /* default alıcı mail adresi*/
+		UseAuthenticator		BIT NOT NULL,
+		SiteAddress				NVARCHAR(100) NOT NULL, /*local : http://localhost:5002  sunucu: https://www.qq.com*/
+		InstitutionEmail		NVARCHAR(100), /* default alıcı mail adresi*/
+		InstitutionGeoLocation	GEOGRAPHY, /*Kurum Konum bilgisi -  automatik de alınabilir, şart değil*/
 
 		/*Audit yapılacak tablolar*/
 		AuditLog			BIT NOT NULL,
@@ -329,7 +330,7 @@
 		Email				NVARCHAR(100),
 		Password			NVARCHAR(100),	/*Bu alan her update olduğunda, KullaniciSifre tablosuna insert edilecek, history için*/
 		RoleIds				NVARCHAR(MAX),
-		Authority			NVARCHAR(MAX),		/*Yetkiler*/
+		Authority			NVARCHAR(MAX),		/*Ek Yetkiler, rolden gelenlere ek olarak değerlendirilir*/
 
 		GaSecretKey			NVARCHAR(100),	/*Google Authenticator Secret Key*/
 		SessionGuid			NVARCHAR(100),	/*Login olan kullanıcıya verilen unique orturum id*/
@@ -368,8 +369,8 @@
 	INSERT INTO CustomerType (Id, Name) VALUES (11, N'Standart');
 	INSERT INTO CustomerType (Id, Name) VALUES (12, N'Influencer');
 
-	/*Cutomer - Müşteri*/
-	CREATE SEQUENCE dbo.sqCutomer AS INT START WITH 1 INCREMENT BY 1;
+	/*Customer - Müşteri*/
+	CREATE SEQUENCE dbo.sqCustomer AS INT START WITH 1 INCREMENT BY 1;
 	CREATE TABLE dbo.Customer(
 		Id					INT NOT NULL,
 
@@ -380,7 +381,7 @@
 		NameSurname			NVARCHAR(100), 
 		ResidenceAddress	NVARCHAR(50), /*ikamet adresi*/ 
 		Avatar				VARCHAR(MAX), /*vesikalık resim*/
-		GeoLocation			GEOGRAPHY, /*Üye Konum bilgisi -  automatik de alınabilir, şart değil*/
+		GeoLocation			GEOGRAPHY,    /*Müşteri Konum bilgisi -  automatik de alınabilir, şart değil*/
 
 		Email				NVARCHAR(100),
 		Password			NVARCHAR(100),	/*Bu alan her update olduğunda, KullaniciSifre tablosuna insert edilecek, history için*/

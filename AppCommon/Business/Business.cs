@@ -389,6 +389,8 @@ namespace AppCommon.Business
 
 			return rV;
 		}
+
+		
 		#endregion
 
 		#region Kullanıcı
@@ -1381,33 +1383,10 @@ namespace AppCommon.Business
 
 			try
 			{
-				List<Dashboard> dashboardList = new()
-				{
-					new Dashboard()
-					{
-						Id = 101,
-						LineNumber = 1,
-						TemplateName = "template1",
-						Title = "Kullanıcı", //this.dataContext.TranslateTo("xLng.User.ShortTitle"),
-						IconClass = "fa fa-fw fa-4x fa-users",
-						IconStyle = "color:red;",
-						DetailUrl = "#/User",
-						Query = "Select Count(*) From [User]"
-					},
-					new Dashboard()
-					{
-						Id = 102,
-						LineNumber = 2,
-						TemplateName = "template1",
-						Title = "Uye",//this.dataContext.TranslateTo("xLng.User.ShortTitle"),
-						IconClass = "fa fa-fw fa-4x fa-id-card-o",
-						IconStyle = "color:blue;",
-						DetailUrl = "#/Uye",
-						Query = "Select Count(*) From Uye"
-					}
-				};
+				var query = this.dataContext.Dashboard
+					.Where(c => c.Id > 0);
 
-				response.Data = dashboardList;
+				response.Data = query.ToList();
 				response.Success = true;
 			}
 			catch (Exception ex)
@@ -1465,6 +1444,34 @@ namespace AppCommon.Business
 			return response;
 		}
 
+		#endregion
+
+		#region maps işlemleri
+
+		/// <summary>
+		/// haritada listelenecek Customers listesi
+		/// </summary>
+		/// <returns></returns>
+		public MoResponse<List<Customer>> ReadCustomers()
+		{
+			MoResponse<List<Customer>> response = new();
+
+			try
+			{
+				var query = this.dataContext.Customer
+					.Where(c => c.Id > 0).ToList();
+
+				response.Data = query;
+				response.Total=query.Count;
+				response.Success = true;
+			}
+			catch (Exception ex)
+			{
+				response.Messages.Add(ex.MyLastInner().Message);
+				WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
+			}
+			return response;
+		}
 		#endregion
 
 		public void Dispose()

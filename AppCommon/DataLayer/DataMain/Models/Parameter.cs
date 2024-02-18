@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using NetTopologySuite.Geometries;
 
 namespace AppCommon.DataLayer.DataMain.Models
 {
@@ -9,6 +10,7 @@ namespace AppCommon.DataLayer.DataMain.Models
         public bool UseAuthenticator { get; set; }
         public string SiteAddress { get; set; } = null!;
         public string? InstitutionEmail { get; set; }
+        public Geometry? InstitutionGeoLocation { get; set; }
         public bool AuditLog { get; set; }
         public string? AuditLogTables { get; set; }
         public string? EmailHost { get; set; }

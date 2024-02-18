@@ -635,11 +635,11 @@ namespace AppCommon.DataLayer.DataMain.Models
 
             modelBuilder.HasSequence<int>("sqCurrency").StartsAt(101);
 
+            modelBuilder.HasSequence<int>("sqCustomer");
+
             modelBuilder.HasSequence<int>("sqCustomerTransaction");
 
             modelBuilder.HasSequence<int>("sqCustomerWallet");
-
-            modelBuilder.HasSequence<int>("sqCutomer");
 
             modelBuilder.HasSequence<int>("sqDashboard").StartsAt(101);
 

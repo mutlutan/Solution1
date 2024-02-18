@@ -27,6 +27,7 @@ namespace AppCommon.DataLayer.DataMain.Repository
         public DmoCurrency RepCurrency { get; private set; }
         public DmoJob RepJob { get; private set; }
         public DmoVwUserLog RepVwUserLog { get; private set; }
+        public DmoCustomer RepCustomer { get; private set; }
         /*code_definition_end*/
 
         public Repository(MainDataContext context)
@@ -47,6 +48,7 @@ namespace AppCommon.DataLayer.DataMain.Repository
    
             this.RepJob = new DmoJob(this.dataContext);
             this.RepVwUserLog = new DmoVwUserLog(this.dataContext);
+            this.RepCustomer = new DmoCustomer(this.dataContext);
             /*code_constructor_end*/
         }
 

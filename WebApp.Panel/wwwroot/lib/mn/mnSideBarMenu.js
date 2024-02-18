@@ -22,7 +22,7 @@
             var style = `                                                                                     
                 <style>    
                     .mnSideBarMenu{
-                       font-size: 1.1em;
+                       font-size: 1em;
                     }
                     .mnSideBarMenu i:first-child{                                                             
                        color: ${self.opt.itemColor};
@@ -67,12 +67,12 @@
                         .mnSideBarMenu i.mnCollapseButton {                                                   
                             margin-top: 3px;                                                                  
                         }                                                                                     
-                        .mnSideBarMenu [aria-expanded="false"] i.mnCollapseButton {                           
-                            transition: 0.5s;                                                                 
+                        .mnSideBarMenu * {                           
+                            transition: all 0.3s;                                                                 
                         }                                                                                     
                         .mnSideBarMenu [aria-expanded="true"] i.mnCollapseButton {                            
                             transform: rotate(-90deg);                                                        
-                            transition: 0.5s;                                                                 
+                            transition: 0.3s;                                                                 
                         }                                                                                     
                 </style>
             `;
@@ -128,10 +128,10 @@
                                 newLine += '    <a ' + href + ' name="' + level_2_name + '" data-item-length="' + level_2_item_length + '" >';
                                 newLine += '        <i class="' + self.opt.dataSource[i].items[k].items[j].cssClass + '" style="vertical-align: middle;"></i>';
                                 newLine += '        <div style="display:inline-block; vertical-align: middle;">';
-                                newLine += '            <span style="display:block; font-size:0.7em;">' + self.opt.dataSource[i].items[k].items[j].text + '</span>';
+                                newLine += '            <span style="display:block;">' + self.opt.dataSource[i].items[k].items[j].text + '</span>';
                                 if (self.opt.dataSource[i].items[k].items[j].hint != undefined && self.opt.dataSource[i].items[k].items[j].hint != null && self.opt.dataSource[i].items[k].items[j].hint.length > 0) {
                                     if (self.opt.dataSource[i].items[k].items[j].text != self.opt.dataSource[i].items[k].items[j].hint) {
-                                        newLine += '            <span style="display:block; font-size:0.6em; opacity:0.5;">' + self.opt.dataSource[i].items[k].items[j].hint + '</span>';
+                                        newLine += '            <span style="display:block; opacity:0.5;">' + self.opt.dataSource[i].items[k].items[j].hint + '</span>';
                                     }
                                 }
                                 newLine += '        </div>';

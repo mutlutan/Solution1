@@ -1,5 +1,4 @@
 using AppCommon;
-using AppCommon.Business;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection;
 using WebApp.Panel.Codes;
