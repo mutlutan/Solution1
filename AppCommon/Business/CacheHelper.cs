@@ -126,9 +126,9 @@ namespace AppCommon.Business
         }
 
 
-        public void Dispose()
-        {
-            GC.SuppressFinalize(this);
-        }
-    }
+		public void Dispose()
+		{
+			GC.SuppressFinalize(this);
+		}
+	}
 }

@@ -12,13 +12,18 @@ using Telerik.DataSource;
 namespace AppCommon
 {
     #region Temel modleller
-    public class AppConfig
+    public class AppConfig :IDisposable
     {
         public string SelfHost { get; set; } = "";
 
         public string MainConnection { get; set; } = "";
         public string LogConnection { get; set; } = "";
-    }
+
+		public void Dispose()
+		{
+			GC.SuppressFinalize(this);
+		}
+	}
 
     public class MoResponse<T> where T : /*class,*/ new()
     {

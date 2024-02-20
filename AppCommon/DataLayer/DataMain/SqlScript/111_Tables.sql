@@ -283,8 +283,8 @@
 		CONSTRAINT PK_Dashboard PRIMARY KEY (Id)
 	);
 	CREATE UNIQUE INDEX UX_Dashboard_UniqueId ON Dashboard (UniqueId);
-	INSERT INTO Dashboard (Id, UniqueId, IsActive, LineNumber, TemplateName, Title, DetailUrl, IconClass, IconStyle, Query) VALUES (Next Value For dbo.sqRole, newid(), 1, 1, N'teplate1', N'User', N'#/User', N'fa fa-fw fa-4x fa-users', N'color:red', N'Select Count(*) From [User]');
-	INSERT INTO Dashboard (Id, UniqueId, IsActive, LineNumber, TemplateName, Title, DetailUrl, IconClass, IconStyle, Query) VALUES (Next Value For dbo.sqRole, newid(), 1, 2, N'teplate1', N'Customer', N'#/Customer', N'fa fa-fw fa-4x fa-id-card-o', N'color:blue', N'Select Count(*) From [Customer]');
+	INSERT INTO Dashboard (Id, UniqueId, IsActive, LineNumber, TemplateName, Title, DetailUrl, IconClass, IconStyle, Query) VALUES (Next Value For dbo.sqRole, newid(), 1, 1, N'template1', N'User', N'#/User', N'bi bi-people', N'color:red', N'Select Count(*) From [User]');
+	INSERT INTO Dashboard (Id, UniqueId, IsActive, LineNumber, TemplateName, Title, DetailUrl, IconClass, IconStyle, Query) VALUES (Next Value For dbo.sqRole, newid(), 1, 2, N'template1', N'Customer', N'#/Customer', N'bi bi-universal-access', N'color:blue', N'Select Count(*) From [Customer]');
 	
 
 	/*UserStatus*/

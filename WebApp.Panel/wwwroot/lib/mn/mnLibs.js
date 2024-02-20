@@ -461,7 +461,7 @@ window.mnApp = function () {
     };
 
     self.setKendoDefaults = function (_culture) {
-        if (kendo) {
+        if (typeof kendo !== 'undefined') {
             kendo.culture(_culture);
             /* kendo Validator messages */
             if (kendo.ui.Validator) {
@@ -484,6 +484,7 @@ window.mnApp = function () {
     self.prepare = function () {
         getAppInfo();
         registerEditorImageUrlSelector();
+        fnWaitDialogInit();
     };
 
     function getAppInfo() {
@@ -579,9 +580,7 @@ window.mnApp = function () {
 
     self.globalQueryFilterSet = function () {
         const params = new URLSearchParams(window.location.href.split('?')[1]);
-
-
-
+        
         for (const [key, value] of params) {
             console.log(key, value);
             var element = $('.mnFindPanel:visible').find('[data-find_field=' + key + ']');
@@ -597,6 +596,36 @@ window.mnApp = function () {
         }
         if (params.size > 0) {
             $('.mnFindPanel:visible').find('#btnFlitreUygula').click();
+        }
+    };
+
+    function fnWaitDialogInit() {
+        var tempWaitDialog = `
+            <div id="bootstrapWaitDialog" class="modal" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered" style="width: fit-content;">
+                    <div class="modal-content bg-transparent border border-0">
+                        <div class="modal-body">
+                            <div class="spinner-border text-light" role="status" style="width: 5rem; height: 5rem;">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        var target = document.querySelector("body");
+        target.innerHTML += tempWaitDialog;
+
+        self.bootstrapWaitDialog = new bootstrap.Modal("#bootstrapWaitDialog", {
+            keyboard: false
+        });
+    }
+
+    self.waitDialogShow = function (isShow) {
+        if (isShow) {
+            self.bootstrapWaitDialog.show();
+        } else {
+            self.bootstrapWaitDialog.hide();
         }
     };
 

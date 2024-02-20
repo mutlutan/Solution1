@@ -15,6 +15,7 @@ namespace WebApp.Panel.Controllers
         public IServiceProvider serviceProvider;
         public IWebHostEnvironment webHostEnvironment;
 		public IHttpContextAccessor accessor;
+
         public AppConfig appConfig;
 		public Business business;
         public CacheHelper cacheHelper;
@@ -64,7 +65,9 @@ namespace WebApp.Panel.Controllers
         {
             if (disposing)
             {
-                this.business.Dispose();
+                this.appConfig.Dispose();
+				this.cacheHelper.Dispose();
+				this.business.Dispose();
             }
 
             base.Dispose(disposing);

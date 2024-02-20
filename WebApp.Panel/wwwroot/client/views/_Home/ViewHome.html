@@ -68,7 +68,6 @@
                 type: "GET", dataType: "json", contentType: "application/json; charset=utf-8",
                 success: function (result, textStatus, jqXHR) {
                     if (result.Success == true) {
-
                         result.Data.forEach(item => {
                             self.fnAddDashboard(item);
                         });

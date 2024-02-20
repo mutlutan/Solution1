@@ -228,10 +228,10 @@
 				data: JSON.stringify(_data),
 				type: "POST", dataType: "json", contentType: "application/json; charset=utf-8",
 				beforeSend: function (jqXHR, settings) {
-					self.loaderLogin.show();
+					mnApp.waitDialogShow(true);
 				},
 				success: function (result, textStatus, jqXHR) {
-					self.loaderLogin.hide();
+					mnApp.waitDialogShow(false);
 
 					if (result.Success == true) {
 						document.cookie = "Authorization=" + result.Data.UserToken + ";path=/";
@@ -272,7 +272,7 @@
 					}
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
-					self.loaderLogin.hide();
+					mnApp.waitDialogShow(false);
 					alert("(" + jqXHR.status + ") " + jqXHR.statusText + "\n" + this.url);
 				}
 			});
@@ -289,6 +289,8 @@
 
 
 		self.prepare = function () {
+			// Language
+			mnLang.TranslateWithSelector($(self.selector));
 
 			self.fAnimateIn();
 
@@ -353,14 +355,6 @@
 				}
 			});
 
-			self.loaderLogin = $(self.selector).find('#loader').kendoLoader({
-				visible: false,
-				size: "small",
-				themeColor: 'white',
-				type: 'pulsing' //"pulsing", "infinite-spinner", "converging-spinner"
-			}).getKendoLoader();
-
-
 			//btnSifremiUnuttum
 			$(self.selector).find("#btnSifremiUnuttum").click(function (e) {
 			    // mnPopupView.create({
@@ -373,8 +367,7 @@
 			    // });
 			});
 
-			// Language
-			mnLang.TranslateWithSelector($(self.selector));
+
 		};
 
 		return self;

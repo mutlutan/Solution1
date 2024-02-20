@@ -3,6 +3,7 @@ using AppCommon.Business;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using System.Runtime.CompilerServices;
 using WebApp.Panel.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -116,6 +117,7 @@ app.Lifetime.ApplicationStarted.Register(() =>
     #endregion
 
 });
+
 #endregion
 
 
