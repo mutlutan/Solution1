@@ -78,7 +78,7 @@
                                  <button id='btnClearGeoLocation' class='btn btn-link btn-sm' style='position:absolute; top:-6px; right:7px;'>
                                      <i class='bi bi-trash'></i>
                                  </button>
-                                 <div class='mt-1' style='height:114px;'>
+                                 <div class='mt-1' style='height:76px;'>
                                      <comp-google-map name='GeoLocation' center='{ "lat": 39.9187725, "lng": 32.85806 }' zoom='11' map-type-id='roadmap'></comp-google-map>
                                  </div>
                              </div>
@@ -460,8 +460,8 @@
             dataItem.set('GeoLocation', null);
          });
 
-			//mapEditor instance
-			self.mapEditorGeoLocation = $(self.selector).find('comp-google-map[name=GeoLocation]').get(0);
+         //mapEditor instance
+         self.mapEditorGeoLocation = $(self.selector).find('comp-google-map[name=GeoLocation]').get(0);
 
          self.msRoleIds = $(self.selector).find('[name=RoleIds]').kendoMultiSelect({
              valuePrimitive: true,

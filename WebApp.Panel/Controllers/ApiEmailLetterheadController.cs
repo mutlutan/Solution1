@@ -61,7 +61,7 @@ namespace WebApp.Panel.Controllers
                 }
                 else
                 {
-                    dsr.Errors = this.business.repository.dataContext.TranslateTo("xLng.VeriModeliDonusturulemedi");
+                    dsr.Errors = this.business.dataContext.TranslateTo("xLng.VeriModeliDonusturulemedi");
                 }
 
             }
@@ -90,7 +90,7 @@ namespace WebApp.Panel.Controllers
                 }
                 else
                 {
-                    dsr.Errors = this.business.repository.dataContext.TranslateTo("xLng.VeriModeliDonusturulemedi");
+                    dsr.Errors = this.business.dataContext.TranslateTo("xLng.VeriModeliDonusturulemedi");
                 }
 
             }
@@ -118,7 +118,7 @@ namespace WebApp.Panel.Controllers
                 }
                 else
                 {
-                    dsr.Errors = this.business.repository.dataContext.TranslateTo("xLng.VeriModeliDonusturulemedi");
+                    dsr.Errors = this.business.dataContext.TranslateTo("xLng.VeriModeliDonusturulemedi");
                 }
 
             }
@@ -126,7 +126,7 @@ namespace WebApp.Panel.Controllers
             {
                 if (ex.Source == "Microsoft.EntityFrameworkCore.Relational")
                 {
-                    dsr.Errors = this.business.repository.dataContext.TranslateTo("xLng.BaglantiliKayitVarSilinemez");
+                    dsr.Errors = this.business.dataContext.TranslateTo("xLng.BaglantiliKayitVarSilinemez");
                 }
                 else
                 {

@@ -400,7 +400,7 @@ namespace AppCommon.Business
 			IEnumerable<string> rV = new List<string>();
 			try
 			{
-				var kullanici = this.repository.dataContext.User
+				var kullanici = this.dataContext.User
 					.Where(c => c.Id == userId).FirstOrDefault();
 
 				if (kullanici != null)
@@ -409,7 +409,7 @@ namespace AppCommon.Business
 					{
 						if (rolId.MyToTrim().Length > 0)
 						{
-							var rolRow = this.repository.dataContext.Role.Where(c => c.Id == Convert.ToInt32(rolId)).FirstOrDefault();
+							var rolRow = this.dataContext.Role.Where(c => c.Id == Convert.ToInt32(rolId)).FirstOrDefault();
 							if (rolRow != null)
 							{
 								if (rolRow.Authority != null)
@@ -648,7 +648,7 @@ namespace AppCommon.Business
 						//dtoKisi.SifreGecerlilikTarihi = DateTime.Now.Date.AddDays(-1);
 						//dtoKisi.Sifre = yeniSifre;
 						//repository.RepKisi.CreateOrUpdate(dtoKisi);
-						repository.dataContext.SaveChanges();
+						repository.SaveChanges();
 
 						response.Success = true;
 						response.Messages.Add(dataContext.TranslateTo("xLng.YeniSifreKayitliMailAdresineGonderildi"));
@@ -1229,12 +1229,12 @@ namespace AppCommon.Business
 					}
 					else
 					{
-						response.Messages.Add(this.repository.dataContext.TranslateTo("xLng.IslemYapilacakKayitBulunamadi"));
+						response.Messages.Add(this.dataContext.TranslateTo("xLng.IslemYapilacakKayitBulunamadi"));
 					}
 				}
 				else
 				{
-					response.Messages.Add(this.repository.dataContext.TranslateTo("xLng.VeriModeliDonusturulemedi"));
+					response.Messages.Add(this.dataContext.TranslateTo("xLng.VeriModeliDonusturulemedi"));
 				}
 
 			}
@@ -1242,7 +1242,7 @@ namespace AppCommon.Business
 			{
 				if (ex.Source == "Microsoft.EntityFrameworkCore.Relational")
 				{
-					response.Messages.Add(this.repository.dataContext.TranslateTo("xLng.BaglantiliKayitVarSilinemez"));
+					response.Messages.Add(this.dataContext.TranslateTo("xLng.BaglantiliKayitVarSilinemez"));
 				}
 				else
 				{
@@ -1352,12 +1352,12 @@ namespace AppCommon.Business
 					}
 					else
 					{
-						response.Messages.Add(this.repository.dataContext.TranslateTo("xLng.IslemYapilacakKayitBulunamadi"));
+						response.Messages.Add(this.dataContext.TranslateTo("xLng.IslemYapilacakKayitBulunamadi"));
 					}
 				}
 				else
 				{
-					response.Messages.Add(this.repository.dataContext.TranslateTo("xLng.VeriModeliDonusturulemedi"));
+					response.Messages.Add(this.dataContext.TranslateTo("xLng.VeriModeliDonusturulemedi"));
 				}
 
 			}
@@ -1365,7 +1365,7 @@ namespace AppCommon.Business
 			{
 				if (ex.Source == "Microsoft.EntityFrameworkCore.Relational")
 				{
-					response.Messages.Add(this.repository.dataContext.TranslateTo("xLng.BaglantiliKayitVarSilinemez"));
+					response.Messages.Add(this.dataContext.TranslateTo("xLng.BaglantiliKayitVarSilinemez"));
 				}
 				else
 				{
@@ -1476,7 +1476,6 @@ namespace AppCommon.Business
 
 		public void Dispose()
 		{
-			this.mailHelper.Dispose();
 			this.repository.Dispose();
 			this.dataContext.Dispose();
 			this.logDataContext.Dispose();

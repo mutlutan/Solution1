@@ -12,9 +12,9 @@ namespace AppCommon.DataLayer.DataMain.Repository
 {
     public class Repository : IDisposable
     {
-        public readonly MainDataContext dataContext;
-       
-        public DmoRole RepRole { get; private set; }
+        private readonly MainDataContext dataContext;
+
+		public DmoRole RepRole { get; private set; }
         public DmoParameter RepParameter { get; private set; }
         public DmoUser RepUser { get; private set; }
         

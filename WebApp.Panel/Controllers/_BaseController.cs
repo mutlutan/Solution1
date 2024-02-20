@@ -35,11 +35,11 @@ namespace WebApp.Panel.Controllers
             this.business.ContentRootPath = this.webHostEnvironment.ContentRootPath; 
 
 
-			this.business.repository.dataContext.AppDictionary = this.cacheHelper.GetDictionary(this.webHostEnvironment.WebRootPath);
-            this.business.repository.dataContext.UserId = this.business.UserToken.AccountId;
-            this.business.repository.dataContext.UserName = this.business.UserToken.AccountName;
-            this.business.repository.dataContext.Culture = new System.Globalization.CultureInfo(this.business.UserToken.Culture);
-            this.business.repository.dataContext.RefreshConnectionString();
+			this.business.dataContext.AppDictionary = this.cacheHelper.GetDictionary(this.webHostEnvironment.WebRootPath);
+            this.business.dataContext.UserId = this.business.UserToken.AccountId;
+            this.business.dataContext.UserName = this.business.UserToken.AccountName;
+            this.business.dataContext.Culture = new System.Globalization.CultureInfo(this.business.UserToken.Culture);
+            this.business.dataContext.RefreshConnectionString();
 		}
 
         public override void OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext context)

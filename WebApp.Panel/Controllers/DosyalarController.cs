@@ -209,11 +209,11 @@ namespace WebApp.Panel.Controllers
                         System.IO.Directory.CreateDirectory(_directoryName + "//Tanitim");
                     }
 
-                    rMessage += this.business.repository.dataContext.TranslateTo("xLng.viewDosyalar.DizinEklendi");
+                    rMessage += this.business.dataContext.TranslateTo("xLng.viewDosyalar.DizinEklendi");
                 }
                 else
                 {
-                    rMessage += this.business.repository.dataContext.TranslateTo("xLng.viewDosyalar.EklemekIstediginizDizinMevcut");
+                    rMessage += this.business.dataContext.TranslateTo("xLng.viewDosyalar.EklemekIstediginizDizinMevcut");
                 }
             }
             catch (Exception ex)
@@ -283,18 +283,18 @@ namespace WebApp.Panel.Controllers
                     if (!files.Any())
                     {
                         directoryInfo.Delete(false);
-                        rMessage = this.business.repository.dataContext.TranslateTo("xLng.viewDosyalar.DizinSilindi");
+                        rMessage = this.business.dataContext.TranslateTo("xLng.viewDosyalar.DizinSilindi");
                     }
                     else
                     {
                         rError = true;
-                        rMessage = this.business.repository.dataContext.TranslateTo("xLng.viewDosyalar.SilmekIstediginizDizinBosDegil");
+                        rMessage = this.business.dataContext.TranslateTo("xLng.viewDosyalar.SilmekIstediginizDizinBosDegil");
                     }
                 }
                 else
                 {
                     rError = true;
-                    rMessage = this.business.repository.dataContext.TranslateTo("xLng.viewDosyalar.SilmekIstediginizDizinBulunamadı");
+                    rMessage = this.business.dataContext.TranslateTo("xLng.viewDosyalar.SilmekIstediginizDizinBulunamadı");
                 }
             }
             catch (Exception ex)
@@ -322,18 +322,18 @@ namespace WebApp.Panel.Controllers
                     {
                         directoryInfo.EnumerateFiles("*.*", System.IO.SearchOption.TopDirectoryOnly)
                             .ToList().ForEach(f => f.Delete());
-                        rMessage = this.business.repository.dataContext.TranslateTo("xLng.viewDosyalar.DizinTemizlendi");
+                        rMessage = this.business.dataContext.TranslateTo("xLng.viewDosyalar.DizinTemizlendi");
                     }
                     else
                     {
                         rError = true;
-                        rMessage = this.business.repository.dataContext.TranslateTo("xLng.viewDosyalar.TemizlemekIstediginizDizinIcindeDizinOlmamaz");
+                        rMessage = this.business.dataContext.TranslateTo("xLng.viewDosyalar.TemizlemekIstediginizDizinIcindeDizinOlmamaz");
                     }
                 }
                 else
                 {
                     rError = true;
-                    rMessage = this.business.repository.dataContext.TranslateTo("xLng.viewDosyalar.TemizlemekIstediginizDizinBulunamadı");
+                    rMessage = this.business.dataContext.TranslateTo("xLng.viewDosyalar.TemizlemekIstediginizDizinBulunamadı");
                 }
             }
             catch (Exception ex)
@@ -376,7 +376,7 @@ namespace WebApp.Panel.Controllers
                 }
                 #endregion
 
-                rMessage += this.business.repository.dataContext.TranslateTo("xLng.viewDosyalar.DosyaGonderildi");
+                rMessage += this.business.dataContext.TranslateTo("xLng.viewDosyalar.DosyaGonderildi");
             }
             catch (Exception ex)
             {
@@ -400,12 +400,12 @@ namespace WebApp.Panel.Controllers
                 if (System.IO.File.Exists(fileFullName))
                 {
                     System.IO.File.Delete(fileFullName);
-                    rMessage += this.business.repository.dataContext.TranslateTo("xLng.viewDosyalar.DosyaSilindi");
+                    rMessage += this.business.dataContext.TranslateTo("xLng.viewDosyalar.DosyaSilindi");
                 }
                 else
                 {
                     rError = true;
-                    rMessage += this.business.repository.dataContext.TranslateTo("xLng.viewDosyalar.DosyaBulunamadi");
+                    rMessage += this.business.dataContext.TranslateTo("xLng.viewDosyalar.DosyaBulunamadi");
                 }
 
                 //delete thumb

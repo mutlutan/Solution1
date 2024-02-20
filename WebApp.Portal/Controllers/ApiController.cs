@@ -67,7 +67,7 @@ namespace WebApp.Portal.Controllers
                 }
                 else
                 {
-                    response.Messages.Add(business.repository.dataContext.TranslateTo("xLng.GuvenlikKoduGecersiz"));
+                    response.Messages.Add(business.dataContext.TranslateTo("xLng.GuvenlikKoduGecersiz"));
                 }
             }
             catch (Exception ex)
@@ -95,7 +95,7 @@ namespace WebApp.Portal.Controllers
                 }
                 else
                 {
-                    response.Messages.Add(business.repository.dataContext.TranslateTo("xLng.GuvenlikKoduGecersiz"));
+                    response.Messages.Add(business.dataContext.TranslateTo("xLng.GuvenlikKoduGecersiz"));
                 }
             }
             catch (Exception ex)
@@ -151,7 +151,7 @@ namespace WebApp.Portal.Controllers
         {
             return Json(new
             {
-                dictionary = this.business.repository.dataContext.AppDictionary,
+                dictionary = this.business.dataContext.AppDictionary,
                 cultures = Codes.MyApp.SupportedCultures
             });
         }
