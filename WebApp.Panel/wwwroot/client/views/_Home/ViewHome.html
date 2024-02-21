@@ -3,17 +3,22 @@
     <template id="divTemp_template1">
         <div name="divDasboard" class="col-lg-3 col-md-6 col-sm-12 mb-3">
             <div class="h-100 card rounded-0 mn-box-shadow mn-opacity-070 mn-opacity-hover-1">
-                <a data-bind="attr:{href:DetailUrl}" class="w-100 text-decoration-none">
-                    <div class="d-flex align-items-center justify-content-between card-body">
-                        <div>
-                            <h4 class="fw-normal text-red" data-bind="html:Value"></h4>
-                            <p class="subtitle text-sm text-muted mb-0" data-bind="html:Text"></p>
-                        </div>
-                        <div class="flex-shrink-0 ms-3 text-red">
-                            <i data-bind="attr:{style:IconStyle, class:IconClass}"></i>
-                        </div>
+                <div class="row">
+                    <div class="col">
+                        <a data-bind="attr:{href:DetailUrl}" class="w-100 text-decoration-none">
+                            <div class="d-flex align-items-center justify-content-between card-body">
+                                <div>
+                                    <h4 class="fw-normal text-red" data-bind="html:Value"></h4>
+                                    <p class="subtitle text-sm text-muted mb-0" data-bind="html:Text"></p>
+                                </div>
+                                <div class="flex-shrink-0 ms-3 text-red">
+                                    <i data-bind="attr:{style:IconStyle, class:IconClass}"></i>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                </a>
+                </div>
+                
                 <div class="py-0 bg-red-light card-footer">
                     <div class="align-items-center text-red row">
                         <div class="col-9">

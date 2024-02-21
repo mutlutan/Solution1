@@ -44,15 +44,16 @@
                                     margin: 0px;                                                              
                                     font-weight: bold;                                                        
                                     opacity: 0.8;                                                             
-                                    font-size: 1em;                                                           
+                                    font-size: 1em;  
+                                    transition: all 0 !important;
                                 }                                                                             
                                     .mnSideBarMenu ul li a:hover {                                            
-                                        cursor: pointer;                                                      
+                                        cursor: pointer;    
                                         color: ${self.opt.itemHoverColor};
                                         background-color: ${self.opt.itemHoverBackgroundColor};
                                     }
                                 .mnSideBarMenu > ul > li > ul > li > ul{
-                                    margin-bottom:15px;
+                                    margin-bottom:5px;
                                 }
                                 .mnSideBarMenu > ul li ul li a {                                              
                                     padding: 5px 10px 0px 20px;                                               
@@ -67,7 +68,7 @@
                         .mnSideBarMenu i.mnCollapseButton {                                                   
                             margin-top: 3px;                                                                  
                         }                                                                                     
-                        .mnSideBarMenu * {                           
+                        .mnSideBarMenu * ul {                           
                             transition: all 0.3s;                                                                 
                         }                                                                                     
                         .mnSideBarMenu [aria-expanded="true"] i.mnCollapseButton {                            
