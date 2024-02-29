@@ -29,6 +29,7 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
                     Email = s.Email,
                     Password = string.Empty,
                     RoleIds = s.RoleIds,
+                    Authority = s.Authority,
                     GaSecretKey = s.GaSecretKey,
                     SessionGuid = s.SessionGuid,
                     ValidityDate = s.ValidityDate,
@@ -99,6 +100,7 @@ namespace AppCommon.DataLayer.DataMain.Repository.Dmo
          }
 
          row.RoleIds = _model.RoleIds;
+         row.Authority = _model.Authority;
          row.GaSecretKey = _model.GaSecretKey;
          row.SessionGuid = _model.SessionGuid;
          row.ValidityDate = _model.ValidityDate;

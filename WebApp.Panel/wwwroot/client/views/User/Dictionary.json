@@ -119,6 +119,14 @@
  }
 ,
  {
+     "key" : "xLng.User.Authority",
+     "value": {
+         "tr": "Authority",
+         "en": "Authority"
+     }
+ }
+,
+ {
      "key" : "xLng.User.GaSecretKey",
      "value": {
          "tr": "Ga Secret Key",
