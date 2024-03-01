@@ -48,7 +48,7 @@ window.mnLang = function () {
         var rV = "";
 
         const result = await fetch("https://translate.googleapis.com/translate_a/single?client=gtx&dt=t"
-            + "?v." + window.myApp.version + "&sl=" + _source + "&tl=" + _target + "&q=" + _text
+            + "&sl=" + _source + "&tl=" + _target + "&q=" + _text
         ).then((response) => response.json());
         rV = result[0][0][0];
 
