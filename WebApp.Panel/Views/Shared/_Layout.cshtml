@@ -15,10 +15,10 @@
 	{
 		@*kendo css - thema*@
 		<link href="https://kendo.cdn.telerik.com/themes/6.4.0/bootstrap/bootstrap-main.css" rel="stylesheet" />
-		<link rel="stylesheet" href="~/assets/kendo-customize.css" asp-append-version="true" />
+		<link rel="stylesheet" href="~/assets/css/kendo-customize.css" asp-append-version="true" />
 	}
 
-	<link rel="stylesheet" href="~/assets/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/assets/css/site.css" asp-append-version="true" />
 
 	<script>
 		window.myApp = {};
@@ -57,7 +57,7 @@
 			//console.log("google maps api loaded.");
 		}
 	</script>
-
+	
 </head>
 <body>
 	@RenderBody()
@@ -82,20 +82,23 @@
 		<script src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.4.0/jszip.min.js"></script>
 	}
 
+	@*js*@
+	<script src="~/assets/js/site.js" asp-append-version="true"></script>
+
 	@*mn*@
-	<script src="~/lib/mn/mnAlert.js" asp-append-version="true"></script>
-	<script src="~/lib/mn/mnLang.js" asp-append-version="true"></script>
-	<script src="~/lib/mn/mnLibs.js" asp-append-version="true"></script>
-	<script src="~/lib/mn/mnLookup.js" asp-append-version="true"></script>
+	<script src="~/assets/js/mnAlert.js" asp-append-version="true"></script>
+	<script src="~/assets/js/mnLang.js" asp-append-version="true"></script>
+	<script src="~/assets/js/mnLibs.js" asp-append-version="true"></script>
+	<script src="~/assets/js/mnLookup.js" asp-append-version="true"></script>
 
 	@if (ViewBag.ControllerName != "Account")
 	{
-		<script src="~/lib/mn/mnNotification.js" asp-append-version="true"></script>
-		<script src="~/lib/mn/mnPageView.js" asp-append-version="true"></script>
-		<script src="~/lib/mn/mnPopupView.js" asp-append-version="true"></script>
-		<script src="~/lib/mn/mnScrollUp.js" asp-append-version="true"></script>
-		<script src="~/lib/mn/mnSideBarMenu.js" asp-append-version="true"></script>
-		<script src="~/lib/mn/mnYetkiSablon.js" asp-append-version="true"></script>
+		<script src="~/assets/js/mnNotification.js" asp-append-version="true"></script>
+		<script src="~/assets/js/mnPageView.js" asp-append-version="true"></script>
+		<script src="~/assets/js/mnPopupView.js" asp-append-version="true"></script>
+		<script src="~/assets/js/mnScrollUp.js" asp-append-version="true"></script>
+		<script src="~/assets/js/mnSideBarMenu.js" asp-append-version="true"></script>
+		<script src="~/assets/js/mnYetkiSablon.js" asp-append-version="true"></script>
 	}
 
 	@if (ViewBag.ControllerName != "Account")
