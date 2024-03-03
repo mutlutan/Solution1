@@ -1,0 +1,52 @@
+[
+  {
+    "key": "xLng.comp-login.Title",
+    "value": {
+      "tr": "Giriş",
+      "en": "Enter"
+    }
+  },
+  {
+    "key": "xLng.comp-login.ShortTitle",
+    "value": {
+      "tr": "Giriş",
+      "en": "Enter"
+    }
+  },
+  {
+    "key": "xLng.comp-login.UserName",
+    "value": {
+      "tr": "Kullanıcı Adı",
+      "en": "User Name"
+    }
+  },
+  {
+    "key": "xLng.comp-login.UserPassword",
+    "value": {
+      "tr": "Kullanıcı Şifresi",
+      "en": "User Password"
+    }
+  },
+  {
+    "key": "xLng.comp-login.GaSecretKey",
+    "value": {
+      "tr": "Ga Secret Key",
+      "en": "Ga Secret Key"
+    }
+  },
+  {
+    "key": "xLng.comp-login.Login",
+    "value": {
+      "tr": "Giriş",
+      "en": "Login"
+    }
+  },
+  {
+    "key": "xLng.comp-login.ForgotPassword",
+    "value": {
+      "tr": "Şifremi Unuttum",
+      "en": "Forgot Password"
+    }
+  }
+
+]

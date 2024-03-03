@@ -1,0 +1,92 @@
+﻿<style>
+    .tempCompLogin {
+        background-color: transparent;     
+    }
+        .tempCompLogin .is-invalid {
+            border-color: red !important;
+        }
+
+        .tempCompLogin .error {
+            font-size:0.8em;
+            color: brown;
+        }
+
+
+        .tempCompLogin .container {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tempCompLogin .card {
+            width: 360px;
+            height: 370px;
+            background-color: #fff;
+            border-radius: 10px;
+            border: none;
+            padding: 20px;
+        }
+
+        .tempCompLogin .form {
+            margin-top: 15px;
+        }
+
+            .tempCompLogin .form label {
+                font-weight: 700;
+                font-size: 14px;
+            }
+
+    .tempCompLogin .form input {
+        height: 45px;
+        border: 2px solid #eee;
+        transition: all 0.9s;
+    }
+
+        .tempCompLogin .form input:focus {
+            box-shadow: none;
+            border: 2px solid #2541B2;
+        }
+
+        .tempCompLogin .social-button {
+            height: 45px;
+            background-color: #2541B2;
+        }
+
+        .tempCompLogin .login-button {
+            margin-top: 15px;
+        }
+
+            .tempCompLogin .login-button button {
+                height: 45px;
+            }
+</style>
+
+<div class="tempCompLogin">
+    <div class="container">
+        <div class="card">
+            <comp-language></comp-language>
+
+            <div class="d-flex justify-content-center">
+                <h4 data-langkey-text="xLng.comp-login.Login">Login</h4>
+            </div>
+            <div class="form">
+                <label data-langkey-text="xLng.comp-login.UserName">User Name</label>
+                <input name="username" type="text" class="form-control" data-langkey-placeholder="xLng.comp-login.UserName" required>
+                <span class="error"></span>
+            </div>
+            
+            <div class="py-2"></div>
+
+            <div class="form">
+                <label class="d-flex justify-content-between align-items-center"><span data-langkey-text="xLng.comp-login.UserPassword">Password</span> <a href="#" class="text-decoration-none" data-langkey-text="xLng.comp-login.ForgotPassword">Forgot Password?</a> </label>
+                <input name="userpassword" type="password" class="form-control" data-langkey-placeholder="xLng.comp-login.UserPassword" required>
+                <span class="error"></span>
+            </div>
+
+            <div class="login-button">
+                <button name="btnLogin" class="btn btn-success w-100" data-langkey-text="xLng.comp-login.Login">Login</button>
+            </div>
+        </div>
+    </div>
+</div>

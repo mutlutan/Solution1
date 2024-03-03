@@ -1,0 +1,37 @@
+[
+  {
+    "key": "xLng.comp-header.Title",
+    "value": {
+      "tr": "Header",
+      "en": "Header"
+    }
+  },
+  {
+    "key": "xLng.comp-header.ShortTitle",
+    "value": {
+      "tr": "Header",
+      "en": "Header"
+    }
+  },
+  {
+    "key": "xLng.comp-header.Profilim",
+    "value": {
+      "tr": "Profilim",
+      "en": "My Profile"
+    }
+  },
+  {
+    "key": "xLng.comp-header.SifreDegistir",
+    "value": {
+      "tr": "Şifre Değiştir",
+      "en": "Change Password"
+    }
+  },
+  {
+    "key": "xLng.comp-header.Cikis",
+    "value": {
+      "tr": "Çıkış",
+      "en": "Exit"
+    }
+  }
+]

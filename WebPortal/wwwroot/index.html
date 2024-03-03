@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-control" content="no-cache, no-store, must-revalidate">
+
+    <script>function getVersion() { if (location.hostname != '127.0.0.1' && location.hostname != 'localhost') return "1.0.3"; else return new Date().valueOf(); }</script>
+
+    <!-- bootstrap css javascript -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!--my css-->
+    <script>document.write('<link href="index.css?v=' + getVersion() + '" rel="stylesheet" />');</script>
+    <!--my javascript -->
+    <script>document.write('<script src="app.js?v=' + getVersion() + '"><\/script>');</script>
+
+    <!--my javascript -->
+    <script>document.write('<script src="assets/js/my/libs.js?v=' + getVersion() + '"><\/script>');</script>
+    <script>document.write('<script src="assets/js/my/lang.js?v=' + getVersion() + '"><\/script>');</script>
+    <script>document.write('<script src="assets/js/my/user.js?v=' + getVersion() + '"><\/script>');</script>
+
+    <!--base-components-imports-->
+    <script>document.write('<script src="components/base-comp/base-comp.js?v=' + getVersion() + '"><\/script>');</script>
+    <!--components-imports-->
+
+
+    <script type="text/javascript">
+        //http to https
+        if (location.hostname != '' && location.hostname != '127.0.0.1' && location.hostname != 'localhost') {
+            if (location.protocol != 'https:') {
+                location.replace(`https:${location.href.substring(location.protocol.length)}`);
+            }
+        }
+
+        //doc ready
+        document.addEventListener("DOMContentLoaded", async function (event) {
+            await window.myApp.init();
+
+            if (window.myUser.info.IsAuthenticated) {
+                //login ise
+                document.body.appendChild(document.createElement("comp-header"));
+                document.body.appendChild(document.createElement("comp-section"));
+                //document.body.appendChild(document.createElement("comp-footer"));
+
+            } else {
+                document.body.appendChild(document.createElement("comp-login"));
+            }
+        });
+
+        window.onload = async () => {
+
+        }
+
+    </script>
+
+
+    <script>
+        {
+            import("/libs/router/md-router.js").then(({ Router }) => {
+                const router = new Router('/demo');
+                const root = document.getElementById('root');
+
+                router
+                    .on('/', () => {
+                        console.log('Home');
+                        root.innerHTML = 'Home';
+                    })
+                    .on('/about', () => {
+                        console.log('About');
+                        root.innerHTML = 'ABOUT <br> <a href="/" data-router>Home</a>';
+                        router.redefineLinks();
+                    })
+                    .on('/contact', () => {
+                        console.log('Contact');
+                        root.innerHTML = 'Contact';
+                    })
+
+                    .notFound(query => {
+                        console.log('Not Found');
+                        root.innerHTML = '404';
+                    })
+                    .init();
+
+
+            });
+        }
+    </script>
+
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>
