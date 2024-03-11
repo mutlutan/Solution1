@@ -19,9 +19,9 @@
 
             this.querySelector("[name=btnLogin]").addEventListener("click", function () {
                 if (self.fnValidate()) {
-                    let userName = self.querySelector('[name=username]').value;
-                    let userpassword = self.querySelector('[name=userpassword]').value;
-                    window.myUser.login(userName, userpassword);
+                    let email = self.querySelector('[name=email]').value;
+                    let password = self.querySelector('[name=password]').value;
+                    window.myUser.login(email, password);
                 }
             });
 

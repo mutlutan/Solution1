@@ -14,17 +14,17 @@
     }
   },
   {
-    "key": "xLng.comp-login.UserName",
+    "key": "xLng.comp-login.Email",
     "value": {
-      "tr": "Kullanıcı Adı",
-      "en": "User Name"
+      "tr": "Mail",
+      "en": "Email"
     }
   },
   {
-    "key": "xLng.comp-login.UserPassword",
+    "key": "xLng.comp-login.Password",
     "value": {
-      "tr": "Kullanıcı Şifresi",
-      "en": "User Password"
+      "tr": "Şifre",
+      "en": "Password"
     }
   },
   {

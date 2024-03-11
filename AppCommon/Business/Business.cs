@@ -469,7 +469,7 @@ namespace AppCommon.Business
 			{
 				var userModel = this.dataContext.User
 					.Where(c => c.Id > 0)
-					.Where(c => c.Email == input.UserName && c.Password == input.Password.MyToEncryptPassword())
+					.Where(c => c.Email == input.Email && c.Password == input.Password.MyToEncryptPassword())
 					.FirstOrDefault();
 
 				if (userModel != null)
@@ -703,126 +703,6 @@ namespace AppCommon.Business
 		}
 		#endregion
 
-		#endregion
-
-		#region Member
-		public MoResponse<MoTokenResponse> MemberLoginForApi(MoTokenRequest input)
-		{
-			MoResponse<MoTokenResponse> response = new() { Data = new MoTokenResponse() };
-
-			try
-			{
-				var memberModel = this.dataContext.Customer
-					.Where(c => c.Id > 0)
-					.Where(c => c.Email == input.UserName && c.Password == input.Password.MyToEncryptPassword())
-					.FirstOrDefault();
-
-				if (memberModel != null)
-				{
-					if (memberModel.UserStatusId == EnmUserStatus.Active.GetHashCode())
-					{
-						MoAccessToken accessToken = new()
-						{
-							AccountId = memberModel.Id,
-							SessionGuid = Guid.NewGuid().ToString(),
-							Culture = input.Culture,
-							AccountName = memberModel.Email,
-							NameSurname = memberModel.NameSurname,
-							IsLogin = true,
-							IsPasswordDateValid = true
-						};
-
-						if (memberModel.ValidityDate != null)
-						{
-							accessToken.IsPasswordDateValid = DateTime.Now.Date <= memberModel.ValidityDate;
-						}
-
-						memberModel.SessionGuid = accessToken.SessionGuid;
-
-						this.dataContext.SaveChanges();
-
-						#region Google Auth
-						if (this.GetParameter().UseAuthenticator)
-						{
-							if (!string.IsNullOrEmpty(memberModel.GaSecretKey.MyToTrim()))
-							{
-								accessToken.IsGoogleSecretKey = true;
-								var googleValidate = this.GoogleValidateTwoFactorPIN(memberModel.GaSecretKey.MyToTrim(), input.GaCode);
-								if (googleValidate.Success)
-								{
-									accessToken.IsGoogleValidate = true;
-								}
-								else
-								{
-									response.Messages.Add(dataContext.TranslateTo("xLng.GaKoduGecersiz"));
-								}
-							}
-						}
-						else
-						{
-							accessToken.IsGoogleSecretKey = true; //GA'yı pas geçer
-							accessToken.IsGoogleValidate = true; //GA'yı pas geçer
-						}
-
-						response.Data.UserToken = this.GenerateToken(EnmClaimType.User, System.Text.Json.JsonSerializer.Serialize(accessToken));
-						response.Data.IsUserLogin = accessToken.IsLogin;
-						response.Data.IsGoogleSecretKey = accessToken.IsGoogleSecretKey;
-						response.Data.IsGoogleValidate = accessToken.IsGoogleValidate;
-						response.Data.IsPasswordDateValid = accessToken.IsPasswordDateValid;
-
-
-						#endregion
-
-						#region user log
-						this.UserLogAdd(accessToken);
-						#endregion
-
-						response.Success = true;
-					}
-					else
-					{
-						response.Messages.Add(dataContext.TranslateTo("xLng.HesabinizAskiyaAlinmistir"));
-					}
-				}
-				else
-				{
-					response.Messages.Add(dataContext.TranslateTo("xLng.KullaniciveyaSifreGecersiz"));
-				}
-
-			}
-			catch (Exception ex)
-			{
-				response.Messages.Add(dataContext.TranslateTo("xLng.IstekBasarisizOldu"));
-				WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
-			}
-
-			return response;
-		}
-
-		public void MemberLogout()
-		{
-			if (this.MemberToken.IsLogin)
-			{
-				try
-				{
-					//member çıkış bilgisi güncelleniyor (son işlem zamanı)(bu asenkron olsun bekleme yapmasın)
-					// son yazılabilen çıkış zamanı gerçeğe en yakın çıkış zamanıdır
-					var member = this.dataContext.Customer
-						.Where(c => c.SessionGuid == this.UserToken.SessionGuid)
-						.FirstOrDefault();
-
-					if (member != null)
-					{
-						member.SessionGuid = "";
-						this.dataContext.SaveChanges();
-					}
-				}
-				catch (Exception ex)
-				{
-					WriteLogForMethodExceptionMessage(MethodBase.GetCurrentMethod(), ex);
-				}
-			}
-		}
 		#endregion
 
 		#region GA

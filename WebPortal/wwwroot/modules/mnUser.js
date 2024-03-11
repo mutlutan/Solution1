@@ -1,21 +1,32 @@
-﻿window.myUser = function () {
-    var self = {};
-    self.info = new Object();
+﻿
+import { mnUtils } from "/modules/mnUtils.js"
 
-    self.init = async function () {
-        const result = await (await window.myApp.fetch(myApp.origin + "/Panel/Api/GetUserInfo")).json();
-        self.info = result;
-        return self;
-    };
+export class mnUser {
+    constructor() {
+        this.isLogin = false;
+        this.info = new Object();
+    }
 
-    //window.myUser.login(email, password); //using
-    self.login = function (email, password) {
+    async fnGetUserInfo() {
+        const myUtils = new mnUtils();
+        if (!this.isLogin) {
+            this.info = await (await myUtils.fetch(myUtils.apiHost + "/Panel/Api/GetUserInfo")).json();
+        }
+        return this.info;
+    }
+
+    fnLogout() {
+        sessionStorage.setItem("token", "");
+        location.reload(location.pathname);
+    }
+
+    fnLogin(email, password) {
         let payload = {
             "Email": email,
             "Password": password
         }
 
-        window.myApp.fetch(myApp.origin + "/Panel/Api/Login", {
+        mnUtils.fetch(mnUtils.apiHost + "/Panel/Api/Login", {
             method: "POST",
             headers: { "Content-type": "application/json; charset=UTF-8" },
             body: JSON.stringify(payload)
@@ -37,13 +48,5 @@
             .catch(err => {
                 alert(err);
             });
-    };
-
-    //window.myUser.logout();
-    self.logout = function () {
-        sessionStorage.setItem("token", "");
-        location.reload(location.pathname);
-    };
-
-    return self;
-}();
+    }
+}
