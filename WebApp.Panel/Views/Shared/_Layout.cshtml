@@ -14,7 +14,8 @@
 	@if (ViewBag.ControllerName != "Account")
 	{
 		@*kendo css - thema*@
-		<link href="https://kendo.cdn.telerik.com/themes/6.4.0/bootstrap/bootstrap-main.css" rel="stylesheet" />
+		@* <link href="https://kendo.cdn.telerik.com/themes/6.6.0/fluent/fluent-main.css" rel="stylesheet" /> *@
+		<link href="https://kendo.cdn.telerik.com/themes/6.6.0/bootstrap/bootstrap-main.css" rel="stylesheet" />
 		<link rel="stylesheet" href="~/assets/css/kendo-customize.css" asp-append-version="true" />
 	}
 
@@ -75,8 +76,8 @@
 	{
 		@*kendo js*@
 		<script src="https://kendo.cdn.telerik.com/2023.2.606/js/kendo.all.min.js"></script>
-		<script src="@Url.Content("https://kendo.cdn.telerik.com/2023.2.606/js/messages/kendo.messages." + ViewBag.Culture + ".min.js")"></script>
-		<script src="@Url.Content("https://kendo.cdn.telerik.com/2023.2.606/js/cultures/kendo.culture." + ViewBag.Culture + ".min.js")"></script>
+		<script src="@Url.Content("https://kendo.cdn.telerik.com/2023.2.829/js/messages/kendo.messages." + ViewBag.Culture + ".min.js")"></script>
+		<script src="@Url.Content("https://kendo.cdn.telerik.com/2023.2.829/js/cultures/kendo.culture." + ViewBag.Culture + ".min.js")"></script>
 
 		@*jszip*@
 		<script src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.4.0/jszip.min.js"></script>

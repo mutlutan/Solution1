@@ -2,18 +2,24 @@
 <div id='RoleForGrid'>
     <div>
         <div class='mnFindPanel'>
-            <div class='mnFindPanelRow'>
-                <div class='mnFindElementContainer'>
-                    <div name='divName' class='mnFindElementDiv'>
-                        <label class='col-form-label me-2' data-langkey-text='xLng.Role.Name'></label>
-                        <input type='text' class='form-control d-inline' style='width:200px' data-find_option='auto' data-find_type='System.String' data-find_field='Name' data-find_operator='contains' autocomplete='off' />
-                    </div>
-
-                </div>
+            <div class='mnFindPanelHeader'>
+                <a class='btn btn-link collapsed text-decoration-none' data-bs-toggle='collapse' href='#collapseFindPanel' aria-expanded='false' aria-controls='collapseFindPanel'>
+                    <span class='text-uppercase' data-langkey-text='xLng.Filtrele'></span>
+                </a>
             </div>
+            <div id='collapseFindPanel' class='collapse'>
+                <div class='mnFindPanelRow'>
+                    <div class='mnFindElementContainer'>
+                        <div name='divName' class='mnFindElementDiv'>
+                            <label class='col-form-label me-2' data-langkey-text='xLng.Role.Name'></label>
+                            <input type='text' class='form-control d-inline' style='width:200px' data-find_option='auto' data-find_type='System.String' data-find_field='Name' data-find_operator='contains' autocomplete='off' />
+                        </div>
+                    </div>
+                </div>
 
-            <div id='divButtonGroup' class='float-end pb-2'>
-                <button id='btnFlitreUygula' type='button' class='btn btn-outline-warning btn-sm text-nowrap mn-hover-color-white' data-langkey-title='xLng.Uygula'> <i class='bi bi-binoculars'></i> <span data-langkey-text='xLng.Uygula'></span> </button>
+                <div id='divButtonGroup' class='d-flex justify-content-end pb-2 pe-2'>
+                    <button id='btnFlitreUygula' type='button' class='btn btn-outline-warning btn-sm text-nowrap mn-hover-color-white' data-langkey-title='xLng.Uygula'> <i class='bi bi-binoculars'></i> <span data-langkey-text='xLng.Uygula'></span> </button>
+                </div>
             </div>
         </div>
 
@@ -61,11 +67,11 @@
                      id: self.primaryKey,
                      fields: {
                          Id: { type: 'number', defaultValue: null  },
-                         UniqueId: { type: 'string', editable:false },
                          IsActive: { type: 'boolean' },
                          LineNumber: { type: 'number' },
                          Name: { type: 'string' },
                          Authority: { type: 'string' },
+                         UniqueId: { type: 'string', editable:false },
                          CreateDate: { type: 'date', editable:false },
                          CreatedUserId: { type: 'number', editable:false },
                          UpdateDate: { type: 'date', editable:false },
@@ -103,11 +109,11 @@
                              url: self.apiUrlPrefix + '/GetByNew', type: 'GET', dataType: 'json', async: false,
                              success: function (result) {
                                  e.items[0].Id = result.Id;
-                                 e.items[0].UniqueId = result.UniqueId;
                                  e.items[0].IsActive = result.IsActive;
                                  e.items[0].LineNumber = result.LineNumber;
                                  e.items[0].Name = result.Name;
                                  e.items[0].Authority = result.Authority;
+                                 e.items[0].UniqueId = result.UniqueId;
                                  e.items[0].CreateDate = kendo.parseDate(result.CreateDate);
                                  e.items[0].CreatedUserId = result.CreatedUserId;
                                  e.items[0].UpdateDate = kendo.parseDate(result.UpdateDate);
@@ -261,11 +267,6 @@
      }
 
      function fCreateFindElements() {
-         // Find Panel
-         self.mnFindPanel = $(self.selector).find('.mnFindPanel').kendoExpansionPanel({
-             title: mnLang.TranslateWithWord('xLng.Filtrele')
-         }).data('kendoExpansionPanel');
-
          // filter buton
          $(self.selector).find('#btnFlitreUygula').click(function (e) {
              self.filter();

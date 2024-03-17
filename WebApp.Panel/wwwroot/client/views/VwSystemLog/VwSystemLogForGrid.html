@@ -2,60 +2,58 @@
 <div id='VwSystemLogForGrid'>
     <div>
         <div class='mnFindPanel'>
-            <div class='mnFindPanelRow'>
-                <div class='mnFindElementContainer'>
-                    <div name='divUserId' class='mnFindElementDiv'>
-                        <label class='col-form-label me-2' data-langkey-text='xLng.VwSystemLog.UserId'></label>
-                        <input type='text' style='width:112px' data-find_option='auto' data-find_type='System.Int32' data-find_field='UserId' data-find_operator='eq' autocomplete='off' />
-                    </div>
-
-                    <div name='divUserType' class='mnFindElementDiv'>
-                        <label class='col-form-label me-2' data-langkey-text='xLng.VwSystemLog.UserType'></label>
-                        <input type='text' class='form-control d-inline' style='width:130px' data-find_option='auto' data-find_type='System.String' data-find_field='UserType' data-find_operator='contains' autocomplete='off' />
-                    </div>
-
-                    <div name='divUserName' class='mnFindElementDiv'>
-                        <label class='col-form-label me-2' data-langkey-text='xLng.VwSystemLog.UserName'></label>
-                        <input type='text' class='form-control d-inline' style='width:130px' data-find_option='auto' data-find_type='System.String' data-find_field='UserName' data-find_operator='contains' autocomplete='off' />
-                    </div>
-
-                    <div name='divUserIp' class='mnFindElementDiv'>
-                        <label class='col-form-label me-2' data-langkey-text='xLng.VwSystemLog.UserIp'></label>
-                        <input type='text' class='form-control d-inline' style='width:130px' data-find_option='auto' data-find_type='System.String' data-find_field='UserIp' data-find_operator='contains' autocomplete='off' />
-                    </div>
-
-                    <div name='divUserBrowser' class='mnFindElementDiv'>
-                        <label class='col-form-label me-2' data-langkey-text='xLng.VwSystemLog.UserBrowser'></label>
-                        <input type='text' class='form-control d-inline' style='width:130px' data-find_option='auto' data-find_type='System.String' data-find_field='UserBrowser' data-find_operator='contains' autocomplete='off' />
-                    </div>
-
-                    <div name='divProcessTypeId' class='mnFindElementDiv'>
-                        <label class='col-form-label me-2' data-langkey-text='xLng.VwSystemLog.ProcessTypeId'></label>
-                        <input type='text' style='width:112px' data-find_option='auto' data-find_type='System.Int32' data-find_field='ProcessTypeId' data-find_operator='eq' autocomplete='off' />
-                    </div>
-
-                    <div name='divProcessDate' class='mnFindElementDiv'>
-                        <label class='col-form-label me-2' data-langkey-text='xLng.VwSystemLog.ProcessDate'></label>
-                        <input type='text' class='me-2' style='width:218px' data-find_option='auto' data-find_type='System.DateTime' data-find_field='ProcessDate' data-find_operator='gte' />
-                        <input type='text' style='width:218px' data-find_option='auto' data-find_type='System.DateTime' data-find_field='ProcessDate' data-find_operator='lte' />
-                    </div>
-
-                    <div name='divProcessName' class='mnFindElementDiv'>
-                        <label class='col-form-label me-2' data-langkey-text='xLng.VwSystemLog.ProcessName'></label>
-                        <input type='text' class='form-control d-inline' style='width:130px' data-find_option='auto' data-find_type='System.String' data-find_field='ProcessName' data-find_operator='contains' autocomplete='off' />
-                    </div>
-
-                    <div name='divProcessingTime' class='mnFindElementDiv'>
-                        <label class='col-form-label me-2' data-langkey-text='xLng.VwSystemLog.ProcessingTime'></label>
-                        <input type='text' class='me-2' style='width:120px' data-find_option='auto' data-find_type='System.TimeSpan' data-find_field='ProcessingTime' data-find_operator='gte' />
-                        <input type='text' style='width:120px' data-find_option='auto' data-find_type='System.TimeSpan' data-find_field='ProcessingTime' data-find_operator='lte' />
-                    </div>
-
-                </div>
+            <div class='mnFindPanelHeader'>
+                <a class='btn btn-link collapsed text-decoration-none' data-bs-toggle='collapse' href='#collapseFindPanel' aria-expanded='false' aria-controls='collapseFindPanel'>
+                    <span class='text-uppercase' data-langkey-text='xLng.Filtrele'></span>
+                </a>
             </div>
+            <div id='collapseFindPanel' class='collapse'>
+                <div class='mnFindPanelRow'>
+                    <div class='mnFindElementContainer'>
+                        <div name='divUserId' class='mnFindElementDiv'>
+                            <label class='col-form-label me-2' data-langkey-text='xLng.VwSystemLog.UserId'></label>
+                            <input type='text' style='width:112px' data-find_option='auto' data-find_type='System.Int32' data-find_field='UserId' data-find_operator='eq' autocomplete='off' />
+                        </div>
+                        <div name='divUserType' class='mnFindElementDiv'>
+                            <label class='col-form-label me-2' data-langkey-text='xLng.VwSystemLog.UserType'></label>
+                            <input type='text' class='form-control d-inline' style='width:130px' data-find_option='auto' data-find_type='System.String' data-find_field='UserType' data-find_operator='contains' autocomplete='off' />
+                        </div>
+                        <div name='divUserName' class='mnFindElementDiv'>
+                            <label class='col-form-label me-2' data-langkey-text='xLng.VwSystemLog.UserName'></label>
+                            <input type='text' class='form-control d-inline' style='width:130px' data-find_option='auto' data-find_type='System.String' data-find_field='UserName' data-find_operator='contains' autocomplete='off' />
+                        </div>
+                        <div name='divUserIp' class='mnFindElementDiv'>
+                            <label class='col-form-label me-2' data-langkey-text='xLng.VwSystemLog.UserIp'></label>
+                            <input type='text' class='form-control d-inline' style='width:130px' data-find_option='auto' data-find_type='System.String' data-find_field='UserIp' data-find_operator='contains' autocomplete='off' />
+                        </div>
+                        <div name='divUserBrowser' class='mnFindElementDiv'>
+                            <label class='col-form-label me-2' data-langkey-text='xLng.VwSystemLog.UserBrowser'></label>
+                            <input type='text' class='form-control d-inline' style='width:130px' data-find_option='auto' data-find_type='System.String' data-find_field='UserBrowser' data-find_operator='contains' autocomplete='off' />
+                        </div>
+                        <div name='divProcessTypeId' class='mnFindElementDiv'>
+                            <label class='col-form-label me-2' data-langkey-text='xLng.VwSystemLog.ProcessTypeId'></label>
+                            <input type='text' style='width:112px' data-find_option='auto' data-find_type='System.Int32' data-find_field='ProcessTypeId' data-find_operator='eq' autocomplete='off' />
+                        </div>
+                        <div name='divProcessDate' class='mnFindElementDiv'>
+                            <label class='col-form-label me-2' data-langkey-text='xLng.VwSystemLog.ProcessDate'></label>
+                            <input type='text' class='me-2' style='width:218px' data-find_option='auto' data-find_type='System.DateTime' data-find_field='ProcessDate' data-find_operator='gte' />
+                            <input type='text' style='width:218px' data-find_option='auto' data-find_type='System.DateTime' data-find_field='ProcessDate' data-find_operator='lte' />
+                        </div>
+                        <div name='divProcessName' class='mnFindElementDiv'>
+                            <label class='col-form-label me-2' data-langkey-text='xLng.VwSystemLog.ProcessName'></label>
+                            <input type='text' class='form-control d-inline' style='width:130px' data-find_option='auto' data-find_type='System.String' data-find_field='ProcessName' data-find_operator='contains' autocomplete='off' />
+                        </div>
+                        <div name='divProcessingTime' class='mnFindElementDiv'>
+                            <label class='col-form-label me-2' data-langkey-text='xLng.VwSystemLog.ProcessingTime'></label>
+                            <input type='text' class='me-2' style='width:120px' data-find_option='auto' data-find_type='System.TimeSpan' data-find_field='ProcessingTime' data-find_operator='gte' />
+                            <input type='text' style='width:120px' data-find_option='auto' data-find_type='System.TimeSpan' data-find_field='ProcessingTime' data-find_operator='lte' />
+                        </div>
+                    </div>
+                </div>
 
-            <div id='divButtonGroup' class='float-end pb-2'>
-                <button id='btnFlitreUygula' type='button' class='btn btn-outline-warning btn-sm text-nowrap mn-hover-color-white' data-langkey-title='xLng.Uygula'> <i class='bi bi-binoculars'></i> <span data-langkey-text='xLng.Uygula'></span> </button>
+                <div id='divButtonGroup' class='d-flex justify-content-end pb-2 pe-2'>
+                    <button id='btnFlitreUygula' type='button' class='btn btn-outline-warning btn-sm text-nowrap mn-hover-color-white' data-langkey-title='xLng.Uygula'> <i class='bi bi-binoculars'></i> <span data-langkey-text='xLng.Uygula'></span> </button>
+                </div>
             </div>
         </div>
 
@@ -365,11 +363,6 @@
      }
 
      function fCreateFindElements() {
-         // Find Panel
-         self.mnFindPanel = $(self.selector).find('.mnFindPanel').kendoExpansionPanel({
-             title: mnLang.TranslateWithWord('xLng.Filtrele')
-         }).data('kendoExpansionPanel');
-
          // filter buton
          $(self.selector).find('#btnFlitreUygula').click(function (e) {
              self.filter();

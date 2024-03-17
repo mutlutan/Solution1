@@ -2,44 +2,45 @@
 <div id='EmailPoolForGrid'>
     <div>
         <div class='mnFindPanel'>
-            <div class='mnFindPanelRow'>
-                <div class='mnFindElementContainer'>
-                    <div name='divEmailTemplateId' class='mnFindElementDiv'>
-                        <label class='col-form-label me-2' data-langkey-text='xLng.EmailPool.EmailTemplateId'></label>
-                        <input type='text' style='width:125px' data-find_option='auto' data-find_type='System.Int32' data-find_field='EmailTemplateId' data-find_operator='eq' autocomplete='off' />
-                    </div>
-
-                    <div name='divEmailPoolStatusId' class='mnFindElementDiv'>
-                        <label class='col-form-label me-2' data-langkey-text='xLng.EmailPool.EmailPoolStatusId'></label>
-                        <input type='text' style='width:125px' data-find_option='auto' data-find_type='System.Int32' data-find_field='EmailPoolStatusId' data-find_operator='eq' autocomplete='off' />
-                    </div>
-
-                    <div name='divTryQuantity' class='mnFindElementDiv'>
-                        <label class='col-form-label me-2' data-langkey-text='xLng.EmailPool.TryQuantity'></label>
-                        <input type='text' style='width:112px' data-find_option='auto' data-find_type='System.Int32' data-find_field='TryQuantity' data-find_operator='eq' autocomplete='off' />
-                    </div>
-
-                    <div name='divLastTryDate' class='mnFindElementDiv'>
-                        <label class='col-form-label me-2' data-langkey-text='xLng.EmailPool.LastTryDate'></label>
-                        <input type='text' class='me-2' style='width:218px' data-find_option='auto' data-find_type='System.DateTime' data-find_field='LastTryDate' data-find_operator='gte' />
-                        <input type='text' style='width:218px' data-find_option='auto' data-find_type='System.DateTime' data-find_field='LastTryDate' data-find_operator='lte' />
-                    </div>
-
-                    <div name='divEmailTo' class='mnFindElementDiv'>
-                        <label class='col-form-label me-2' data-langkey-text='xLng.EmailPool.EmailTo'></label>
-                        <input type='text' class='form-control d-inline' style='width:130px' data-find_option='auto' data-find_type='System.String' data-find_field='EmailTo' data-find_operator='contains' autocomplete='off' />
-                    </div>
-
-                    <div name='divEmailSubject' class='mnFindElementDiv'>
-                        <label class='col-form-label me-2' data-langkey-text='xLng.EmailPool.EmailSubject'></label>
-                        <input type='text' class='form-control d-inline' style='width:130px' data-find_option='auto' data-find_type='System.String' data-find_field='EmailSubject' data-find_operator='contains' autocomplete='off' />
-                    </div>
-
-                </div>
+            <div class='mnFindPanelHeader'>
+                <a class='btn btn-link collapsed text-decoration-none' data-bs-toggle='collapse' href='#collapseFindPanel' aria-expanded='false' aria-controls='collapseFindPanel'>
+                    <span class='text-uppercase' data-langkey-text='xLng.Filtrele'></span>
+                </a>
             </div>
+            <div id='collapseFindPanel' class='collapse'>
+                <div class='mnFindPanelRow'>
+                    <div class='mnFindElementContainer'>
+                        <div name='divEmailTemplateId' class='mnFindElementDiv'>
+                            <label class='col-form-label me-2' data-langkey-text='xLng.EmailPool.EmailTemplateId'></label>
+                            <input type='text' style='width:125px' data-find_option='auto' data-find_type='System.Int32' data-find_field='EmailTemplateId' data-find_operator='eq' autocomplete='off' />
+                        </div>
+                        <div name='divEmailPoolStatusId' class='mnFindElementDiv'>
+                            <label class='col-form-label me-2' data-langkey-text='xLng.EmailPool.EmailPoolStatusId'></label>
+                            <input type='text' style='width:125px' data-find_option='auto' data-find_type='System.Int32' data-find_field='EmailPoolStatusId' data-find_operator='eq' autocomplete='off' />
+                        </div>
+                        <div name='divTryQuantity' class='mnFindElementDiv'>
+                            <label class='col-form-label me-2' data-langkey-text='xLng.EmailPool.TryQuantity'></label>
+                            <input type='text' style='width:112px' data-find_option='auto' data-find_type='System.Int32' data-find_field='TryQuantity' data-find_operator='eq' autocomplete='off' />
+                        </div>
+                        <div name='divLastTryDate' class='mnFindElementDiv'>
+                            <label class='col-form-label me-2' data-langkey-text='xLng.EmailPool.LastTryDate'></label>
+                            <input type='text' class='me-2' style='width:218px' data-find_option='auto' data-find_type='System.DateTime' data-find_field='LastTryDate' data-find_operator='gte' />
+                            <input type='text' style='width:218px' data-find_option='auto' data-find_type='System.DateTime' data-find_field='LastTryDate' data-find_operator='lte' />
+                        </div>
+                        <div name='divEmailTo' class='mnFindElementDiv'>
+                            <label class='col-form-label me-2' data-langkey-text='xLng.EmailPool.EmailTo'></label>
+                            <input type='text' class='form-control d-inline' style='width:130px' data-find_option='auto' data-find_type='System.String' data-find_field='EmailTo' data-find_operator='contains' autocomplete='off' />
+                        </div>
+                        <div name='divEmailSubject' class='mnFindElementDiv'>
+                            <label class='col-form-label me-2' data-langkey-text='xLng.EmailPool.EmailSubject'></label>
+                            <input type='text' class='form-control d-inline' style='width:130px' data-find_option='auto' data-find_type='System.String' data-find_field='EmailSubject' data-find_operator='contains' autocomplete='off' />
+                        </div>
+                    </div>
+                </div>
 
-            <div id='divButtonGroup' class='float-end pb-2'>
-                <button id='btnFlitreUygula' type='button' class='btn btn-outline-warning btn-sm text-nowrap mn-hover-color-white' data-langkey-title='xLng.Uygula'> <i class='bi bi-binoculars'></i> <span data-langkey-text='xLng.Uygula'></span> </button>
+                <div id='divButtonGroup' class='d-flex justify-content-end pb-2 pe-2'>
+                    <button id='btnFlitreUygula' type='button' class='btn btn-outline-warning btn-sm text-nowrap mn-hover-color-white' data-langkey-title='xLng.Uygula'> <i class='bi bi-binoculars'></i> <span data-langkey-text='xLng.Uygula'></span> </button>
+                </div>
             </div>
         </div>
 
@@ -346,11 +347,6 @@
      }
 
      function fCreateFindElements() {
-         // Find Panel
-         self.mnFindPanel = $(self.selector).find('.mnFindPanel').kendoExpansionPanel({
-             title: mnLang.TranslateWithWord('xLng.Filtrele')
-         }).data('kendoExpansionPanel');
-
          // filter buton
          $(self.selector).find('#btnFlitreUygula').click(function (e) {
              self.filter();

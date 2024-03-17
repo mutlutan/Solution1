@@ -39,18 +39,18 @@
  }
 ,
  {
-     "key" : "xLng.Role.UniqueId",
-     "value": {
-         "tr": "Unique Id",
-         "en": "Unique Id"
-     }
- }
-,
- {
      "key" : "xLng.Role.IsActive",
      "value": {
          "tr": "Aktif",
          "en": "Is Active"
+     }
+ }
+,
+ {
+     "key" : "xLng.Role.UniqueId",
+     "value": {
+         "tr": "Unique Id",
+         "en": "Unique Id"
      }
  }
 ,

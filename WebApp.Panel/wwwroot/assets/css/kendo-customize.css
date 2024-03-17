@@ -63,6 +63,11 @@
     font-weight: 300;
 }
 
+    .k-grid-container table tr td input.form-control,
+    .k-grid-container table tr td k-input-md{
+        font-size: 0.8em;
+    }
+
 .k-button-solid-primary:hover {
     background-color: #094eb4;
 }
@@ -72,4 +77,35 @@
 /*    border-color: #8fbceb;*/
     box-shadow: 1px 1px 15px #8fbceb;
   /*  padding-top: 0px;*/
+}
+
+.k-picker-solid{
+    background-color:inherit;
+}
+
+
+.k-grid-content.k-auto-scrollable {
+    overflow-y: hidden;
+}
+
+.k-grid-header {
+    padding-right: 0px;
+    border-right-color: transparent;
+}
+
+
+.k-grid .k-table-alt-row {
+    background-color: transparent;
+}
+
+/*.k-grid tbody > tr:not(.k-detail-row):hover, .k-grid .k-table-tbody > .k-table-row:not(.k-detail-row).k-hover {
+    background-color: transparent;
+}*/
+
+.k-grid .k-grid-header-locked, .k-grid .k-grid-content-locked, .k-grid .k-grid-header-locked .k-header, .k-grid .k-grid-content-locked td, .k-grid .k-grid-content-locked .k-table-td {
+    border-color: #dee2e6;
+}
+
+.k-grid td, .k-grid .k-table-td, .k-grid .k-grid-content, .k-grid .k-grid-header-locked, .k-grid .k-grid-content-locked {
+    border-color: transparent;
 }

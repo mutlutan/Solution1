@@ -2,19 +2,25 @@
 <div id='UserForGrid'>
     <div>
         <div class='mnFindPanel'>
-            <div class='mnFindPanelRow'>
-                <div class='mnFindElementContainer'>
-                    <div name='divValidityDate' class='mnFindElementDiv'>
-                        <label class='col-form-label me-2' data-langkey-text='xLng.User.ValidityDate'></label>
-                        <input type='text' class='me-2' style='width:165px' data-find_option='auto' data-find_type='System.DateTime' data-find_field='ValidityDate' data-find_operator='gte' />
-                        <input type='text' style='width:165px' data-find_option='auto' data-find_type='System.DateTime' data-find_field='ValidityDate' data-find_operator='lte' />
-                    </div>
-
-                </div>
+            <div class='mnFindPanelHeader'>
+                <a class='btn btn-link collapsed text-decoration-none' data-bs-toggle='collapse' href='#collapseFindPanel' aria-expanded='false' aria-controls='collapseFindPanel'>
+                    <span class='text-uppercase' data-langkey-text='xLng.Filtrele'></span>
+                </a>
             </div>
+            <div id='collapseFindPanel' class='collapse'>
+                <div class='mnFindPanelRow'>
+                    <div class='mnFindElementContainer'>
+                        <div name='divValidityDate' class='mnFindElementDiv'>
+                            <label class='col-form-label me-2' data-langkey-text='xLng.User.ValidityDate'></label>
+                            <input type='text' class='me-2' style='width:165px' data-find_option='auto' data-find_type='System.DateTime' data-find_field='ValidityDate' data-find_operator='gte' />
+                            <input type='text' style='width:165px' data-find_option='auto' data-find_type='System.DateTime' data-find_field='ValidityDate' data-find_operator='lte' />
+                        </div>
+                    </div>
+                </div>
 
-            <div id='divButtonGroup' class='float-end pb-2'>
-                <button id='btnFlitreUygula' type='button' class='btn btn-outline-warning btn-sm text-nowrap mn-hover-color-white' data-langkey-title='xLng.Uygula'> <i class='bi bi-binoculars'></i> <span data-langkey-text='xLng.Uygula'></span> </button>
+                <div id='divButtonGroup' class='d-flex justify-content-end pb-2 pe-2'>
+                    <button id='btnFlitreUygula' type='button' class='btn btn-outline-warning btn-sm text-nowrap mn-hover-color-white' data-langkey-title='xLng.Uygula'> <i class='bi bi-binoculars'></i> <span data-langkey-text='xLng.Uygula'></span> </button>
+                </div>
             </div>
         </div>
 
@@ -376,11 +382,6 @@
      }
 
      function fCreateFindElements() {
-         // Find Panel
-         self.mnFindPanel = $(self.selector).find('.mnFindPanel').kendoExpansionPanel({
-             title: mnLang.TranslateWithWord('xLng.Filtrele')
-         }).data('kendoExpansionPanel');
-
          // filter buton
          $(self.selector).find('#btnFlitreUygula').click(function (e) {
              self.filter();

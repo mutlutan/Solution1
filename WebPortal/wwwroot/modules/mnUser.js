@@ -17,6 +17,7 @@ export class mnUser {
 
     fnLogout() {
         sessionStorage.setItem("token", "");
+		document.cookie = "Authorization=;path=/;SameSite=None; Secure;";                
         location.reload(location.pathname);
     }
 
