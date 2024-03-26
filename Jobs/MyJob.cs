@@ -4,7 +4,7 @@ using Microsoft.Extensions.Options;
 using System.Reflection;
 using CronNET;
 
-namespace WebApp.Job
+namespace Jobs
 {
 	public class MyJob
     {

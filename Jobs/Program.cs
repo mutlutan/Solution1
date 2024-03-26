@@ -1,7 +1,7 @@
 using AppCommon;
 using AppCommon.Business;
 using Microsoft.Extensions.Options;
-using WebApp.Job;
+using Jobs;
 
 var builder = WebApplication.CreateBuilder(args);
 

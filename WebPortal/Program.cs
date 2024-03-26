@@ -7,7 +7,7 @@ app.UseStaticFiles();
 #region index.html render
 var html = File.ReadAllText("wwwroot\\index.html");
 #region components-imports
-if (false)
+if (true)
 {
 	var files = new DirectoryInfo("wwwroot\\components").EnumerateFiles("*.js", SearchOption.AllDirectories);
 	foreach (var file in files.Where(c => c.Name != "base-comp.js"))

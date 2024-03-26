@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Reflection;
 
-namespace WebApp.Job.Controllers
+namespace Jobs.Controllers
 {
     [ApiController]
 	[Route("[controller]")]

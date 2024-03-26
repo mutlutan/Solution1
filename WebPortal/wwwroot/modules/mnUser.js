@@ -9,7 +9,7 @@ export class mnUser {
 
     async fnGetUserInfo() {
         const myUtils = new mnUtils();
-        if (!this.isLogin) {
+        if (this.isLogin) {
             this.info = await (await myUtils.fetch(myUtils.apiHost + "/Panel/Api/GetUserInfo")).json();
         }
         return this.info;
